@@ -1,4 +1,4 @@
-package me.NikewadeVallendiaMinigame.Shop;
+package me.NikewadeVallendia.Minigame.Shop;
 
 import org.bukkit.entity.Player;
 

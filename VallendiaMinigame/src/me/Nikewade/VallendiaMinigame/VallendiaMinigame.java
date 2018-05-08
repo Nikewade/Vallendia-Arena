@@ -27,7 +27,7 @@ import me.Nikewade.VallendiaMinigame.Upgrades.UpgradeManager;
 import me.Nikewade.VallendiaMinigame.Upgrades.WeaponUpgrade;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
 import me.Nikewade.VallendiaMinigame.Utils.FileManager;
-import me.NikewadeVallendiaMinigame.Shop.ShopManager;
+import me.NikewadeVallendia.Minigame.Shop.ShopManager;
 
 public class VallendiaMinigame extends JavaPlugin{
 	   private static VallendiaMinigame Main;

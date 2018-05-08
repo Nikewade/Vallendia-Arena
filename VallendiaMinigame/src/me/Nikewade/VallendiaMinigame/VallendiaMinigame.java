@@ -20,6 +20,7 @@ import me.Nikewade.VallendiaMinigame.Kits.KitManager;
 import me.Nikewade.VallendiaMinigame.Kits.Mage;
 import me.Nikewade.VallendiaMinigame.Kits.Starter;
 import me.Nikewade.VallendiaMinigame.Kits.Warrior;
+import me.Nikewade.VallendiaMinigame.Shop.ShopManager;
 import me.Nikewade.VallendiaMinigame.Upgrades.ArmorUpgrade;
 import me.Nikewade.VallendiaMinigame.Upgrades.HealthUpgrade;
 import me.Nikewade.VallendiaMinigame.Upgrades.SpeedUpgrade;
@@ -27,7 +28,6 @@ import me.Nikewade.VallendiaMinigame.Upgrades.UpgradeManager;
 import me.Nikewade.VallendiaMinigame.Upgrades.WeaponUpgrade;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
 import me.Nikewade.VallendiaMinigame.Utils.FileManager;
-import me.NikewadeVallendia.Minigame.Shop.ShopManager;
 
 public class VallendiaMinigame extends JavaPlugin{
 	   private static VallendiaMinigame Main;

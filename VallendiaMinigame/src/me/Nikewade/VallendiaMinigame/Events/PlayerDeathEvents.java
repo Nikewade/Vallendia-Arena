@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
@@ -24,12 +25,23 @@ public class PlayerDeathEvents implements Listener {
 	public void onDeath(PlayerDeathEvent e)
 	{
 		Player p = e.getEntity();
+		//points / deaths
 		Main.playerdatamanager.addData(p.getUniqueId(), "Deaths", 1);
-		
-		if(Main.playerdatamanager.getPlayerData(p.getUniqueId(), "Points") != 0)
+		if(Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points") != 0)
 		{
-			Main.playerdatamanager.subtractData(p.getUniqueId(), "Points", Main.getConfig().getInt("Points-On-Death"));	
-			p.sendMessage(Utils.Colorate("&b&l[Vallendia] &bYou lost " + Main.getConfig().getInt("Points-On-Death") +  " points!"));
+			Main.playerdatamanager.subtractData(p.getUniqueId(), "Points", Main.getConfig().getInt("Points.Points-On-Death"));	
+			p.sendMessage(Utils.Colorate("&b&l[Vallendia] &bYou lost " + Main.getConfig().getInt("Points.Points-On-Death") +  " points!"));
 		}
+		Main.upgrademanager.resetUpgrades(p);
+		e.getDrops().clear();
+		p.setLevel(0);
+		p.setExp(0);
+	}
+	
+	@EventHandler
+	public void onRespawn(PlayerRespawnEvent e)
+	{
+		Player p = e.getPlayer();
+		Main.kitmanager.giveKit(p, "starter");
 	}
 }

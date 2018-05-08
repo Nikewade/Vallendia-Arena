@@ -1,5 +1,6 @@
 package me.Nikewade.VallendiaMinigame.Events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -23,10 +24,12 @@ public class PlayerJoinEvents implements Listener{
 	public void onJoin(PlayerJoinEvent e)
 	{
 		Player p = e.getPlayer();
-		
-        Main.sb.runScoreboard(p);
+		if(!p.hasPlayedBefore())
+		{
+			Main.kitmanager.giveKit(p, "starter");
+		}
         Main.createplayerdata.createFile(p);
-		
+        Main.sb.runScoreboard(p);
 	}
 
 }

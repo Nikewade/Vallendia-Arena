@@ -38,6 +38,10 @@ public class CreatePlayerData {
 			          if(!this.Config.contains("UUID")) {
 			             this.Config.set("UUID", p.getUniqueId().toString());
 			          }
+
+			          if(!this.Config.contains("Kit")) {
+				             this.Config.set("Kit", "starter");
+				          }
 			          
 			          if(!this.Config.contains("Points")) {
 				             this.Config.set("Points", 0);
@@ -49,6 +53,22 @@ public class CreatePlayerData {
 			          
 			          if(!this.Config.contains("Deaths")) {
 				             this.Config.set("Deaths", 0);
+				          }
+			          
+			          if(!this.Config.contains("Upgrades.Health")) {
+				             this.Config.set("Upgrades.Health", 0);
+				          }
+			          
+			          if(!this.Config.contains("Upgrades.Health")) {
+				             this.Config.set("Upgrades.Speed", 0);
+				          }
+			          
+			          if(!this.Config.contains("Upgrades.Health")) {
+				             this.Config.set("Upgrades.Armor", 0);
+				          }
+			          
+			          if(!this.Config.contains("Upgrades.Health")) {
+				             this.Config.set("Upgrades.Weapon", 0);
 				          }
 
 				      this.Config.save(f);

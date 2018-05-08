@@ -1,2 +1,15 @@
-Points-On-Kill: 10
-Points-On-Death: 5
+Points:
+  Points-On-Kill: 10
+  Points-On-Death: 5
+kits:
+  Starter:
+    items:
+      '4':
+        type: nether_star
+        amount: 1
+        name: '&b&lKit'
+    armor:
+      helmet: air
+      chestplate: air
+      leggings: air
+      boots: air

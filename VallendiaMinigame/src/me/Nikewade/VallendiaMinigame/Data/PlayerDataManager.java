@@ -19,7 +19,7 @@ public class PlayerDataManager {
 	 
 	 
 	 
-	 public int getPlayerData(UUID uuid, String data)
+	 public int getPlayerIntData(UUID uuid, String data)
 	 {
 		 File f = new File(this.Main.getFileManager().getUsersFile().getAbsolutePath() + "/" + uuid + ".yml");
 		 this.config = YamlConfiguration.loadConfiguration(f);
@@ -28,12 +28,36 @@ public class PlayerDataManager {
 	 }
 	 
 	 
-	 public void editData (UUID uuid, String data, int edit)
+	 public String getPlayerStringData(UUID uuid, String data)
+	 {
+		 File f = new File(this.Main.getFileManager().getUsersFile().getAbsolutePath() + "/" + uuid + ".yml");
+		 this.config = YamlConfiguration.loadConfiguration(f);
+		   
+		 return config.getString(data);
+	 }
+	 
+	 
+	 public void editData (UUID uuid, String data, String kitName)
 	 {
 		 File f = new File(this.Main.getFileManager().getUsersFile().getAbsolutePath() + "/" + uuid + ".yml");
 		 this.config = YamlConfiguration.loadConfiguration(f);	
 		 
-		 config.set(data, edit);
+		 config.set(data, kitName);
+		 
+		 try {
+			config.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 }
+	 
+	 public void editIntData (UUID uuid, String data, int kitName)
+	 {
+		 File f = new File(this.Main.getFileManager().getUsersFile().getAbsolutePath() + "/" + uuid + ".yml");
+		 this.config = YamlConfiguration.loadConfiguration(f);	
+		 
+		 config.set(data, kitName);
 		 
 		 try {
 			config.save(f);
@@ -48,7 +72,7 @@ public class PlayerDataManager {
 	 {
 		 File f = new File(this.Main.getFileManager().getUsersFile().getAbsolutePath() + "/" + uuid + ".yml");
 		 this.config = YamlConfiguration.loadConfiguration(f);	
-		 int originaldata = this.getPlayerData(uuid, data);
+		 int originaldata = this.getPlayerIntData(uuid, data);
 		 
 		 config.set(data, originaldata + add);
 		 
@@ -65,7 +89,7 @@ public class PlayerDataManager {
 	 {
 		 File f = new File(this.Main.getFileManager().getUsersFile().getAbsolutePath() + "/" + uuid + ".yml");
 		 this.config = YamlConfiguration.loadConfiguration(f);	
-		 int originaldata = this.getPlayerData(uuid, data);
+		 int originaldata = this.getPlayerIntData(uuid, data);
 		 
 		 config.set(data, originaldata - subtract);
 		 

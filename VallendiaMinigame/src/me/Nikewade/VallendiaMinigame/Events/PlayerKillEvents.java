@@ -28,13 +28,13 @@ public class PlayerKillEvents implements Listener{
 		Player p = e.getEntity();
 		if(p.getKiller() != null)
 		{
-			if(p.getKiller() instanceof Player)
+			if(p.getKiller() instanceof Player && p.getKiller() != p)
 			{
 				Player killer = p.getKiller();
 				UUID uuid = killer.getUniqueId();
 				Main.playerdatamanager.addData(uuid, "Kills", 1);
-				Main.playerdatamanager.addData(uuid, "Points", Main.getConfig().getInt("Points-On-Kill"));
-				killer.sendMessage(Utils.Colorate("&b&l[Vallendia] &bYou gained " + Main.getConfig().getInt("Points-On-Kill") +  " points!"));
+				Main.playerdatamanager.addData(uuid, "Points", Main.getConfig().getInt("Points.Points-On-Kill"));
+				killer.sendMessage(Utils.Colorate("&b&l[Vallendia] &bYou gained " + Main.getConfig().getInt("Points.Points-On-Kill") +  " points!"));
 			}
 		}
 	}

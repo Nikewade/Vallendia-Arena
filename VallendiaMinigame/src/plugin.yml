@@ -5,5 +5,6 @@ commands:
   setkit:
   kit:
   removekit:
+  upgradereset:
     
 

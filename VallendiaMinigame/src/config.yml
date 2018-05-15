@@ -1,8 +1,21 @@
 Points:
   Points-On-Kill: 10
   Points-On-Death: 5
+upgrades:
+  health:
+    price: 0
+    multiplier: 0
+  speed:
+    price: 0
+    multiplier: 0
+  armor:
+    price: 0
+    multiplier: 0
+  weapon:
+    price: 0
+    multiplier: 0
 kits:
-  Starter:
+  starter:
     items:
       '4':
         type: nether_star

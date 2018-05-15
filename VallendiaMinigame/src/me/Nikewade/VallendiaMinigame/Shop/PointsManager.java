@@ -5,10 +5,10 @@ import org.bukkit.entity.Player;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
 
-public class ShopManager {
+public class PointsManager {
 	VallendiaMinigame Main;
 	
-	public ShopManager(VallendiaMinigame Main)
+	public PointsManager(VallendiaMinigame Main)
 	{
 		this.Main = Main;
 	}
@@ -27,4 +27,5 @@ public class ShopManager {
 	{
 		return Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points");
 	}
+	
 }

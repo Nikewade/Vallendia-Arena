@@ -5,18 +5,26 @@ import java.io.IOException;
 import java.util.UUID;
 
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 
 public class PlayerDataManager {
 	VallendiaMinigame Main;
+	CreatePlayerData createData;
 	YamlConfiguration config;
 	
 	 public PlayerDataManager(VallendiaMinigame Main)
 	  {
 	    this.Main = Main;
+	    this.createData = new CreatePlayerData();
 	  }
 	 
+	 
+	 public void createFile(Player p)
+	 {
+		 createData.createFile(p);
+	 }
 	 
 	 
 	 public int getPlayerIntData(UUID uuid, String data)

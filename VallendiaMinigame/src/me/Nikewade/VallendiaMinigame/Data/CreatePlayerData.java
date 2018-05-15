@@ -9,18 +9,11 @@ import org.bukkit.entity.Player;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 
 public class CreatePlayerData {
-	VallendiaMinigame Main;
 	YamlConfiguration Config;
-	
-	 public CreatePlayerData(VallendiaMinigame Main)
-	  {
-	    this.Main = Main;
-	  }
-	 
 	 
 	 public void createFile(Player p)
 	 {
-			File f = new File(this.Main.getFileManager().getUsersFile().getAbsolutePath() + "/" + p.getUniqueId().toString() + ".yml");
+			File f = new File(VallendiaMinigame.getInstance().getFileManager().getUsersFile().getAbsolutePath() + "/" + p.getUniqueId().toString() + ".yml");
 			this.Config = YamlConfiguration.loadConfiguration(f);
 			
 			if(!(f.exists())) 

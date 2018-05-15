@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -15,12 +16,12 @@ import org.bukkit.inventory.ItemStack;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
-public class PlayerClickItemEvents implements Listener {
+public class PlayerItemEvents implements Listener {
 	VallendiaMinigame Main;
 	
 	
 	
-	public PlayerClickItemEvents(VallendiaMinigame Main)
+	public PlayerItemEvents(VallendiaMinigame Main)
 	{
 		this.Main = Main;
 		Main.getServer().getPluginManager().registerEvents(this, Main);
@@ -82,6 +83,17 @@ public class PlayerClickItemEvents implements Listener {
 		if (itemname.equals(Utils.Colorate("&b&lKit")) || itemname.equals(Utils.Colorate("&b&lShop"))) {
 			e.setCancelled(true);
 		}
+	}
+	
+	
+	@EventHandler
+	public void dropItem(PlayerDropItemEvent e)
+	{
+		Player p = e.getPlayer();
+		if (p.getGameMode() != GameMode.CREATIVE) {
+			e.setCancelled(true);
+		}
+		
 	}
 	
 }

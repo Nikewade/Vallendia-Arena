@@ -23,9 +23,26 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 public class KitManager {
     private VallendiaMinigame Main;
     public HashMap<String, Kit> kits = new HashMap<String, Kit>();
+    Starter starter;
+	Warrior warrior;
+	Archer archer;
+	Assassin assassin;
+	Mage mage;
  
     public KitManager(VallendiaMinigame Main) {
         this.Main = Main;
+        this.starter = new Starter();
+        this.warrior = new Warrior();
+        this.archer = new Archer();
+        this.assassin = new Assassin();
+        this.mage = new Mage();
+
+        kits.put("starter", starter);
+        kits.put("warrior", warrior);
+        kits.put("archer", archer);
+        kits.put("assassin",  assassin);
+        kits.put("mage", mage);
+        
     }
 
     public void createKit(Player p, String kitName) {
@@ -39,13 +56,19 @@ public class KitManager {
  
         String path = "kits." + kitName + ".";
         config.createSection("kits." + kitName);
+        
+        String discounts = path + "discounts.";
+        config.set(discounts + "health", 0);
+        config.set(discounts + "speed", 0);
+        config.set(discounts + "armor", 0);
+        config.set(discounts + "weapon", 0);
+        
 
         for (int i = 0; i < 36; i++) {
             ItemStack is = inv.getItem(i);
  
             if (is == null || is.getType() == Material.AIR)
-                continue;
- 
+                continue;            
             String slot = path + "items." + i;
             config.set(slot + ".type", is.getType().toString().toLowerCase());
             config.set(slot + ".amount", is.getAmount());
@@ -186,6 +209,11 @@ public class KitManager {
     }
  
 
+    public Kit kit(String kitname)
+    {
+		return kits.get(kitname.toLowerCase());
+    }
+    
     public Kit getKit(Player p) {
     	return kits.get(Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Kit"));
     }

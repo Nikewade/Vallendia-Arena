@@ -8,13 +8,6 @@ import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class Starter implements Kit {
-VallendiaMinigame Main;
-	
-	public Starter(VallendiaMinigame Main)
-	{
-		this.Main = Main;
-		Main.kitmanager.kits.put(this.getName(false), this);
-	}
 
 	@Override
 	public String getName(Boolean colored) {
@@ -38,10 +31,5 @@ VallendiaMinigame Main;
 		return null;
 	}
 
-	@Override
-	public int getupgradeDiscount(String upgrade) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }

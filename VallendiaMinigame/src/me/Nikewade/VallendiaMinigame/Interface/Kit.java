@@ -12,5 +12,4 @@ public interface Kit {
 	
 	public List getAbilities();
 	
-	public int getupgradeDiscount(String upgrade);
 }

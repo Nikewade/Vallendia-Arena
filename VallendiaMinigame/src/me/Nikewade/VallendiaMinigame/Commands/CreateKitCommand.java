@@ -23,6 +23,7 @@ public class CreateKitCommand implements CommandExecutor {
 		if(sender instanceof Player)
 		{
 			Player p = (Player) sender;
+			if(!p.isOp()) return false;
 			if(label.equalsIgnoreCase("setkit"))
 			{
 				if(args.length != 0)

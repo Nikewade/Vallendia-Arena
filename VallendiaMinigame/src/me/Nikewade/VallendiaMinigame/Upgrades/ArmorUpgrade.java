@@ -6,12 +6,6 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
 
 public class ArmorUpgrade implements Upgrade{
-	VallendiaMinigame Main;
-	
-	 public ArmorUpgrade(VallendiaMinigame Main)
-	  {
-	    this.Main = Main;
-	  }
 
 	public void upgrade(Player p)
 	{
@@ -21,7 +15,7 @@ public class ArmorUpgrade implements Upgrade{
 	
 	public int getPrice()
 	{
-		return 550;
+		return VallendiaMinigame.getInstance().getConfig().getInt("upgrades." + "armor." + "price");
 	}
 	
 }

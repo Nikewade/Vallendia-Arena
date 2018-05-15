@@ -28,7 +28,7 @@ public class PlayerJoinEvents implements Listener{
 		{
 			Main.kitmanager.giveKit(p, "starter");
 		}
-        Main.createplayerdata.createFile(p);
+        Main.playerdatamanager.createFile(p);
         Main.sb.runScoreboard(p);
 	}
 

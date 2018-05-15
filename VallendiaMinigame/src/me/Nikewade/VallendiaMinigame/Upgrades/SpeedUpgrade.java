@@ -6,22 +6,17 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
 
 public class SpeedUpgrade implements Upgrade{
-	VallendiaMinigame Main;
-	
-	 public SpeedUpgrade(VallendiaMinigame Main)
-	  {
-	    this.Main = Main;
-	  }
 
 	public void upgrade(Player p)
 	{
 		Float speed = p.getWalkSpeed();
-		p.setWalkSpeed((float) (speed + 0.1));
+		if(speed >= 0.8) return;
+		p.setWalkSpeed((float) (speed + 0.01));
 	}
 	
 	public int getPrice()
 	{
-		return 300;
+		return VallendiaMinigame.getInstance().getConfig().getInt("upgrades." + "speed." + "price");
 	}
 	
 }

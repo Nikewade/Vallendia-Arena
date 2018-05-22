@@ -40,23 +40,23 @@ public class UpgradeGui {
 	
 	  public void openUpgradeMenu(Player p)
 	  {
-		  AdvInventory inv = new AdvInventory(Utils.Colorate("&8&lUpgrades"), 27, Utils.placeholder((byte) 7, " "));
-		  inv.setItem(new ItemStack(Material.POTION), Utils.Colorate("&c&lHealth"), 10, new ClickRunnable() {
+		  AdvInventory upgradeInv = upgradeInv = new AdvInventory(Utils.Colorate("&8&lUpgrades"), 27, Utils.placeholder((byte) 7, " "));
+		  upgradeInv.setItem(new ItemStack(Material.POTION), Utils.Colorate("&c&lHealth"), 10, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
-			    	Player p = (Player) e.getWhoClicked();
-			    	openUpgradeYesNoMenu(p, "Health");
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openUpgradeYesNoMenu(ep, "Health", null);
 			    }
 			}, Utils.Colorate("&8Level &c" + Main.upgrademanager.getUpgradeAmount(p, "Health")));
 		  
 		  
 		  
 		  
-		  inv.setItem(new ItemStack(Material.LEATHER_BOOTS), Utils.Colorate("&f&lSpeed"), 12, new ClickRunnable() {
+		  upgradeInv.setItem(new ItemStack(Material.LEATHER_BOOTS), Utils.Colorate("&f&lSpeed"), 12, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
-			    	Player p = (Player) e.getWhoClicked();
-			    	openUpgradeYesNoMenu(p, "Speed");
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openUpgradeYesNoMenu(ep, "Speed", null);
 
 			    }
 			}, Utils.Colorate("&8Level &f" + Main.upgrademanager.getUpgradeAmount(p, "Speed")));
@@ -64,24 +64,26 @@ public class UpgradeGui {
 		  
 		  
 		  
-		  inv.setItem(new ItemStack(Material.IRON_CHESTPLATE), Utils.Colorate("&7&lArmor"), 14, new ClickRunnable() {
+		  upgradeInv.setItem(new ItemStack(Material.IRON_CHESTPLATE), Utils.Colorate("&7&lArmor"), 14, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
-			    	Player p = (Player) e.getWhoClicked();
+			    	Player ep = (Player) e.getWhoClicked();
+			    	Main.guihandler.openGui(ep, "armor");
 			    }
 			}, Utils.Colorate("&8Level &7" + Main.upgrademanager.getUpgradeAmount(p, "Armor")));
 		  
 		  
 		  
 		  
-		  inv.setItem(new ItemStack(Material.DIAMOND_SWORD), Utils.Colorate("&9&lWeapon"), 16, new ClickRunnable() {
+		  upgradeInv.setItem(new ItemStack(Material.DIAMOND_SWORD), Utils.Colorate("&9&lWeapon"), 16, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
-			    	Player p = (Player) e.getWhoClicked();
+			    	Player ep = (Player) e.getWhoClicked();
+			    	Main.guihandler.openGui(ep, "weapon");
 			    }
 			}, Utils.Colorate("&8Level &9" + Main.upgrademanager.getUpgradeAmount(p, "Weapon")));
 		  
-		  inv.openInventory(p);
+		  upgradeInv.openInventory(p);
 	  }
 	  
 	  
@@ -90,20 +92,32 @@ public class UpgradeGui {
 	  
 	  
 	  
-		public void openUpgradeYesNoMenu(Player p, String upgrade)
+		public void openUpgradeYesNoMenu(Player p, String upgrade, String enchant)
 		{
-			AdvInventory inv = new AdvInventory(Utils.Colorate("&8&lAre you sure?"), 27, Utils.placeholder((byte) 7, " "));
-			inv.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 13), Utils.Colorate("&2&lUpgrade " + upgrade), 11, new ClickRunnable() {
+			AdvInventory upgradeInvYesNo = new AdvInventory(Utils.Colorate("&8&lAre you sure?"), 27, Utils.placeholder((byte) 7, " "));
+			String itemTitle = "";
+			
+			if(enchant == null)
+			{
+				itemTitle = Utils.Colorate("&2&lUpgrade " + upgrade);
+			}else {itemTitle = Utils.Colorate("&2&lUpgrade " + upgrade + " (" + enchant + ")");}
+			
+			String description1 =  Utils.Colorate("&aPrice: &2" + um.getPrice(p, upgrade, enchant) + Utils.Colorate(" points"));
+			String description2 = Utils.Colorate("&aKit Discount: &2" + um.getDiscount(p, upgrade, enchant) + "%");
+			upgradeInvYesNo.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 13), itemTitle, 11, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
-			    	um.buyUpgrade(ep, upgrade);
-			    	ep.closeInventory();
+			    	um.buyUpgrade(ep, upgrade, enchant, 1);
+			    	if(Main.getConfig().getBoolean("Options.Auto-Close-Upgrade-Menu"))
+			    	{
+				    	ep.closeInventory();	
+			    	}
 			    }
-			}, Utils.Colorate("&aPrice: &2" + um.getPrice(p, upgrade) + Utils.Colorate(" points")) , Utils.Colorate("&aKit Discount: " + um.getDiscount(p, upgrade) + "%"));
+			}, description1 , description2);
 			
 			
-			inv.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14),  Utils.Colorate("&4&lCancel"), 15, new ClickRunnable() {
+			upgradeInvYesNo.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14),  Utils.Colorate("&4&lCancel"), 15, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
@@ -111,7 +125,7 @@ public class UpgradeGui {
 			    }
 			});
 			
-			inv.openInventory(p);
+			upgradeInvYesNo.openInventory(p);
 		}
 	  
 }

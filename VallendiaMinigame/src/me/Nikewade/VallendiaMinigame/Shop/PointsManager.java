@@ -12,8 +12,13 @@ public class PointsManager {
 	{
 		this.Main = Main;
 	}
+	
+	public void setPoints(Player p, int points)
+	{
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", points);
+	}
 
-	public void addtPoints(Player p, int add)
+	public void addPoints(Player p, int add)
 	{
 		Main.playerdatamanager.addData(p.getUniqueId(), "Points", add);
 	}

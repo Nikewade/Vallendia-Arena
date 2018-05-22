@@ -1,19 +1,61 @@
 Points:
   Points-On-Kill: 10
   Points-On-Death: 5
+  Points-On-Respawn: 200
+Options:
+  Auto-Close-Upgrade-Menu: true
+  Food-Heal: 1
 upgrades:
   health:
     price: 0
-    multiplier: 0
+    multiplier: 1
   speed:
     price: 0
-    multiplier: 0
+    multiplier: 1
   armor:
-    price: 0
-    multiplier: 0
+    prot:
+      price: 0
+      multiplier: 1
+    projprot:
+      price: 0
+      multiplier: 1
+    fireprot:
+      price: 0
+      multiplier: 1
+    thorns:
+      price: 0
+      multiplier: 1
+    blastprot:
+      price: 0
+      multiplier: 1
+    featherfall:
+      price: 0
+      multiplier: 1
   weapon:
-    price: 0
-    multiplier: 0
+    sharpness:
+      price: 0
+      multiplier: 1
+    fireaspect:
+      price: 0
+      multiplier: 1
+    knockback:
+      price: 0
+      multiplier: 1
+    smite:
+      price: 0
+      multiplier: 1
+    power:
+      price: 0
+      multiplier: 1
+    punch:
+      price: 0
+      multiplier: 1
+    flame:
+      price: 0
+      multiplier: 1
+    infinity:
+      price: 0
+      multiplier: 1
 kits:
   starter:
     items:

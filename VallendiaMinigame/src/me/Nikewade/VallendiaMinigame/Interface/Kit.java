@@ -1,7 +1,9 @@
 package me.Nikewade.VallendiaMinigame.Interface;
 
 import java.awt.List;
+import java.util.ArrayList;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 public interface Kit {
@@ -10,6 +12,8 @@ public interface Kit {
 	
 	public String getDescription();
 	
-	public List getAbilities();
+	public Sound getSound();
+	
+	public ArrayList<Ability> getAbilities();
 	
 }

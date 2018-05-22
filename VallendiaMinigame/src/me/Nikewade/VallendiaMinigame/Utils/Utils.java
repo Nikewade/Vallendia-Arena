@@ -1,8 +1,11 @@
 package me.Nikewade.VallendiaMinigame.Utils;
 
+import java.util.Map.Entry;
+
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -21,5 +24,17 @@ public class Utils {
 		    placeholder.setItemMeta(placeholdermeta);
 		    return placeholder;
 		}
+	 
+	  
+	  
+	  public static void removeEnchantments(ItemStack item)
+	  {
+    	  if(item != null)
+    	  {
+    	      for(Entry<Enchantment, Integer> e : item.getEnchantments().entrySet()){
+		          item.removeEnchantment(e.getKey());  
+	      }   
+    	  } 
+	  }
 
 }

@@ -5,6 +5,7 @@ commands:
   setkit:
   kit:
   removekit:
-  upgradereset:
+  upgrade:
+  points:
     
 

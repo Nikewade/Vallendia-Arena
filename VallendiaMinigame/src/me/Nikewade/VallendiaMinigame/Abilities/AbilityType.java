@@ -2,7 +2,7 @@ package me.Nikewade.VallendiaMinigame.Abilities;
 
 public enum AbilityType {
 
-	OFFENSIVE, DEFENSIVE, MOVEMENT ;
+	OFFENSIVE, DEFENSIVE, UTILITY, PASSIVE ;
 	
 	public boolean isType(AbilityType type)
 	{

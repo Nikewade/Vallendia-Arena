@@ -48,20 +48,64 @@ public class CreatePlayerData {
 				             this.Config.set("Deaths", 0);
 				          }
 			          
-			          if(!this.Config.contains("Upgrades.Health")) {
-				             this.Config.set("Upgrades.Health", 0);
+			          if(!this.Config.contains("Upgrades.health")) {
+				             this.Config.set("Upgrades.health", 0);
 				          }
 			          
-			          if(!this.Config.contains("Upgrades.Health")) {
-				             this.Config.set("Upgrades.Speed", 0);
+			          if(!this.Config.contains("Upgrades.speed")) {
+				             this.Config.set("Upgrades.speed", 0);
 				          }
 			          
-			          if(!this.Config.contains("Upgrades.Health")) {
-				             this.Config.set("Upgrades.Armor", 0);
+			          if(!this.Config.contains("Upgrades.armor")) {
+				             this.Config.set("Upgrades.armor", 0);
 				          }
 			          
-			          if(!this.Config.contains("Upgrades.Health")) {
-				             this.Config.set("Upgrades.Weapon", 0);
+			          if(!this.Config.contains("Upgrades.ArmorEnchants"))
+			          {
+				             this.Config.set("Upgrades.ArmorEnchants.prot", 0);
+				             this.Config.set("Upgrades.ArmorEnchants.projprot", 0);
+				             this.Config.set("Upgrades.ArmorEnchants.fireprot", 0);
+				             this.Config.set("Upgrades.ArmorEnchants.blastprot", 0);
+				             this.Config.set("Upgrades.ArmorEnchants.thorns", 0);
+				             this.Config.set("Upgrades.ArmorEnchants.featherfall", 0);
+			          }
+			          
+			          if(!this.Config.contains("Upgrades.weapon")) {
+				             this.Config.set("Upgrades.weapon", 0);
+				          }
+			          
+			          if(!this.Config.contains("Upgrades.MeleeEnchants")) {
+				             this.Config.set("Upgrades.MeleeEnchants.sharpness", 0);
+				             this.Config.set("Upgrades.MeleeEnchants.fireaspect", 0);
+				             this.Config.set("Upgrades.MeleeEnchants.knockback", 0);
+				             this.Config.set("Upgrades.MeleeEnchants.smite", 0);
+				          }
+			          
+			          if(!this.Config.contains("Upgrades.RangedEnchants")) {
+				             this.Config.set("Upgrades.RangedEnchants.power", 0);
+				             this.Config.set("Upgrades.RangedEnchants.punch", 0);
+				             this.Config.set("Upgrades.RangedEnchants.flame", 0);
+				             this.Config.set("Upgrades.RangedEnchants.infinity", 0);
+				          }
+			          
+			          
+			          if(!this.Config.contains("Abilities.slot1")) {
+				             this.Config.set("Abilities.slot 1", "empty");
+				          }
+			          if(!this.Config.contains("Abilities.slot2")) {
+				             this.Config.set("Abilities.slot 2", "empty");
+				          }
+			          if(!this.Config.contains("Abilities.slot3")) {
+				             this.Config.set("Abilities.slot 3", "empty");
+				          }
+			          if(!this.Config.contains("Abilities.slot4")) {
+				             this.Config.set("Abilities.slot 4", "empty");
+				          }
+			          if(!this.Config.contains("Abilities.slot5")) {
+				             this.Config.set("Abilities.slot 5", "empty");
+				          }
+			          if(!this.Config.contains("Abilities.slot6")) {
+				             this.Config.set("Abilities.slot 6", "empty");
 				          }
 
 				      this.Config.save(f);

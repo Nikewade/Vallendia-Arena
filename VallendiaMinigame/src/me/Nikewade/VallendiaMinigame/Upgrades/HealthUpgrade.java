@@ -13,9 +13,15 @@ public class HealthUpgrade implements Upgrade{
 		p.setMaxHealth(health + 2);
 	}
 	
-	public int getPrice()
+	public int getPrice(String enchant)
 	{
 		return VallendiaMinigame.getInstance().getConfig().getInt("upgrades." + "health." + "price");
+	}
+
+	@Override
+	public double getMultiplier(String enchant) {
+		// TODO Auto-generated method stub
+		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "health." + "multiplier");
 	}
 	
 }

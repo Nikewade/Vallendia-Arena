@@ -3,6 +3,7 @@ package me.Nikewade.VallendiaMinigame.Utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -13,18 +14,19 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class AdvInventory {
+	private static HashMap<UUID, AdvInventory> inventories = new HashMap<UUID, AdvInventory>();
+	private static HashMap<UUID, UUID> openInventories = new HashMap<>();
+	private HashMap<Integer, ClickRunnable> runs = new HashMap<Integer, ClickRunnable>();
 	
 	private Inventory inv;
-	private static HashMap<String, AdvInventory> inventories = new HashMap<String, AdvInventory>();
-	private HashMap<Integer, ClickRunnable> runs = new HashMap<Integer, ClickRunnable>();
-	private int currentOpen = 0;
-	private boolean registered = false;
+	private UUID uuid;
 	
 	public AdvInventory(String name, int size) {
 		new AdvInventory(name, size, null);
@@ -34,13 +36,18 @@ public class AdvInventory {
 		if (size == 0) {
 			return;
 		}
+		uuid = UUID.randomUUID();
 		inv = Bukkit.getServer().createInventory(null, size, ChatColor.BLUE + name);
+		inventories.put(uuid, this);
 		if (placeholder != null) {			
 			for (int i = 0; i < size; i++) {
 				inv.setItem(i, placeholder);
 			}
 		}
-		register();
+	}
+	
+	public UUID getUuid() {
+		return uuid;
 	}
 	
 	public Inventory getSourceInventory() {
@@ -78,6 +85,7 @@ public class AdvInventory {
 		inv.setItem(slot, is);
 		runs.put(slot, executeOnClick);
 	}
+
 	
 	public void removeItem(int slot) {
 		inv.setItem(slot, new ItemStack(Material.AIR));
@@ -94,47 +102,74 @@ public class AdvInventory {
 				if (e.getWhoClicked() instanceof Player) {
 					if (e.getCurrentItem() == null) {
 						return;
-					}			
-					if (inventories.containsKey(e.getClickedInventory().getName())) {
-						AdvInventory current = inventories.get(e.getClickedInventory().getName());
+					}	
+					if(e.getClickedInventory() == e.getWhoClicked().getInventory())
+					{
+						return;
+					}
+					Player p = (Player) e.getWhoClicked();
+					UUID playerUUID = p.getUniqueId();
+					
+					UUID inventoryUUID = openInventories.get(playerUUID);
+					if(inventoryUUID != null)
+					{
 						e.setCancelled(true);
-						Player p = (Player) e.getWhoClicked();
-						if (current.runs.get(e.getSlot()) == null) {
+						AdvInventory gui = inventories.get(inventoryUUID);
+						if (gui.runs.get(e.getSlot()) == null) {
 							p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
 						} else {
 							p.playSound(p.getLocation(), Sound.BLOCK_WOOD_BUTTON_CLICK_ON, 1, 1);
-							if (current.runs.get(e.getSlot()) != null) {
-								current.runs.get(e.getSlot()).run(e);
+							if (gui.runs.get(e.getSlot()) != null) {
+								gui.runs.get(e.getSlot()).run(e);
 							}
 						}
 					}
 				}
 			}
 			
-
+			
+			
+			@EventHandler
+			public void onClose(InventoryCloseEvent e) {
+				if (e.getPlayer() instanceof Player) {
+					Player p = (Player) e.getPlayer();
+					UUID playerUUID = p.getUniqueId();
+					
+					AdvInventory.openInventories.remove(playerUUID);
+				}
+			}
+			
+			
+			@EventHandler
+			public void onQuit(PlayerQuitEvent e) {
+				if (e.getPlayer() instanceof Player) {
+					Player p = (Player) e.getPlayer();
+					UUID playerUUID = p.getUniqueId();
+					
+					AdvInventory.openInventories.remove(playerUUID);
+				}
+			}
 		};
 	}
 	
 	
-	public void openInventory(Player player) {
-		currentOpen++;
-		register();
-		player.openInventory(getSourceInventory());
+    public void delete(){
+        for (Player p : Bukkit.getOnlinePlayers()){
+            UUID u = openInventories.get(p.getUniqueId());
+            if (u.equals(getUuid())){
+                p.closeInventory();
+            }
+        }
+        inventories.remove(getUuid());
+    }
+			
+	
+	
+	public void openInventory(Player p) {
+		p.openInventory(getSourceInventory());
+		openInventories.put(p.getUniqueId(), getUuid());
 	}
 	
-	private void register() {
-		if (!registered) {
-			inventories.put(inv.getName(), this);
-			registered = true;
-		}
-	}
-	
-	private void unRegister() {
-		if (registered) {
-			inventories.remove(inv.getName());
-			registered = false;
-		}
-	}
 	
 	public static abstract class ClickRunnable {
 		public abstract void run(InventoryClickEvent e);

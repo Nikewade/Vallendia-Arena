@@ -1,22 +1,26 @@
 package me.Nikewade.VallendiaMinigame.Kits;
 
-import java.awt.List;
 import java.util.ArrayList;
 
-import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.EntityEquipment;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.Sound;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.BackFlipAbility;
+import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
-import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class Archer implements Kit {
+	private ArrayList<Ability> abilities = new ArrayList<Ability>();
 
+	VallendiaMinigame Main;
+
+	public Archer(VallendiaMinigame Main)
+	{
+		this.Main = Main;
+		abilities.add(Main.abilitymanager.getAbility("Backflip"));
+	}
+	
 	@Override
 	public String getName(Boolean colored) {
 		// TODO Auto-generated method stub
@@ -34,9 +38,15 @@ public class Archer implements Kit {
 	}
 
 	@Override
-	public List getAbilities() {
+	public ArrayList<Ability> getAbilities() {
 		// TODO Auto-generated method stub
-		return null;
+		return abilities;
+	}
+
+	@Override
+	public Sound getSound() {
+		// TODO Auto-generated method stub
+		return Sound.ENTITY_ARROW_HIT;
 	}
 
 

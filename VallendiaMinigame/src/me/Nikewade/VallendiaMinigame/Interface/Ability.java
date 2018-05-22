@@ -7,7 +7,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.AbilityType;
 
 public interface Ability {
 
-	public String getName(Boolean colored);
+	public String getName();
 	
 	public AbilityType getAbilityType();
 	

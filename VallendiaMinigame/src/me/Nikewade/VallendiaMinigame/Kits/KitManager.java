@@ -12,17 +12,20 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class KitManager {
     private VallendiaMinigame Main;
     public HashMap<String, Kit> kits = new HashMap<String, Kit>();
+	private ArrayList<Kit> allKits = new ArrayList<Kit>();
     Starter starter;
 	Warrior warrior;
 	Archer archer;
@@ -32,16 +35,21 @@ public class KitManager {
     public KitManager(VallendiaMinigame Main) {
         this.Main = Main;
         this.starter = new Starter();
-        this.warrior = new Warrior();
-        this.archer = new Archer();
-        this.assassin = new Assassin();
-        this.mage = new Mage();
+        this.warrior = new Warrior(Main);
+        this.archer = new Archer(Main);
+        this.assassin = new Assassin(Main);
+        this.mage = new Mage(Main);
 
         kits.put("starter", starter);
         kits.put("warrior", warrior);
         kits.put("archer", archer);
         kits.put("assassin",  assassin);
         kits.put("mage", mage);
+        
+        allKits.add(warrior);
+        allKits.add(archer);
+        allKits.add(assassin);
+        allKits.add(mage);
         
     }
 
@@ -61,7 +69,8 @@ public class KitManager {
         config.set(discounts + "health", 0);
         config.set(discounts + "speed", 0);
         config.set(discounts + "armor", 0);
-        config.set(discounts + "weapon", 0);
+        config.set(discounts + "weapon.melee", 0);
+        config.set(discounts + "weapon.ranged", 0);
         
 
         for (int i = 0; i < 36; i++) {
@@ -136,6 +145,8 @@ public class KitManager {
         }
  
         p.getInventory().clear();
+        Main.upgrademanager.resetUpgrades(p);
+        Main.abilitymanager.resetAbilities(p);
         String path = "kits." + kitName + ".";
         ConfigurationSection s = config.getConfigurationSection(path + "items");
         for (String str : s.getKeys(false)) {
@@ -149,8 +160,13 @@ public class KitManager {
             List<String> lore        = config.getStringList(string + "lore");
             List<String> enchants    = config.getStringList(string + "enchants");
             int amount              = config.getInt(string + "amount");
- 
+            
             ItemStack is    = new ItemStack(Material.matchMaterial(type.toUpperCase()), amount);
+            //ink sack will be gray dye
+            if(type.equalsIgnoreCase("ink_sack"))
+            {
+            	is = new ItemStack(351, 1, (short)8);
+            }
             ItemMeta im    = is.getItemMeta();
             
             if (im == null)
@@ -167,6 +183,9 @@ public class KitManager {
                     im.addEnchant(Enchantment.getByName(indiEnchants[0].toUpperCase()), Integer.parseInt(indiEnchants[1]), true);
                 }
             }
+            
+            im.setUnbreakable(true);
+            im.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES  });
             
             //Shop item
             if(!kitName.equalsIgnoreCase("starter"))
@@ -190,18 +209,34 @@ public class KitManager {
  
         if(helmet != null)
         {
+            ItemMeta helmetim = helmet.getItemMeta();
+            helmetim.setUnbreakable(true);
+            helmetim.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES  });
+            helmet.setItemMeta(helmetim);
             p.getInventory().setHelmet(new ItemStack(helmet));
         }
         if(chestplate != null)
         {
+            ItemMeta chestmeta = chestplate.getItemMeta();
+            chestmeta.setUnbreakable(true);
+            chestmeta.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES  });
+            chestplate.setItemMeta(chestmeta);
             p.getInventory().setChestplate(new ItemStack(chestplate));
         }
         if(leggings != null)
         {
+            ItemMeta legmeta = leggings.getItemMeta();
+            legmeta.setUnbreakable(true);
+            legmeta.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES  });
+            leggings.setItemMeta(legmeta);
             p.getInventory().setLeggings(new ItemStack(leggings));
         }
         if(boots != null)
         {
+            ItemMeta bootmeta = boots.getItemMeta();
+            bootmeta.setUnbreakable(true);
+            bootmeta.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES  });
+            boots.setItemMeta(bootmeta);
             p.getInventory().setBoots(new ItemStack(boots));
         }
         p.updateInventory();
@@ -209,6 +244,11 @@ public class KitManager {
     }
  
 
+    public ArrayList<Kit> getKits()
+    {
+    	return allKits;
+    }
+    
     public Kit kit(String kitname)
     {
 		return kits.get(kitname.toLowerCase());

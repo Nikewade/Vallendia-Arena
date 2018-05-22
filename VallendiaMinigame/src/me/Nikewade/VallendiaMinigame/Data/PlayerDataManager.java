@@ -45,12 +45,12 @@ public class PlayerDataManager {
 	 }
 	 
 	 
-	 public void editData (UUID uuid, String data, String kitName)
+	 public void editData (UUID uuid, String data, String edit)
 	 {
 		 File f = new File(this.Main.getFileManager().getUsersFile().getAbsolutePath() + "/" + uuid + ".yml");
 		 this.config = YamlConfiguration.loadConfiguration(f);	
 		 
-		 config.set(data, kitName);
+		 config.set(data, edit);
 		 
 		 try {
 			config.save(f);
@@ -60,12 +60,12 @@ public class PlayerDataManager {
 		}
 	 }
 	 
-	 public void editIntData (UUID uuid, String data, int kitName)
+	 public void editIntData (UUID uuid, String data, int edit)
 	 {
 		 File f = new File(this.Main.getFileManager().getUsersFile().getAbsolutePath() + "/" + uuid + ".yml");
 		 this.config = YamlConfiguration.loadConfiguration(f);	
 		 
-		 config.set(data, kitName);
+		 config.set(data, edit);
 		 
 		 try {
 			config.save(f);

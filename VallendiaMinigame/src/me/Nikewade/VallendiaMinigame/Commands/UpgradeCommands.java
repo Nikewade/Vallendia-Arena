@@ -13,7 +13,7 @@ public class UpgradeCommands implements CommandExecutor {
 	public UpgradeCommands(VallendiaMinigame Main)
 	{
 		this.Main = Main;
-		Main.getCommand("upgradereset").setExecutor(this);
+		Main.getCommand("upgrade").setExecutor(this);
 	}
 
 	@Override
@@ -22,10 +22,16 @@ public class UpgradeCommands implements CommandExecutor {
 		{
 			Player p = (Player) sender;
 			if(!p.isOp()) return false;
-			if(label.equalsIgnoreCase("upgradereset"))
+			if(label.equalsIgnoreCase("upgrade"))
 			{
-					Main.upgrademanager.resetUpgrades(p);
-					p.sendMessage("Upgrades reset!");
+				if(args.length != 0)
+				{
+					if(args[0].equalsIgnoreCase("resetall"))
+					{
+						Main.upgrademanager.resetUpgrades(p);
+						p.sendMessage("All upgrades reset!");
+					}
+				} else p.sendMessage("Try /upgrade resetall");
 			}
 		}
 		

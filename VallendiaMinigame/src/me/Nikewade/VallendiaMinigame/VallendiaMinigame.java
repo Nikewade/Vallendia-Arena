@@ -3,9 +3,11 @@ package me.Nikewade.VallendiaMinigame;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
+import me.Nikewade.VallendiaMinigame.Abilities.BackFlipAbility;
 import me.Nikewade.VallendiaMinigame.Commands.CreateKitCommand;
 import me.Nikewade.VallendiaMinigame.Commands.PointCommands;
 import me.Nikewade.VallendiaMinigame.Commands.UpgradeCommands;
@@ -48,6 +50,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.shopmanager = new PointsManager(this);
 		   this.upgrademanager = new UpgradeManager(this);
 		   this.guihandler = new GuiHandler(this);
+		  
 		   
 		   //Listeners
 		   new PlayerJoinEvents(this);

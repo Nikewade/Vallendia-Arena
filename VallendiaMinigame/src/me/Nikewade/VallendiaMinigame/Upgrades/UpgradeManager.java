@@ -150,11 +150,26 @@ public class UpgradeManager {
 		return discount;
 	}
 	
+	
+	public int getMaxUpgrade(String upgrade)
+	{
+		return Main.getConfig().getInt("upgrades." + upgrade.toLowerCase() + ".max");
+	}
+	
 	public void buyUpgrade(Player p , String upgrade, String enchant, int amount)
 	{
 		int points = Main.shopmanager.getPoints(p);
 		int price = this.getPrice(p, upgrade, enchant) * amount;
 		int upgradeamount = this.getUpgradeAmount(p, upgrade);
+		
+		
+		if(upgradeamount >= this.getMaxUpgrade(upgrade))
+		{
+	        p.sendTitle(Utils.Colorate("&4&lX"), Utils.Colorate("&4&lMax upgrade!"), 20, 40, 40);
+	        p.playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 1, 1);
+	        return;
+		}
+		
 		if(points >= price)
 		{
 			this.addUpgrade(p, upgrade, amount, enchant);

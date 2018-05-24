@@ -17,6 +17,7 @@ import net.md_5.bungee.api.ChatColor;
 public class AbilityManager {
 	VallendiaMinigame Main;
 	private ArrayList<Ability> abilities = new ArrayList<Ability>();
+	float cooldown;
 	
 	
 	public AbilityManager(VallendiaMinigame Main)
@@ -25,6 +26,12 @@ public class AbilityManager {
 		
 		abilities.add(new ClimbAbility());
 		abilities.add(new BackFlipAbility());
+		abilities.add(new MageArmorAbility());
+		
+		
+		
+		
+		this.generateAbilityPrices();
 	}
 	
 	
@@ -51,9 +58,14 @@ public class AbilityManager {
 		return Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities.slot" + slot);
 	}
 	
-	public int getPrice(String ability)
+	public int getPrice(String ability, Player p)
 	{
-		return this.getAbility(ability).getCost();
+		return Main.getConfig().getInt("Abilities." + ability + "." + Main.kitmanager.getKit(p).getName(false).toLowerCase() + ".price");
+	}
+	
+	public int getCooldown(String ability, Player p)
+	{
+		return Main.getConfig().getInt("Abilities." + ability + "." + Main.kitmanager.getKit(p).getName(false).toLowerCase() + ".cooldown");
 	}
 	
 	public boolean hasAbility(String ability ,Kit kit)
@@ -105,6 +117,7 @@ public class AbilityManager {
 			abilityim.setDisplayName(Utils.Colorate("&8&l" + abilityname +  " &7(" + ability.getAbilityType() + ")"));
 			ArrayList<String> lore = new ArrayList<String>();
 			lore.add( Utils.Colorate("&8&lSlot " + abilityslot));
+			lore.add(Utils.Colorate("&8&lCooldown: &7" + this.getCooldown(abilityname, p) + " seconds"));
 			lore.add(Utils.Colorate("&7") + ability.getDescription());
 			abilityim.setLore(lore);
 			abilityItem.setItemMeta(abilityim);
@@ -159,7 +172,7 @@ public class AbilityManager {
 	public void buyAbility(String abilityname, int abilityslot ,Player p)
 	{
 		int points = Main.shopmanager.getPoints(p);
-		int price = this.getPrice(abilityname);
+		int price = this.getPrice(abilityname, p);
 		
 		if(points >= price)
 		{
@@ -185,6 +198,62 @@ public class AbilityManager {
 		Main.playerdatamanager.editData(p.getUniqueId(), "Abilities.slot 4", "empty");
 		Main.playerdatamanager.editData(p.getUniqueId(), "Abilities.slot 5", "empty");
 		Main.playerdatamanager.editData(p.getUniqueId(), "Abilities.slot 6", "empty");
+	}
+	
+	
+	
+	
+	public void generateAbilityPrices()
+	{
+		for(Ability ability : this.getAbilities())
+		{
+			String path = "Abilities." + ability.getName() + ".";
+			
+			if(Main.getConfig().get(path + "warrior.price") == null || Main.getConfig().get(path + "warrior.cooldown", 0)	== null)
+			{
+				Main.getConfig().set(path + "warrior.price", 0);	
+				Main.getConfig().set(path + "warrior.cooldown", 0);	
+			}
+			
+			if(Main.getConfig().get(path + "assassin.price") == null || Main.getConfig().get(path + "assassin.cooldown", 0) == null)
+			{
+				Main.getConfig().set(path + "assassin.price", 0);	
+				Main.getConfig().set(path + "assassin.cooldown", 0);	
+			}
+			
+			if(Main.getConfig().get(path + "mage.price") == null || Main.getConfig().get(path + "mage.cooldown", 0) == null)
+			{
+				Main.getConfig().set(path + "mage.price", 0);	
+				Main.getConfig().set(path + "mage.cooldown", 0);	
+			}
+			
+			if(Main.getConfig().get(path + "archer.price") == null || Main.getConfig().get(path + "archer.cooldown", 0)	== null)
+			{
+				Main.getConfig().set(path + "archer.price", 0);	
+				Main.getConfig().set(path + "archer.cooldown", 0);	
+			}
+			
+			Main.saveConfig();
+		}
+	}
+	
+	
+	
+	
+	public int getCooldown(Ability ability)
+	{
+		return 0;
+	}
+	
+	public int getCooldown(Player p)
+	{
+		
+		return 0;
+	}
+	
+	public boolean onCooldown(Player p, Ability ability)
+	{
+		return false;
 	}
 	
 }

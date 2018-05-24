@@ -25,7 +25,7 @@ public class Mage implements Kit {
 	public Mage(VallendiaMinigame Main)
 	{
 		this.Main = Main;
-		abilities.add(Main.abilitymanager.getAbility("Backflip"));
+		abilities.add(Main.abilitymanager.getAbility("MageArmor"));
 	}
 
 	@Override

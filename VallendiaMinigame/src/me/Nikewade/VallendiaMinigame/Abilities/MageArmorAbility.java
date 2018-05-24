@@ -5,39 +5,36 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
-import me.Nikewade.VallendiaMinigame.Interface.Kit;
 
-public class ClimbAbility implements Ability {
-	
+public class MageArmorAbility implements Ability {
 
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Climb";
+		return "MageArmor";
 	}
 
 	@Override
 	public AbilityType getAbilityType() {
 		// TODO Auto-generated method stub
-		return AbilityType.UTILITY;
+		return AbilityType.DEFENSIVE;
 	}
 
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return "Allowes you to climb up things.";
+		return null;
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack(Material.TRIPWIRE_HOOK);
+		return new ItemStack(Material.ARMOR_STAND);
 	}
 
 	@Override
 	public boolean RunAbility(Player p) {
 		// TODO Auto-generated method stub
-		p.sendMessage("CLIMBED!!");
 		return false;
 	}
 

@@ -7,7 +7,6 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.AbilityType;
@@ -19,10 +18,22 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class AbilitiesGui {
 	VallendiaMinigame Main;
-	int warriorx = -1;
-	int archerx = -1;
-	int assassinx = -1;
-	int magex = -1;
+	int warrioroffx = -1;
+	int archeroffx = -1;
+	int assassinoffx = -1;
+	int mageoffx = -1;
+	int warriordefx = -1;
+	int archerdefx = -1;
+	int assassindefx = -1;
+	int magedefx = -1;
+	int warriorutilx = -1;
+	int archerutilx = -1;
+	int assassinutilx = -1;
+	int mageutilx = -1;
+	int warriorpassivex = -1;
+	int archerpassivex = -1;
+	int assassinpassivex = -1;
+	int magepassivex = -1;
 	ArrayList<ItemStack> offensiveItems = new ArrayList<>(); 
 	ArrayList<ItemStack> defensiveItems = new ArrayList<>(); 
 	ArrayList<ItemStack> utilityItems = new ArrayList<>(); 
@@ -423,7 +434,7 @@ public class AbilitiesGui {
 		{
 			AdvInventory abilitiesInvYesNo = new AdvInventory(Utils.Colorate("&8&lAre you sure?"), 27, Utils.placeholder((byte) 7, " "));
 			String itemTitle = Utils.Colorate("&2&lPurchase " + ability.getName());
-			String description = Utils.Colorate("&aPrice: &2" + ability.getCost());
+			String description = Utils.Colorate("&aPrice: &2" + Main.abilitymanager.getPrice(ability.getName(), p));
 			abilitiesInvYesNo.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 13), itemTitle, 11, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
@@ -480,8 +491,8 @@ public class AbilitiesGui {
 			  {
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("warrior")))
 				  {
-					  warriorx ++;
-					  warriorOffensiveMenu.setItem(i, Utils.Colorate("&4&l" + ability.getName()), warriorx, new ClickRunnable() {
+					  warrioroffx ++;
+					  warriorOffensiveMenu.setItem(i, Utils.Colorate("&4&l" + ability.getName()), warrioroffx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -491,8 +502,8 @@ public class AbilitiesGui {
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("archer")))
 				  {
-					  archerx++;
-					  archerOffensiveMenu.setItem(i, Utils.Colorate("&4&l" + ability.getName()), archerx, new ClickRunnable() {
+					  archeroffx++;
+					  archerOffensiveMenu.setItem(i, Utils.Colorate("&4&l" + ability.getName()), archeroffx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -502,8 +513,8 @@ public class AbilitiesGui {
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("assassin")))
 				  {
-					  assassinx++;
-					  assassinOffensiveMenu.setItem(i, Utils.Colorate("&4&l" + ability.getName()), assassinx, new ClickRunnable() {
+					  assassinoffx++;
+					  assassinOffensiveMenu.setItem(i, Utils.Colorate("&4&l" + ability.getName()), assassinoffx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -513,8 +524,8 @@ public class AbilitiesGui {
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("mage")))
 				  {
-					  magex++;
-					  mageOffensiveMenu.setItem(i, Utils.Colorate("&4&l" + ability.getName()), magex, new ClickRunnable() {
+					  mageoffx++;
+					  mageOffensiveMenu.setItem(i, Utils.Colorate("&4&l" + ability.getName()), mageoffx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -535,8 +546,8 @@ public class AbilitiesGui {
 			  {
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("warrior")))
 				  {
-					  warriorx ++;
-					  warriorDefensiveMenu.setItem(i, Utils.Colorate("&9&l" + ability.getName()), warriorx, new ClickRunnable() {
+					  warriordefx ++;
+					  warriorDefensiveMenu.setItem(i, Utils.Colorate("&9&l" + ability.getName()), warriordefx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -546,8 +557,8 @@ public class AbilitiesGui {
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("archer")))
 				  {
-					  archerx++;
-					  archerDefensiveMenu.setItem(i, Utils.Colorate("&9&l" + ability.getName()), archerx, new ClickRunnable() {
+					  archerdefx++;
+					  archerDefensiveMenu.setItem(i, Utils.Colorate("&9&l" + ability.getName()), archerdefx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -557,8 +568,8 @@ public class AbilitiesGui {
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("assassin")))
 				  {
-					  assassinx++;
-					  assassinDefensiveMenu.setItem(i, Utils.Colorate("&9&l" + ability.getName()), assassinx, new ClickRunnable() {
+					  assassindefx++;
+					  assassinDefensiveMenu.setItem(i, Utils.Colorate("&9&l" + ability.getName()), assassindefx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -568,8 +579,8 @@ public class AbilitiesGui {
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("mage")))
 				  {
-					  magex++;
-					  mageDefensiveMenu.setItem(i, Utils.Colorate("&9&l" + ability.getName()), magex, new ClickRunnable() {
+					  magedefx++;
+					  mageDefensiveMenu.setItem(i, Utils.Colorate("&9&l" + ability.getName()), magedefx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -591,8 +602,8 @@ public class AbilitiesGui {
 			  {
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("warrior")))
 				  {
-					  warriorx ++;
-					  warriorUtilityMenu.setItem(i, Utils.Colorate("&3&l" + ability.getName()), warriorx, new ClickRunnable() {
+					  warriorutilx ++;
+					  warriorUtilityMenu.setItem(i, Utils.Colorate("&3&l" + ability.getName()), warriorutilx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -602,8 +613,8 @@ public class AbilitiesGui {
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("archer")))
 				  {
-					  archerx++;
-					  archerUtilityMenu.setItem(i, Utils.Colorate("&3&l" + ability.getName()), archerx, new ClickRunnable() {
+					  archerutilx++;
+					  archerUtilityMenu.setItem(i, Utils.Colorate("&3&l" + ability.getName()), archerutilx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -613,8 +624,8 @@ public class AbilitiesGui {
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("assassin")))
 				  {
-					  assassinx++;
-					  assassinUtilityMenu.setItem(i, Utils.Colorate("&3&l" + ability.getName()), assassinx, new ClickRunnable() {
+					  assassinutilx++;
+					  assassinUtilityMenu.setItem(i, Utils.Colorate("&3&l" + ability.getName()), assassinutilx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -624,8 +635,8 @@ public class AbilitiesGui {
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("mage")))
 				  {
-					  magex++;
-					  mageUtilityMenu.setItem(i, Utils.Colorate("&3&l" + ability.getName()), magex, new ClickRunnable() {
+					  mageutilx++;
+					  mageUtilityMenu.setItem(i, Utils.Colorate("&3&l" + ability.getName()), mageutilx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -646,8 +657,8 @@ public class AbilitiesGui {
 			  {
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("warrior")))
 				  {
-					  warriorx ++;
-					  warriorPassiveMenu.setItem(i, Utils.Colorate("&7&l" + ability.getName()), warriorx, new ClickRunnable() {
+					  warriorpassivex ++;
+					  warriorPassiveMenu.setItem(i, Utils.Colorate("&7&l" + ability.getName()), warriorpassivex, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -657,8 +668,8 @@ public class AbilitiesGui {
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("archer")))
 				  {
-					  archerx++;
-					  archerPassiveMenu.setItem(i, Utils.Colorate("&7&l" + ability.getName()), archerx, new ClickRunnable() {
+					  archerpassivex++;
+					  archerPassiveMenu.setItem(i, Utils.Colorate("&7&l" + ability.getName()), archerpassivex, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -668,8 +679,8 @@ public class AbilitiesGui {
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("assassin")))
 				  {
-					  assassinx++;
-					  assassinPassiveMenu.setItem(i, Utils.Colorate("&7&l" + ability.getName()), assassinx, new ClickRunnable() {
+					  assassinpassivex++;
+					  assassinPassiveMenu.setItem(i, Utils.Colorate("&7&l" + ability.getName()), assassinpassivex, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
@@ -679,8 +690,8 @@ public class AbilitiesGui {
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("mage")))
 				  {
-					  magex++;
-					  magePassiveMenu.setItem(i, Utils.Colorate("&7&l" + ability.getName()), magex, new ClickRunnable() {
+					  magepassivex++;
+					  magePassiveMenu.setItem(i, Utils.Colorate("&7&l" + ability.getName()), magepassivex, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();

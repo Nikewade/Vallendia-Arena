@@ -9,53 +9,70 @@ upgrades:
   health:
     price: 0
     multiplier: 1
+    max: 999
   speed:
     price: 0
     multiplier: 1
+    max: 999
   armor:
     prot:
       price: 0
       multiplier: 1
+      max: 999
     projprot:
       price: 0
       multiplier: 1
+      max: 999
     fireprot:
       price: 0
       multiplier: 1
+      max: 999
     thorns:
       price: 0
       multiplier: 1
+      max: 999
     blastprot:
       price: 0
       multiplier: 1
+      max: 999
     featherfall:
       price: 0
       multiplier: 1
+      max: 999
   weapon:
     sharpness:
       price: 0
       multiplier: 1
+      max: 999
     fireaspect:
       price: 0
       multiplier: 1
+      max: 999
     knockback:
       price: 0
       multiplier: 1
+      max: 999
     smite:
       price: 0
       multiplier: 1
+      max: 999
     power:
       price: 0
       multiplier: 1
+      max: 999
     punch:
       price: 0
       multiplier: 1
+      max: 999
     flame:
       price: 0
       multiplier: 1
+      max: 999
     infinity:
       price: 0
       multiplier: 1
+      max: 999
+Abilities: 0
 kits:
   starter:
     items:

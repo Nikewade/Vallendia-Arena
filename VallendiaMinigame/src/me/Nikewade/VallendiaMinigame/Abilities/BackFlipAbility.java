@@ -1,9 +1,14 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
-import org.bukkit.Bukkit;
+import java.util.ArrayList;
+
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
@@ -38,20 +43,16 @@ public class BackFlipAbility implements Ability{
 	}
 
 	@Override
-	public int getCost() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public boolean RunAbility(Player p) {
 		Vector v = p.getLocation().getDirection().normalize();
 		v.multiply(this.forwardVelocity).setY(this.upwardVelocity);
 		p.setVelocity(v);
+		p.playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.3);
 		p.setFallDistance(0);
-		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 2, (float) 1.3);
 		return true;
 
 	}
+	
+	
 
 }

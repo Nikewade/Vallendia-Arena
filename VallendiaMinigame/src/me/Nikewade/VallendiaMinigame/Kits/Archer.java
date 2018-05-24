@@ -19,6 +19,7 @@ public class Archer implements Kit {
 	{
 		this.Main = Main;
 		abilities.add(Main.abilitymanager.getAbility("Backflip"));
+		abilities.add(Main.abilitymanager.getAbility("Idk"));
 	}
 	
 	@Override

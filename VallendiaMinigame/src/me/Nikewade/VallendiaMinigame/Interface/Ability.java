@@ -15,8 +15,6 @@ public interface Ability {
 	
 	public ItemStack getGuiItem();
 	
-	public int getCost();
-	
 	public boolean RunAbility(Player p);
 	
 }

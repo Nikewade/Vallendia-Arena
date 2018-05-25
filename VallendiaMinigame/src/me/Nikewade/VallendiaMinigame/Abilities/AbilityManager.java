@@ -239,13 +239,17 @@ public class AbilityManager {
 	
 	
 	
+	public void setCooldown(Player p, Ability ability, int cooldown)
+	{
+		
+	}
 	
 	public int getCooldown(Ability ability)
 	{
 		return 0;
 	}
 	
-	public int getCooldown(Player p)
+	public int getCooldown(Player p, Ability abilty)
 	{
 		
 		return 0;

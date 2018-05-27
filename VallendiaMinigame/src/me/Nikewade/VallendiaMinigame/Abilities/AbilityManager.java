@@ -1,6 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -17,7 +19,7 @@ import net.md_5.bungee.api.ChatColor;
 public class AbilityManager {
 	VallendiaMinigame Main;
 	private ArrayList<Ability> abilities = new ArrayList<Ability>();
-	float cooldown;
+	private HashMap<UUID, Long> cooldown = new HashMap<>();
 	
 	
 	public AbilityManager(VallendiaMinigame Main)
@@ -117,7 +119,10 @@ public class AbilityManager {
 			abilityim.setDisplayName(Utils.Colorate("&8&l" + abilityname +  " &7(" + ability.getAbilityType() + ")"));
 			ArrayList<String> lore = new ArrayList<String>();
 			lore.add( Utils.Colorate("&8&lSlot " + abilityslot));
-			lore.add(Utils.Colorate("&8&lCooldown: &7" + this.getCooldown(abilityname, p) + " seconds"));
+			if(ability.getAbilityType() != AbilityType.PASSIVE)
+			{
+				lore.add(Utils.Colorate("&8&lCooldown: &7" + this.getCooldown(abilityname, p) + " seconds"));	
+			}
 			lore.add(Utils.Colorate("&7") + ability.getDescription());
 			abilityim.setLore(lore);
 			abilityItem.setItemMeta(abilityim);
@@ -238,26 +243,5 @@ public class AbilityManager {
 	}
 	
 	
-	
-	public void setCooldown(Player p, Ability ability, int cooldown)
-	{
-		
-	}
-	
-	public int getCooldown(Ability ability)
-	{
-		return 0;
-	}
-	
-	public int getCooldown(Player p, Ability abilty)
-	{
-		
-		return 0;
-	}
-	
-	public boolean onCooldown(Player p, Ability ability)
-	{
-		return false;
-	}
 	
 }

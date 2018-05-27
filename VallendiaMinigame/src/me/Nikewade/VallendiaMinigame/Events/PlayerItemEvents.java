@@ -18,6 +18,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 
@@ -66,10 +67,16 @@ public class PlayerItemEvents implements Listener {
 	    	   if(itemtype == Material.INK_SACK && item.getDurability() == 10) // green dye
 	    	   {
 	    		   	String ability = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities." + ChatColor.stripColor(Utils.Colorate(item.getItemMeta().getLore().get(0).toLowerCase())));
-		    		if(!(Main.abilitymanager.getAbility(ability) == null))
+		    		if(!(Main.abilitymanager.getAbility(ability) == null) && !AbilityCooldown.isInCooldown(p.getUniqueId(), ability))
 		    		{
 			    		Main.abilitymanager.getAbility(ability).RunAbility(p);
-		    		}else p.sendMessage("Ability " + ability + " does not exist!");
+			    		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), ability, Main.abilitymanager.getCooldown(ability, p));
+			    		c.start();
+		    		}else 
+		    		{
+		    			p.sendMessage(Utils.Colorate("&8That ability is on cooldown for " + AbilityCooldown.getTimeLeft(p.getUniqueId(), ability) + " seconds."));
+		    			return;
+		    		}
 		    		return;
 	    	   }
 	    }

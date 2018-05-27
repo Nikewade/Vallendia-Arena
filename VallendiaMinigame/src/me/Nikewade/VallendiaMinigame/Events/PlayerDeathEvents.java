@@ -28,11 +28,12 @@ public class PlayerDeathEvents implements Listener {
 		//points / deaths
 		Main.playerdatamanager.addData(p.getUniqueId(), "Deaths", 1);
 		int pointsOnDeath = Main.getConfig().getInt("Points.Points-On-Death");
-		if(!(Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points") < pointsOnDeath))
-		{
-			Main.playerdatamanager.subtractData(p.getUniqueId(), "Points", Main.getConfig().getInt("Points.Points-On-Death"));	
-			p.sendMessage(Utils.Colorate("&b&l[Vallendia] &bYou lost " + Main.getConfig().getInt("Points.Points-On-Death") +  " points!"));
-		}else Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", 0);
+		//if(!(Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points") < pointsOnDeath))
+		//{
+			//Main.playerdatamanager.subtractData(p.getUniqueId(), "Points", Main.getConfig().getInt("Points.Points-On-Death"));	
+			//p.sendMessage(Utils.Colorate("&b&l[Vallendia] &bYou lost " + Main.getConfig().getInt("Points.Points-On-Death") +  " points!"));
+		//}else Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", 0);
 		Main.upgrademanager.resetUpgrades(p);
 		Main.abilitymanager.resetAbilities(p);
 		e.getDrops().clear();

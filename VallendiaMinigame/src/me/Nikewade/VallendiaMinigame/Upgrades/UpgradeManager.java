@@ -151,8 +151,12 @@ public class UpgradeManager {
 	}
 	
 	
-	public int getMaxUpgrade(String upgrade)
+	public int getMaxUpgrade(String upgrade, String enchant)
 	{
+		if(enchant != null)
+		{
+			return Main.getConfig().getInt("upgrades." + upgrade.toLowerCase() + "." + enchant.toLowerCase() + ".max");
+		}
 		return Main.getConfig().getInt("upgrades." + upgrade.toLowerCase() + ".max");
 	}
 	
@@ -163,7 +167,7 @@ public class UpgradeManager {
 		int upgradeamount = this.getUpgradeAmount(p, upgrade);
 		
 		
-		if(upgradeamount >= this.getMaxUpgrade(upgrade))
+		if(upgradeamount + amount > this.getMaxUpgrade(upgrade , enchant))
 		{
 	        p.sendTitle(Utils.Colorate("&4&lX"), Utils.Colorate("&4&lMax upgrade!"), 20, 40, 40);
 	        p.playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 1, 1);

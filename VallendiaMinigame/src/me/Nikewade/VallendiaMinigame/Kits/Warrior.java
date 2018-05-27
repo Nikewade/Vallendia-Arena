@@ -16,7 +16,6 @@ public class Warrior implements Kit {
 	public Warrior(VallendiaMinigame Main)
 	{
 		this.Main = Main;
-		abilities.add(Main.abilitymanager.getAbility("Backflip"));
 	}
 	
 	@Override

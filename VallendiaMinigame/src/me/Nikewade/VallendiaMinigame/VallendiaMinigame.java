@@ -1,17 +1,30 @@
 package me.Nikewade.VallendiaMinigame;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.Team;
 
+import de.slikey.effectlib.EffectManager;
 import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Abilities.BackFlipAbility;
-import me.Nikewade.VallendiaMinigame.Commands.CreateKitCommand;
+import me.Nikewade.VallendiaMinigame.Abilities.BackstabAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.DeflectArrowsAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.GrapplingHookAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.LeapAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
+import me.Nikewade.VallendiaMinigame.Commands.KitCommands;
+import me.Nikewade.VallendiaMinigame.Commands.MainCommands;
 import me.Nikewade.VallendiaMinigame.Commands.PointCommands;
+import me.Nikewade.VallendiaMinigame.Commands.ShopCommands;
 import me.Nikewade.VallendiaMinigame.Commands.UpgradeCommands;
 import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
+import me.Nikewade.VallendiaMinigame.Events.PlayerBlockEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerDeathEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerFoodEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerItemEvents;
@@ -20,8 +33,12 @@ import me.Nikewade.VallendiaMinigame.Events.PlayerKillEvents;
 import me.Nikewade.VallendiaMinigame.Graphics.GuiHandler;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import me.Nikewade.VallendiaMinigame.Kits.KitManager;
+import me.Nikewade.VallendiaMinigame.Shop.GuiShopHandler;
+import me.Nikewade.VallendiaMinigame.Shop.IO;
 import me.Nikewade.VallendiaMinigame.Shop.PointsManager;
+import me.Nikewade.VallendiaMinigame.Shop.ShopHandler;
 import me.Nikewade.VallendiaMinigame.Upgrades.UpgradeManager;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
 import me.Nikewade.VallendiaMinigame.Utils.FileManager;
 
@@ -29,6 +46,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	   private static VallendiaMinigame Main;
 	   private FileManager FileManager;
 	   YamlConfiguration config;
+	   ScoreboardManager manager;
 	   public ScoreboardHandler sb;
 	   public PlayerDataManager playerdatamanager;
 	   public KitManager kitmanager;
@@ -36,11 +54,15 @@ public class VallendiaMinigame extends JavaPlugin{
 	   public UpgradeManager upgrademanager;
 	   public GuiHandler guihandler;
 	   public AbilityManager abilitymanager;
+	   public EffectManager effectmanager;
 	
-	
+	   @Override
 	   public void onEnable()
 	   {
 		   Main = this;
+		   if(!IO.getShopFile().exists()) ShopHandler.saveShop();
+		   AbilityUtils.addBlocks();
+		   SneakAbility.onReload();
 		   //Methods etc..
 		   this.FileManager = new FileManager(this);
 		   this.sb = new ScoreboardHandler(this);
@@ -50,6 +72,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.shopmanager = new PointsManager(this);
 		   this.upgrademanager = new UpgradeManager(this);
 		   this.guihandler = new GuiHandler(this);
+		   this.effectmanager = new EffectManager(this);
 		  
 		   
 		   //Listeners
@@ -58,17 +81,42 @@ public class VallendiaMinigame extends JavaPlugin{
 		   new PlayerKillEvents(this);
 		   new PlayerItemEvents(this);
 		   new PlayerFoodEvents(this);
+		   new PlayerBlockEvents(this);
 		   Bukkit.getPluginManager().registerEvents(AdvInventory.getListener(), this);
+		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
+		   
+		   //Ability Listeners
+		   Bukkit.getPluginManager().registerEvents(DeflectArrowsAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(BackFlipAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(LeapAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(ClimbAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(SneakAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(BackstabAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(GrapplingHookAbility.getListener(), this);
 		   
 		   //Commands
-		   new CreateKitCommand(this);
+		   new KitCommands(this);
 		   new UpgradeCommands(this);
 		   new PointCommands(this);
+		   new MainCommands(this);
+		   this.getCommand("shop").setExecutor(new ShopCommands());
 		   
 		   for(Player p : Bukkit.getServer().getOnlinePlayers()) { 
 			   sb.runScoreboard(p);
 			   p.closeInventory();;
 		   }
+		   
+		   ShopHandler.loadShop();
+		    
+		   
+		   
+	   }
+	   
+	   
+	   @Override
+	   public void onDisable()
+	   {
+	      effectmanager.dispose();   
 	   }
 	   
 	   public FileManager getFileManager()

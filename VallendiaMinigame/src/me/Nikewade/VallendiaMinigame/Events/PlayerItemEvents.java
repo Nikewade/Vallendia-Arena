@@ -64,17 +64,23 @@ public class PlayerItemEvents implements Listener {
 	    	
 	    	
 	    	//ABILITIES
-	    	   if(itemtype == Material.INK_SACK && item.getDurability() == 10) // green dye
+	    	   if(itemtype == Material.INK_SACK && item.getDurability() == 10 && item.getItemMeta().getLore() != null) // green dye
 	    	   {
 	    		   	String ability = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities." + ChatColor.stripColor(Utils.Colorate(item.getItemMeta().getLore().get(0).toLowerCase())));
-		    		if(!(Main.abilitymanager.getAbility(ability) == null) && !AbilityCooldown.isInCooldown(p.getUniqueId(), ability))
+	    		   	if(Main.abilitymanager.getAbility(ability) == null)
+	    		   	{
+	    		   		return;
+	    		   	}
+		    		if(!AbilityCooldown.isInCooldown(p.getUniqueId(), ability))
 		    		{
-			    		Main.abilitymanager.getAbility(ability).RunAbility(p);
-			    		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), ability, Main.abilitymanager.getCooldown(ability, p));
-			    		c.start();
+			    		if(Main.abilitymanager.getAbility(ability).RunAbility(p))
+			    		{
+				    		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), ability, Main.abilitymanager.getCooldown(ability, p));
+				    		c.start();	
+			    		}
 		    		}else 
 		    		{
-		    			p.sendMessage(Utils.Colorate("&8That ability is on cooldown for " + AbilityCooldown.getTimeLeft(p.getUniqueId(), ability) + " seconds."));
+		    			p.sendMessage(Utils.Colorate(" &8&lCooldown: " + AbilityCooldown.getTimeLeft(p.getUniqueId(), ability) + " secs"));
 		    			return;
 		    		}
 		    		return;

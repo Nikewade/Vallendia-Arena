@@ -18,6 +18,10 @@ public class Assassin implements Kit {
 		this.Main = Main;
 		abilities.add(Main.abilitymanager.getAbility("Climb"));
 		abilities.add(Main.abilitymanager.getAbility("Backflip"));
+		abilities.add(Main.abilitymanager.getAbility("Deflect Arrows"));
+		abilities.add(Main.abilitymanager.getAbility("Sneak"));
+		abilities.add(Main.abilitymanager.getAbility("Backstab"));
+		abilities.add(Main.abilitymanager.getAbility("Grappling Hook"));
 	}
 	
 	@Override

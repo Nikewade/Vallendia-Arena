@@ -7,5 +7,9 @@ commands:
   removekit:
   upgrade:
   points:
+  vallendia:
+  shop:
+depend:
+  - EffectLib
     
 

@@ -6,7 +6,9 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.AbilityType;
@@ -160,6 +162,16 @@ public class AbilitiesGui {
 			    	}
 			    }
 			} ); 
+		  
+		  
+		  
+		  inv.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 18, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	Main.guihandler.openGui(ep, "shop");;
+			    }
+			}); 
 		  
 		  inv.openInventory(p);
 	  }
@@ -487,6 +499,8 @@ public class AbilitiesGui {
 		  for(Ability ability : Main.abilitymanager.getAbilities())
 		  {
 			  ItemStack i = ability.getGuiItem();
+			  ItemMeta im = i.getItemMeta();
+			  i.setItemMeta(im);
 			  if(ability.getAbilityType() == AbilityType.OFFENSIVE)
 			  {
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("warrior")))
@@ -701,6 +715,136 @@ public class AbilitiesGui {
 				  }
 			  }
 		  }
+		  
+		  
+		  //back button
+		  warriorOffensiveMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  warriorDefensiveMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  warriorUtilityMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  warriorPassiveMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  
+		  
+		  
+		  assassinOffensiveMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  assassinDefensiveMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  assassinUtilityMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  assassinPassiveMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  
+		  
+		  
+		  
+		  
+		  archerDefensiveMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  archerOffensiveMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  archerUtilityMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  archerPassiveMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  
+		  
+		  
+		  
+		  
+		  mageOffensiveMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  mageDefensiveMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  mageUtilityMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  magePassiveMenu.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 49, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openAbilitiesMenu(ep);
+			    }
+			}); 
+		  
+		  
 		  
 	  }
 	  

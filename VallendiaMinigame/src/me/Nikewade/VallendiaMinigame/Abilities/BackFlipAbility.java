@@ -1,6 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -10,11 +11,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 
-public class BackFlipAbility implements Ability{
+public class BackFlipAbility implements Ability , Listener{
+	private static ArrayList<UUID> backflipping  = new ArrayList<>();
 	double forwardVelocity = -10 / 10D;;
 	double upwardVelocity = 8 / 10D;
 
@@ -33,7 +37,7 @@ public class BackFlipAbility implements Ability{
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Backflip into the air.";
 	}
 
 	@Override
@@ -49,9 +53,60 @@ public class BackFlipAbility implements Ability{
 		p.setVelocity(v);
 		p.playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.3);
 		p.setFallDistance(0);
+			backflipping.add(p.getUniqueId());		
+		
+			new BukkitRunnable() {
+                @Override
+                public void run() {
+             	   if(p.isOnGround())
+             	   {
+             		   backflipping.remove(p.getUniqueId());
+             		   this.cancel();
+             	   }
+                }
+            }.runTaskTimer(VallendiaMinigame.getInstance(), 30L, 0L);  	
 		return true;
 
 	}
+	
+	
+	
+    public static Listener getListener() {
+        return new Listener() {
+        	
+        	
+        	
+        	
+            @EventHandler
+            public void onDamage(EntityDamageEvent e) {
+            	if(!(e.getEntity() instanceof Player))
+            	{
+            		return;
+            	}
+            	
+            	
+            	if(e.getCause() == DamageCause.FALL)
+            	{
+                	Player p = (Player) e.getEntity();
+                	
+                	if(backflipping.contains(p.getUniqueId()) && p.getFallDistance() <= 12)
+                	{
+                		e.setCancelled(true);	
+                	}	
+                	
+                	
+            	}
+
+
+            }
+            
+            
+            
+            
+            
+            
+        };
+    }
 	
 	
 

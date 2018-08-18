@@ -74,21 +74,6 @@ public class CreatePlayerData {
 				             this.Config.set("Upgrades.weapon", 0);
 				          }
 			          
-			          if(!this.Config.contains("Upgrades.MeleeEnchants")) {
-				             this.Config.set("Upgrades.MeleeEnchants.sharpness", 0);
-				             this.Config.set("Upgrades.MeleeEnchants.fireaspect", 0);
-				             this.Config.set("Upgrades.MeleeEnchants.knockback", 0);
-				             this.Config.set("Upgrades.MeleeEnchants.smite", 0);
-				          }
-			          
-			          if(!this.Config.contains("Upgrades.RangedEnchants")) {
-				             this.Config.set("Upgrades.RangedEnchants.power", 0);
-				             this.Config.set("Upgrades.RangedEnchants.punch", 0);
-				             this.Config.set("Upgrades.RangedEnchants.flame", 0);
-				             this.Config.set("Upgrades.RangedEnchants.infinity", 0);
-				          }
-			          
-			          
 			          if(!this.Config.contains("Abilities.slot1")) {
 				             this.Config.set("Abilities.slot 1", "empty");
 				          }

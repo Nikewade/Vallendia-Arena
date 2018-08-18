@@ -1,13 +1,16 @@
 package me.Nikewade.VallendiaMinigame.Events;
 
+import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Slime;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.SlimeSplitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
-import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class PlayerDeathEvents implements Listener {
 	VallendiaMinigame Main;
@@ -50,4 +53,5 @@ public class PlayerDeathEvents implements Listener {
 		Main.shopmanager.addPoints(p, pointsOnRespawn);
 		p.sendMessage(pointsOnRespawn + " points given for testing.");
 	}
+	
 }

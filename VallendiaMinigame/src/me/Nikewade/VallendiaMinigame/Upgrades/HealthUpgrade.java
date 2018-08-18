@@ -24,4 +24,11 @@ public class HealthUpgrade implements Upgrade{
 		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "health." + "multiplier");
 	}
 	
+	@Override
+	public double getMultiplier2(String enchant) {
+		// TODO Auto-generated method stub
+		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "health." + ".multiplier2");
+	}
+
+	
 }

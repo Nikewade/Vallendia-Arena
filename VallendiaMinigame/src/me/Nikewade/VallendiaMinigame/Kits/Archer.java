@@ -18,6 +18,10 @@ public class Archer implements Kit {
 	public Archer(VallendiaMinigame Main)
 	{
 		this.Main = Main;
+		abilities.add(Main.abilitymanager.getAbility("Climb"));
+		abilities.add(Main.abilitymanager.getAbility("Dash"));
+		abilities.add(Main.abilitymanager.getAbility("Sneak"));
+		abilities.add(Main.abilitymanager.getAbility("Grappling Hook"));
 	}
 	
 	@Override

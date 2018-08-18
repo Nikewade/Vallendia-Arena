@@ -16,6 +16,9 @@ public class Warrior implements Kit {
 	public Warrior(VallendiaMinigame Main)
 	{
 		this.Main = Main;
+		abilities.add(Main.abilitymanager.getAbility("Rage"));
+		abilities.add(Main.abilitymanager.getAbility("Leap"));
+		abilities.add(Main.abilitymanager.getAbility("Bash"));
 	}
 	
 	@Override

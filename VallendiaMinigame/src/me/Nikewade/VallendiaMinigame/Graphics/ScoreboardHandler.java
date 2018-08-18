@@ -1,6 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Graphics;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -8,6 +9,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.Team;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
@@ -42,9 +44,19 @@ public class ScoreboardHandler {
                 score4.setScore(8);
                 Score score5 = objective.getScore(Utils.Colorate("&bPoints: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points")));
                 score5.setScore(7);
+                
+        	    Team rank1 = board.registerNewTeam("Rank");
+        	    
+        	    rank1.addPlayer(Bukkit.getServer().getPlayer("Nikewade"));
+        	    rank1.addPlayer(Bukkit.getServer().getPlayer("xNotAHacker"));
+        	    
+        	    rank1.setPrefix("" + ChatColor.RED);
+                
                 p.setScoreboard(board);
             }
         },0, 20 * 1);
+        
+        
 		
 	}
 	

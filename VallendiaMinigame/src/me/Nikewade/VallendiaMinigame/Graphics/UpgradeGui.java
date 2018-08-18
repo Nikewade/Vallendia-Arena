@@ -83,6 +83,16 @@ public class UpgradeGui {
 			    }
 			}, Utils.Colorate("&8Level &9" + Main.upgrademanager.getUpgradeAmount(p, "Weapon")));
 		  
+		  
+		  
+		  upgradeInv.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lBack"), 18, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	Main.guihandler.openGui(ep, "shop");;
+			    }
+			}); 
+		  
 		  upgradeInv.openInventory(p);
 	  }
 	  

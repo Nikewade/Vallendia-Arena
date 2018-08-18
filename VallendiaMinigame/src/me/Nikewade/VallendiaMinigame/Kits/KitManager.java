@@ -18,6 +18,9 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.RageAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
@@ -147,6 +150,9 @@ public class KitManager {
         p.getInventory().clear();
         Main.upgrademanager.resetUpgrades(p);
         Main.abilitymanager.resetAbilities(p);
+        SneakAbility.onDie(p);
+        ClimbAbility.onDie(p);
+        RageAbility.onDie(p);
         String path = "kits." + kitName + ".";
         ConfigurationSection s = config.getConfigurationSection(path + "items");
         for (String str : s.getKeys(false)) {

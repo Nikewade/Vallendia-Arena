@@ -6,6 +6,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Shop.GuiShop;
+import me.Nikewade.VallendiaMinigame.Shop.ShopGuiHandler;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory.ClickRunnable;
@@ -32,15 +34,15 @@ public class ShopGui {
 		  shop.setItem(new ItemStack(Material.IRON_CHESTPLATE), Utils.Colorate("&8&lUpgrades"), 13, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
-			    	Player p = (Player) e.getWhoClicked();
+			    	Player ep = (Player) e.getWhoClicked();
 		    		Main.guihandler.openGui(p, "upgrades"); 
 			    }
 			} ); 
 		  
-		  shop.setItem(new ItemStack(Material.POTION), Utils.Colorate("&2&lConsumables"), 16, new ClickRunnable() {
+		  shop.setItem(new ItemStack(Material.POTION), Utils.Colorate("&2&lItems"), 16, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
-			    	
+					ShopGuiHandler.open(p, new GuiShop(p, 0));
 			    }
 			} ); 
 		  

@@ -3,11 +3,13 @@ package me.Nikewade.VallendiaMinigame.Utils;
 import java.util.Map.Entry;
 
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 
 public class Utils {
 	
@@ -36,5 +38,14 @@ public class Utils {
 	      }   
     	  } 
 	  }
+	  
+	  
+	  public static ItemStack getPotionItemStack(PotionType type, int level, boolean extend, boolean upgraded, String displayName){
+	        ItemStack potion = new ItemStack(Material.POTION, 1);
+	        PotionMeta meta = (PotionMeta) potion.getItemMeta();
+	        meta.setBasePotionData(new PotionData(type, extend, upgraded));
+	        potion.setItemMeta(meta);
+	        return potion;
+	    }
 
 }

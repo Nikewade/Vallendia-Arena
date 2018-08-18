@@ -1,10 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Upgrades;
 
-import java.util.Map.Entry;
-
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
@@ -30,34 +27,47 @@ public class ArmorUpgrade implements Upgrade{
 		int enchantAmount = Main.upgrademanager.getUpgradeEnchantAmount(p, "armor", enchant);
 		
 		if(enchant == "prot") enchantment = Enchantment.PROTECTION_ENVIRONMENTAL;	
-		if(enchant == "projprot") enchantment = Enchantment.PROTECTION_PROJECTILE;	
-		if(enchant == "fireprot") enchantment = Enchantment.PROTECTION_FIRE;	
-		if(enchant == "blastprot") enchantment = Enchantment.PROTECTION_EXPLOSIONS;	
-		if(enchant == "thorns") enchantment = Enchantment.THORNS;	
 		
-		if(enchant == "featherfall")
+		
+		//Every 5 upgrades it moves to the next piece.. like a loading bar of armor idk... max upgrade to prot will be 20
+		
+		if(enchantAmount >= 15)
 		{
-			enchantment = Enchantment.PROTECTION_FALL;
-			boots.addUnsafeEnchantment(enchantment, enchantAmount + 1);
-			return;
+			if(helmet != null)
+	        {
+	            helmet.addUnsafeEnchantment(enchantment, enchantAmount - 14);
+	            return;
+	        }	
 		}
 		
-		if(helmet != null)
+		
+		if(enchantAmount >= 10)
 		{
-			helmet.addUnsafeEnchantment(enchantment, enchantAmount + 1);	
+	        if(chestplate != null)
+	        {
+	            chestplate.addUnsafeEnchantment(enchantment, enchantAmount - 9);
+	            return;
+	        }
 		}
-		if(chestplate != null)
-		{
-			chestplate.addUnsafeEnchantment(enchantment, enchantAmount + 1);	
-		}
-		if(leggings != null)
-		{
-			leggings.addUnsafeEnchantment(enchantment, enchantAmount + 1);	
-		}
-		if(boots != null)
-		{
-			boots.addUnsafeEnchantment(enchantment, enchantAmount + 1);
-		}
+        
+        if(enchantAmount >= 5)
+        {
+            if(leggings != null)
+            {
+                leggings.addUnsafeEnchantment(enchantment, enchantAmount - 4);
+                return;
+            }	
+        }
+        
+        
+        if(enchantAmount >= 0)
+        {
+            if(boots != null)
+            {
+                boots.addUnsafeEnchantment(enchantment, enchantAmount + 1);
+                return;
+            }	
+        }
 		
 	}
 	
@@ -84,6 +94,12 @@ public class ArmorUpgrade implements Upgrade{
 	public double getMultiplier(String enchant) {
 		// TODO Auto-generated method stub
 		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "armor." + enchant + ".multiplier");
+	}
+	
+	@Override
+	public double getMultiplier2(String enchant) {
+		// TODO Auto-generated method stub
+		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "armor." + enchant + ".multiplier2");
 	}
 
 

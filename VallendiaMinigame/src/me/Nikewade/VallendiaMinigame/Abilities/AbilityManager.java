@@ -28,7 +28,15 @@ public class AbilityManager {
 		
 		abilities.add(new ClimbAbility());
 		abilities.add(new BackFlipAbility());
+		abilities.add(new DeflectArrowsAbility());
 		abilities.add(new MageArmorAbility());
+		abilities.add(new RageAbility());
+		abilities.add(new LeapAbility());
+		abilities.add(new BashAbility());
+		abilities.add(new DashAbility());
+		abilities.add(new SneakAbility());
+		abilities.add(new BackstabAbility());
+		abilities.add(new GrapplingHookAbility());
 		
 		
 		

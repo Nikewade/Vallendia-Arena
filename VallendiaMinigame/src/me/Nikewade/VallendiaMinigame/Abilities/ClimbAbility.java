@@ -248,7 +248,7 @@ public class ClimbAbility implements Ability , Listener {
         			ClimbAbility.holdingOn.remove(p);
         			return;
         		}
-        		if(p.getItemInHand().getType() != Material.AIR)
+        		if(p.getItemInHand().getType() != Material.AIR && !holdingOn.contains(p))
         		{
         			p.sendMessage(Utils.Colorate("&8&l[Climb] &7You can only climb with empty hands!"));
         			return;

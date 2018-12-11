@@ -59,10 +59,13 @@ public class GrapplingHookAbility implements Ability, Listener {
 		new BukkitRunnable() {
             @Override
             public void run() {
-            	grappling.remove(p);
-        		p.sendMessage(Utils.Colorate("&8&l[Grappling Hook] &7You lower your bow."));
+            	if(grappling.contains(p))
+            	{
+                	grappling.remove(p);
+            		p.sendMessage(Utils.Colorate("&8&l[Grappling Hook] &7You lower your bow."));	
+            	}
             }
-        }.runTaskLater(VallendiaMinigame.getInstance(), 20 * 5);  
+        }.runTaskLater(VallendiaMinigame.getInstance(), 20 * 12);  
 		return true;
 	}
 	

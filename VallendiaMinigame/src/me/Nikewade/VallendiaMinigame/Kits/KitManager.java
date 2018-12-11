@@ -151,6 +151,7 @@ public class KitManager {
         Main.upgrademanager.resetUpgrades(p);
         Main.abilitymanager.resetAbilities(p);
         Main.levelmanager.resetLevel(p);
+        Main.levelmanager.resetExp(p);
         SneakAbility.onDie(p);
         ClimbAbility.onDie(p);
         RageAbility.onDie(p);

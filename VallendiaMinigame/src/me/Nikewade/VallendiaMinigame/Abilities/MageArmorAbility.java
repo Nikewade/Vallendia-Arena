@@ -3,6 +3,7 @@ package me.Nikewade.VallendiaMinigame.Abilities;
 import java.util.ArrayList;
 
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -57,7 +58,7 @@ public class MageArmorAbility implements Ability{
 		se.iterations = 15* 20;
 		se.period = 10;
 		se.particleCount = 5;
-		se.particle = ParticleEffect.PORTAL;
+		se.particle = Particle.PORTAL;
 		se.visibleRange = 1;
 		se.start();	
 		

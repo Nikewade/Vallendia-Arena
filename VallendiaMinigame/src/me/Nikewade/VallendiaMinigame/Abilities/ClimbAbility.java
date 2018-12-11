@@ -3,6 +3,7 @@ package me.Nikewade.VallendiaMinigame.Abilities;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -259,7 +260,7 @@ public class ClimbAbility implements Ability , Listener {
         			return;
         		}
         		if(!p.isOnGround())
-        		if(p.getTargetBlock((HashSet<Byte>) null, 1).getLocation().add(0, 1, 0).getBlock().getType() == Material.AIR)
+        		if(p.getTargetBlock((Set<Material>) null, 1).getLocation().add(0, 1, 0).getBlock().getType() == Material.AIR)
         		{
         			ClimbAbility.holdingOn.add(p);
         			p.sendMessage(Utils.Colorate("&8&l[Climb] &7You are holding onto a ledge, right click for one more jump."));

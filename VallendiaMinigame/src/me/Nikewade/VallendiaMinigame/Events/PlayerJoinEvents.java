@@ -27,6 +27,8 @@ public class PlayerJoinEvents implements Listener{
 		if(!p.hasPlayedBefore())
 		{
 			Main.kitmanager.giveKit(p, "starter");
+			p.setExp(0);
+			p.setLevel(1);
 		}
         Main.playerdatamanager.createFile(p);
         Main.sb.runScoreboard(p);

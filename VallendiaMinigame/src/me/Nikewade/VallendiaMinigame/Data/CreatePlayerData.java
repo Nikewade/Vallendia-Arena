@@ -40,6 +40,10 @@ public class CreatePlayerData {
 				             this.Config.set("Level", 1);
 				          }
 			          
+			          if(!this.Config.contains("Exp")) {
+				             this.Config.set("Exp", 0);
+			          }
+			          
 			          if(!this.Config.contains("Points")) {
 				             this.Config.set("Points", 0);
 				          }

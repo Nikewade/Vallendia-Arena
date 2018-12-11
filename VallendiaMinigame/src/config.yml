@@ -11,83 +11,99 @@ upgrades:
     multiplier: 1
     multiplier2: 1
     max: 999
+    exp: 0
   speed:
     price: 0
     multiplier: 1
     multiplier2: 1
     max: 999
+    exp: 0
   armor:
     prot:
       price: 0
       multiplier: 1
       multiplier2: 1
       max: 999
+      exp: 0
     projprot:
       price: 0
       multiplier: 1
       multiplier2: 1
-      max: 999
+      max: 999 
+      exp: 0
     fireprot:
       price: 0
       multiplier: 1
       multiplier2: 1
       max: 999
+      exp: 0
     thorns:
       price: 0
       multiplier: 1
       multiplier2: 1
       max: 999
+      exp: 0
     blastprot:
       price: 0
       multiplier: 1
       multiplier2: 1
       max: 999
+      exp: 0
     featherfall:
       price: 0
       multiplier: 1
       multiplier2: 1
       max: 999
+      exp: 0
   weapon:
     sharpness:
       price: 0
       multiplier: 1
       multiplier2: 1
       max: 999
+      exp: 0
     fireaspect:
       price: 0
       multiplier: 1
       multiplier2: 1
       max: 999
+      exp: 0
     knockback:
       price: 0
       multiplier: 1
       multiplier2: 1
       max: 999
+      exp: 0
     smite:
       price: 0
       multiplier: 1
       multiplier2: 1
       max: 999
+      exp: 0
     power:
       price: 0
       multiplier: 1
       multiplier2: 1
       max: 999
+      exp: 0
     punch:
       price: 0
       multiplier: 1
       multiplier2: 1
       max: 999
+      exp: 0
     flame:
       price: 0
       multiplier: 1
       multiplier2: 1
       max: 999
+      exp: 0
     infinity:
       price: 0
       multiplier: 1
       multiplier2: 1
       max: 999
+      exp: 0
 Abilities: 0
 kits:
   starter:

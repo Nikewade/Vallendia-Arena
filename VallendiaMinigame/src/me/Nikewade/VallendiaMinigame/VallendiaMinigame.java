@@ -23,6 +23,7 @@ import me.Nikewade.VallendiaMinigame.Commands.UpgradeCommands;
 import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Events.PlayerBlockEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerDeathEvents;
+import me.Nikewade.VallendiaMinigame.Events.PlayerExpEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerFoodEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerItemEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerJoinEvents;
@@ -82,6 +83,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   new PlayerItemEvents(this);
 		   new PlayerFoodEvents(this);
 		   new PlayerBlockEvents(this);
+		   new PlayerExpEvents(this);
 		   Bukkit.getPluginManager().registerEvents(AdvInventory.getListener(), this);
 		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
 		   

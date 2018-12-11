@@ -1,13 +1,10 @@
 package me.Nikewade.VallendiaMinigame;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
-import org.bukkit.scoreboard.Team;
 
 import de.slikey.effectlib.EffectManager;
 import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
@@ -33,6 +30,7 @@ import me.Nikewade.VallendiaMinigame.Events.PlayerKillEvents;
 import me.Nikewade.VallendiaMinigame.Graphics.GuiHandler;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import me.Nikewade.VallendiaMinigame.Kits.KitManager;
+import me.Nikewade.VallendiaMinigame.Levels.LevelManager;
 import me.Nikewade.VallendiaMinigame.Shop.GuiShopHandler;
 import me.Nikewade.VallendiaMinigame.Shop.IO;
 import me.Nikewade.VallendiaMinigame.Shop.PointsManager;
@@ -55,6 +53,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	   public GuiHandler guihandler;
 	   public AbilityManager abilitymanager;
 	   public EffectManager effectmanager;
+	   public LevelManager levelmanager;
 	
 	   @Override
 	   public void onEnable()
@@ -71,6 +70,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.kitmanager = new KitManager(this);
 		   this.shopmanager = new PointsManager(this);
 		   this.upgrademanager = new UpgradeManager(this);
+		   this.levelmanager = new LevelManager(this);
 		   this.guihandler = new GuiHandler(this);
 		   this.effectmanager = new EffectManager(this);
 		  

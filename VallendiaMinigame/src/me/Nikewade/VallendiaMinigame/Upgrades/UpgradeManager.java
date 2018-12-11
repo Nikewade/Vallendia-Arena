@@ -61,6 +61,7 @@ public class UpgradeManager {
 			Main.playerdatamanager.addData(p.getUniqueId(), "Upgrades.WeaponEnchants." + enchant, amount);
 		}
 		
+		
 	}
 	
 	public void resetUpgrades(Player p)

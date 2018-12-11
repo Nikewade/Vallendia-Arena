@@ -36,6 +36,10 @@ public class CreatePlayerData {
 				             this.Config.set("Kit", "starter");
 				          }
 			          
+			          if(!this.Config.contains("Level")) {
+				             this.Config.set("Level", 1);
+				          }
+			          
 			          if(!this.Config.contains("Points")) {
 				             this.Config.set("Points", 0);
 				          }

@@ -36,14 +36,16 @@ public class ScoreboardHandler {
                 objective.setDisplayName(Utils.Colorate("&8&l✶ Vallendia Stats ✶"));
                 Score score0 = objective.getScore(Utils.Colorate("&bKit: &8" + Main.kitmanager.getKit(p).getName(true)));
                 score0.setScore(11);  
-                Score score1 = objective.getScore(Utils.Colorate("&bKills: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Kills")));
-                score1.setScore(10);                      
-                Score score2 = objective.getScore(Utils.Colorate("&bDeaths: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Deaths")));
-                score2.setScore(9);
+                Score score1 = objective.getScore(Utils.Colorate("&bLevel: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Level")));
+                score1.setScore(10); 
+                Score score2 = objective.getScore(Utils.Colorate("&bKills: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Kills")));
+                score2.setScore(9);                      
+                Score score3 = objective.getScore(Utils.Colorate("&bDeaths: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Deaths")));
+                score3.setScore(8);
                 Score score4 = objective.getScore(Utils.Colorate("&bUpgrades: &8" + Main.upgrademanager.getUpgradeTotal(p)));
-                score4.setScore(8);
+                score4.setScore(7);
                 Score score5 = objective.getScore(Utils.Colorate("&bPoints: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points")));
-                score5.setScore(7);
+                score5.setScore(6);
                
                 p.setScoreboard(board);
             }

@@ -44,14 +44,7 @@ public class ScoreboardHandler {
                 score4.setScore(8);
                 Score score5 = objective.getScore(Utils.Colorate("&bPoints: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points")));
                 score5.setScore(7);
-                
-        	    Team rank1 = board.registerNewTeam("Rank");
-        	    
-        	    rank1.addPlayer(Bukkit.getServer().getPlayer("Nikewade"));
-        	    rank1.addPlayer(Bukkit.getServer().getPlayer("xNotAHacker"));
-        	    
-        	    rank1.setPrefix("" + ChatColor.RED);
-                
+               
                 p.setScoreboard(board);
             }
         },0, 20 * 1);

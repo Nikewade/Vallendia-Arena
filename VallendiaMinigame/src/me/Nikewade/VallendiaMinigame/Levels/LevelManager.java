@@ -1,8 +1,10 @@
 package me.Nikewade.VallendiaMinigame.Levels;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class LevelManager {
     private VallendiaMinigame Main;
@@ -20,6 +22,10 @@ public class LevelManager {
 	
 	public void setLevel (Player p, int amount)
 	{
+		if(amount > 20)
+		{
+			return;
+		}
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Level", amount);
 		this.updateLevelBar(p);
         p.setExp(0);
@@ -27,13 +33,25 @@ public class LevelManager {
 	
 	public void addLevel (Player p, int amount)
 	{
+		if(this.getLevel(p) == 20)
+		{
+			return;
+		}
 		Main.playerdatamanager.addData(p.getUniqueId(), "Level", amount);
 		this.updateLevelBar(p);
         p.setExp(0);
+        p.sendTitle(Utils.Colorate("&b&lLevel up!"), Utils.Colorate("&b&llevel " + this.getLevel(p)), 20, 40, 40);
+        p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 1, 1);
+        p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_TWINKLE, 1, 1);
+        p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LARGE_BLAST, 1, 1);
 	}
 	
 	public void subtractLevel (Player p, int amount)
 	{
+		if(this.getLevel(p) - amount <= 0)
+		{
+			return;
+		}
 		Main.playerdatamanager.subtractData(p.getUniqueId(), "Level", amount);
 		this.updateLevelBar(p);
         p.setExp(0);
@@ -65,6 +83,10 @@ public class LevelManager {
 	
 	public void addEXP (Player p, int amount)
 	{
+		if(this.getLevel(p) == 20)
+		{
+			return;
+		}
 		Main.playerdatamanager.addData(p.getUniqueId(), "Exp", amount);
 		this.levelUpCheck(p);
 		this.updateExpBar(p);
@@ -72,7 +94,15 @@ public class LevelManager {
 	
 	public void subtractExp (Player p, int amount)
 	{
+		if(this.getLevel(p) == 1 && this.getExp(p) - amount <= 0)
+		{
+			this.resetLevel(p);
+			this.resetExp(p);
+			return;
+		}
+		
 		Main.playerdatamanager.subtractData(p.getUniqueId(), "Exp", amount);
+		this.levelDownCheck(p);
 		this.updateExpBar(p);
 	}
 	
@@ -87,6 +117,7 @@ public class LevelManager {
 		this.updateExpBar(p);
 	}
 	
+	
 	public void levelUpCheck(Player p) {
 		int level = this.getLevel(p);
 		int totalExp = this.getTotalExp(Integer.toString(level));
@@ -96,21 +127,56 @@ public class LevelManager {
 			return;
 		}
 		
-		if(this.getExp(p) >= totalExp)
+		
+		if(this.getExp(p) > totalExp)
+		{
+			int leftOverExp = this.getExp(p) - totalExp;
+			this.addLevel(p, 1);
+			this.resetExp(p);
+			Main.playerdatamanager.addData(p.getUniqueId(), "Exp", leftOverExp);
+			this.levelUpCheck(p);
+			return;
+		}
+		
+		if(this.getExp(p) == totalExp)
 		{
 			this.addLevel(p, 1);
 			this.resetExp(p);
-			p.sendMessage("YOU LEVELD UP!");
 		}
-
+		
 	}
+	
+	
+	
+	public void levelDownCheck(Player p) {
+		
+		if(this.getLevel(p) == 1)
+		{
+			return;
+		}
+		
+		if(this.getExp(p) < 0)
+		{
+			this.subtractLevel(p, 1);
+			int level = this.getLevel(p) - 1;
+			int currentExp = ((this.getTotalExp(Integer.toString(level)) + this.getExp(p) * -1 ));
+			this.resetExp(p);
+			this.addEXP(p, currentExp);
+			return;
+		}
+		
+	}
+	
 	
 	public void updateExpBar(Player p)
 	{
 		int level = Main.levelmanager.getLevel(p);
 		float totalExp = this.getTotalExp(Integer.toString(level));
 		float percent = (this.getExp(p) / totalExp);
-		p.sendMessage("" + percent + " lvl "  + level + " totalexp "  + totalExp);
+		if(!(percent >= 0) || !(percent <= 1.0))
+		{
+			return;
+		}
 		p.setExp(percent);
 	}
 	

@@ -119,7 +119,7 @@ public class PlayerItemEvents implements Listener {
 	@EventHandler
 	public void onSwitchHand(PlayerSwapHandItemsEvent e)
 	{		
-		Main.levelmanager.addEXP(e.getPlayer(), 20);
+		Main.levelmanager.subtractExp(e.getPlayer(), 50);
 	    ItemStack item = e.getOffHandItem();
 	    Material itemtype = item.getType();
 	    if(itemtype != Material.NETHER_STAR || !item.getItemMeta().hasDisplayName())

@@ -186,13 +186,20 @@ public class AbilityManager {
 	{
 		int points = Main.shopmanager.getPoints(p);
 		int price = this.getPrice(abilityname, p);
+		String slot = "Abilities.slot " + abilityslot;
 		
 		if(points >= price)
 		{
+			if(!(Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), slot).equalsIgnoreCase("empty")))
+	        {
+	        	String abilityName = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), slot);
+	        	Main.levelmanager.subtractExp(p,Main.getConfig().getInt("Abilities." + abilityName + "." + Main.kitmanager.getKit(p).getName(false).toLowerCase() + ".exp"));
+	        }
 			this.addAbility(abilityname, abilityslot, p);
 			Main.shopmanager.subtractPoints(p, price);
 	        p.sendTitle(Utils.Colorate("&b&lAbility " + abilityname), "", 20, 40, 40);
 	        p.playSound(p.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 2, 0);
+	        Main.levelmanager.addEXP(p, Main.getConfig().getInt("Abilities." + abilityname + "." + Main.kitmanager.getKit(p).getName(false).toLowerCase() + ".exp"));
 			
 		}else
 		{
@@ -226,24 +233,28 @@ public class AbilityManager {
 			{
 				Main.getConfig().set(path + "warrior.price", 0);	
 				Main.getConfig().set(path + "warrior.cooldown", 0);	
+				Main.getConfig().set(path + "warrior.exp", 0);	
 			}
 			
 			if(Main.getConfig().get(path + "assassin.price") == null || Main.getConfig().get(path + "assassin.cooldown", 0) == null)
 			{
 				Main.getConfig().set(path + "assassin.price", 0);	
 				Main.getConfig().set(path + "assassin.cooldown", 0);	
+				Main.getConfig().set(path + "assassin.exp", 0);	
 			}
 			
 			if(Main.getConfig().get(path + "mage.price") == null || Main.getConfig().get(path + "mage.cooldown", 0) == null)
 			{
 				Main.getConfig().set(path + "mage.price", 0);	
 				Main.getConfig().set(path + "mage.cooldown", 0);	
+				Main.getConfig().set(path + "mage.exp", 0);	
 			}
 			
 			if(Main.getConfig().get(path + "archer.price") == null || Main.getConfig().get(path + "archer.cooldown", 0)	== null)
 			{
 				Main.getConfig().set(path + "archer.price", 0);	
 				Main.getConfig().set(path + "archer.cooldown", 0);	
+				Main.getConfig().set(path + "archer.exp", 0);	
 			}
 			
 			Main.saveConfig();

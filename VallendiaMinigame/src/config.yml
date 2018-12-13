@@ -124,6 +124,10 @@ Levels:
   17: 1700
   18: 1800
   19: 1900
+  m: 1
+  r: 1
+  p: 1
+  l: 1
 Abilities: 0
 kits:
   starter:

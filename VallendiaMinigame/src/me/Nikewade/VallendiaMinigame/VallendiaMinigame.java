@@ -105,10 +105,13 @@ public class VallendiaMinigame extends JavaPlugin{
 		   
 		   for(Player p : Bukkit.getServer().getOnlinePlayers()) { 
 			   sb.runScoreboard(p);
-			   p.closeInventory();;
+			   p.closeInventory();
+			   this.levelmanager.updateExpBar(p);
+			   this.levelmanager.updateLevelBar(p);
 		   }
 		   
 		   ShopHandler.loadShop();
+		   
 		    
 		   
 		   

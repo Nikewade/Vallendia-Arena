@@ -203,7 +203,7 @@ public class AbilitiesGui {
 			String slot5 = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities.slot 5");
 			String slot6 = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities.slot 6");
 			String description = Utils.Colorate("&7Put the ability (" + ability.getName() + ") into this slot.");
-			String description2 = Utils.Colorate("&8&lWARNING &7you will lose the ability in this slot.");
+			String description2 = Utils.Colorate("&c&lWARNING &7you will lose the ability in this slot.");
 			
 			
 			

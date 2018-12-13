@@ -20,6 +20,10 @@ public class LevelManager {
 		return Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Level");
 	}
 	
+	public int getParameter (String parameter){
+			return Main.getConfig().getInt("Levels." + parameter.toLowerCase());
+	}
+	
 	public void setLevel (Player p, int amount)
 	{
 		if(amount > 20)
@@ -158,8 +162,8 @@ public class LevelManager {
 		if(this.getExp(p) < 0)
 		{
 			this.subtractLevel(p, 1);
-			int level = this.getLevel(p) - 1;
-			int currentExp = ((this.getTotalExp(Integer.toString(level)) + this.getExp(p) * -1 ));
+			int level = this.getLevel(p);
+			int currentExp = (this.getTotalExp(Integer.toString(level))) - (this.getExp(p) * -1);
 			this.resetExp(p);
 			this.addEXP(p, currentExp);
 			return;

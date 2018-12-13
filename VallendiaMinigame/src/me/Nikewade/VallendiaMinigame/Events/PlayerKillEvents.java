@@ -30,11 +30,32 @@ public class PlayerKillEvents implements Listener{
 		{
 			if(p.getKiller() instanceof Player && p.getKiller() != p)
 			{
+				int points = 0;
+				int M = Main.levelmanager.getParameter("m");
+				int R = Main.levelmanager.getParameter("r");
+				int P = Main.levelmanager.getParameter("p");
+				int L = Main.levelmanager.getParameter("l");
 				Player killer = p.getKiller();
+				int levelKilled = Main.levelmanager.getLevel(p);
+				int level = Main.levelmanager.getLevel(killer);
 				UUID uuid = killer.getUniqueId();
 				Main.playerdatamanager.addData(uuid, "Kills", 1);
-				Main.playerdatamanager.addData(uuid, "Points", Main.getConfig().getInt("Points.Points-On-Kill"));
-				killer.sendMessage(Utils.Colorate("&b&l[Vallendia] &bYou gained " + Main.getConfig().getInt("Points.Points-On-Kill") +  " points!"));
+				if (levelKilled == level)
+				{
+					 points = -(M-R) * level + M * levelKilled + P - L;
+				}
+				
+				if (levelKilled > level)
+				{
+					points = -(((P+R * level)/L)-R) * level + ((P+R * level)/L) * levelKilled + P - L;
+				}
+				
+				if(points <1)
+				{
+					points = 1;
+				}
+				Main.playerdatamanager.addData(uuid, "Points", points);
+				killer.sendMessage(Utils.Colorate("&b&l[Vallendia] &bYou gained " + points +  " points!"));
 			}
 		}
 	}

@@ -17,6 +17,7 @@ public class UpgradeManager {
 	HealthUpgrade health;
 	SpeedUpgrade speed;
 	WeaponUpgrade weapon;
+	ToolUpgrade tool;
     public HashMap<String, Upgrade> upgrades = new HashMap<String, Upgrade>();
 	
 	 public UpgradeManager(VallendiaMinigame Main)
@@ -26,11 +27,13 @@ public class UpgradeManager {
 	    this.health = new HealthUpgrade();
 	    this.speed = new SpeedUpgrade();
 	    this.weapon = new WeaponUpgrade(Main);
+	    this.tool = new ToolUpgrade(Main);
 	    
 	    upgrades.put("armor", armor);
 	    upgrades.put("health", health);
 	    upgrades.put("speed", speed);
 	    upgrades.put("weapon", weapon);
+	    upgrades.put("tools", tool);
 	  }
 	
 	public void addUpgrade(Player p, String upgrade, int amount, String enchant)
@@ -61,6 +64,12 @@ public class UpgradeManager {
 			Main.playerdatamanager.addData(p.getUniqueId(), "Upgrades.WeaponEnchants." + enchant, amount);
 		}
 		
+		if(upgrade.equalsIgnoreCase("tools"))
+		{
+			tool.upgrade(p, enchant);
+			Main.playerdatamanager.addData(p.getUniqueId(), "Upgrades.ToolEnchants." + enchant, amount);
+		}
+		
 		
 	}
 	
@@ -70,6 +79,7 @@ public class UpgradeManager {
 		p.setWalkSpeed((float) 0.2);
 		armor.resetArmor(p);
 		weapon.resetWeapon(p);
+		tool.resetTool(p);
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.health", 0);
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.speed", 0);
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.armor", 0);
@@ -88,6 +98,9 @@ public class UpgradeManager {
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.punch", 0);
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.flame", 0);
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.infinity", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.tools", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.ToolEnchants.fortune", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.ToolEnchants.efficiency", 0);
 	}
 	
 	
@@ -108,6 +121,10 @@ public class UpgradeManager {
 		{
 			amount = Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Upgrades.WeaponEnchants." + enchant);	
 		}
+		if(upgrade.equalsIgnoreCase("tools"))
+		{
+			amount = Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Upgrades.ToolEnchants." + enchant);	
+		}
 		return amount;
 	}
 	
@@ -120,6 +137,7 @@ public class UpgradeManager {
 		total = total + Main.playerdatamanager.getPlayerIntData(uuid, "Upgrades.speed");
 		total = total + Main.playerdatamanager.getPlayerIntData(uuid, "Upgrades.armor");
 		total = total + Main.playerdatamanager.getPlayerIntData(uuid, "Upgrades.weapon");
+		total = total + Main.playerdatamanager.getPlayerIntData(uuid, "Upgrades.tools");
 		
 		return total;
 	}

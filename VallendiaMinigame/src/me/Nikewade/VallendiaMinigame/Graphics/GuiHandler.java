@@ -1,21 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Graphics;
 
-import org.bukkit.Color;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.craftbukkit.Main;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
-import me.Nikewade.VallendiaMinigame.Interface.Kit;
-import me.Nikewade.VallendiaMinigame.Kits.KitManager;
-import me.Nikewade.VallendiaMinigame.Upgrades.UpgradeManager;
-import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
-import me.Nikewade.VallendiaMinigame.Utils.AdvInventory.ClickRunnable;
-import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class GuiHandler {
 	VallendiaMinigame Main;
@@ -24,6 +11,7 @@ public class GuiHandler {
 	KitGui kit;
 	UpgradeArmorGui armor;
 	UpgradeWeaponGui weapon;
+	UpgradeToolGui tool;
 	AbilitiesGui abilities;
 	
 	 public GuiHandler(VallendiaMinigame Main)
@@ -34,7 +22,9 @@ public class GuiHandler {
 	    this.kit = new KitGui(Main);
 	    this.armor = new UpgradeArmorGui(Main);
 	    this.weapon = new UpgradeWeaponGui(Main);
+	    this.tool = new UpgradeToolGui(Main);
 	    this.abilities = new AbilitiesGui(Main);
+	    
 	  }
 	 
 	 
@@ -55,6 +45,10 @@ public class GuiHandler {
 		 if(name.equalsIgnoreCase("armor"))
 		 {
 			 armor.openInventory(p);
+		 }
+		 if(name.equalsIgnoreCase("tools"))
+		 {
+			 tool.openInventory(p);
 		 }
 		 if(name.equalsIgnoreCase("abilities"))
 		 {

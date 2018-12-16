@@ -1,14 +1,16 @@
 package me.Nikewade.VallendiaMinigame.Events;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Painting;
 import org.bukkit.entity.Player;
@@ -17,12 +19,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 
 public class PlayerBlockEvents implements Listener {
@@ -50,33 +53,31 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 		
 		Block block = e.getBlock();
 		
+		
+		if(block.getType() == Material.COAL_ORE || block.getType() == Material.IRON_ORE || block.getType() == Material.GOLD_ORE || block.getType() == Material.DIAMOND_ORE || block.getType() == Material.EMERALD_ORE)
+		{
+			Utils.regenBlock(block, 2);
+			e.setExpToDrop(0);
+			return;
+		}
+		
+		if(block.getType() == Material.CROPS || block.getType() == Material.CARROT || block.getType() == Material.POTATO || block.getType() == Material.NETHER_WARTS)
+		{
+			Utils.regenBlock(block, 300);
+			e.setExpToDrop(0);
+			return;
+		}
+		
 		if(block.getType() == Material.LEAVES || block.getTypeId() == 95 || block.getTypeId() == 20 || block.getTypeId() == 160 || block.getTypeId() == 102)
 		{
-			BlockState state = block.getState();
-			Location location = block.getLocation();
+			Utils.regenBlock(block, 15);
 			block.setType(Material.AIR);
 			e.setDropItems(false);
-			blocks.put(location, state);
-			
-	    	new BukkitRunnable() {
-	    		Location loc = block.getLocation();
-	            @Override
-	            public void run() {	
-	            	if(!blocks.containsKey(loc))
-	            	{
-	            		return;	
-	            	}
-	            	
-	            	Material mat = blocks.get(loc).getType();
-	            	
-	            	blocks.get(loc).getBlock().setType(mat);
-	            	blocks.get(loc).update();
-	            	blocks.remove(loc);
-	            }
-		}.runTaskLater(VallendiaMinigame.getInstance(), 20 * 15);	
-		return;
+			e.setCancelled(true);
+			return;
+
 		}
-	
+		
 		e.setCancelled(true);
 	}
 	
@@ -144,5 +145,6 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 			e.setCancelled(true);
 		}
 	}
+	
 	
 }

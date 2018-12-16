@@ -86,6 +86,27 @@ public class CreatePlayerData {
 				             this.Config.set("Upgrades.weapon", 0);
 				          }
 			          
+			          if(!this.Config.contains("Upgrades.WeaponEnchants")) {
+				             this.Config.set("Upgrades.WeaponEnchants.sharpness", 0);
+				             this.Config.set("Upgrades.WeaponEnchants.fireaspect", 0);
+				             this.Config.set("Upgrades.WeaponEnchants.knockback", 0);
+				             this.Config.set("Upgrades.WeaponEnchants.smite", 0);
+				             this.Config.set("Upgrades.WeaponEnchants.power", 0);
+				             this.Config.set("Upgrades.WeaponEnchants.punch", 0);
+				             this.Config.set("Upgrades.WeaponEnchants.flame", 0);
+				             this.Config.set("Upgrades.WeaponEnchants.infinity", 0);
+				          }
+			          
+			          
+			          if(!this.Config.contains("Upgrades.tools")) {
+				             this.Config.set("Upgrades.tools", 0);
+				          }
+			          
+			          if(!this.Config.contains("Upgrades.ToolEnchants")) {
+				             this.Config.set("Upgrades.ToolEnchants.fortune", 0);
+				             this.Config.set("Upgrades.ToolEnchants.efficiency", 0);
+			          }
+			          
 			          if(!this.Config.contains("Abilities.slot1")) {
 				             this.Config.set("Abilities.slot 1", "empty");
 				          }

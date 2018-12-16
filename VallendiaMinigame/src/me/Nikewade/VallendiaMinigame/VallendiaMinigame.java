@@ -40,6 +40,8 @@ import me.Nikewade.VallendiaMinigame.Upgrades.UpgradeManager;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
 import me.Nikewade.VallendiaMinigame.Utils.FileManager;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
+
 
 public class VallendiaMinigame extends JavaPlugin{
 	   private static VallendiaMinigame Main;
@@ -121,7 +123,8 @@ public class VallendiaMinigame extends JavaPlugin{
 	   @Override
 	   public void onDisable()
 	   {
-	      effectmanager.dispose();   
+	      effectmanager.dispose();  
+	      Utils.restoreBlocks();
 	   }
 	   
 	   public FileManager getFileManager()
@@ -134,6 +137,8 @@ public class VallendiaMinigame extends JavaPlugin{
 	   {
 		   return Main;
 	   }
+	   
+
 	   
 	   
 }

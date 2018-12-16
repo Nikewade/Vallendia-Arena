@@ -48,6 +48,10 @@ public class CreatePlayerData {
 				             this.Config.set("Points", 0);
 				          }
 			          
+			          if(!this.Config.contains("PointsSpent")) {
+				             this.Config.set("PointsSpent", 0);
+				          }
+			          
 			          if(!this.Config.contains("Kills")) {
 				             this.Config.set("Kills", 0);
 				          }

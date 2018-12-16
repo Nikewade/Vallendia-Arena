@@ -1,13 +1,9 @@
 package me.Nikewade.VallendiaMinigame.Events;
 
-import org.bukkit.Location;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Slime;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.entity.SlimeSplitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
@@ -28,30 +24,41 @@ public class PlayerDeathEvents implements Listener {
 	public void onDeath(PlayerDeathEvent e)
 	{
 		Player p = e.getEntity();
-		//points / deaths
-		Main.playerdatamanager.addData(p.getUniqueId(), "Deaths", 1);
-		int pointsOnDeath = Main.getConfig().getInt("Points.Points-On-Death");
-		//if(!(Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points") < pointsOnDeath))
-		//{
-			//Main.playerdatamanager.subtractData(p.getUniqueId(), "Points", Main.getConfig().getInt("Points.Points-On-Death"));	
-			//p.sendMessage(Utils.Colorate("&b&l[Vallendia] &bYou lost " + Main.getConfig().getInt("Points.Points-On-Death") +  " points!"));
-		//}else Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", 0);
-		Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", 0);
+		int pointsCarried = Main.shopmanager.getPoints(p);
+		int pointsSpent = Main.shopmanager.getPointsSpent(p);
+		int level = Main.levelmanager.getLevel(p);
 		Main.upgrademanager.resetUpgrades(p);
 		Main.abilitymanager.resetAbilities(p);
 		e.getDrops().clear();
 		p.setLevel(0);
 		p.setExp(0);
+		Main.playerdatamanager.addData(p.getUniqueId(), "Deaths", 1);
+		if(p.getKiller() != null && p.getKiller() instanceof Player && p.getKiller() != p)
+		{
+			if(pointsCarried + pointsSpent < 0)
+			{
+				Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", pointsCarried + pointsSpent);
+				return;
+			}
+				int N = Main.levelmanager.getParameter("n");
+				Player killer = p.getKiller();
+				int levelKilledBy = Main.levelmanager.getLevel(killer);
+				int points = (int) ((pointsCarried + pointsSpent) * (1/Math.pow(level, 0.35)) * 
+				(((-0.45 * (level - levelKilledBy - N))/Math.sqrt(Math.pow((level - levelKilledBy - N), 2) + Math.pow(N, 2)))+.55));
+				Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", points);
+				Main.playerdatamanager.editIntData(p.getUniqueId(), "PointsSpent", 0);
+				return;
+		}
+		
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", (int) ((pointsCarried + pointsSpent) * (1/Math.pow(level, 0.35))));
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "PointsSpent", 0);
 	}
 	
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e)
 	{
 		Player p = e.getPlayer();
-		Main.kitmanager.giveKit(p, "starter");
-		int pointsOnRespawn = Main.getConfig().getInt("Points.Points-On-Respawn");
-		Main.shopmanager.addPoints(p, pointsOnRespawn);
-		p.sendMessage(pointsOnRespawn + " points given for testing.");
+		Main.kitmanager.giveRespawnKit(p, "starter");
 	}
 	
 }

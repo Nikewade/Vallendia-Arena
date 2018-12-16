@@ -26,11 +26,17 @@ public class PointsManager {
 	public void subtractPoints(Player p, int subtract)
 	{
 		Main.playerdatamanager.subtractData(p.getUniqueId(), "Points", subtract);
+		Main.playerdatamanager.addData(p.getUniqueId(), "PointsSpent", subtract);
 	}
 	
 	public int getPoints(Player p)
 	{
 		return Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points");
+	}
+	
+	public int getPointsSpent(Player p)
+	{
+		return Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "PointsSpent");
 	}
 	
 }

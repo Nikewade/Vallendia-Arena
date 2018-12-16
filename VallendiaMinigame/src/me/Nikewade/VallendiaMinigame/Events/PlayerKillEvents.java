@@ -40,14 +40,14 @@ public class PlayerKillEvents implements Listener{
 				int level = Main.levelmanager.getLevel(killer);
 				UUID uuid = killer.getUniqueId();
 				Main.playerdatamanager.addData(uuid, "Kills", 1);
-				if (levelKilled == level)
+				if (levelKilled >= level)
 				{
-					 points = -(M-R) * level + M * levelKilled + P - L;
+					 points = -(M-R) * level + M * levelKilled + P - R;
 				}
 				
-				if (levelKilled > level)
+				if (levelKilled < level)
 				{
-					points = -(((P+R * level)/L)-R) * level + ((P+R * level)/L) * levelKilled + P - L;
+					points = -(levelKilled * R + P - 1) * (level - levelKilled) / L + levelKilled * R + P - R;
 				}
 				
 				if(points <1)
@@ -55,7 +55,7 @@ public class PlayerKillEvents implements Listener{
 					points = 1;
 				}
 				Main.playerdatamanager.addData(uuid, "Points", points);
-				killer.sendMessage(Utils.Colorate("&b&l[Vallendia] &bYou gained " + points +  " points!"));
+				Utils.sendVallendiaMessage(killer, null, null, "You killed " + p.getName(), "Level: " + Main.levelmanager.getLevel(p), "Points gained: " + points, null);
 			}
 		}
 	}

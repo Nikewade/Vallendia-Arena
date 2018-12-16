@@ -140,7 +140,7 @@ public class KitManager {
     
     
     @SuppressWarnings("deprecation")
-    public void giveKit(Player p, String kitName) {
+    public void giveRespawnKit(Player p, String kitName) {
         FileConfiguration config = Main.getConfig();
         if (config.getConfigurationSection("kits." + kitName) == null) {
             p.sendMessage(kitName + " does not exist!");
@@ -250,6 +250,127 @@ public class KitManager {
         p.updateInventory();
         p.setGameMode(GameMode.SURVIVAL);
     }
+    
+    
+    
+    @SuppressWarnings("deprecation")
+    public void giveKit(Player p, String kitName) {
+        FileConfiguration config = Main.getConfig();
+		int pointsCarried = Main.shopmanager.getPoints(p);
+		int pointsSpent = Main.shopmanager.getPointsSpent(p);
+		int level = Main.levelmanager.getLevel(p);
+        if (config.getConfigurationSection("kits." + kitName) == null) {
+            p.sendMessage(kitName + " does not exist!");
+            return;
+        }
+ 
+        p.getInventory().clear();
+        Main.upgrademanager.resetUpgrades(p);
+        Main.abilitymanager.resetAbilities(p);
+        Main.levelmanager.resetLevel(p);
+        Main.levelmanager.resetExp(p);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", (int) ((pointsCarried + pointsSpent) * (1/Math.pow(level, 0.35))));
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "PointsSpent", 0);
+        SneakAbility.onDie(p);
+        ClimbAbility.onDie(p);
+        RageAbility.onDie(p);
+        String path = "kits." + kitName + ".";
+        ConfigurationSection s = config.getConfigurationSection(path + "items");
+        for (String str : s.getKeys(false)) {
+            int slot = Integer.parseInt(str);
+            if (0 > slot && slot > 36)
+                return;
+ 
+            String string            = path + "items." + slot + ".";
+            String type            = config.getString(string + "type");
+            String name            = config.getString(string + "name");
+            List<String> lore        = config.getStringList(string + "lore");
+            List<String> enchants    = config.getStringList(string + "enchants");
+            int amount              = config.getInt(string + "amount");
+            
+            ItemStack is    = new ItemStack(Material.matchMaterial(type.toUpperCase()), amount);
+            //ink sack will be gray dye
+            if(type.equalsIgnoreCase("ink_sack"))
+            {
+            	is = new ItemStack(351, 1, (short)8);
+            }
+            ItemMeta im    = is.getItemMeta();
+            
+            if (im == null)
+                continue;
+ 
+            if (name != null)
+                im.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
+ 
+            if (lore != null);
+            	
+            if (enchants != null) {
+                for (String s1 : enchants) {
+                    String[] indiEnchants = s1.split(":");
+                    im.addEnchant(Enchantment.getByName(indiEnchants[0].toUpperCase()), Integer.parseInt(indiEnchants[1]), true);
+                }
+            }
+            
+            im.setUnbreakable(true);
+            im.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES  });
+            
+            //Shop item
+            if(!kitName.equalsIgnoreCase("starter"))
+            {
+                ItemStack ishop    = new ItemStack(Material.NETHER_STAR, 1);
+                ItemMeta imshop    = ishop.getItemMeta();
+                imshop.setDisplayName(Utils.Colorate("&b&lShop"));	
+                ishop.setItemMeta(imshop);
+                p.getInventory().setItem(8, ishop);
+            }
+ 
+            is.setItemMeta(im);
+            p.getInventory().setItem(slot, is);
+            Main.playerdatamanager.editData(p.getUniqueId(), "Kit", kitName);
+        }
+ 
+        ItemStack helmet        = config.getItemStack(path + "armor.helmet");
+        ItemStack chestplate    = config.getItemStack(path + "armor.chestplate");
+        ItemStack leggings    = config.getItemStack(path + "armor.leggings");
+        ItemStack boots        = config.getItemStack(path + "armor.boots");
+ 
+        if(helmet != null)
+        {
+            ItemMeta helmetim = helmet.getItemMeta();
+            helmetim.setUnbreakable(true);
+            helmetim.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES  });
+            helmet.setItemMeta(helmetim);
+            p.getInventory().setHelmet(new ItemStack(helmet));
+        }
+        if(chestplate != null)
+        {
+            ItemMeta chestmeta = chestplate.getItemMeta();
+            chestmeta.setUnbreakable(true);
+            chestmeta.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES  });
+            chestplate.setItemMeta(chestmeta);
+            p.getInventory().setChestplate(new ItemStack(chestplate));
+        }
+        if(leggings != null)
+        {
+            ItemMeta legmeta = leggings.getItemMeta();
+            legmeta.setUnbreakable(true);
+            legmeta.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES  });
+            leggings.setItemMeta(legmeta);
+            p.getInventory().setLeggings(new ItemStack(leggings));
+        }
+        if(boots != null)
+        {
+            ItemMeta bootmeta = boots.getItemMeta();
+            bootmeta.setUnbreakable(true);
+            bootmeta.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES  });
+            boots.setItemMeta(bootmeta);
+            p.getInventory().setBoots(new ItemStack(boots));
+        }
+        p.updateInventory();
+        p.setGameMode(GameMode.SURVIVAL);
+    }
+    
+    
  
 
     public ArrayList<Kit> getKits()

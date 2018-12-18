@@ -167,8 +167,7 @@ public class UpgradeManager {
 		double multiplier = upgrades.get(upgrade.toLowerCase()).getMultiplier(enchant);
 		double multiplier2 = upgrades.get(upgrade.toLowerCase()).getMultiplier2(enchant); 
 		double discount = (this.getDiscount(p, upgrade, enchant) * 0.01);
-		return  (int) ((int) ((int) ((price + (numUpgrades * multiplier2)) *(Math.pow(multiplier, numUpgrades)))) * (1 - discount));
-		//return  (int) ((int) ((price + (numUpgrades * multiplier2)) +  ((price * 0.1) *(Math.pow(multiplier, numUpgrades)))) * (1 - discount));
+		return  (int) ((int) ((price + (numUpgrades * multiplier2)) +  ((price * 0.1) *(Math.pow(multiplier, numUpgrades)))) * (1 - discount));
 	}
 	
 	public int getDiscount(Player p, String upgrade, String enchant)

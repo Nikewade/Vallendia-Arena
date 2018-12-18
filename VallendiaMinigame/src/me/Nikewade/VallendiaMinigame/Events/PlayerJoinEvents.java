@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Upgrades.RegenUpgrade;
 
 public class PlayerJoinEvents implements Listener{
 	VallendiaMinigame Main;
@@ -24,6 +25,7 @@ public class PlayerJoinEvents implements Listener{
 	public void onJoin(PlayerJoinEvent e)
 	{
 		Player p = e.getPlayer();
+		RegenUpgrade.addTimer(p);
 		if(!p.hasPlayedBefore())
 		{
 			Main.kitmanager.giveKit(p, "starter");

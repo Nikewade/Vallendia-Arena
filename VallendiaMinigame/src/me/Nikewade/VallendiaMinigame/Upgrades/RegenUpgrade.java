@@ -44,6 +44,11 @@ public class RegenUpgrade implements Upgrade{
 	public static void addTimer(Player p)
 	{
 		
+		if(!(Main.upgrademanager.getUpgradeAmount(p, "regeneration") > 0))
+		{
+			return;
+		}
+		
 		if(timers.containsKey(p))
 		{
 			timers.get(p).cancel();
@@ -60,17 +65,17 @@ public class RegenUpgrade implements Upgrade{
 
             @Override
             public void run() {	
-            	if(p.getHealth() < p.getMaxHealth())
-            	{
-                	if(p.getHealth() >= p.getMaxHealth() - 1)
+                	if(p.getHealth() < p.getMaxHealth())
                 	{
-                		p.setHealth(p.getMaxHealth());
-                	}else
-            		p.setHealth(p.getHealth() + 1);
-                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
-                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
-                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 
-            	}
+                    	if(p.getHealth() >= p.getMaxHealth() - 1)
+                    	{
+                    		p.setHealth(p.getMaxHealth());
+                    	}else
+                		p.setHealth(p.getHealth() + 1);
+                        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
+                        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
+                        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 
+                	}     
             }
 	    }.runTaskTimer(VallendiaMinigame.getInstance(), 20* 3, 20 * time);	
 	

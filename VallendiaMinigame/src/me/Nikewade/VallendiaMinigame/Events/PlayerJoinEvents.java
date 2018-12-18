@@ -31,7 +31,8 @@ public class PlayerJoinEvents implements Listener{
 			p.setLevel(1);
 		}
         Main.playerdatamanager.createFile(p);
-        Main.sb.runScoreboard(p);
+       // Main.sb.runScoreboard(p);
+        Main.sb.setupPlayerScoreboard(p);
 	}
 
 }

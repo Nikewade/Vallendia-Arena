@@ -48,7 +48,6 @@ public class LevelManager {
         p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 1, 1);
         p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_TWINKLE, 1, 1);
         p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LARGE_BLAST, 1, 1);
-        Utils.sendVallendiaMessage(p, null, null, "You leveled up!", "Level: " + this.getLevel(p), null, null);
 	}
 	
 	public void subtractLevel (Player p, int amount)

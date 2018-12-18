@@ -56,7 +56,7 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 		
 		if(block.getType() == Material.COAL_ORE || block.getType() == Material.IRON_ORE || block.getType() == Material.GOLD_ORE || block.getType() == Material.DIAMOND_ORE || block.getType() == Material.EMERALD_ORE)
 		{
-			Utils.regenBlock(block, 2);
+			Utils.regenBlock(block, 300);
 			e.setExpToDrop(0);
 			return;
 		}

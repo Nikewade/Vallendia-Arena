@@ -1,6 +1,12 @@
 Options:
   Auto-Close-Upgrade-Menu: true
-  Food-Heal: 1
+  food:
+    food-heal: 1
+    steak: 80
+    pork: 60
+    chicken: 50
+    bread: 30
+    fish: 10
 upgrades:
   health:
     price: 0

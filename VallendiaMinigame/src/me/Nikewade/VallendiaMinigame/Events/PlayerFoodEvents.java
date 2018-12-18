@@ -52,12 +52,13 @@ public class PlayerFoodEvents implements Listener {
 	@EventHandler
 	public void onEat(PlayerItemConsumeEvent e)
 	{
+		int healAmount = Main.getConfig().getInt("Options.food.food-heal");
 		
- 		if(e.getItem().getType() == Material.COOKED_BEEF)
+ 		if(e.getItem().getType() == Material.COOKED_BEEF || e.getItem().getType() == Material.GRILLED_PORK || 
+ 				e.getItem().getType() == Material.COOKED_CHICKEN || e.getItem().getType() == Material.BREAD || 
+ 				e.getItem().getType() == Material.COOKED_FISH)
 		{
 			Player p = e.getPlayer();
-			int healAmount = Main.getConfig().getInt("Options.Food-Heal");
-			
 			
 			
 			if(healing.contains(p))
@@ -77,14 +78,34 @@ public class PlayerFoodEvents implements Listener {
 			{
             	p.sendMessage(Utils.Colorate("&cYou are regenerating health."));
 	            healing.add(p);	
+	            double startHealth = p.getHealth();
 				new BukkitRunnable() {
 				     @Override
 				     public void run() {	
+				 			int healPercent = 0;
+					        switch (e.getItem().getType()) {
+				            case COOKED_BEEF:  healPercent = Main.getConfig().getInt("Options.food.steak");
+				                     break;
+				            case GRILLED_PORK:  healPercent = Main.getConfig().getInt("Options.food.pork");
+				                     break;
+				            case COOKED_CHICKEN:  healPercent = Main.getConfig().getInt("Options.food.chicken");
+				                     break;
+				            case BREAD:  healPercent = Main.getConfig().getInt("Options.food.bread");
+				                     break;
+				            case COOKED_FISH:  healPercent = Main.getConfig().getInt("Options.food.fish");
+				                     break;
+							default:
+								healPercent = 0;
+								break;
+				        }
+				    	 
 						    	 	if(!healing.contains(p))
 				                    {
 							            cancel();
 							            return;
 				                    }
+						    	 	
+						    	 	
 				                    if(p.getHealth() == p.getMaxHealth() || (p.getHealth() + healAmount > p.getMaxHealth()))
 				                    {
 				                    	healing.remove(p);
@@ -93,6 +114,15 @@ public class PlayerFoodEvents implements Listener {
 				                    	cancel();
 				                    	return;
 				                    }
+						    	 	
+						    	 	if(p.getHealth() >= startHealth + (p.getMaxHealth() * healPercent) / 100)
+						    	 	{
+				                    	healing.remove(p);
+				                    	p.sendMessage(Utils.Colorate("&cYou have stopped regenerating health."));
+						    	 		cancel();
+						    	 		return;
+						    	 	}
+						    	 	
 				                    p.setHealth(p.getHealth() + healAmount);
 				                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
 				                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);

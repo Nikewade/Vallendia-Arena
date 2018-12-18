@@ -36,6 +36,7 @@ import me.Nikewade.VallendiaMinigame.Shop.GuiShopHandler;
 import me.Nikewade.VallendiaMinigame.Shop.IO;
 import me.Nikewade.VallendiaMinigame.Shop.PointsManager;
 import me.Nikewade.VallendiaMinigame.Shop.ShopHandler;
+import me.Nikewade.VallendiaMinigame.Upgrades.RegenUpgrade;
 import me.Nikewade.VallendiaMinigame.Upgrades.UpgradeManager;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
@@ -111,6 +112,10 @@ public class VallendiaMinigame extends JavaPlugin{
 			   p.closeInventory();
 			   this.levelmanager.updateExpBar(p);
 			   this.levelmanager.updateLevelBar(p);
+			if(this.upgrademanager.getUpgradeAmount(p, "regeneration") > 0)
+				{
+				   RegenUpgrade.addTimer(p); 
+				}
 		   }
 		   sb.runNameTagUpdater();
 		   sb.runSidebarUpdater();

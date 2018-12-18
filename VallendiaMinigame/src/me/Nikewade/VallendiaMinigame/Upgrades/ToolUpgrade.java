@@ -21,20 +21,20 @@ public class ToolUpgrade implements Upgrade{
 	
 	public int getPrice(String enchant)
 	{
-		return VallendiaMinigame.getInstance().getConfig().getInt("upgrades." + "tool." + enchant + ".price");
+		return VallendiaMinigame.getInstance().getConfig().getInt("upgrades." + "tools." + enchant + ".price");
 	}
 
 	@Override
 	public double getMultiplier(String enchant) {
 		// TODO Auto-generated method stub
-		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "tool." + enchant + ".multiplier");
+		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "tools." + enchant + ".multiplier");
 	}
 	
 	
 	@Override
 	public double getMultiplier2(String enchant) {
 		// TODO Auto-generated method stub
-		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "tool." + enchant + ".multiplier2");
+		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "tools." + enchant + ".multiplier2");
 	}
 
 

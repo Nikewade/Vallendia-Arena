@@ -1,14 +1,12 @@
 package me.Nikewade.VallendiaMinigame.Events;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.ItemFrame;
@@ -18,11 +16,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
@@ -80,6 +79,7 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 		
 		e.setCancelled(true);
 	}
+	
 	
 	
 	@EventHandler

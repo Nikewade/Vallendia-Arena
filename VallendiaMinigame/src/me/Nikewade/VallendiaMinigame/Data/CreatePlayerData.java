@@ -64,6 +64,10 @@ public class CreatePlayerData {
 				             this.Config.set("Upgrades.health", 0);
 				          }
 			          
+			          if(!this.Config.contains("Upgrades.regeneration")) {
+				             this.Config.set("Upgrades.regeneration", 0);
+			          }
+			          
 			          if(!this.Config.contains("Upgrades.speed")) {
 				             this.Config.set("Upgrades.speed", 0);
 				          }

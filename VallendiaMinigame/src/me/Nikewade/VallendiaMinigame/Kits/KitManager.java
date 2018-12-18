@@ -70,10 +70,13 @@ public class KitManager {
         
         String discounts = path + "discounts.";
         config.set(discounts + "health", 0);
+        config.set(discounts + "regeneration", 0);
         config.set(discounts + "speed", 0);
         config.set(discounts + "armor", 0);
         config.set(discounts + "weapon.melee", 0);
         config.set(discounts + "weapon.ranged", 0);
+        config.set(discounts + "tools", 0);
+        config.set(discounts + "abilityupgrade", 0);
         
 
         for (int i = 0; i < 36; i++) {

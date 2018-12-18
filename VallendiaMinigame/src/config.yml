@@ -8,6 +8,12 @@ upgrades:
     multiplier2: 1
     max: 999
     exp: 0
+  regeneration:
+    price: 0
+    multiplier: 1
+    multiplier2: 1
+    max: 999
+    exp: 0
   speed:
     price: 0
     multiplier: 1

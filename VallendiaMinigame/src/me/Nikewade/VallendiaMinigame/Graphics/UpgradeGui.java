@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionType;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Kits.KitManager;
@@ -41,14 +42,22 @@ public class UpgradeGui {
 	  public void openUpgradeMenu(Player p)
 	  {
 		  AdvInventory upgradeInv = upgradeInv = new AdvInventory(Utils.Colorate("&8&lUpgrades"), 27, Utils.placeholder((byte) 7, " "));
-		  upgradeInv.setItem(new ItemStack(Material.POTION), Utils.Colorate("&c&lHealth"), 10, new ClickRunnable() {
+		  upgradeInv.setItem(new ItemStack(Material.POTION), Utils.Colorate("&4&lHealth"), 10, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
 			    	openUpgradeYesNoMenu(ep, "Health", null);
 			    }
-			}, Utils.Colorate("&8Level &c" + Main.upgrademanager.getUpgradeAmount(p, "Health")));
+			}, Utils.Colorate("&8Level &4" + Main.upgrademanager.getUpgradeAmount(p, "Health")));
 		  
+		  
+		  upgradeInv.setItem(new ItemStack(Material.SPLASH_POTION), Utils.Colorate("&c&lRegeneration"), 11, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	openUpgradeYesNoMenu(ep, "Regeneration", null);
+			    }
+			}, Utils.Colorate("&8Level &c" + Main.upgrademanager.getUpgradeAmount(p, "Regeneration")));
 		  
 		  
 		  
@@ -64,7 +73,7 @@ public class UpgradeGui {
 		  
 		  
 		  
-		  upgradeInv.setItem(new ItemStack(Material.IRON_CHESTPLATE), Utils.Colorate("&7&lArmor"), 14, new ClickRunnable() {
+		  upgradeInv.setItem(new ItemStack(Material.IRON_CHESTPLATE), Utils.Colorate("&7&lArmor"), 13, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
@@ -75,7 +84,7 @@ public class UpgradeGui {
 		  
 		  
 		  
-		  upgradeInv.setItem(new ItemStack(Material.DIAMOND_SWORD), Utils.Colorate("&9&lWeapon"), 16, new ClickRunnable() {
+		  upgradeInv.setItem(new ItemStack(Material.DIAMOND_SWORD), Utils.Colorate("&9&lWeapon"), 14, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
@@ -84,13 +93,22 @@ public class UpgradeGui {
 			}, Utils.Colorate("&8Level &9" + Main.upgrademanager.getUpgradeAmount(p, "Weapon")));
 		  
 		  
-		  upgradeInv.setItem(new ItemStack(Material.DIAMOND_PICKAXE), Utils.Colorate("&2&lTools"), 22, new ClickRunnable() {
+		  upgradeInv.setItem(new ItemStack(Material.DIAMOND_PICKAXE), Utils.Colorate("&2&lTools"), 15, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
 			    	Main.guihandler.openGui(ep, "tools");
 			    }
 			}, Utils.Colorate("&8Level &2" + Main.upgrademanager.getUpgradeAmount(p, "Tools")));
+		  
+		  
+		  upgradeInv.setItem(new ItemStack(Material.BLAZE_POWDER), Utils.Colorate("&3&lAbilities"), 16, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    }
+			}, Utils.Colorate("&8&lCOMING SOON"));
+		  
 		  
 		  
 		  

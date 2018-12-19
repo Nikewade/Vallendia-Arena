@@ -21,6 +21,7 @@ import me.Nikewade.VallendiaMinigame.Commands.PointCommands;
 import me.Nikewade.VallendiaMinigame.Commands.ShopCommands;
 import me.Nikewade.VallendiaMinigame.Commands.UpgradeCommands;
 import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
+import me.Nikewade.VallendiaMinigame.Events.AltitudeChecker;
 import me.Nikewade.VallendiaMinigame.Events.PlayerBlockEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerDeathEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerExpEvents;
@@ -58,6 +59,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	   public AbilityManager abilitymanager;
 	   public EffectManager effectmanager;
 	   public LevelManager levelmanager;
+	   public AltitudeChecker altchecker;
 	
 	   @Override
 	   public void onEnable()
@@ -77,6 +79,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.levelmanager = new LevelManager(this);
 		   this.guihandler = new GuiHandler(this);
 		   this.effectmanager = new EffectManager(this);
+		   this.altchecker = new AltitudeChecker(this);
 		  
 		   
 		   //Listeners

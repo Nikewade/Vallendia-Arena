@@ -1,5 +1,6 @@
 Options:
   Auto-Close-Upgrade-Menu: true
+  altitude: 160
   food:
     food-heal: 1
     steak: 80

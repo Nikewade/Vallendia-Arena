@@ -1,5 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Commands;
 
+import java.util.Random;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -11,6 +13,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class PointsCommand implements CommandInterface{
 	VallendiaMinigame main  =  VallendiaMinigame.getInstance();
+	private static Random random = new Random();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -20,13 +23,14 @@ public class PointsCommand implements CommandInterface{
 	    	return false;	    	
 	    }
 	    
-	    if(!(args.length >1) || args.length > 4)
+	    if(!(args.length >1) || args.length > 5)
 	    {
 			sender.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
 			sender.sendMessage("");
 			sender.sendMessage(Utils.Colorate("&3/vallendia points get &9(name)"));
 			sender.sendMessage(Utils.Colorate("&3/vallendia points set &9(name) (amount)"));
 			sender.sendMessage(Utils.Colorate("&3/vallendia points add &9(name) (amount)"));
+			sender.sendMessage(Utils.Colorate("&3/vallendia points addrandom &9(name) (amountlowest) (amounthighest)"));
 			sender.sendMessage(Utils.Colorate("&3/vallendia points subtract &9(name) (amount)"));
 			sender.sendMessage("");
 			sender.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));	
@@ -80,6 +84,38 @@ public class PointsCommand implements CommandInterface{
 			   }
 		   }else sender.sendMessage(Utils.Colorate("&8Player does not exist!"));	
 	    }
+	    
+	    if(args.length == 5)
+	    {
+		 	   if(Bukkit.getPlayer(args[2]) != null)
+			   {
+		 		   int amount;
+				   Player p = Bukkit.getPlayer(args[2]); 
+				    try {
+						   amount = Integer.parseInt(args[3]);
+				    } catch (NumberFormatException nfe) {
+				        return false;
+				    }
+				   if(args[1].equalsIgnoreCase("addrandom"))
+				   {
+					   int maxAmount;
+					   int lowestAmount;
+					    try {
+							   maxAmount = Integer.parseInt(args[4]);
+							   lowestAmount = Integer.parseInt(args[3]);
+					    } catch (NumberFormatException nfe) {
+					        return false;
+					    }
+					   int randomAmount = random.nextInt(maxAmount) + lowestAmount;
+					   main.shopmanager.addPoints(p, randomAmount);
+					   sender.sendMessage(Utils.Colorate( "&8Gave " + randomAmount +  " points to " +  p.getName() +  "."));
+					   p.sendMessage(Utils.Colorate( "&8You were given " + randomAmount +  " points."));
+				   }
+			   }
+			   
+	    }
+	    
+	    
 	    return false;
 	}
 }

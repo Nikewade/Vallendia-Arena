@@ -133,18 +133,16 @@ public class ScoreboardHandler {
 	                Objective objective = sb.getObjective(DisplaySlot.SIDEBAR);
 
 	            	
-	                Score score0 = objective.getScore(Utils.Colorate("&bKit: &8" + Main.kitmanager.getKit(p).getName(true)));
+	                Score score0 = objective.getScore(Utils.Colorate("&3Kit: &8" + Main.kitmanager.getKit(p).getName(true)));
 	                score0.setScore(11);  
-	                Score score1 = objective.getScore(Utils.Colorate("&bLevel: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Level")));
+	                Score score1 = objective.getScore(Utils.Colorate("&3Level: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Level")));
 	                score1.setScore(10); 
-	                Score score2 = objective.getScore(Utils.Colorate("&bKills: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Kills")));
+	                Score score2 = objective.getScore(Utils.Colorate("&3Kills: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "KillStreak")));
 	                score2.setScore(9);                      
-	                Score score3 = objective.getScore(Utils.Colorate("&bDeaths: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Deaths")));
-	                score3.setScore(8);
-	                Score score4 = objective.getScore(Utils.Colorate("&bUpgrades: &8" + Main.upgrademanager.getUpgradeTotal(p)));
-	                score4.setScore(7);
-	                Score score5 = objective.getScore(Utils.Colorate("&bPoints: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points")));
-	                score5.setScore(6);
+	                Score score5 = objective.getScore(Utils.Colorate("&3Upgrades: &8" + Main.upgrademanager.getUpgradeTotal(p)));
+	                score5.setScore(8);
+	                Score score6 = objective.getScore(Utils.Colorate("&3Points: &8" + Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points")));
+	                score6.setScore(7);
 
 	                p.setScoreboard(sb);
 	            }

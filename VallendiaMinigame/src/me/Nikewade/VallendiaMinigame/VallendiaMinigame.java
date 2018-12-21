@@ -15,11 +15,12 @@ import me.Nikewade.VallendiaMinigame.Abilities.DeflectArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.GrapplingHookAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LeapAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
+import me.Nikewade.VallendiaMinigame.Commands.CommandHandler;
 import me.Nikewade.VallendiaMinigame.Commands.KitCommands;
-import me.Nikewade.VallendiaMinigame.Commands.MainCommands;
-import me.Nikewade.VallendiaMinigame.Commands.PointCommands;
+import me.Nikewade.VallendiaMinigame.Commands.PointCommand;
 import me.Nikewade.VallendiaMinigame.Commands.ShopCommands;
 import me.Nikewade.VallendiaMinigame.Commands.UpgradeCommands;
+import me.Nikewade.VallendiaMinigame.Commands.VallendiaMainCommand;
 import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Events.AltitudeChecker;
 import me.Nikewade.VallendiaMinigame.Events.PlayerBlockEvents;
@@ -103,11 +104,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(GrapplingHookAbility.getListener(), this);
 		   
 		   //Commands
-		   new KitCommands(this);
-		   new UpgradeCommands(this);
-		   new PointCommands(this);
-		   new MainCommands(this);
-		   this.getCommand("shop").setExecutor(new ShopCommands());
+		   this.registerCommands();
 		   
 		   for(Player p : Bukkit.getServer().getOnlinePlayers()) { 
 			   //sb.runScoreboard(p);
@@ -147,6 +144,14 @@ public class VallendiaMinigame extends JavaPlugin{
 	   {
 		   return Main;
 	   }
+	   
+	    public void registerCommands() {
+	        CommandHandler handler = new CommandHandler();
+	        handler.register("vallendia", new VallendiaMainCommand());
+	 
+	        handler.register("points", new PointCommand());
+	        getCommand("vallendia").setExecutor(handler);
+	    }
 	   
 
 	   

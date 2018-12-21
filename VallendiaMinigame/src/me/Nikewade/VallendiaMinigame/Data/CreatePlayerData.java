@@ -56,6 +56,10 @@ public class CreatePlayerData {
 				             this.Config.set("Kills", 0);
 				          }
 			          
+			          if(!this.Config.contains("KillStreak")) {
+				             this.Config.set("KillStreak", 0);
+				          }
+			          
 			          if(!this.Config.contains("Deaths")) {
 				             this.Config.set("Deaths", 0);
 				          }

@@ -13,7 +13,6 @@ public class UpgradeCommands implements CommandExecutor {
 	public UpgradeCommands(VallendiaMinigame Main)
 	{
 		this.Main = Main;
-		Main.getCommand("upgrade").setExecutor(this);
 	}
 
 	@Override

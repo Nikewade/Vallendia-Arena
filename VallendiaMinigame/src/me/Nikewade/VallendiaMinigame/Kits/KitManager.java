@@ -155,6 +155,7 @@ public class KitManager {
         Main.abilitymanager.resetAbilities(p);
         Main.levelmanager.resetLevel(p);
         Main.levelmanager.resetExp(p);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "KillStreak", 0);
         SneakAbility.onDie(p);
         ClimbAbility.onDie(p);
         RageAbility.onDie(p);
@@ -272,6 +273,7 @@ public class KitManager {
         Main.abilitymanager.resetAbilities(p);
         Main.levelmanager.resetLevel(p);
         Main.levelmanager.resetExp(p);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "KillStreak", 0);
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", (int) ((pointsCarried + pointsSpent) * (1/Math.pow(level, 0.35))));
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "PointsSpent", 0);
         SneakAbility.onDie(p);

@@ -13,9 +13,6 @@ public class KitCommands implements CommandExecutor {
 	public KitCommands(VallendiaMinigame Main)
 	{
 		this.Main = Main;
-		Main.getCommand("setkit").setExecutor(this);
-		Main.getCommand("removekit").setExecutor(this);
-		Main.getCommand("kit").setExecutor(this);
 	}
 
 	@Override

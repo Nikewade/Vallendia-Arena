@@ -7,7 +7,6 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
-import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 

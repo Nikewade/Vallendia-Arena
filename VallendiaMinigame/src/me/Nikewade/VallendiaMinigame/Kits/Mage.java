@@ -1,21 +1,12 @@
 package me.Nikewade.VallendiaMinigame.Kits;
 
-import java.awt.List;
 import java.util.ArrayList;
 
-import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.EntityEquipment;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
-import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
-import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class Mage implements Kit {

@@ -1,11 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Graphics;
 
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -16,8 +13,6 @@ import org.bukkit.scoreboard.Team;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
-import net.minecraft.server.v1_12_R1.PacketPlayOutScoreboardTeam;
-import net.minecraft.server.v1_12_R1.ScoreboardTeam;
 
 public class ScoreboardHandler {
 	VallendiaMinigame Main;

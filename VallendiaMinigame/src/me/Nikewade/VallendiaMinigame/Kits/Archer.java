@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.bukkit.Sound;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
-import me.Nikewade.VallendiaMinigame.Abilities.BackFlipAbility;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;

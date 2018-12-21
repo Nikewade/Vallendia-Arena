@@ -21,7 +21,6 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
-import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 

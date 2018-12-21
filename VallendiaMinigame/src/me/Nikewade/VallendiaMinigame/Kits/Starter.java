@@ -1,14 +1,11 @@
 package me.Nikewade.VallendiaMinigame.Kits;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 import org.bukkit.Sound;
 
-import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
-import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class Starter implements Kit {

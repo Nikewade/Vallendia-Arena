@@ -1,9 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
  
 import java.util.Random;
-import java.util.UUID;
- 
-import org.bukkit.Bukkit;
+
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
@@ -11,16 +9,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
- 
+
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
-import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
-import me.Nikewade.VallendiaMinigame.Utils.Utils;
  
 public class DeflectArrowsAbility implements Ability, Listener{
  

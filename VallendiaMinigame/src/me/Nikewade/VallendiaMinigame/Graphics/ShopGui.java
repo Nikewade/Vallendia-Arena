@@ -9,8 +9,8 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Shop.GuiShop;
 import me.Nikewade.VallendiaMinigame.Shop.ShopGuiHandler;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
-import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory.ClickRunnable;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class ShopGui {
 	VallendiaMinigame Main;

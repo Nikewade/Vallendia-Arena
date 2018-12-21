@@ -2,7 +2,6 @@ package me.Nikewade.VallendiaMinigame.Shop;
 
 import java.io.File;
 
-
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 
 public class IO {

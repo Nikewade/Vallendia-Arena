@@ -9,9 +9,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import de.slikey.effectlib.effect.LineEffect;
-import de.slikey.effectlib.util.DynamicLocation;
-import de.slikey.effectlib.util.ParticleEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;

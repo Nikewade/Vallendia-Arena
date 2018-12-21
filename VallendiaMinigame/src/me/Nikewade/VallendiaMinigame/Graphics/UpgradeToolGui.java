@@ -8,8 +8,8 @@ import org.bukkit.inventory.ItemStack;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Upgrades.UpgradeManager;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
-import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory.ClickRunnable;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class UpgradeToolGui {
 	VallendiaMinigame Main;

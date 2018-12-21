@@ -1,19 +1,16 @@
 package me.Nikewade.VallendiaMinigame.Graphics;
 
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionType;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Kits.KitManager;
 import me.Nikewade.VallendiaMinigame.Upgrades.UpgradeManager;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
-import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory.ClickRunnable;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class UpgradeGui {
 	AdvInventory upgradeInventory;

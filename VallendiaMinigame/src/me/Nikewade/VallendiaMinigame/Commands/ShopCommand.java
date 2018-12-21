@@ -15,7 +15,7 @@ import me.Nikewade.VallendiaMinigame.Shop.ShopItem;
 import me.Nikewade.VallendiaMinigame.Shop.ShopUtils;
 
 
-public class ShopCommands implements CommandExecutor{
+public class ShopCommand implements CommandExecutor{
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String lb, String[] args) {
 		/*if(sender instanceof Player) {

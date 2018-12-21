@@ -15,11 +15,13 @@ import me.Nikewade.VallendiaMinigame.Abilities.DeflectArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.GrapplingHookAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LeapAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
+import me.Nikewade.VallendiaMinigame.Commands.AdminCommand;
 import me.Nikewade.VallendiaMinigame.Commands.CommandHandler;
-import me.Nikewade.VallendiaMinigame.Commands.KitCommands;
-import me.Nikewade.VallendiaMinigame.Commands.PointCommand;
-import me.Nikewade.VallendiaMinigame.Commands.ShopCommands;
-import me.Nikewade.VallendiaMinigame.Commands.UpgradeCommands;
+import me.Nikewade.VallendiaMinigame.Commands.KitCommand;
+import me.Nikewade.VallendiaMinigame.Commands.PointsCommand;
+import me.Nikewade.VallendiaMinigame.Commands.ReloadCommand;
+import me.Nikewade.VallendiaMinigame.Commands.ShopCommand;
+import me.Nikewade.VallendiaMinigame.Commands.StatsCommand;
 import me.Nikewade.VallendiaMinigame.Commands.VallendiaMainCommand;
 import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Events.AltitudeChecker;
@@ -147,9 +149,14 @@ public class VallendiaMinigame extends JavaPlugin{
 	   
 	    public void registerCommands() {
 	        CommandHandler handler = new CommandHandler();
+			this.getCommand("shop").setExecutor(new ShopCommand());
 	        handler.register("vallendia", new VallendiaMainCommand());
 	 
-	        handler.register("points", new PointCommand());
+	        handler.register("points", new PointsCommand());
+	        handler.register("admin", new AdminCommand());
+	        handler.register("reload", new ReloadCommand());
+	        handler.register("stats", new StatsCommand());
+	        handler.register("kit", new KitCommand());
 	        getCommand("vallendia").setExecutor(handler);
 	    }
 	   

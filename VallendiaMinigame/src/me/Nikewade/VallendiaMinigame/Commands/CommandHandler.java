@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.Interface.CommandInterface;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class CommandHandler implements CommandExecutor
 {
@@ -42,8 +43,6 @@ public class CommandHandler implements CommandExecutor
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
  
         //For example, in each command, it will check if the sender is a player and if not, send an error message.
-        if(sender instanceof Player) {
- 
             //If there aren't any arguments, what is the command name going to be? For this example, we are going to call it /example.
             //This means that all commands will have the base of /example.
             if(args.length == 0) {
@@ -55,23 +54,20 @@ public class CommandHandler implements CommandExecutor
             if(args.length > 0) {
  
                 //If that argument exists in our registration in the onEnable();
-                if(exists(args[0])){
+                if(exists(args[0].toLowerCase())){
  
                     //Get The executor with the name of args[0]. With our example, the name of the executor will be args because in
                     //the command /example args, args is our args[0].
-                    getExecutor(args[0]).onCommand(sender, cmd, commandLabel, args);
+                    getExecutor(args[0].toLowerCase()).onCommand(sender, cmd, commandLabel, args);
                     return true;
                 } else {
  
                     //We want to send a message to the sender if the command doesn't exist.
-                    sender.sendMessage("This command doesn't exist!");
+                    sender.sendMessage(Utils.Colorate("&8That command doesn't exist!"));
                     return true;
                 }
             }
-        } else {
-            sender.sendMessage(ChatColor.RED + "You must be a player to use this command.");
-            return true;
-        }
+
         return false;
     }
  

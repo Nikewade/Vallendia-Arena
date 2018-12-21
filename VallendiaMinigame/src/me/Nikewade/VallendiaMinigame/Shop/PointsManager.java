@@ -3,7 +3,6 @@ package me.Nikewade.VallendiaMinigame.Shop;
 import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
-import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
 
 public class PointsManager {
 	VallendiaMinigame Main;

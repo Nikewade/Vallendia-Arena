@@ -2,7 +2,6 @@ package me.Nikewade.VallendiaMinigame.Graphics;
 
 import org.bukkit.Color;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -13,8 +12,8 @@ import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Kits.KitManager;
 import me.Nikewade.VallendiaMinigame.Upgrades.UpgradeManager;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
-import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory.ClickRunnable;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class KitGui {
 	VallendiaMinigame Main;

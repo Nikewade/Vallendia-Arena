@@ -27,7 +27,11 @@ public class Utils {
 	public static HashMap<Location, BlockState> blocks = new HashMap<>();
     private static List<String> changes = new LinkedList<String>();
 	
-	
+
+	  public static void sendVallendiaMessage(Player p, String one, String two , String three , String four , String five)
+	  {  
+		  
+	  }
 	  public static void sendVallendiaCenterMessage(Player p, String one, String two , String three , String four , String five)
 	  {  
 		  
@@ -52,11 +56,11 @@ public class Utils {
 			  five = "";
 		  }
 			Utils.sendCentredMessage(p, "&8&m-----------------------------------");
-			Utils.sendCentredMessage(p, "&3" + one);
-			Utils.sendCentredMessage(p, "&3" + two);
-			Utils.sendCentredMessage(p, "&3" + three);
-			Utils.sendCentredMessage(p, "&3" + four);
-			Utils.sendCentredMessage(p, "&3" + five);
+			Utils.sendCentredMessage(p, "&9" + one);
+			Utils.sendCentredMessage(p, "&9" + two);
+			Utils.sendCentredMessage(p, "&9" + three);
+			Utils.sendCentredMessage(p, "&9" + four);
+			Utils.sendCentredMessage(p, "&9" + five);
 			Utils.sendCentredMessage(p, "&8&m-----------------------------------");
 	  }
 	

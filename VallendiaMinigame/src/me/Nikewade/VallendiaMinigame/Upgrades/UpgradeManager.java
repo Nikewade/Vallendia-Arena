@@ -213,10 +213,10 @@ public class UpgradeManager {
 		
 		if(points >= price)
 		{
-			this.addUpgrade(p, upgrade, amount, enchant);
 			Main.shopmanager.subtractPoints(p, price);
 	        p.sendTitle(Utils.Colorate("&b&l" + upgrade), Utils.Colorate("&b&llevel " + (upgradeamount + amount)), 20, 40, 40);
 	        p.playSound(p.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 2, 0);
+			this.addUpgrade(p, upgrade, amount, enchant);
 		}else
 		{
 	        p.sendTitle(Utils.Colorate("&4&lX"), Utils.Colorate("&4&lToo expensive!"), 20, 40, 40);

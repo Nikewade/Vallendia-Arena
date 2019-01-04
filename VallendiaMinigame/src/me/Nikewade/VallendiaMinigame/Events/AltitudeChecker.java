@@ -32,36 +32,35 @@ public class AltitudeChecker {
             		{
             			if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude"))
             			{
-            				if(p.getGameMode() == GameMode.CREATIVE)
+            				if(p.getGameMode() != GameMode.CREATIVE)
             				{
-            					return;
+                				AltitudeChecker.altTooHigh(p);
+                		        p.sendTitle(Utils.Colorate("&4&lToo high!"), null, 20, 1, 1);
+                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 5)
+                		        {
+                		        	p.damage(2);
+                		        }
+                		        
+                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 10)
+                		        {
+                		        	p.damage(4);
+                		        }
+                		        
+                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 15)
+                		        {
+                		        	p.damage(6);
+                		        }
+                		        
+                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 20)
+                		        {
+                		        	p.damage(10);
+                		        }
+                		        
+                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 30)
+                		        {
+                		        	p.damage(20);
+                		        }	
             				}
-            				AltitudeChecker.altTooHigh(p);
-            		        p.sendTitle(Utils.Colorate("&4&lToo high!"), null, 20, 1, 1);
-            		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 5)
-            		        {
-            		        	p.damage(2);
-            		        }
-            		        
-            		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 10)
-            		        {
-            		        	p.damage(4);
-            		        }
-            		        
-            		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 15)
-            		        {
-            		        	p.damage(6);
-            		        }
-            		        
-            		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 20)
-            		        {
-            		        	p.damage(10);
-            		        }
-            		        
-            		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 30)
-            		        {
-            		        	p.damage(20);
-            		        }
             			}else
             				sendWorldBorderPacket(p, 0, 200000D, 200000D, 0);
             		}

@@ -2,9 +2,12 @@ package me.Nikewade.VallendiaMinigame.Events;
 
 import java.util.HashMap;
 
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.ItemFrame;
@@ -36,19 +39,20 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 	this.Main = Main;
 	Main.getServer().getPluginManager().registerEvents(this, Main);
 }
-	
-	/*@EventHandler
+	//END GATE TELEPORT
+	@EventHandler
 	public void onMove(PlayerMoveEvent e)
 	{
 		Block b = e.getTo().getBlock();
 		Material a = b.getType();
 		Material abovea = b.getLocation().add(0, 1, 0).getBlock().getType();
+		Player p = e.getPlayer();
 		if(a == Material.END_GATEWAY || abovea == Material.END_GATEWAY)
 		{
-			e.getPlayer().sendMessage("YES");
+			Main.spawnhandler.teleportPlayerRandom(p);
+	        p.sendTitle(Utils.Colorate("&3&lGood luck!"), null, 20, 40, 40);
 		}
 	}
-	*/
 
 	@EventHandler
 	public void onBreak(BlockBreakEvent e)

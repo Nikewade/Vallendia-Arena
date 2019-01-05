@@ -1,6 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Commands;
 
 import java.io.File;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -53,6 +54,7 @@ public class SpawnCommand implements CommandInterface{
 							return false;
 						}else p.sendMessage(Utils.Colorate("&8Spawn " + spawnname + " already exists."));	
 		    		}
+		    		
 		    		if(args[1].equalsIgnoreCase("remove"))
 		    		{
 						String spawnname = args[2].toLowerCase();
@@ -64,21 +66,13 @@ public class SpawnCommand implements CommandInterface{
 							return false;
 						}else p.sendMessage(Utils.Colorate("&8Spawn " + spawnname + " does not exist."));
 		    		}
+		    		
 		    		if(args[1].equalsIgnoreCase("teleport"))
 		    		{
 						String spawnname = args[2].toLowerCase();
-						File f = new File(VallendiaMinigame.getInstance().getFileManager().getSpawnFile().getAbsolutePath() + "/" + spawnname + ".yml");
-						if(f.exists())
+						if(main.spawnhandler.teleportPlayer(p, spawnname))
 						{
-							this.config = YamlConfiguration.loadConfiguration(f);
-							World w = Bukkit.getServer().getWorld(config.getString("location.World"));
-							double x = config.getDouble("location.X");
-							double y = config.getDouble("location.Y");
-							double z = config.getDouble("location.Z");
-							double yaw = config.getDouble("location.Yaw");
-							double pitch = config.getDouble("location.Pitch");
-							p.teleport(new Location(w, x, y, z, (float)yaw , (float)pitch));
-							p.sendMessage(Utils.Colorate("&8Teleported to " + spawnname + "."));	
+							p.sendMessage(Utils.Colorate("&8Teleported to " + spawnname + "."));
 							return false;
 						}else p.sendMessage(Utils.Colorate("&8Spawn " + spawnname + " does not exist."));
 		    		}

@@ -44,7 +44,7 @@ public class LevelManager {
 		Main.playerdatamanager.addData(p.getUniqueId(), "Level", amount);
 		this.updateLevelBar(p);
         p.setExp(0);
-        p.sendTitle(Utils.Colorate("&b&lLevel up!"), Utils.Colorate("&b&llevel " + this.getLevel(p)), 20, 40, 40);
+        p.sendTitle(Utils.Colorate("&3&lLevel up!"), Utils.Colorate("&3&llevel " + this.getLevel(p)), 20, 40, 40);
         p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 1, 1);
         p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_TWINKLE, 1, 1);
         p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LARGE_BLAST, 1, 1);

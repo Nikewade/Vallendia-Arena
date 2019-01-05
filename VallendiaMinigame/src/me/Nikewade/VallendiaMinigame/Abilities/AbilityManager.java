@@ -197,7 +197,7 @@ public class AbilityManager {
 	        }
 			this.addAbility(abilityname, abilityslot, p);
 			Main.shopmanager.subtractPoints(p, price);
-	        p.sendTitle(Utils.Colorate("&b&lAbility " + abilityname), "", 20, 40, 40);
+	        p.sendTitle(Utils.Colorate("&3&lAbility " + abilityname), "", 20, 40, 40);
 	        p.playSound(p.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 2, 0);
 	        Main.levelmanager.addEXP(p, Main.getConfig().getInt("Abilities." + abilityname + "." + Main.kitmanager.getKit(p).getName(false).toLowerCase() + ".exp"));
 			

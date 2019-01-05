@@ -2,21 +2,43 @@ package me.Nikewade.VallendiaMinigame.Spawning;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Data.CreatePlayerData;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class SpawningHandler {
 	VallendiaMinigame Main;
 	CreatePlayerData createData;
 	YamlConfiguration config;
+	private static Random random = new Random();
 	
 	 public SpawningHandler(VallendiaMinigame Main)
 	  {
 	    this.Main = Main;
+		File f = new File(VallendiaMinigame.getInstance().getFileManager().getSpawnFile().getAbsolutePath());
+		   File[] files = f.listFiles();
+		   if(files.length != 0)
+		   {
+			   int randomFile = random.nextInt(files.length);
+			   this.config = YamlConfiguration.loadConfiguration(files[randomFile]);
+			   Bukkit.getConsoleSender().sendMessage( "RANDOM FILE: " + config.getString("location.Name"));
+			   Bukkit.getConsoleSender().sendMessage( files.length + " FILESSSSSSSSSSSS");
+			   for(File file : files)
+			   {
+				this.config = YamlConfiguration.loadConfiguration(file);
+				   Bukkit.getConsoleSender().sendMessage( config.getString("location.Name"));
+			   }   
+		   }
 	  }
 	 
 	 public void createFile(String name, Location loc)
@@ -39,11 +61,53 @@ public class SpawningHandler {
 			    	  config.set("location.Z" , loc.getZ());
 			    	  config.set("location.Yaw" , loc.getYaw());
 			    	  config.set("location.Pitch" , loc.getPitch());
+			    	  config.set("location.Name" , name.toLowerCase());
 				      this.config.save(f);
 			       } catch (Exception var4) {
 			          ;
 			       }		
 			}
+	 }
+	 
+	 public boolean teleportPlayer(Player p, String spawnname)
+	 {
+			spawnname = spawnname.toLowerCase();
+			File f = new File(VallendiaMinigame.getInstance().getFileManager().getSpawnFile().getAbsolutePath() + "/" + spawnname + ".yml");
+			if(f.exists())
+			{
+				this.config = YamlConfiguration.loadConfiguration(f);
+				World w = Bukkit.getServer().getWorld(config.getString("location.World"));
+				double x = config.getDouble("location.X");
+				double y = config.getDouble("location.Y");
+				double z = config.getDouble("location.Z");
+				double yaw = config.getDouble("location.Yaw");
+				double pitch = config.getDouble("location.Pitch");
+				p.teleport(new Location(w, x, y, z, (float)yaw , (float)pitch));	
+				p.getWorld().playSound(p.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 1, (float)0.1);
+	 	 		p.getWorld().spawnParticle(Particle.SMOKE_LARGE, p.getLocation().add(0, 1.8, 0), 20);
+	 	 		p.getWorld().spawnParticle(Particle.SMOKE_NORMAL, p.getLocation().add(0, 1.8, 0), 20);
+	 	 		p.getWorld().spawnParticle(Particle.PORTAL, p.getLocation().add(0, 1.8, 0), 20);
+	 	 		p.getWorld().spawnParticle(Particle.PORTAL, p.getLocation().add(0, 1.8, 0), 20);
+	 	 		p.getWorld().spawnParticle(Particle.PORTAL, p.getLocation().add(0, 1.8, 0), 20);
+				return true;
+			}else 
+				{
+				return false;
+				}
+	 }
+	 
+	 
+	 public void teleportPlayerRandom(Player p)
+	 {
+			File f = new File(VallendiaMinigame.getInstance().getFileManager().getSpawnFile().getAbsolutePath());
+			   File[] files = f.listFiles();
+			   if(files.length != 0)
+			   {
+				   int randomFile = random.nextInt(files.length);
+				   this.config = YamlConfiguration.loadConfiguration(files[randomFile]);
+				   this.teleportPlayer(p, config.getString("location.Name"));
+				   p.sendMessage(Utils.Colorate(config.getString("location.Name")));
+			   }else p.sendMessage(Utils.Colorate("&8No spawns exist!"));
 	 }
 
 }

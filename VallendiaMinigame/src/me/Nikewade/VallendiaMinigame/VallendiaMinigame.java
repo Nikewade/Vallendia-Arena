@@ -129,9 +129,6 @@ public class VallendiaMinigame extends JavaPlugin{
 		   sb.runSidebarUpdater();
 		   ShopHandler.loadShop();
 		   
-			File f = new File(VallendiaMinigame.getInstance().getFileManager().getSpawnFile().getAbsolutePath());
-		   File[] files = f.listFiles();
-		   Bukkit.getConsoleSender().sendMessage( files.length + " FILESSSSSSSSSSSS");
 		   
 		   
 	   }

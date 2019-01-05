@@ -10,6 +10,7 @@ import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
@@ -82,7 +83,8 @@ public class SpawningHandler {
 				double z = config.getDouble("location.Z");
 				double yaw = config.getDouble("location.Yaw");
 				double pitch = config.getDouble("location.Pitch");
-				p.teleport(new Location(w, x, y, z, (float)yaw , (float)pitch));	
+				Location l = new Location(w, x, y, z, (float)yaw , (float)pitch);
+				p.teleport(l);	
 				p.getWorld().playSound(p.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 1, (float)0.1);
 	 	 		p.getWorld().spawnParticle(Particle.SMOKE_LARGE, p.getLocation().add(0, 1.8, 0), 20);
 	 	 		p.getWorld().spawnParticle(Particle.SMOKE_NORMAL, p.getLocation().add(0, 1.8, 0), 20);
@@ -105,9 +107,35 @@ public class SpawningHandler {
 			   {
 				   int randomFile = random.nextInt(files.length);
 				   this.config = YamlConfiguration.loadConfiguration(files[randomFile]);
+				   
+					World w = Bukkit.getServer().getWorld(config.getString("location.World"));
+					double x = config.getDouble("location.X");
+					double y = config.getDouble("location.Y");
+					double z = config.getDouble("location.Z");
+					double yaw = config.getDouble("location.Yaw");
+					double pitch = config.getDouble("location.Pitch");
+					Location l = new Location(w, x, y, z, (float)yaw , (float)pitch);
+					for(Entity e : l.getWorld().getNearbyEntities(l, 10, 10, 10))
+					{
+						if(e instanceof Player)
+						{
+							if(e != p)
+							{
+								p.sendMessage("PLAYER IS NEARBY!!!");
+								return;	
+							}
+						}
+					}
+				   
 				   this.teleportPlayer(p, config.getString("location.Name"));
-				   p.sendMessage(Utils.Colorate(config.getString("location.Name")));
+			       p.sendTitle(Utils.Colorate("&3&lGood luck!"), null, 20, 40, 40);
 			   }else p.sendMessage(Utils.Colorate("&8No spawns exist!"));
+	 }
+	 
+	 //while this is true cancel stuff
+	 public boolean playerNearby(Location l)
+	 {
+		return false;
 	 }
 
 }

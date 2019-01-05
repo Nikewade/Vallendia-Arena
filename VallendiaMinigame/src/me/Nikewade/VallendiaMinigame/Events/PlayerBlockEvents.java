@@ -50,7 +50,6 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 		if(a == Material.END_GATEWAY || abovea == Material.END_GATEWAY)
 		{
 			Main.spawnhandler.teleportPlayerRandom(p);
-	        p.sendTitle(Utils.Colorate("&3&lGood luck!"), null, 20, 40, 40);
 		}
 	}
 

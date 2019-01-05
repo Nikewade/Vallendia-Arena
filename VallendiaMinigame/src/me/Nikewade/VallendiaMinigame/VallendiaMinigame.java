@@ -1,5 +1,7 @@
 package me.Nikewade.VallendiaMinigame;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -21,6 +23,7 @@ import me.Nikewade.VallendiaMinigame.Commands.KitCommand;
 import me.Nikewade.VallendiaMinigame.Commands.PointsCommand;
 import me.Nikewade.VallendiaMinigame.Commands.ReloadCommand;
 import me.Nikewade.VallendiaMinigame.Commands.ShopCommand;
+import me.Nikewade.VallendiaMinigame.Commands.SpawnCommand;
 import me.Nikewade.VallendiaMinigame.Commands.StatsCommand;
 import me.Nikewade.VallendiaMinigame.Commands.VallendiaMainCommand;
 import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
@@ -40,6 +43,7 @@ import me.Nikewade.VallendiaMinigame.Shop.GuiShopHandler;
 import me.Nikewade.VallendiaMinigame.Shop.IO;
 import me.Nikewade.VallendiaMinigame.Shop.PointsManager;
 import me.Nikewade.VallendiaMinigame.Shop.ShopHandler;
+import me.Nikewade.VallendiaMinigame.Spawning.SpawningHandler;
 import me.Nikewade.VallendiaMinigame.Upgrades.RegenUpgrade;
 import me.Nikewade.VallendiaMinigame.Upgrades.UpgradeManager;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
@@ -63,6 +67,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	   public EffectManager effectmanager;
 	   public LevelManager levelmanager;
 	   public AltitudeChecker altchecker;
+	   public SpawningHandler spawnhandler;
 	
 	   @Override
 	   public void onEnable()
@@ -83,6 +88,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.guihandler = new GuiHandler(this);
 		   this.effectmanager = new EffectManager(this);
 		   this.altchecker = new AltitudeChecker(this);
+		   this.spawnhandler = new SpawningHandler(this);
 		  
 		   
 		   //Listeners
@@ -123,7 +129,9 @@ public class VallendiaMinigame extends JavaPlugin{
 		   sb.runSidebarUpdater();
 		   ShopHandler.loadShop();
 		   
-		    
+			File f = new File(VallendiaMinigame.getInstance().getFileManager().getSpawnFile().getAbsolutePath());
+		   File[] files = f.listFiles();
+		   Bukkit.getConsoleSender().sendMessage( files.length + " FILESSSSSSSSSSSS");
 		   
 		   
 	   }
@@ -157,6 +165,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	        handler.register("reload", new ReloadCommand());
 	        handler.register("stats", new StatsCommand());
 	        handler.register("kit", new KitCommand());
+	        handler.register("spawn", new SpawnCommand());
 	        getCommand("vallendia").setExecutor(handler);
 	    }
 	   

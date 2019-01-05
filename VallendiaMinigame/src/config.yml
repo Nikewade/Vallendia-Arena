@@ -164,6 +164,7 @@ kits:
       chestplate: air
       leggings: air
       boots: air
+Spawning:
 guiNextButton: ARROW
 guiBackButton: BARRIER
 langChatPrefix: '&6[ItemShop]'

@@ -17,9 +17,11 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.InventoryHolder;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Spawning.SpawningHandler;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 
@@ -35,6 +37,19 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 	Main.getServer().getPluginManager().registerEvents(this, Main);
 }
 	
+	/*@EventHandler
+	public void onMove(PlayerMoveEvent e)
+	{
+		Block b = e.getTo().getBlock();
+		Material a = b.getType();
+		Material abovea = b.getLocation().add(0, 1, 0).getBlock().getType();
+		if(a == Material.END_GATEWAY || abovea == Material.END_GATEWAY)
+		{
+			e.getPlayer().sendMessage("YES");
+		}
+	}
+	*/
+
 	@EventHandler
 	public void onBreak(BlockBreakEvent e)
 	{

@@ -21,6 +21,7 @@ public class AdminCommand implements CommandInterface{
 		sender.sendMessage("");
 		sender.sendMessage(Utils.Colorate("&3/vallendia points &8- Commands for points."));
 		sender.sendMessage(Utils.Colorate("&3/vallendia kit  &8- Commands for kits."));
+		sender.sendMessage(Utils.Colorate("&3/vallendia spawn  &8- Commands for spawning."));
 		sender.sendMessage(Utils.Colorate("&3/vallendia stats &9(name)  &8- Commands for kits."));
 		sender.sendMessage(Utils.Colorate("&3/shop help  &8- Commands for the  shop."));
 		sender.sendMessage(Utils.Colorate("&3/vallendia reload  &8- Reloads the plugin."));

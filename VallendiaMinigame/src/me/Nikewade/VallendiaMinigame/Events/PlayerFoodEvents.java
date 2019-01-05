@@ -17,6 +17,10 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.SirBlobman.combatlogx.CombatLogX;
+import com.SirBlobman.combatlogx.event.PlayerTagEvent;
+import com.SirBlobman.combatlogx.utility.CombatUtil;
+
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
@@ -24,7 +28,6 @@ public class PlayerFoodEvents implements Listener {
 	VallendiaMinigame Main;
 	int task;
 	ArrayList<Player> healing = new ArrayList<>();
-	ArrayList<Player> inCombat = new ArrayList<>();
 	
 	
 	
@@ -68,13 +71,13 @@ public class PlayerFoodEvents implements Listener {
 			if(p.getHealth() == p.getMaxHealth())
 			{
 				e.setCancelled(true);
-				p.sendMessage(Utils.Colorate("&cYou are already at full health!"));
+				p.sendMessage(Utils.Colorate("&3You are already at full health!"));
 				return;
 			}
 			
-			if(!inCombat.contains(p))
+			if(!CombatUtil.isInCombat(p))
 			{
-            	p.sendMessage(Utils.Colorate("&cYou are regenerating health."));
+            	p.sendMessage(Utils.Colorate("&3You are regenerating health."));
 	            healing.add(p);	
 	            double startHealth = p.getHealth();
 				new BukkitRunnable() {
@@ -108,7 +111,7 @@ public class PlayerFoodEvents implements Listener {
 				                    {
 				                    	healing.remove(p);
 				                    	p.setHealth(p.getMaxHealth());
-				                    	p.sendMessage(Utils.Colorate("&cYou have stopped regenerating health."));
+				                    	p.sendMessage(Utils.Colorate("&3You have stopped regenerating health."));
 				                    	cancel();
 				                    	return;
 				                    }
@@ -116,7 +119,7 @@ public class PlayerFoodEvents implements Listener {
 						    	 	if(p.getHealth() >= startHealth + (p.getMaxHealth() * healPercent) / 100)
 						    	 	{
 				                    	healing.remove(p);
-				                    	p.sendMessage(Utils.Colorate("&cYou have stopped regenerating health."));
+				                    	p.sendMessage(Utils.Colorate("&3You have stopped regenerating health."));
 						    	 		cancel();
 						    	 		return;
 						    	 	}
@@ -131,7 +134,7 @@ public class PlayerFoodEvents implements Listener {
 			}else
 			{
 				e.setCancelled(true);
-				p.sendMessage(Utils.Colorate("&cYou can't regenerate in combat!"));
+				p.sendMessage(Utils.Colorate("&3You can't regenerate in combat!"));
 				return;
 			}
 			
@@ -178,101 +181,17 @@ public class PlayerFoodEvents implements Listener {
 	}
 	
 	
-	@EventHandler 
-	public void onPlayerDamage(EntityDamageByEntityEvent e)
+	@EventHandler
+	public void onCombat(PlayerTagEvent e)
 	{
-		//combattag
-		if(e.getEntity() instanceof Player && e.getDamager() instanceof Player)
+		Player p = e.getPlayer();
+		if(healing.contains(p))
 		{
-			Player p = (Player) e.getDamager();
-			Player target = (Player) e.getEntity();	
-			
-			if(healing.contains(p))
-			{
-            	healing.remove(p);
-            	p.sendMessage(Utils.Colorate("&cYou have stopped regenerating health."));
-			}
-			
-			if(!inCombat.contains(p))
-			{
-				inCombat.add(p);
-				p.sendMessage(Utils.Colorate("&4&l*In combat*"));	
-				new BukkitRunnable() {
-					@Override
-					public void run() {	
-			    	 
-						inCombat.remove(p);
-						p.sendMessage(Utils.Colorate("&4&l*Out of combat*"));
-					}
-				}.runTaskLater(Main, 15 * 20);
-			}
-			
-			
-			if(!inCombat.contains(target))
-			{
-				inCombat.add(target);
-				target.sendMessage(Utils.Colorate("&4&l*In combat*"));	
-				new BukkitRunnable() {
-					@Override
-					public void run() {	
-			    	 
-						inCombat.remove(target);
-						target.sendMessage(Utils.Colorate("&4&l*Out of combat*"));
-					}
-				}.runTaskLater(Main, 15 * 20);
-			}
-		}else
-			if(e.getEntity() instanceof Player && e.getDamager() instanceof Projectile)
-			{
-				Projectile proj = (Projectile) e.getDamager();
-				
-				if(proj.getShooter() instanceof Player)
-				{
-					Player p = (Player) proj.getShooter();
-					Player target = (Player) e.getEntity();
-					
-					if(healing.contains(p))
-					{
-		            	healing.remove(p);
-		            	p.sendMessage(Utils.Colorate("&cYou have stopped regenerating health."));
-					}
-					
-					if(!inCombat.contains(p))
-					{
-						inCombat.add(p);
-						p.sendMessage(Utils.Colorate("&4&l*In combat*"));	
-						new BukkitRunnable() {
-							@Override
-							public void run() {	
-					    	 
-								inCombat.remove(p);
-								p.sendMessage(Utils.Colorate("&4&l*Out of combat*"));
-							}
-						}.runTaskLater(Main, 15 * 20);
-					}
-					
-					
-					if(!inCombat.contains(target))
-					{
-						inCombat.add(target);
-						target.sendMessage(Utils.Colorate("&4&l*In combat*"));	
-						new BukkitRunnable() {
-							@Override
-							public void run() {	
-					    	 
-								inCombat.remove(target);
-								target.sendMessage(Utils.Colorate("&4&l*Out of combat*"));
-							}
-						}.runTaskLater(Main, 15 * 20);
-					}
-					
-				}
-				
-			}
-		
-		
-		
-		
+        	healing.remove(p);
+        	p.sendMessage(Utils.Colorate("&cYou have stopped regenerating health."));
+		}
 	}
+	
+
 	
 }

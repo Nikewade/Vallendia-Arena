@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/spigot.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/EffectLib-6.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/ProtocolLib.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/CombatLogX.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -6,5 +6,6 @@ commands:
   shop:
 depend:
   - EffectLib
+  - CombatLogX
     
 

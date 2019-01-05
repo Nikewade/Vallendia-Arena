@@ -85,6 +85,7 @@ public class SpawningHandler {
 				double pitch = config.getDouble("location.Pitch");
 				Location l = new Location(w, x, y, z, (float)yaw , (float)pitch);
 				p.teleport(l);	
+				p.setFallDistance(0);
 				p.getWorld().playSound(p.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 1, (float)0.1);
 	 	 		p.getWorld().spawnParticle(Particle.SMOKE_LARGE, p.getLocation().add(0, 1.8, 0), 20);
 	 	 		p.getWorld().spawnParticle(Particle.SMOKE_NORMAL, p.getLocation().add(0, 1.8, 0), 20);
@@ -115,26 +116,48 @@ public class SpawningHandler {
 					double yaw = config.getDouble("location.Yaw");
 					double pitch = config.getDouble("location.Pitch");
 					Location l = new Location(w, x, y, z, (float)yaw , (float)pitch);
-					for(Entity e : l.getWorld().getNearbyEntities(l, 10, 10, 10))
+					int cap = 1;
+					while(this.playerNearby(l, p))
 					{
-						if(e instanceof Player)
+						if(cap >= 20)
 						{
-							if(e != p)
-							{
-								p.sendMessage("PLAYER IS NEARBY!!!");
-								return;	
-							}
+							p.sendMessage("HAD TO SEND YOU HERE SORRYYY");
+							   this.teleportPlayer(p, config.getString("location.Name"));
+						       p.sendTitle(Utils.Colorate("&3&lGood luck!"), null, 20, 40, 40);
+						       break;
 						}
-					}
+						cap++;
+						p.sendMessage("player nearby " + config.getString("location.Name"));
+						   randomFile = random.nextInt(files.length);
+						   this.config = YamlConfiguration.loadConfiguration(files[randomFile]);
+						   
+							w = Bukkit.getServer().getWorld(config.getString("location.World"));
+							x = config.getDouble("location.X");
+							y = config.getDouble("location.Y");
+							z = config.getDouble("location.Z");
+							yaw = config.getDouble("location.Yaw");
+							pitch = config.getDouble("location.Pitch");
+							l = new Location(w, x, y, z, (float)yaw , (float)pitch);
+					} 
 				   
-				   this.teleportPlayer(p, config.getString("location.Name"));
-			       p.sendTitle(Utils.Colorate("&3&lGood luck!"), null, 20, 40, 40);
 			   }else p.sendMessage(Utils.Colorate("&8No spawns exist!"));
 	 }
 	 
 	 //while this is true cancel stuff
-	 public boolean playerNearby(Location l)
+	 public boolean playerNearby(Location l, Player p)
 	 {
+			for(Entity e : l.getWorld().getNearbyEntities(l, 10, 10, 10))
+			{
+				if(e instanceof Player)
+				{
+					if(e != p)
+					{
+						return true;	
+					}
+				}
+			}
+			   this.teleportPlayer(p, config.getString("location.Name"));
+		       p.sendTitle(Utils.Colorate("&3&lGood luck!"), null, 20, 40, 40);
 		return false;
 	 }
 

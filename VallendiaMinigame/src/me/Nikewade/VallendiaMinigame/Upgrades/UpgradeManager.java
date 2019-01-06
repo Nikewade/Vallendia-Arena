@@ -89,7 +89,40 @@ public class UpgradeManager {
 	
 	public void resetUpgrades(Player p)
 	{
-		p.resetMaxHealth();
+		p.setHealth(20);
+		p.setMaxHealth(20);
+		p.setWalkSpeed((float) 0.2);
+		armor.resetArmor(p);
+		weapon.resetWeapon(p);
+		tool.resetTool(p);
+		regeneration.resetRegen(p);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.health", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.speed", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.regeneration", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.armor", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.ArmorEnchants.prot", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.ArmorEnchants.projprot", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.ArmorEnchants.fireprot", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.ArmorEnchants.blastprot", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.ArmorEnchants.thorns", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.ArmorEnchants.featherfall", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.weapon", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.sharpness", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.fireaspect", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.knockback", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.smite", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.power", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.punch", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.flame", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.infinity", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.tools", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.ToolEnchants.fortune", 0);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "Upgrades.ToolEnchants.efficiency", 0);
+	}
+	
+	public void resetUpgradesOnDeath(Player p)
+	{
+		p.setMaxHealth(20);
 		p.setWalkSpeed((float) 0.2);
 		armor.resetArmor(p);
 		weapon.resetWeapon(p);

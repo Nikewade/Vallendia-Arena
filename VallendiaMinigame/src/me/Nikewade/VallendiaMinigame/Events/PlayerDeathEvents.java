@@ -27,7 +27,7 @@ public class PlayerDeathEvents implements Listener {
 		int pointsCarried = Main.shopmanager.getPoints(p);
 		int pointsSpent = Main.shopmanager.getPointsSpent(p);
 		int level = Main.levelmanager.getLevel(p);
-		Main.upgrademanager.resetUpgrades(p);
+		Main.upgrademanager.resetUpgradesOnDeath(p);
 		Main.abilitymanager.resetAbilities(p);
 		e.getDrops().clear();
 		p.setLevel(0);

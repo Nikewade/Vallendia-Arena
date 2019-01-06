@@ -47,7 +47,7 @@ public class BashAbility implements Ability {
  	 		AbilityUtils.addPotionDuration(target, PotionEffectType.SLOW, 4, 2*20);
  	 		AbilityUtils.addPotionDuration(target, PotionEffectType.BLINDNESS, 4, 3*20);
  	 		AbilityUtils.addPotionDuration(target, PotionEffectType.CONFUSION, 4, 8*20);
- 	 		p.sendMessage(Utils.Colorate("&4&l[Bash] &cYou bash your target over the head."));
+ 	 		p.sendMessage(Utils.Colorate("&8&l[Bash] &8You bash your target over the head."));
  	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 1, 1);
  	 		target.getWorld().spawnParticle(Particle.CRIT, target.getLocation().add(0, 1.8, 0), 20);
  	 		target.damage(damage); 

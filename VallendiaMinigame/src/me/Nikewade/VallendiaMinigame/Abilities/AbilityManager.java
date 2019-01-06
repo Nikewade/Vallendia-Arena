@@ -37,6 +37,7 @@ public class AbilityManager {
 		abilities.add(new SneakAbility());
 		abilities.add(new BackstabAbility());
 		abilities.add(new GrapplingHookAbility());
+		abilities.add(new BlinkAbility());
 		
 		
 		

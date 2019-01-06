@@ -1,6 +1,7 @@
 Options:
   Auto-Close-Upgrade-Menu: true
   altitude: 160
+  spawn-range: 20
   food:
     food-heal: 1
     steak: 80

@@ -26,20 +26,6 @@ public class SpawningHandler {
 	 public SpawningHandler(VallendiaMinigame Main)
 	  {
 	    this.Main = Main;
-		File f = new File(VallendiaMinigame.getInstance().getFileManager().getSpawnFile().getAbsolutePath());
-		   File[] files = f.listFiles();
-		   if(files.length != 0)
-		   {
-			   int randomFile = random.nextInt(files.length);
-			   this.config = YamlConfiguration.loadConfiguration(files[randomFile]);
-			   Bukkit.getConsoleSender().sendMessage( "RANDOM FILE: " + config.getString("location.Name"));
-			   Bukkit.getConsoleSender().sendMessage( files.length + " FILESSSSSSSSSSSS");
-			   for(File file : files)
-			   {
-				this.config = YamlConfiguration.loadConfiguration(file);
-				   Bukkit.getConsoleSender().sendMessage( config.getString("location.Name"));
-			   }   
-		   }
 	  }
 	 
 	 public void createFile(String name, Location loc)
@@ -121,13 +107,11 @@ public class SpawningHandler {
 					{
 						if(cap >= 20)
 						{
-							p.sendMessage("HAD TO SEND YOU HERE SORRYYY");
 							   this.teleportPlayer(p, config.getString("location.Name"));
 						       p.sendTitle(Utils.Colorate("&3&lGood luck!"), null, 20, 40, 40);
 						       break;
 						}
 						cap++;
-						p.sendMessage("player nearby " + config.getString("location.Name"));
 						   randomFile = random.nextInt(files.length);
 						   this.config = YamlConfiguration.loadConfiguration(files[randomFile]);
 						   
@@ -146,7 +130,8 @@ public class SpawningHandler {
 	 //while this is true cancel stuff
 	 public boolean playerNearby(Location l, Player p)
 	 {
-			for(Entity e : l.getWorld().getNearbyEntities(l, 10, 10, 10))
+		int spawnRange = Main.getConfig().getInt("Options.spawn-range");
+			for(Entity e : l.getWorld().getNearbyEntities(l, spawnRange, spawnRange, spawnRange))
 			{
 				if(e instanceof Player)
 				{

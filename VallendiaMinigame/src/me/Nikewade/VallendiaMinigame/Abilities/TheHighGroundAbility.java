@@ -6,6 +6,7 @@ import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -31,7 +32,7 @@ public class TheHighGroundAbility implements Ability, Listener{
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return "When higher than your enemy, deal more and take less damage";
+		return "When higher than your enemy, deal more and take less damage.";
 	}
 
 	@Override
@@ -62,28 +63,41 @@ public class TheHighGroundAbility implements Ability, Listener{
             		double lowerDamage = damage * lowerPercent;
             		double higherDamage = damage * higherPercent;
 
-            		if(e.getDamager() instanceof Player && e.getEntity() instanceof LivingEntity)
+            		if(e.getEntity() instanceof LivingEntity || e.getDamager() instanceof Projectile)
             		{
-            			Player damager = (Player) e.getDamager();
+            			LivingEntity damager;
             			LivingEntity target = (LivingEntity) e.getEntity();
             			
                 		//person attacking has the ability
-                		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(damager, "The High Ground"))
-                		{
-                			if(damager.getLocation().getY() > target.getLocation().getY() && damager.isOnGround())
+            			if(e.getDamager() instanceof Player || e.getDamager() instanceof Projectile)
+            			{
+                			if(e.getDamager() instanceof Projectile)
                 			{
-                				e.setDamage(higherDamage);
-                	 	 		target.getWorld().playSound(target.getLocation(), Sound.ENTITY_PLAYER_ATTACK_CRIT, 1, 1);
-                	 	 		target.getWorld().spawnParticle(Particle.CRIT, target.getLocation().add(0, 1.8, 0), 20);
-                			}
-                		}
+                				Projectile p = (Projectile) e.getDamager();
+                				damager = (Player) p.getShooter();
+                			}else damager = (Player) e.getDamager();	
+                    		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player)damager, "The High Ground"))
+                    		{
+                    			if(damager.getLocation().getY() > target.getLocation().getY() && damager.isOnGround())
+                    			{
+                    				e.setDamage(higherDamage);
+                    	 	 		target.getWorld().playSound(target.getLocation(), Sound.ENTITY_PLAYER_ATTACK_CRIT, 1, 1);
+                    	 	 		target.getWorld().spawnParticle(Particle.CRIT, target.getLocation().add(0, 1.8, 0), 20);
+                    			}
+                    		}	
+            			}
                 		
                 		
             			//person getting damaged has the ability
                 		if(target instanceof Player)
                 		{
-                			Player targetP = (Player) target;
-                    		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(targetP, "The High Ground"))
+                			LivingEntity targetP = target;
+                			if(e.getDamager() instanceof Projectile)
+                			{
+                				Projectile p = (Projectile) e.getDamager();
+                				damager = (Player) p.getShooter();
+                			}else damager = (LivingEntity) e.getDamager();	
+                    		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) targetP, "The High Ground"))
                     		{
                     			if(targetP.getLocation().getY() > damager.getLocation().getY() && targetP.isOnGround())
                     			{

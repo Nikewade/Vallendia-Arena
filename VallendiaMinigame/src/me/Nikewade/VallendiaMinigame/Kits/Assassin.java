@@ -10,7 +10,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class Assassin implements Kit {
-	private ArrayList<Ability> abilities = new ArrayList<Ability>();
+	public static ArrayList<Ability> abilities = new ArrayList<Ability>();
 	VallendiaMinigame Main;
 
 	public Assassin(VallendiaMinigame Main)
@@ -22,6 +22,7 @@ public class Assassin implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Sneak"));
 		abilities.add(Main.abilitymanager.getAbility("Backstab"));
 		abilities.add(Main.abilitymanager.getAbility("Grappling Hook"));
+		abilities.add(Main.abilitymanager.getAbility("Shadowstep"));
 	}
 	
 	@Override
@@ -37,7 +38,7 @@ public class Assassin implements Kit {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return Utils.Colorate("&7The master of stealth and diception.");
+		return Utils.Colorate("&7The master of stealth and deception.");
 	}
 
 	@Override

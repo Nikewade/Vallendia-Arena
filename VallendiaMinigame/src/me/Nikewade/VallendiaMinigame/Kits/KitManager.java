@@ -53,6 +53,16 @@ public class KitManager {
         allKits.add(assassin);
         allKits.add(mage);
         
+        
+		int archerAbilities = Archer.abilities.size();
+		int assassinAbilities = Assassin.abilities.size();
+		int mageAbilities = Mage.abilities.size();
+		int warriorAbilities = Warrior.abilities.size();
+		Utils.log("&3Warrior: " + warriorAbilities);
+		Utils.log("&3Archer: " + archerAbilities);
+		Utils.log("&3Assassin: " + assassinAbilities);
+		Utils.log("&3Mage: " + mageAbilities);
+        
     }
 
     public void createKit(Player p, String kitName) {

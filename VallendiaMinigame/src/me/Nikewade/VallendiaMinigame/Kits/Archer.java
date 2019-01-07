@@ -10,7 +10,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class Archer implements Kit {
-	private ArrayList<Ability> abilities = new ArrayList<Ability>();
+	public static ArrayList<Ability> abilities = new ArrayList<Ability>();
 
 	VallendiaMinigame Main;
 
@@ -36,7 +36,7 @@ public class Archer implements Kit {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return Utils.Colorate("&aA master bowman.");
+		return Utils.Colorate("&aA master marksman.");
 	}
 
 	@Override

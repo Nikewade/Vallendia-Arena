@@ -38,6 +38,12 @@ public class AbilityManager {
 		abilities.add(new BackstabAbility());
 		abilities.add(new GrapplingHookAbility());
 		abilities.add(new BlinkAbility());
+		abilities.add(new ShadowstepAbility());
+		abilities.add(new TheHighGroundAbility());
+		
+		int totalAbilities = abilities.size();
+		Utils.log("&3[Abilities]");
+		Utils.log("&3Total: " + totalAbilities);
 		
 		
 		

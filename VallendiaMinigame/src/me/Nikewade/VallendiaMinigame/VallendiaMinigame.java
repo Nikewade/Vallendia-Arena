@@ -17,6 +17,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.DeflectArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.GrapplingHookAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LeapAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.TheHighGroundAbility;
 import me.Nikewade.VallendiaMinigame.Commands.AdminCommand;
 import me.Nikewade.VallendiaMinigame.Commands.CommandHandler;
 import me.Nikewade.VallendiaMinigame.Commands.KitCommand;
@@ -110,6 +111,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(SneakAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(BackstabAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(GrapplingHookAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(TheHighGroundAbility.getListener(), this);
 		   
 		   //Commands
 		   this.registerCommands();

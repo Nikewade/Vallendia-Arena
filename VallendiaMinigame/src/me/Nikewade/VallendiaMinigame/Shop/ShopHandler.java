@@ -73,7 +73,6 @@ public class ShopHandler {
 		}
 		long end = System.nanoTime();
 		long time = end - start;
-		ShopUtils.log("&2&lReloaded shop in " + time + " nanoseconds.");
 	}
 	
 	public static final void saveShop() {

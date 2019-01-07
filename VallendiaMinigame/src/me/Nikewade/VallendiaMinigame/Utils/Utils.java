@@ -13,6 +13,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,6 +21,7 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 
@@ -70,6 +72,10 @@ public class Utils {
 	  }
 	  
 	  
+		public static final void log(Object msg) {
+			Bukkit.getServer().getConsoleSender().sendMessage(Utils.Colorate("" + msg));
+		}
+	  
 	  public static void sendCentredMessage(Player p, String message) {
 		    if(message == null || message.equals("")) {
 		        p.sendMessage("");
@@ -115,7 +121,10 @@ public class Utils {
 		    return placeholder;
 		}
 	 
-	  
+	  public static Location getBlockBehindPlayer(LivingEntity target) {
+	        Vector inverseDirectionVec = target.getLocation().getDirection().normalize().multiply(-1);
+	        return target.getLocation().add(inverseDirectionVec);
+	    }
 	  
 	  public static void removeEnchantments(ItemStack item)
 	  {

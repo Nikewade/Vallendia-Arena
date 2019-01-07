@@ -10,7 +10,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class Mage implements Kit {
-	private ArrayList<Ability> abilities = new ArrayList<Ability>();
+	public static ArrayList<Ability> abilities = new ArrayList<Ability>();
 	VallendiaMinigame Main;
 	
 	public Mage(VallendiaMinigame Main)
@@ -33,7 +33,7 @@ public class Mage implements Kit {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return Utils.Colorate("&bWielder of magic.");
+		return Utils.Colorate("&bA weaver of powerful magicical spells.");
 	}
 
 	@Override

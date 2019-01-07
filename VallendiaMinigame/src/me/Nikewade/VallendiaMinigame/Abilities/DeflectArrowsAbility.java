@@ -65,7 +65,6 @@ public class DeflectArrowsAbility implements Ability, Listener{
                     e.setCancelled(true);
                     a.remove();
                     p.getInventory().addItem(new ItemStack(Material.ARROW, 1));
-                    p.sendMessage("" + randomNumber);
                 }
             }
         };

@@ -72,8 +72,8 @@ public class BackstabAbility implements Ability , Listener {
             	            return;
             	          }
             			e.setDamage(damage + addedDamage);
-            			p.playSound(p.getLocation(), Sound.ENTITY_BLAZE_HURT, 1, (float) 1.5);
-            			p.playEffect(e.getEntity().getLocation().add(0,1,0), Effect.STEP_SOUND, Material.REDSTONE_WIRE.getId());
+            			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_HURT, 1, (float) 1.5);
+            			p.getWorld().playEffect(e.getEntity().getLocation().add(0,1,0), Effect.STEP_SOUND, Material.REDSTONE_WIRE.getId());
             		}
             	}
 

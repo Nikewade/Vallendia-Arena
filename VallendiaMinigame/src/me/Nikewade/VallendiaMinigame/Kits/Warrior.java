@@ -10,7 +10,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class Warrior implements Kit {
-	private ArrayList<Ability> abilities = new ArrayList<Ability>();
+	public static ArrayList<Ability> abilities = new ArrayList<Ability>();
 	VallendiaMinigame Main;
 	
 	public Warrior(VallendiaMinigame Main)
@@ -19,6 +19,7 @@ public class Warrior implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Rage"));
 		abilities.add(Main.abilitymanager.getAbility("Leap"));
 		abilities.add(Main.abilitymanager.getAbility("Bash"));
+		abilities.add(Main.abilitymanager.getAbility("The High Ground"));
 	}
 	
 	@Override
@@ -34,7 +35,7 @@ public class Warrior implements Kit {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return Utils.Colorate("&cYour typical fighter.");
+		return Utils.Colorate("&cA master of combat.");
 	}
 
 	@Override

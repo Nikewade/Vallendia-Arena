@@ -52,7 +52,7 @@ public class MageArmorAbility implements Ability{
 		se.period = 10;
 		se.particleCount = 5;
 		se.particle = Particle.PORTAL;
-		se.visibleRange = 1;
+		se.visibleRange = 20;
 		se.start();	
 		
         

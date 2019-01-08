@@ -53,16 +53,17 @@ public class MageArmorAbility implements Ability{
 		se.particleCount = 5;
 		se.particle = Particle.PORTAL;
 		se.visibleRange = 20;
-		se.start();	
+		se.disappearWithOriginEntity = true;
 		
         
         
 		p.getWorld().playSound(p.getLocation(), Sound.BLOCK_PORTAL_AMBIENT, 1, (float) 1);
         
+		Utils.entityParticleTimer(p, se, 60);
+		
 		new BukkitRunnable() {
             @Override
             public void run() {
-            	se.cancel();
     			p.sendMessage(Utils.Colorate("&8&l Your magical shield dissipates."));
             }
         }.runTaskLaterAsynchronously(VallendiaMinigame.getInstance(), 60*20L);  

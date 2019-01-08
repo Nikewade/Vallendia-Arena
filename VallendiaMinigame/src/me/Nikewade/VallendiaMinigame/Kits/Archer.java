@@ -21,6 +21,11 @@ public class Archer implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Dash"));
 		abilities.add(Main.abilitymanager.getAbility("Sneak"));
 		abilities.add(Main.abilitymanager.getAbility("Grappling Hook"));
+		abilities.add(Main.abilitymanager.getAbility("Blinding Arrows"));
+		abilities.add(Main.abilitymanager.getAbility("Poison Arrows"));
+		abilities.add(Main.abilitymanager.getAbility("Sickening Arrows"));
+		abilities.add(Main.abilitymanager.getAbility("Weakening Arrows"));
+		abilities.add(Main.abilitymanager.getAbility("Slowing Arrows"));
 	}
 	
 	@Override

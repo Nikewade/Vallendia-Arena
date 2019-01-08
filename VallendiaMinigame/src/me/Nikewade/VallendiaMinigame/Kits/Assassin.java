@@ -23,6 +23,7 @@ public class Assassin implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Backstab"));
 		abilities.add(Main.abilitymanager.getAbility("Grappling Hook"));
 		abilities.add(Main.abilitymanager.getAbility("Shadowstep"));
+		abilities.add(Main.abilitymanager.getAbility("Poison Arrows"));
 	}
 	
 	@Override

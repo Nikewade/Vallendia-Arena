@@ -12,12 +12,17 @@ import de.slikey.effectlib.EffectManager;
 import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Abilities.BackFlipAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.BackstabAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.BlindingArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.DeflectArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.GrapplingHookAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LeapAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.PoisonArrowsAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.SickeningArrowsAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.SlowingArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.TheHighGroundAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.WeakeningArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Commands.AdminCommand;
 import me.Nikewade.VallendiaMinigame.Commands.CommandHandler;
 import me.Nikewade.VallendiaMinigame.Commands.KitCommand;
@@ -112,6 +117,11 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(BackstabAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(GrapplingHookAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(TheHighGroundAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(BlindingArrowsAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(PoisonArrowsAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(SickeningArrowsAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(WeakeningArrowsAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(SlowingArrowsAbility.getListener(), this);
 		   
 		   //Commands
 		   this.registerCommands();

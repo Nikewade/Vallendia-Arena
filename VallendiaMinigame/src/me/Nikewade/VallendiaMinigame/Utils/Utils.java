@@ -3,6 +3,8 @@ package me.Nikewade.VallendiaMinigame.Utils;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
@@ -13,8 +15,10 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -23,11 +27,15 @@ import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import de.slikey.effectlib.Effect;
+import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 
 public class Utils {
 	public static HashMap<Location, BlockState> blocks = new HashMap<>();
     private static List<String> changes = new LinkedList<String>();
+    private static Map<Entity,Effect> particle = new HashMap<>();
+	private static Random random = new Random();
 	
 
 	  public static void sendVallendiaMessage(Player p, String one, String two , String three , String four , String five)
@@ -146,6 +154,14 @@ public class Utils {
 	        return potion;
 	    }
 	  
+	  public static ItemStack getTippedArrowItemStack(PotionType type, int level, boolean extend, boolean upgraded, String displayName){
+	        ItemStack arrow = new ItemStack(Material.TIPPED_ARROW, 1);
+	        PotionMeta meta = (PotionMeta) arrow.getItemMeta();
+	        meta.setBasePotionData(new PotionData(type, extend, upgraded));
+	        arrow.setItemMeta(meta);
+	        return arrow;
+	    }
+	  
 	  
 	  public static void regenBlock(Block b, int seconds)
 	  {
@@ -195,6 +211,32 @@ public class Utils {
 	      
 	        System.out.println(blocks+" blocks regenerated!");
 	    }
+	   
+	   
+	   
+	   public static int randomNumber(int lowest, int max)
+	   {
+		int randomAmount = random.nextInt(max) + lowest;
+		return randomAmount;
+	   }
+	   
+	   public static void entityParticleTimer(Entity entity, Effect effect, int seconds)
+	   {
+		   	effect.start();
+   			particle.put(entity, effect);
+   			
+   			new BukkitRunnable() {
+   	            @Override
+   	            public void run() {
+   	            	if(particle.containsKey(entity))
+   	            	{
+   	            		particle.get(entity).cancel();
+   	            		particle.remove(entity);
+   	            	}
+   	            }
+   	        }.runTaskLaterAsynchronously(VallendiaMinigame.getInstance(), seconds*20L); 
+		   
+	   }
 	   
 	   
 

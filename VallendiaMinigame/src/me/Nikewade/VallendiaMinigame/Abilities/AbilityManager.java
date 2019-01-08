@@ -40,6 +40,11 @@ public class AbilityManager {
 		abilities.add(new BlinkAbility());
 		abilities.add(new ShadowstepAbility());
 		abilities.add(new TheHighGroundAbility());
+		abilities.add(new BlindingArrowsAbility());
+		abilities.add(new PoisonArrowsAbility());
+		abilities.add(new SickeningArrowsAbility());
+		abilities.add(new WeakeningArrowsAbility());
+		abilities.add(new SlowingArrowsAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");

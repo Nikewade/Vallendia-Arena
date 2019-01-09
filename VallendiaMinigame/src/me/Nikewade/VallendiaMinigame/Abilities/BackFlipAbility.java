@@ -1,6 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Material;
@@ -33,11 +35,11 @@ public class BackFlipAbility implements Ability , Listener{
 		// TODO Auto-generated method stub
 		return AbilityType.UTILITY;
 	}
-
+	
 	@Override
-	public String getDescription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return "Backflip into the air.";
+		return Arrays.asList("Backflip into the air.");
 	}
 
 	@Override

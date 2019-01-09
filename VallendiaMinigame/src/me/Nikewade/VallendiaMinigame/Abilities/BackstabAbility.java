@@ -1,5 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Effect;
@@ -9,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
@@ -30,9 +34,9 @@ public class BackstabAbility implements Ability , Listener {
 	}
 
 	@Override
-	public String getDescription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return "Backstab your target for 2-4 extra damage.";
+		return Arrays.asList("Backstab your target for 2-4 extra damage.","d","d");
 	}
 
 	@Override
@@ -78,7 +82,11 @@ public class BackstabAbility implements Ability , Listener {
             	}
 
             
-            
+            @EventHandler
+            public void onMove(PlayerVelocityEvent e)
+            {
+            	e.setCancelled(true);
+            }
             
             
             

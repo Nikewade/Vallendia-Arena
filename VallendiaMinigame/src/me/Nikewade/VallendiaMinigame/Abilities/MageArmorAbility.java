@@ -1,5 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -29,10 +32,11 @@ public class MageArmorAbility implements Ability{
 		return AbilityType.DEFENSIVE;
 	}
 
+	
 	@Override
-	public String getDescription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return "Forms magical armor around you.";
+		return Arrays.asList("Forms magical armor around you.");
 	}
 
 	@Override

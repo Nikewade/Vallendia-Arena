@@ -143,7 +143,9 @@ public class AbilityManager {
 			{
 				lore.add(Utils.Colorate("&8&lCooldown: &7" + this.getCooldown(abilityname, p) + " seconds"));	
 			}
-			lore.add(Utils.Colorate("&7") + ability.getDescription());
+			for (String s : ability.getDescription()) {
+				lore.add(ChatColor.GRAY + s);
+			}
 			abilityim.setLore(lore);
 			abilityItem.setItemMeta(abilityim);
 			

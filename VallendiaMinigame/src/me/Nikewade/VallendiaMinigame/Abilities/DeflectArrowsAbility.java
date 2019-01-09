@@ -1,5 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
  
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Material;
@@ -29,11 +31,11 @@ public class DeflectArrowsAbility implements Ability, Listener{
         return AbilityType.PASSIVE;
     }
  
-    @Override
-    public String getDescription() {
-        // TODO Auto-generated method stub
-        return "25% chance to deflect arrows, taking no damage.";
-    }
+	@Override
+	public List<String> getDescription() {
+		// TODO Auto-generated method stub
+		return Arrays.asList("25% chance to deflect arrows, taking no damage.");
+	}
  
     @Override
     public ItemStack getGuiItem() {

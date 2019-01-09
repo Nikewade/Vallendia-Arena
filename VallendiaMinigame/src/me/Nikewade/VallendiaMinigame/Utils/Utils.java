@@ -1,5 +1,6 @@
 package me.Nikewade.VallendiaMinigame.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -77,6 +78,18 @@ public class Utils {
 	  public static String Colorate(String msg) // Allows the use of & color codes.
 	  {
 	    return ChatColor.translateAlternateColorCodes('&', msg);
+	  }
+	  
+	  
+	  public static ArrayList<String> ColorateList(ArrayList<String> list, ChatColor color) 
+	  {
+		  ArrayList<String> newList = new ArrayList<>();
+		  for(String line : list)
+		  {
+			  line.replaceAll(line, Utils.Colorate("&7" + line));
+			  newList.add(line);
+		  }
+	    return newList;
 	  }
 	  
 	  

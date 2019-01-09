@@ -1,5 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -32,9 +35,9 @@ public class DashAbility implements Ability{
 	}
 
 	@Override
-	public String getDescription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return "Dash forward at a great speed.";
+		return Arrays.asList("Dash forward at a great speed.");
 	}
 
 	@Override

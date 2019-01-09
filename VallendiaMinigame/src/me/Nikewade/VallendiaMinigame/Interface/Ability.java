@@ -1,5 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Interface;
 
+import java.util.List;
+
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -11,7 +13,7 @@ public interface Ability {
 	
 	public AbilityType getAbilityType();
 	
-	public String getDescription();
+	public List<String> getDescription();
 	
 	public ItemStack getGuiItem();
 	

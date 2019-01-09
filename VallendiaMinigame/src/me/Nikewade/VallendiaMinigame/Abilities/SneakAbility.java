@@ -1,6 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -36,9 +38,9 @@ public class SneakAbility implements Ability , Listener {
 	}
 
 	@Override
-	public String getDescription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return "Allows you to sneak while running.";
+		return Arrays.asList("Allows you to sneak while running.");
 	}
 
 	@Override

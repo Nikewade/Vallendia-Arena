@@ -1,5 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -26,10 +29,11 @@ public class BashAbility implements Ability {
 		return AbilityType.OFFENSIVE;
 	}
 
+	
 	@Override
-	public String getDescription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return "Bash the target over the head briefly stunning them.";
+		return Arrays.asList("Bash the target over the head briefly stunning them.");
 	}
 
 	@Override

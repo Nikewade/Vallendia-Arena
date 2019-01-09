@@ -1,5 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -25,10 +28,11 @@ public class ShadowstepAbility implements Ability{
 		return AbilityType.UTILITY;
 	}
 
+
 	@Override
-	public String getDescription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return "Step through the shadows appearing behind your enemy.";
+		return Arrays.asList("Step through the shadows appearing behind your enemy.");
 	}
 
 	@Override

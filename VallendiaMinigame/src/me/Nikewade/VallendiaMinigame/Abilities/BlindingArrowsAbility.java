@@ -1,6 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Sound;
@@ -37,11 +39,11 @@ public class BlindingArrowsAbility implements Ability, Listener {
 		// TODO Auto-generated method stub
 		return AbilityType.PASSIVE;
 	}
-
+	
 	@Override
-	public String getDescription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return chance + "% chance to blind enemies for " + duration + " seconds.";
+		return Arrays.asList(chance + "% chance to blind enemies for " + duration + " seconds.");
 	}
 
 	@Override

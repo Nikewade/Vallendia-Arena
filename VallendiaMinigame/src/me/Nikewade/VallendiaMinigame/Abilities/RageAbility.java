@@ -1,6 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -34,10 +36,11 @@ private static ArrayList<Player> raging = new ArrayList<>();
 		return AbilityType.OFFENSIVE;
 	}
 
+	
 	@Override
-	public String getDescription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return "Go into a frenzied rage, increasing damage and speed.";
+		return Arrays.asList("Go into a frenzied rage, increasing damage and speed.");
 	}
 
 	@Override

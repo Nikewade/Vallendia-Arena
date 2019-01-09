@@ -1,6 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +20,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import me.Nikewade.VallendiaMinigame.Abilities.AbilityType;
+import me.Nikewade.VallendiaMinigame.Interface.Ability;
 
 public class AdvInventory {
 	private static HashMap<UUID, AdvInventory> inventories = new HashMap<UUID, AdvInventory>();
@@ -81,6 +85,30 @@ public class AdvInventory {
 			}
 			im.setLore(lore);
 		}
+		is.setItemMeta(im);
+		inv.setItem(slot, is);
+		runs.put(slot, executeOnClick);
+	}
+	
+	public void setItemAbility(ItemStack itemstack, String displayname, Integer slot, ClickRunnable executeOnClick, Ability ability) {
+		ItemStack is = itemstack;
+		ItemMeta im = is.getItemMeta();
+		im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES,
+				ItemFlag.HIDE_DESTROYS,
+				ItemFlag.HIDE_ENCHANTS,
+				ItemFlag.HIDE_PLACED_ON,
+				ItemFlag.HIDE_POTION_EFFECTS,
+				ItemFlag.HIDE_UNBREAKABLE);
+		if (displayname != null) {
+			im.setDisplayName(ChatColor.BLUE + displayname);
+		}
+		
+		ArrayList<String> lore = new ArrayList<String>();
+		for (String s : ability.getDescription()) {
+			lore.add(ChatColor.GRAY + s);
+		}
+		im.setLore(lore);
+		
 		is.setItemMeta(im);
 		inv.setItem(slot, is);
 		runs.put(slot, executeOnClick);

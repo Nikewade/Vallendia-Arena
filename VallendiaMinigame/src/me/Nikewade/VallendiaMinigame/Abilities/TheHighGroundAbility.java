@@ -1,4 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -30,9 +33,9 @@ public class TheHighGroundAbility implements Ability, Listener{
 	}
 
 	@Override
-	public String getDescription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return "When higher than your enemy, deal more and take less damage.";
+		return Arrays.asList("When higher than your enemy,", "deal 20% more damage and take " , "20% less damage.");
 	}
 
 	@Override

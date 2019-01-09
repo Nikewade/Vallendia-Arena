@@ -1,5 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -25,10 +28,11 @@ public class BlinkAbility implements Ability{
 		return AbilityType.UTILITY;
 	}
 
+	
 	@Override
-	public String getDescription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return "Teleport a short distance.";
+		return Arrays.asList("Teleport a short distance.");
 	}
 
 	@Override

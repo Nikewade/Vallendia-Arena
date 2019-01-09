@@ -1,6 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -37,10 +39,11 @@ public class GrapplingHookAbility implements Ability, Listener {
 		return AbilityType.UTILITY;
 	}
 
+	
 	@Override
-	public String getDescription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return null;
+		return Arrays.asList("");
 	}
 
 	@Override

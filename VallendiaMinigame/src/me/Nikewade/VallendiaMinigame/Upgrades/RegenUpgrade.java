@@ -1,5 +1,6 @@
 package me.Nikewade.VallendiaMinigame.Upgrades;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,12 +30,11 @@ public class RegenUpgrade implements Upgrade{
 	public void upgrade(Player p)
 	{
 		RegenUpgrade.addTimer(p);
-    	int time = (30 + 1- Main.upgrademanager.getUpgradeAmount(p, "regeneration"));
-    	if(time < 1)
-    	{
-    		time = 1;
-    	}
-		p.sendMessage(Utils.Colorate("&cRegeneration every " + time + Utils.Colorate(" &cseconds.")));
+    	double time = 0.00506 * Math.pow((0.25 * Main.upgrademanager.getUpgradeAmount(p, "regeneration") -8.985), 4) + 0.5;
+    	DecimalFormat format = new DecimalFormat("0.0");
+
+    	String output = format.format(time);
+		p.sendMessage(Utils.Colorate("&cRegeneration every " + output + Utils.Colorate(" &cseconds.")));
 	}
 	
 	public void resetRegen(Player p)

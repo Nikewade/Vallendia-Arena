@@ -505,46 +505,46 @@ public class AbilitiesGui {
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("warrior")))
 				  {
 					  warrioroffx ++;
-					  warriorOffensiveMenu.setItem(i, Utils.Colorate("&4&l" + ability.getName()), warrioroffx, new ClickRunnable() {
+					  warriorOffensiveMenu.setItemAbility(i, Utils.Colorate("&4&l" + ability.getName()), warrioroffx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("archer")))
 				  {
 					  archeroffx++;
-					  archerOffensiveMenu.setItem(i, Utils.Colorate("&4&l" + ability.getName()), archeroffx, new ClickRunnable() {
+					  archerOffensiveMenu.setItemAbility(i, Utils.Colorate("&4&l" + ability.getName()), archeroffx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("assassin")))
 				  {
 					  assassinoffx++;
-					  assassinOffensiveMenu.setItem(i, Utils.Colorate("&4&l" + ability.getName()), assassinoffx, new ClickRunnable() {
+					  assassinOffensiveMenu.setItemAbility(i, Utils.Colorate("&4&l" + ability.getName()), assassinoffx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("mage")))
 				  {
 					  mageoffx++;
-					  mageOffensiveMenu.setItem(i, Utils.Colorate("&4&l" + ability.getName()), mageoffx, new ClickRunnable() {
+					  mageOffensiveMenu.setItemAbility(i, Utils.Colorate("&4&l" + ability.getName()), mageoffx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 			  }
 
@@ -560,46 +560,46 @@ public class AbilitiesGui {
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("warrior")))
 				  {
 					  warriordefx ++;
-					  warriorDefensiveMenu.setItem(i, Utils.Colorate("&9&l" + ability.getName()), warriordefx, new ClickRunnable() {
+					  warriorDefensiveMenu.setItemAbility(i, Utils.Colorate("&9&l" + ability.getName()), warriordefx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("archer")))
 				  {
 					  archerdefx++;
-					  archerDefensiveMenu.setItem(i, Utils.Colorate("&9&l" + ability.getName()), archerdefx, new ClickRunnable() {
+					  archerDefensiveMenu.setItemAbility(i, Utils.Colorate("&9&l" + ability.getName()), archerdefx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("assassin")))
 				  {
 					  assassindefx++;
-					  assassinDefensiveMenu.setItem(i, Utils.Colorate("&9&l" + ability.getName()), assassindefx, new ClickRunnable() {
+					  assassinDefensiveMenu.setItemAbility(i, Utils.Colorate("&9&l" + ability.getName()), assassindefx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("mage")))
 				  {
 					  magedefx++;
-					  mageDefensiveMenu.setItem(i, Utils.Colorate("&9&l" + ability.getName()), magedefx, new ClickRunnable() {
+					  mageDefensiveMenu.setItemAbility(i, Utils.Colorate("&9&l" + ability.getName()), magedefx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 			  }
 			  
@@ -616,46 +616,46 @@ public class AbilitiesGui {
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("warrior")))
 				  {
 					  warriorutilx ++;
-					  warriorUtilityMenu.setItem(i, Utils.Colorate("&3&l" + ability.getName()), warriorutilx, new ClickRunnable() {
+					  warriorUtilityMenu.setItemAbility(i, Utils.Colorate("&3&l" + ability.getName()), warriorutilx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("archer")))
 				  {
 					  archerutilx++;
-					  archerUtilityMenu.setItem(i, Utils.Colorate("&3&l" + ability.getName()), archerutilx, new ClickRunnable() {
+					  archerUtilityMenu.setItemAbility(i, Utils.Colorate("&3&l" + ability.getName()), archerutilx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("assassin")))
 				  {
 					  assassinutilx++;
-					  assassinUtilityMenu.setItem(i, Utils.Colorate("&3&l" + ability.getName()), assassinutilx, new ClickRunnable() {
+					  assassinUtilityMenu.setItemAbility(i, Utils.Colorate("&3&l" + ability.getName()), assassinutilx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("mage")))
 				  {
 					  mageutilx++;
-					  mageUtilityMenu.setItem(i, Utils.Colorate("&3&l" + ability.getName()), mageutilx, new ClickRunnable() {
+					  mageUtilityMenu.setItemAbility(i, Utils.Colorate("&3&l" + ability.getName()), mageutilx, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 			  }
 			  
@@ -671,46 +671,46 @@ public class AbilitiesGui {
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("warrior")))
 				  {
 					  warriorpassivex ++;
-					  warriorPassiveMenu.setItem(i, Utils.Colorate("&7&l" + ability.getName()), warriorpassivex, new ClickRunnable() {
+					  warriorPassiveMenu.setItemAbility(i, Utils.Colorate("&7&l" + ability.getName()), warriorpassivex, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("archer")))
 				  {
 					  archerpassivex++;
-					  archerPassiveMenu.setItem(i, Utils.Colorate("&7&l" + ability.getName()), archerpassivex, new ClickRunnable() {
+					  archerPassiveMenu.setItemAbility(i, Utils.Colorate("&7&l" + ability.getName()), archerpassivex, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("assassin")))
 				  {
 					  assassinpassivex++;
-					  assassinPassiveMenu.setItem(i, Utils.Colorate("&7&l" + ability.getName()), assassinpassivex, new ClickRunnable() {
+					  assassinPassiveMenu.setItemAbility(i, Utils.Colorate("&7&l" + ability.getName()), assassinpassivex, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("mage")))
 				  {
 					  magepassivex++;
-					  magePassiveMenu.setItem(i, Utils.Colorate("&7&l" + ability.getName()), magepassivex, new ClickRunnable() {
+					  magePassiveMenu.setItemAbility(i, Utils.Colorate("&7&l" + ability.getName()), magepassivex, new ClickRunnable() {
 						    @Override
 						    public void run(InventoryClickEvent e) {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, Utils.Colorate("&8" + ability.getDescription()));  
+						}, ability);  
 				  }
 			  }
 		  }

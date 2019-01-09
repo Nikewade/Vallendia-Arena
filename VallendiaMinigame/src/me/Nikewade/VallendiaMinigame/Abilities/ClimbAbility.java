@@ -1,7 +1,9 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import org.bukkit.Location;
@@ -42,11 +44,11 @@ public class ClimbAbility implements Ability , Listener {
 		// TODO Auto-generated method stub
 		return AbilityType.UTILITY;
 	}
-
+	
 	@Override
-	public String getDescription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return "Allows you to climb up things and hang on ledges.";
+		return Arrays.asList("Allows you to climb up things and hang on ledges.");
 	}
 
 	@Override

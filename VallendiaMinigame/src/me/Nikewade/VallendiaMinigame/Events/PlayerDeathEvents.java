@@ -7,6 +7,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
 
 public class PlayerDeathEvents implements Listener {
 	VallendiaMinigame Main;
@@ -32,6 +33,7 @@ public class PlayerDeathEvents implements Listener {
 		e.getDrops().clear();
 		p.setLevel(0);
 		p.setExp(0);
+		RootAbility.removeLists(p);
 		Main.playerdatamanager.addData(p.getUniqueId(), "Deaths", 1);
 		if(p.getKiller() != null && p.getKiller() instanceof Player && p.getKiller() != p)
 		{

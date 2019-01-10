@@ -46,6 +46,7 @@ public class AbilityManager {
 		abilities.add(new WeakeningArrowsAbility());
 		abilities.add(new SlowingArrowsAbility());
 		abilities.add(new MagicArrowsAbility());
+		abilities.add(new RootAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");

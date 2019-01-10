@@ -5,8 +5,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
 import me.Nikewade.VallendiaMinigame.Upgrades.RegenUpgrade;
 
 public class PlayerJoinEvents implements Listener{
@@ -34,6 +36,14 @@ public class PlayerJoinEvents implements Listener{
         Main.playerdatamanager.createFile(p);
        // Main.sb.runScoreboard(p);
         Main.sb.setupPlayerScoreboard(p);
+	}
+	
+	
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onLeave(PlayerQuitEvent e)
+	{
+		RootAbility.removeLists(e.getPlayer());
 	}
 
 }

@@ -20,6 +20,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.GrapplingHookAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LeapAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MagicArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.PoisonArrowsAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SickeningArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SlowingArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
@@ -125,6 +126,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(WeakeningArrowsAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(SlowingArrowsAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(MagicArrowsAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(RootAbility.getListener(), this);
 		   
 		   //Commands
 		   this.registerCommands();

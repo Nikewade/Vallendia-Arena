@@ -17,7 +17,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class DashAbility implements Ability{
-	double forwardVelocity = 10 / 10D;
+	double forwardVelocity = 15 / 10D;
 	double upwardVelocity = 0 / 10D;
 	Location oldLocation;
 	Location newLocation;
@@ -50,8 +50,10 @@ public class DashAbility implements Ability{
 	public boolean RunAbility(Player p) {
 		oldLocation = p.getLocation();
 		newLocation = null;
+		p.setVelocity(p.getVelocity().multiply(0));
 		Vector v = p.getLocation().getDirection();
 		v.setY(0).normalize().multiply(forwardVelocity).setY(upwardVelocity);
+		p.teleport(oldLocation.add(0, 0.8, 0).setDirection(oldLocation.getDirection()));
 		p.setVelocity(v);
 		p.setFallDistance(0);
 		

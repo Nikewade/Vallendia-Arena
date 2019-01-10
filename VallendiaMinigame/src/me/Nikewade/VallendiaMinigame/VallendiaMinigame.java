@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import de.slikey.effectlib.EffectManager;
@@ -17,6 +18,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.DeflectArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.GrapplingHookAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LeapAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.MagicArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.PoisonArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SickeningArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SlowingArrowsAbility;
@@ -95,7 +97,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.effectmanager = new EffectManager(this);
 		   this.altchecker = new AltitudeChecker(this);
 		   this.spawnhandler = new SpawningHandler(this);
-		  
+		   
 		   
 		   //Listeners
 		   new PlayerJoinEvents(this);
@@ -122,6 +124,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(SickeningArrowsAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(WeakeningArrowsAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(SlowingArrowsAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(MagicArrowsAbility.getListener(), this);
 		   
 		   //Commands
 		   this.registerCommands();
@@ -151,6 +154,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	   {
 	      effectmanager.dispose();  
 	      Utils.restoreBlocks();
+		  MagicArrowsAbility.gravatizeArrows();
 	   }
 	   
 	   public FileManager getFileManager()

@@ -26,6 +26,7 @@ public class Archer implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Sickening Arrows"));
 		abilities.add(Main.abilitymanager.getAbility("Weakening Arrows"));
 		abilities.add(Main.abilitymanager.getAbility("Slowing Arrows"));
+		abilities.add(Main.abilitymanager.getAbility("Magic Arrows"));
 	}
 	
 	@Override

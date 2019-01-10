@@ -81,12 +81,7 @@ public class BackstabAbility implements Ability , Listener {
             		}
             	}
 
-            
-            @EventHandler
-            public void onMove(PlayerVelocityEvent e)
-            {
-            	e.setCancelled(true);
-            }
+           
             
             
             

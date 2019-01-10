@@ -43,7 +43,7 @@ public class GrapplingHookAbility implements Ability, Listener {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("");
+		return Arrays.asList("Shoot your bow to travel to a location.");
 	}
 
 	@Override

@@ -223,7 +223,6 @@ public class RootAbility implements Ability{
                 		{
                 			return;
                 		}
-                		p.sendMessage("d");
                 		e.setDamage(lowerDamage);
 
             		}

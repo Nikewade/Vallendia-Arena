@@ -60,11 +60,7 @@ public class RegenUpgrade implements Upgrade{
 			timers.remove(p);
 		}
 		
-    	int time = (30 + 1- Main.upgrademanager.getUpgradeAmount(p, "regeneration"));
-    	if(time < 1)
-    	{
-    		time = 1;
-    	}
+    	double time = 0.00506 * Math.pow((0.25 * Main.upgrademanager.getUpgradeAmount(p, "regeneration") -8.985), 4) + 0.5;
 		
 	    BukkitTask task = new BukkitRunnable() {
 
@@ -82,7 +78,7 @@ public class RegenUpgrade implements Upgrade{
                         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 
                 	}     
             }
-	    }.runTaskTimer(VallendiaMinigame.getInstance(), 20* 3, 20 * time);	
+	    }.runTaskTimer(VallendiaMinigame.getInstance(), 20* 3, (long) (20 * time));	// time needs to be double
 	
 	    timers.put(p, task);
 	}

@@ -84,7 +84,7 @@ public class TheHighGroundAbility implements Ability, Listener{
                     			if(damager.getLocation().getY() > target.getLocation().getY() && damager.isOnGround())
                     			{
                     				e.setDamage(higherDamage);
-                    	 	 		target.getWorld().playSound(target.getLocation(), Sound.ENTITY_PLAYER_ATTACK_CRIT, 1, 1);
+                    	 	 		target.getWorld().playSound(target.getLocation(), Sound.ENTITY_PLAYER_ATTACK_CRIT, 2, 1);
                     	 	 		target.getWorld().spawnParticle(Particle.CRIT, target.getLocation().add(0, 1.8, 0), 20);
                     			}
                     		}	
@@ -105,7 +105,7 @@ public class TheHighGroundAbility implements Ability, Listener{
                     			if(targetP.getLocation().getY() > damager.getLocation().getY() && targetP.isOnGround())
                     			{
                     				e.setDamage(lowerDamage);	
-                    	 	 		damager.getWorld().playSound(target.getLocation(), Sound.ITEM_SHIELD_BLOCK, 1, 1);
+                    	 	 		damager.getWorld().playSound(target.getLocation(), Sound.ITEM_SHIELD_BLOCK, 2, 1);
                     			}
                     		}
                 		}

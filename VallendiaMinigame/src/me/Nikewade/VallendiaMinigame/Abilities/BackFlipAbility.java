@@ -40,7 +40,7 @@ public class BackFlipAbility implements Ability , Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Backflip into the air.");
+		return Arrays.asList("Backflip into the air. Sneaking negates the sound.");
 	}
 
 	@Override
@@ -54,7 +54,10 @@ public class BackFlipAbility implements Ability , Listener{
 		Vector v = p.getLocation().getDirection().normalize();
 		v.multiply(this.forwardVelocity).setY(this.upwardVelocity);
 		p.setVelocity(v);
-		p.playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.3);
+		if(!p.isSneaking())
+		{
+			p.getLocation().getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 2, (float) 1.3);
+		}
 		p.setFallDistance(0);
 			backflipping.add(p.getUniqueId());		
 		

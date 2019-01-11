@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -17,9 +19,12 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import de.slikey.effectlib.effect.LineEffect;
+import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class GrapplingHookAbility implements Ability, Listener {
@@ -56,14 +61,14 @@ public class GrapplingHookAbility implements Ability, Listener {
 	public boolean RunAbility(Player p) {
 		// TODO Auto-generated method stub
 		grappling.add(p);
-		p.sendMessage(Utils.Colorate("&8&l[Grappling Hook] &7You ready your bow."));
+    	Language.sendAbilityUseMessage(p, "You ready your bow.", "Grappling Hook");
 		new BukkitRunnable() {
             @Override
             public void run() {
             	if(grappling.contains(p))
             	{
                 	grappling.remove(p);
-            		p.sendMessage(Utils.Colorate("&8&l[Grappling Hook] &7You lower your bow."));	
+                	Language.sendAbilityUseMessage(p, "You lower your bow.", "Grappling Hook");	
             	}
             }
         }.runTaskLater(VallendiaMinigame.getInstance(), 20 * 12);  
@@ -98,13 +103,13 @@ public class GrapplingHookAbility implements Ability, Listener {
                         	
                         	if(block.getY() <= p.getLocation().getBlockY()  || block.getY() - p.getLocation().getBlockY() < 4)
                         	{
-                        		p.sendMessage(Utils.Colorate("&8&l[Grappling Hook] &7Hook too low."));
+                            	Language.sendAbilityUseMessage(p, "Hook too low.", "Grappling Hook");
                         		return;
                         	}
                         	
                         	if(p.getLocation().subtract(0, p.getLocation().getBlockY(), 0).distance(block.getLocation().subtract(0, block.getY(), 0)) > 30)
                         	{
-                        		p.sendMessage(Utils.Colorate("&8&l[Grappling Hook] &7Hook went too far."));
+                            	Language.sendAbilityUseMessage(p, "Hook went too far.", "Grappling Hook");
                         		return;
                         	}
                         	
@@ -134,6 +139,15 @@ public class GrapplingHookAbility implements Ability, Listener {
                             		}
                                 }
                             }.runTaskTimer(VallendiaMinigame.getInstance(), 5L, 0L);  
+                            
+                    		LineEffect line = new LineEffect(VallendiaMinigame.getInstance().effectmanager);
+                    		line.setLocation(p.getLocation());
+                    		line.setTargetLocation(e.getEntity().getLocation());
+                    		line.iterations = 100;
+                    		line.particleCount = 1;
+                    		line.particle = Particle.CRIT;
+                    		line.start();
+    	        			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_LEASHKNOT_PLACE, 2, 1);
                     		
                     		
                         	

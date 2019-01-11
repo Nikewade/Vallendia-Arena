@@ -140,7 +140,7 @@ public class RootAbility implements Ability{
 	        		if(!soundCooldown.contains(p))
 	        		{
 		        		soundCooldown.add(p);
-	        			p.getWorld().playSound(p.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 1, (float) 0.5);	
+	        			p.getWorld().playSound(p.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 2, (float) 0.5);	
 	        			
 		        		new BukkitRunnable() {
 		                    @Override

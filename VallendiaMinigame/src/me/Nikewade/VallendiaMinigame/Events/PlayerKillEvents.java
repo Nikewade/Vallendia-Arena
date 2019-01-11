@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class PlayerKillEvents implements Listener{
@@ -56,7 +57,13 @@ public class PlayerKillEvents implements Listener{
 					points = 1;
 				}
 				Main.playerdatamanager.addData(uuid, "Points", points);
-				Utils.sendVallendiaCenterMessage(killer, null, "You killed " + p.getName(), "Level: " + Main.levelmanager.getLevel(p),"Points gained: " + points ,null);
+				killer.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
+				killer.sendMessage("");
+				Language.sendCentredMessage(killer, Utils.Colorate("&3Player killed: " + p.getName()));
+				Language.sendCentredMessage(killer, Utils.Colorate("&3Level: " + Main.levelmanager.getLevel(p)));
+				Language.sendCentredMessage(killer, Utils.Colorate("&3Points gained: " + points));
+				killer.sendMessage("");
+				killer.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
 			}
 		}
 	}

@@ -24,6 +24,7 @@ import org.bukkit.util.Vector;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.LineUtil;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
@@ -46,7 +47,7 @@ public class SneakAbility implements Ability , Listener {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Allows you to sneak while running.");
+		return Arrays.asList("Allows you to sneak while running.", "Also negates fall damage of up to 8 blocks.");
 	}
 
 	@Override
@@ -65,12 +66,12 @@ public class SneakAbility implements Ability , Listener {
 		{
 			sneaking.remove(p);
 			p.setSneaking(false);
-			p.sendMessage(Utils.Colorate("&8&l[Sneak] &7You stop sneaking."));
+			Language.sendAbilityUseMessage(p, "You stop sneaking.", "Sneak");
 			return true;
 		}
 		sneaking.add(p);
 		p.setSneaking(true);
-		p.sendMessage(Utils.Colorate("&8&l[Sneak] &7You begin to sneak!"));
+		Language.sendAbilityUseMessage(p, "You begin to sneak!", "Sneak");
 		
  
         return false;
@@ -110,7 +111,7 @@ public class SneakAbility implements Ability , Listener {
             		
             		if(e.getCause() == DamageCause.FALL && sneaking.contains(p) && p.getFallDistance() <= 8)
             		{
-            			p.sendMessage(Utils.Colorate("&8&l[Sneak] &7You roll."));
+            			Language.sendAbilityUseMessage(p, "You roll.", "Sneak");
             			e.setCancelled(true);
             			return;
             		}
@@ -118,7 +119,7 @@ public class SneakAbility implements Ability , Listener {
             		{
             			sneaking.remove(p);
             			p.setSneaking(false);
-            			p.sendMessage(Utils.Colorate("&8&l[Sneak] &7You stop sneaking."));
+            			Language.sendAbilityUseMessage(p, "You stop sneaking.", "Sneak");
             		}
             	}
             }
@@ -143,7 +144,7 @@ public class SneakAbility implements Ability , Listener {
             	if(e.getClickedBlock().getType() == Material.CHEST)
             	if(e.getPlayer().getItemInHand().getType() != Material.AIR)
             	{
-            		e.getPlayer().sendMessage(Utils.Colorate("&8&l[Sneak] &7Un-sneak to open a chest while holding an item!"));
+        			Language.sendAbilityUseMessage(e.getPlayer(), "Cant open this while holding an item!", "Sneak");
             	}
             	
             }

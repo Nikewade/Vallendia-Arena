@@ -36,7 +36,7 @@ public class BackstabAbility implements Ability , Listener {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Backstab your target for 2-4 extra damage.","d","d");
+		return Arrays.asList("Hitting your target in the back does 2-4 extra damage.");
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class BackstabAbility implements Ability , Listener {
             	            return;
             	          }
             			e.setDamage(damage + addedDamage);
-            			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_HURT, 1, (float) 1.5);
+            			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_HURT, 22, (float) 1.5);
             			p.getWorld().playEffect(e.getEntity().getLocation().add(0,1,0), Effect.STEP_SOUND, Material.REDSTONE_WIRE.getId());
             		}
             	}

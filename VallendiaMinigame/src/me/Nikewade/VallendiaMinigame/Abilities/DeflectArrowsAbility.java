@@ -63,10 +63,9 @@ public class DeflectArrowsAbility implements Ability, Listener{
                 }
                 int randomNumber = random.nextInt(100)+1;
                 if (randomNumber <= 25) {
-                    p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1, 1);
+                    p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_ATTACK_SWEEP, 2, 1);
                     e.setCancelled(true);
                     a.remove();
-                    p.getInventory().addItem(new ItemStack(Material.ARROW, 1));
                 }
             }
         };

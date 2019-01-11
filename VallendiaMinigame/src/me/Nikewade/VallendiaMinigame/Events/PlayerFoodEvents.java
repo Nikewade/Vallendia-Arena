@@ -22,6 +22,7 @@ import com.SirBlobman.combatlogx.event.PlayerTagEvent;
 import com.SirBlobman.combatlogx.utility.CombatUtil;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class PlayerFoodEvents implements Listener {
@@ -71,13 +72,13 @@ public class PlayerFoodEvents implements Listener {
 			if(p.getHealth() == p.getMaxHealth())
 			{
 				e.setCancelled(true);
-				p.sendMessage(Utils.Colorate("&3You are already at full health!"));
+				Language.sendDefaultMessage(p, "You are already at full health!");
 				return;
 			}
 			
 			if(!CombatUtil.isInCombat(p))
 			{
-            	p.sendMessage(Utils.Colorate("&3You are regenerating health."));
+            	Language.sendDefaultMessage(p, "You are regenerating health.");
 	            healing.add(p);	
 	            double startHealth = p.getHealth();
 				new BukkitRunnable() {
@@ -111,7 +112,7 @@ public class PlayerFoodEvents implements Listener {
 				                    {
 				                    	healing.remove(p);
 				                    	p.setHealth(p.getMaxHealth());
-				                    	p.sendMessage(Utils.Colorate("&3You have stopped regenerating health."));
+				                    	Language.sendDefaultMessage(p, "You have stopped regenerating health.");
 				                    	cancel();
 				                    	return;
 				                    }
@@ -119,7 +120,7 @@ public class PlayerFoodEvents implements Listener {
 						    	 	if(p.getHealth() >= startHealth + (p.getMaxHealth() * healPercent) / 100)
 						    	 	{
 				                    	healing.remove(p);
-				                    	p.sendMessage(Utils.Colorate("&3You have stopped regenerating health."));
+				                    	Language.sendDefaultMessage(p, "You have stopped regenerating health.");
 						    	 		cancel();
 						    	 		return;
 						    	 	}
@@ -134,7 +135,7 @@ public class PlayerFoodEvents implements Listener {
 			}else
 			{
 				e.setCancelled(true);
-				p.sendMessage(Utils.Colorate("&3You can't regenerate in combat!"));
+            	Language.sendDefaultMessage(p, "You can't regenerate in combat!");
 				return;
 			}
 			

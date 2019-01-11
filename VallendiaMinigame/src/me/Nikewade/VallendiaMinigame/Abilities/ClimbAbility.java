@@ -24,6 +24,7 @@ import org.bukkit.util.Vector;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class ClimbAbility implements Ability , Listener {
@@ -54,7 +55,7 @@ public class ClimbAbility implements Ability , Listener {
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack(Material.TRIPWIRE_HOOK);
+		return new ItemStack(Material.LADDER);
 	}
 
 	@Override
@@ -62,13 +63,13 @@ public class ClimbAbility implements Ability , Listener {
 		if(climbing.contains(p))
 		{
 			climbing.remove(p);
-			p.sendMessage(Utils.Colorate("&8&l[Climb] &7Disabled"));
+			Language.sendAbilityUseMessage(p, "Disabled", "Climb");
 			return true;
 		}
-		p.sendMessage(Utils.Colorate("&8&l[Climb] &7Enabled"));
-		p.sendMessage(Utils.Colorate("&7With climb enabled, you can right click a block to jump up."));
-		p.sendMessage(Utils.Colorate("&7You have 3 jumps total that you can use while climbing. Once you land, these jumps reset."));
-		p.sendMessage(Utils.Colorate("&7When next to a ledge, you can crouch to hang on which will allow you to jump once more."));
+		Language.sendAbilityUseMessage(p, "Enabled", "Climb");
+		Language.sendAbilityUseMessage(p, "With climb enabled, you can right click a block to jump up. "
+				+ "You have 3 jumps total that you can use while climbing. Once you land, these jumps reset."
+				+ "When next to a ledge, you can crouch to hang on which will allow you to jump once more.", "Climb");
 		climbing.add(p);
 		return false;
 	}
@@ -169,7 +170,7 @@ public class ClimbAbility implements Ability , Listener {
         			Player p = e.getPlayer();
         			if(p.getItemInHand().getType() != Material.AIR)
         			{
-        				p.sendMessage(Utils.Colorate("&8&l[Climb] &7You can only climb with empty hands!"));
+        				Language.sendAbilityUseMessage(p, "You can only climb with empty hands!", "Climb");
         				return;
         			}
         				EquipmentSlot eslot = e.getHand();
@@ -179,7 +180,7 @@ public class ClimbAbility implements Ability , Listener {
         						{	
         							if(!(e.getPlayer().getFallDistance() < 12))
         							{
-        								e.getPlayer().sendMessage(Utils.Colorate("&8&l[Climb] &7You could not catch yourself!"));
+        		        				Language.sendAbilityUseMessage(p, "You could not catch yourself!", "Climb");
         								return;
         							}
         								if(!ClimbAbility.jumps.containsKey(p.getName()))
@@ -194,7 +195,7 @@ public class ClimbAbility implements Ability , Listener {
         									}
         									
         									ClimbAbility.jumps.put(p.getName(), 1);	
-        									p.sendMessage(Utils.Colorate("&8&l[Climb] &7Jumps: 1/3"));
+            		        				Language.sendAbilityUseMessage(p, "Jumps: 1/3", "Climb");
         									p.setVelocity(new Vector(0, 0.6D, 0));	
         									ClimbAbility.falling.add(p);
         									
@@ -227,7 +228,7 @@ public class ClimbAbility implements Ability , Listener {
         										return;
         								}
         								ClimbAbility.jumps.replace(p.getName(), ClimbAbility.jumps.get(p.getName()), ClimbAbility.jumps.get(p.getName()) + 1);
-        								p.sendMessage(Utils.Colorate("&8&l[Climb] &7Jumps: " + ClimbAbility.jumps.get(p.getName()) + "&7/3"));
+        		        				Language.sendAbilityUseMessage(p, "Jumps: " + ClimbAbility.jumps.get(p.getName()) + "/3", "Climb");
         								p.setVelocity(new Vector(0, 0.6D, 0));	
         						}
         				}
@@ -251,7 +252,7 @@ public class ClimbAbility implements Ability , Listener {
         		}
         		if(p.getItemInHand().getType() != Material.AIR && !holdingOn.contains(p))
         		{
-        			p.sendMessage(Utils.Colorate("&8&l[Climb] &7You can only climb with empty hands!"));
+    				Language.sendAbilityUseMessage(p, "You can only climb with empty hands!", "Climb");
         			return;
         		}
         		if(!e.isSneaking())
@@ -264,7 +265,7 @@ public class ClimbAbility implements Ability , Listener {
         		if(p.getTargetBlock((Set<Material>) null, 1).getLocation().add(0, 1, 0).getBlock().getType() == Material.AIR)
         		{
         			ClimbAbility.holdingOn.add(p);
-        			p.sendMessage(Utils.Colorate("&8&l[Climb] &7You are holding onto a ledge, right click for one more jump."));
+    				Language.sendAbilityUseMessage(p, "You are holding onto a ledge, right click for one more jump.", "Climb");
         		}
 
         	}

@@ -113,13 +113,13 @@ public class WeakeningArrowsAbility implements Ability, Listener {
         		se.start();	
         		if(e.getHitBlock() != null)
         		{
-            		e.getHitBlock().getLocation().getWorld().playSound(e.getHitBlock().getLocation(), Sound.ENTITY_SPLASH_POTION_BREAK, 1, (float) 0.7);	
+            		e.getHitBlock().getLocation().getWorld().playSound(e.getHitBlock().getLocation(), Sound.ENTITY_SPLASH_POTION_BREAK, 2, (float) 0.7);	
         		}
         		if(e.getHitEntity() != null && e.getHitEntity() instanceof LivingEntity)
         		{
         			LivingEntity entity = (LivingEntity) e.getHitEntity();
         			AbilityUtils.addPotionDuration(entity, PotionEffectType.WEAKNESS, 0, duration * 20);
-        			entity.getLocation().getWorld().playSound(entity.getLocation(), Sound.ENTITY_SPLASH_POTION_BREAK, 1, 1);
+        			entity.getLocation().getWorld().playSound(entity.getLocation(), Sound.ENTITY_SPLASH_POTION_BREAK, 2, 1);
         		}
          
             }

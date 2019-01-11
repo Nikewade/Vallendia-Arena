@@ -78,7 +78,7 @@ public class RegenUpgrade implements Upgrade{
                         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 
                 	}     
             }
-	    }.runTaskTimer(VallendiaMinigame.getInstance(), 20* 3, (long) (20 * time));	// time needs to be double
+	    }.runTaskTimer(VallendiaMinigame.getInstance(), 20* 3, (long) (20 * time));
 	
 	    timers.put(p, task);
 	}

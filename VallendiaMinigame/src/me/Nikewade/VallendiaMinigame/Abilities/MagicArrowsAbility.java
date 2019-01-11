@@ -24,6 +24,7 @@ import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class MagicArrowsAbility implements Ability, Listener{
@@ -59,7 +60,7 @@ public class MagicArrowsAbility implements Ability, Listener{
 
 	@Override
 	public boolean RunAbility(Player p) {
-		p.sendMessage(Utils.Colorate("&3&l[Magic Arrows] &8Enabled for " + enabledTime + " seconds."));
+		Language.sendAbilityUseMessage(p, "Enabled for " + enabledTime + " seconds.", "Magic Arrows");
 		enabled.add(p);
 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, (float) 0.5);
 		
@@ -69,7 +70,7 @@ public class MagicArrowsAbility implements Ability, Listener{
         		if(enabled.contains(p))
         		{
         			enabled.remove(p);
-        			p.sendMessage(Utils.Colorate("&3&l[Magic Arrows] &8Disabled"));
+        			Language.sendAbilityUseMessage(p, "Disabled", "Magic Arrows");
         		};
             }
         }.runTaskLaterAsynchronously(VallendiaMinigame.getInstance(), enabledTime*20L);
@@ -113,6 +114,7 @@ public class MagicArrowsAbility implements Ability, Listener{
         		se.start();	
         		arrow.add(projectile);
         		arrowParticle.put(projectile, se);
+    			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_SHULKER_SHOOT, 2, (float) 1.4);
         		
         		new BukkitRunnable() {
                     @Override

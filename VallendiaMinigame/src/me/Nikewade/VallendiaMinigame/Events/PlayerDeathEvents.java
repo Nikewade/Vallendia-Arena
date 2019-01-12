@@ -7,6 +7,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.RageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
 
 public class PlayerDeathEvents implements Listener {
@@ -30,6 +31,7 @@ public class PlayerDeathEvents implements Listener {
 		int level = Main.levelmanager.getLevel(p);
 		Main.upgrademanager.resetUpgradesOnDeath(p);
 		Main.abilitymanager.resetAbilities(p);
+		RageAbility.onDie(p);
 		e.getDrops().clear();
 		p.setLevel(0);
 		p.setExp(0);

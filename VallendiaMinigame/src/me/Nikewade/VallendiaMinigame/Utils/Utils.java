@@ -1,12 +1,13 @@
 package me.Nikewade.VallendiaMinigame.Utils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,7 +20,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -28,14 +28,19 @@ import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.EnumWrappers.WorldBorderAction;
+
 import de.slikey.effectlib.Effect;
-import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Events.AltitudeChecker;
 
 public class Utils {
 	public static HashMap<Location, BlockState> blocks = new HashMap<>();
     private static List<String> changes = new LinkedList<String>();
-    private static Map<Entity,Effect> particle = new HashMap<>();
+    public static Map<Entity,Effect> particle = new HashMap<>();
 	private static Random random = new Random();
 	
 	  public static String Colorate(String msg) // Allows the use of & color codes.
@@ -178,6 +183,32 @@ public class Utils {
    	        }.runTaskLaterAsynchronously(VallendiaMinigame.getInstance(), seconds*20L); 
 		   
 	   }
+	   
+	   
+
+	   
+		public static void sendWorldBorderPacket(Player p, int dist, double oldradius, double newradius, long delay) {
+			ProtocolManager protocolManager = VallendiaMinigame.getInstance().protocolManager;
+	    	PacketContainer border = protocolManager.createPacket(PacketType.Play.Server.WORLD_BORDER);
+	        
+			border.getWorldBorderActions().write(0, WorldBorderAction.INITIALIZE);
+			border.getIntegers()
+			.write(0, 29999984)
+			.write(1, 15)
+			.write(2, dist);
+			border.getLongs()
+			.write(0, (long) 1);
+			border.getDoubles()
+			.write(0, p.getLocation().getX())
+			.write(1, p.getLocation().getY())
+			.write(2, newradius)
+			.write(3, oldradius);
+			try {
+				protocolManager.sendServerPacket(p, border);
+			} catch (InvocationTargetException e) {
+				throw new RuntimeException("Cannot send packet " + border, e);
+			}
+		}
 	   
 	   
 

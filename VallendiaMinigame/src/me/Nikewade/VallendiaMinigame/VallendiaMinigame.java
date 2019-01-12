@@ -9,6 +9,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.ScoreboardManager;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+
 import de.slikey.effectlib.EffectManager;
 import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Abilities.BackFlipAbility;
@@ -77,6 +80,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	   public LevelManager levelmanager;
 	   public AltitudeChecker altchecker;
 	   public SpawningHandler spawnhandler;
+	   public ProtocolManager protocolManager;
 	
 	   @Override
 	   public void onEnable()
@@ -98,7 +102,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.effectmanager = new EffectManager(this);
 		   this.altchecker = new AltitudeChecker(this);
 		   this.spawnhandler = new SpawningHandler(this);
-		   
+		   this.protocolManager = ProtocolLibrary.getProtocolManager();
 		   
 		   //Listeners
 		   new PlayerJoinEvents(this);
@@ -137,6 +141,7 @@ public class VallendiaMinigame extends JavaPlugin{
 			   p.closeInventory();
 			   this.levelmanager.updateExpBar(p);
 			   this.levelmanager.updateLevelBar(p);
+				p.setGravity(true);
 			if(this.upgrademanager.getUpgradeAmount(p, "regeneration") > 0)
 				{
 				   RegenUpgrade.addTimer(p); 

@@ -18,12 +18,10 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class AltitudeChecker {
 	static VallendiaMinigame Main;
-	 static ProtocolManager protocolManager;
 	
 	 public AltitudeChecker(VallendiaMinigame Main)
 	  {
 		AltitudeChecker.Main = Main; 
-		protocolManager = ProtocolLibrary.getProtocolManager();
 	   new BukkitRunnable() {
 
             @Override
@@ -62,7 +60,7 @@ public class AltitudeChecker {
                 		        }	
             				}
             			}else
-            				sendWorldBorderPacket(p, 0, 200000D, 200000D, 0);
+            				Utils.sendWorldBorderPacket(p, 0, 200000D, 200000D, 0);
             		}
             }
 	    }.runTaskTimer(VallendiaMinigame.getInstance(), 20, 20);
@@ -72,30 +70,9 @@ public class AltitudeChecker {
 	public static void altTooHigh(Player p)
 	{
 		int dist = -10000 * 10 + 1300000;
-		sendWorldBorderPacket(p, dist, 200000D, 200000D, 0);
+		Utils.sendWorldBorderPacket(p, dist, 200000D, 200000D, 0);
 	}
 	
-	protected static void sendWorldBorderPacket(Player p, int dist, double oldradius, double newradius, long delay) {
-    	PacketContainer border = protocolManager.createPacket(PacketType.Play.Server.WORLD_BORDER);
-        
-		border.getWorldBorderActions().write(0, WorldBorderAction.INITIALIZE);
-		border.getIntegers()
-		.write(0, 29999984)
-		.write(1, 15)
-		.write(2, dist);
-		border.getLongs()
-		.write(0, (long) 1);
-		border.getDoubles()
-		.write(0, p.getLocation().getX())
-		.write(1, p.getLocation().getY())
-		.write(2, newradius)
-		.write(3, oldradius);
-		try {
-			protocolManager.sendServerPacket(p, border);
-		} catch (InvocationTargetException e) {
-			throw new RuntimeException("Cannot send packet " + border, e);
-		}
-	}
 	
 	
 }

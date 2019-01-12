@@ -2,11 +2,16 @@ package me.Nikewade.VallendiaMinigame.Abilities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -14,15 +19,26 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
+import de.slikey.effectlib.Effect;
+import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Events.AltitudeChecker;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class RageAbility implements Ability{
 private static ArrayList<Player> raging = new ArrayList<>();
+private static HashMap<Player, BukkitTask> tasks = new HashMap<>();
+private  static Map<Entity,Effect> particle = new HashMap<>();
+int ragetime = 60;
+int force = 20;
+int yForce = 8;
+int maxYForce = 10;
 	
 	@Override
 	public String getName() {
@@ -40,7 +56,10 @@ private static ArrayList<Player> raging = new ArrayList<>();
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Go into a frenzied rage, increasing damage and speed.");
+		return Arrays.asList("Go into a frenzied rage for "  +ragetime+ " seconds" , 
+				"becoming faster, stronger, and more resilient." ,
+				"After your rage ends your body will become fatigued" ,
+				"causing you to move slower and do less damage.");
 	}
 
 	@Override
@@ -52,10 +71,6 @@ private static ArrayList<Player> raging = new ArrayList<>();
 
 	@Override
 	public boolean RunAbility(Player p) {
-			int ragetime = 60;
-			int force = 17;
-			int yForce = 8;
-			int maxYForce = 10;
 			p.sendTitle(ChatColor.DARK_RED + "" + ChatColor.BOLD + "YOU RAGE!", ChatColor.RED + " Your rage will last for " + ragetime + " seconds" , 20, 90, 50);	
 			if(p.getHealth() < p.getMaxHealth() && p.getHealth() + 5 < p.getMaxHealth())
 			{
@@ -85,7 +100,38 @@ private static ArrayList<Player> raging = new ArrayList<>();
 			}
 			
 
-	    	
+			
+			//red screen
+			  BukkitTask task = new BukkitRunnable() {
+
+		            @Override
+		            public void run() {	
+		        		int dist = -10000 * 10 + 1300000;
+		        		Utils.sendWorldBorderPacket(p, dist, 200000D, 200000D, 0);
+		            }
+			    }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
+			    tasks.put(p, task);
+			
+			    //particles
+        		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+        		se.setEntity(p);
+        		se.particle = Particle.EXPLOSION_NORMAL;
+        		se.infinite();
+        		se.radius = 0.2;
+        		se.particles = 1;
+        		se.yOffset = -1;
+        		se.particleCount = 1;
+        		
+        		se.start();	
+        		
+        			if(particle.containsKey(p))
+        			{
+            			RageAbility.particle.get(p).cancel();
+            			RageAbility.particle.remove(p);	
+        			}
+        		RageAbility.particle.put(p, se);
+			
+	    	//rage off
 	    	new BukkitRunnable() {
 	    		int ragetimer = ragetime;
 	    		int maxtime = 0;
@@ -95,10 +141,31 @@ private static ArrayList<Player> raging = new ArrayList<>();
 	            		maxtime++;
 	            		if(maxtime == 300) //5mins
 	            		{
+	            			if(tasks.containsKey(p))
+	            			{
+		            			tasks.get(p).cancel();
+		            			tasks.remove(p);	
+	            			}
+	            			if(particle.containsKey(p))
+	            			{
+		            			RageAbility.particle.get(p).cancel();
+		            			RageAbility.particle.remove(p);	
+	            			}
 	            			this.cancel();
 	            		}
 	            		if(!raging.contains(p))
 	            		{
+	            			if(tasks.containsKey(p))
+	            			{
+		            			tasks.get(p).cancel();
+		            			tasks.remove(p);	
+	            			}
+	            			
+	            			if(particle.containsKey(p))
+	            			{
+		            			RageAbility.particle.get(p).cancel();
+		            			RageAbility.particle.remove(p);	
+	            			}
 	            			this.cancel();
 	            		}
 	                	if (!p.isOnline())
@@ -114,8 +181,19 @@ private static ArrayList<Player> raging = new ArrayList<>();
 	    	                AbilityUtils.addPotionDuration(p, PotionEffectType.WEAKNESS, 0, ragetime*20);
 	    	                AbilityUtils.addPotionDuration(p, PotionEffectType.CONFUSION, 1, 8*20);
 	    	                AbilityUtils.addPotionDuration(p, PotionEffectType.SLOW, 1, ragetime*20);
-	    	        		p.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "[Rage]" + ChatColor.RED + " You feel fatigued.");
-	    	        		
+	    	                Language.sendAbilityUseMessage(p, "You feel fatigued.", "Rage");
+            				Utils.sendWorldBorderPacket(p, 0, 200000D, 200000D, 0);
+            				
+	            			if(tasks.containsKey(p))
+	            			{
+		            			tasks.get(p).cancel();
+		            			tasks.remove(p);	
+	            			}
+	            			if(particle.containsKey(p))
+	            			{
+		            			RageAbility.particle.get(p).cancel();
+		            			RageAbility.particle.remove(p);	
+	            			}
 	                		this.cancel();
 	                	}
 	            }

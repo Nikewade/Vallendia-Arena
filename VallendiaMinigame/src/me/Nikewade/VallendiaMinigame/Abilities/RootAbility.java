@@ -10,12 +10,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
@@ -24,6 +22,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import de.slikey.effectlib.Effect;
+import de.slikey.effectlib.effect.FountainEffect;
+import de.slikey.effectlib.util.DynamicLocation;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
@@ -33,6 +34,8 @@ public class RootAbility implements Ability{
 	private static ArrayList<Player> soundCooldown = new ArrayList<>();
 	private static ArrayList<Player> enabled = new ArrayList<>();
 	private static Map<Player, BukkitTask> timers = new HashMap<Player, BukkitTask>();
+	private  static Map<Entity,Effect> particle1 = new HashMap<>();
+	private  static Map<Entity,Effect> particle2 = new HashMap<>();
 	private static double percent =  0.8 ; //20%
 
 	@Override
@@ -106,10 +109,58 @@ public class RootAbility implements Ability{
 		                	timers.get(p).cancel();
 		                	timers.remove(p);	
 	                	}
+	        			if(particle1.containsKey(p))
+	        			{
+	        				particle1.get(p).cancel();
+	        				particle1.remove(p);
+	        				particle2.get(p).cancel();
+	        				particle2.remove(p);
+	        			}
 	                	return;
 	            	}
 	        		sneaking.add(p);
 	        		
+	        		if(p.isOnGround())
+	        		{
+	        			if(!particle1.containsKey(p))
+	        			{
+	    	        		FountainEffect f = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
+        	        		f.setTargetEntity(e.getPlayer());
+        	        		f.disappearWithTargetEntity = true;
+	    	        		f.setDynamicOrigin(new DynamicLocation(e.getPlayer().getLocation().add(0, 0.1, 0)));
+	    	        		f.strands = 3;
+	    	        		f.height = (float) 0.6;
+	    	        		f.heightSpout = 0;
+	    	        		f.radiusSpout = 0;
+	    	        		f.radius = (float) 1.8;
+	    	        		f.particlesStrand = 5;
+	    	        		f.particlesSpout = 0;
+	    	        		f.particle = Particle.BLOCK_CRACK;
+	    	        		f.material = Material.DIRT;
+        	        		f.infinite();
+        	        		f.start();
+ 
+	    	        		
+	    	        		
+	    	        		FountainEffect d = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
+        	        		d.setTargetEntity(e.getPlayer());
+        	        		d.disappearWithTargetEntity = true;
+	    	        		d.setDynamicOrigin(new DynamicLocation(e.getPlayer().getLocation().add(0, 0.1, 0)));
+	    	        		d.strands = 3;
+	    	        		d.height = (float) 0.6;
+	    	        		d.heightSpout = 0;
+	    	        		d.particlesSpout = 0;
+	    	        		d.radiusSpout = 0;
+	    	        		d.radius = (float) 1.8;
+	    	        		d.particlesStrand = 5;
+	    	        		d.particle = Particle.CRIT;
+        	        		d.infinite();
+	    	        		d.start();
+	    	        		
+	    	        		particle1.put((Entity)e.getPlayer(), f);
+	    	        		particle2.put((Entity)e.getPlayer(), d);
+	        			}
+	        		}
 	        		
 	        		
 	        	    BukkitTask task = new BukkitRunnable() {
@@ -127,6 +178,18 @@ public class RootAbility implements Ability{
 	                                p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
 	                                p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 
 	        	        			p.getWorld().playSound(p.getLocation(), Sound.ITEM_SHOVEL_FLATTEN, 1, (float) 0.1);
+	        	        			
+	        		        		FountainEffect e = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
+	        		        		e.setDynamicOrigin(new DynamicLocation(p.getLocation().add(0, 0.1, 0)));
+	        		        		e.strands = 3;
+	        		        		e.height = (float) 0.6;
+	        		        		e.iterations = 5;
+	        		        		e.heightSpout = 0;
+	        		        		e.radiusSpout = 0;
+	        		        		e.radius = (float) 1.8;
+	        		        		e.particlesStrand = 5;
+	        		        		e.particle = Particle.TOTEM;
+	        		        		e.start();
 	                        	}     
 	                    }
 	        	    }.runTaskTimer(VallendiaMinigame.getInstance(), 20* 3, 20 * 3);	
@@ -184,10 +247,53 @@ public class RootAbility implements Ability{
             			{
             				e.getPlayer().setFallDistance(0);
             			}
+            			
+            			if(e.getFrom().getY() > e.getTo().getY())
+            			{
+            				return;
+            			}
             		
+            			if(!particle1.containsKey(e.getPlayer()))
+            			{
+        	        		FountainEffect f = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
+        	        		f.setTargetEntity(e.getPlayer());
+        	        		f.disappearWithTargetEntity = true;
+        	        		f.setDynamicOrigin(new DynamicLocation(e.getPlayer().getLocation().add(0, 0.1, 0)));
+        	        		f.strands = 3;
+        	        		f.height = (float) 0.6;
+        	        		f.heightSpout = 0;
+	    	        		f.particlesSpout = 0;
+        	        		f.radiusSpout = 0;
+        	        		f.radius = (float) 1.8;
+        	        		f.particlesStrand = 5;
+        	        		f.particle = Particle.BLOCK_CRACK;
+        	        		f.material = Material.DIRT;
+        	        		f.infinite();
+        	        		f.start();
+        	        		
+        	        		
+        	        		FountainEffect d = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
+        	        		d.setTargetEntity(e.getPlayer());
+        	        		d.disappearWithTargetEntity = true;
+        	        		d.setDynamicOrigin(new DynamicLocation(e.getPlayer().getLocation().add(0, 0.1, 0)));
+        	        		d.strands = 3;
+        	        		d.height = (float) 0.6;
+        	        		d.heightSpout = 0;
+        	        		d.radiusSpout = 0;
+	    	        		d.particlesSpout = 0;
+        	        		d.radius = (float) 1.8;
+        	        		d.particlesStrand = 5;
+        	        		d.particle = Particle.CRIT;
+        	        		d.infinite();
+        	        		d.start();
+        	        		
+        	        		particle1.put((Entity)e.getPlayer(), f);
+        	        		particle2.put((Entity)e.getPlayer(), d);
+            			}
+            			
 	            	Location to = e.getFrom();
 	            	to.setPitch(e.getTo().getPitch());
-	            	to.setYaw(e.getTo().getYaw());
+	            	to.setYaw(e.getTo().getYaw());	
 	            	e.setTo(to);
 	            }
 	            

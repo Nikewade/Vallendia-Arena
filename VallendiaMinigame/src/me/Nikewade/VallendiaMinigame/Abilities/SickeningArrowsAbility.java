@@ -27,7 +27,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class SickeningArrowsAbility implements Ability, Listener {
     private static Map<Projectile,SphereEffect> arrow = new HashMap<>();
-    private static int chance = 20;
+    private static int chance = 100;
     private static int duration = 10;
 
 	@Override

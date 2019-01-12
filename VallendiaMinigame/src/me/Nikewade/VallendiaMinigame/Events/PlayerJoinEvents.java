@@ -40,6 +40,7 @@ public class PlayerJoinEvents implements Listener{
         Main.playerdatamanager.createFile(p);
        // Main.sb.runScoreboard(p);
         Main.sb.setupPlayerScoreboard(p);
+		e.getPlayer().setGravity(true);
 	}
 	
 	
@@ -48,6 +49,7 @@ public class PlayerJoinEvents implements Listener{
 	public void onLeave(PlayerQuitEvent e)
 	{
 		RootAbility.removeLists(e.getPlayer());
+		e.getPlayer().setGravity(true);
 	}
 	
 	@SuppressWarnings("deprecation")

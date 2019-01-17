@@ -104,16 +104,27 @@ public class BullRushAbility implements Ability, Listener{
 		BukkitTask t = new BukkitRunnable() {
             @Override
             public void run() {
+            	Location oneBlockAway1;
+            	Location oneBlockAway2;
             	if(p.isSprinting())
             	{
-            		Location oneBlockAway1 = p.getLocation().add(p.getLocation().getDirection()).add(0, 1, 0);
-            		Location oneBlockAway2 = p.getLocation().add(p.getLocation().getDirection()).add(0, 2, 0);
- 
+            		
+            		if(p.getLocation().add(p.getLocation().getDirection()).getY() > p.getLocation().getY())
+            		{
+                		oneBlockAway1 = p.getLocation().add(p.getLocation().getDirection()).add(0, 0, 0);
+                		oneBlockAway2 = p.getLocation().add(p.getLocation().getDirection()).add(0, 1, 0);
+            		}else
+            		{
+                		oneBlockAway1 = p.getLocation().add(p.getLocation().getDirection()).add(0, 1, 0);
+                		oneBlockAway2 = p.getLocation().add(p.getLocation().getDirection()).add(0, 2, 0);	
+            		}
             		
             		if(oneBlockAway1.getBlock().getType().isSolid() || oneBlockAway2.getBlock().getType().isSolid())
             		{	
+                		oneBlockAway1.getBlock().setMetadata("Bull Rush", new FixedMetadataValue(VallendiaMinigame.getInstance(), oneBlockAway1));
+                		oneBlockAway2.getBlock().setMetadata("Bull Rush", new FixedMetadataValue(VallendiaMinigame.getInstance(), oneBlockAway2));
             			oneBlockAway2.getWorld().createExplosion(oneBlockAway2, 2, false);
-            			oneBlockAway1.getWorld().createExplosion(oneBlockAway1, 1, false);
+            			oneBlockAway1.getWorld().createExplosion(oneBlockAway1, 2, false);
                            
                            
                            
@@ -235,6 +246,22 @@ public class BullRushAbility implements Ability, Listener{
         		}
         		
         	}
+        	
+        	
+        	@EventHandler
+        	public void onExplode(BlockExplodeEvent e)
+        	{
+        		if(e.getBlock().hasMetadata("Bull Rush"))
+        		{
+        			e.setYield(0);
+            		for(Block b : e.blockList())
+            		{
+        				Utils.regenBlock(b, 30);
+        				b.setType(Material.AIR);
+            		}	
+        		}
+        	}
+        	
         	
         	
         	  

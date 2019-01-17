@@ -49,6 +49,7 @@ public class AbilityManager {
 		abilities.add(new RootAbility());
 		abilities.add(new BullRushAbility());
 		abilities.add(new MomentumAbility());
+		abilities.add(new ExplosiveArrowAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");

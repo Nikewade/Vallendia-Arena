@@ -24,6 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -70,6 +71,11 @@ public class Utils {
 			Bukkit.getServer().getConsoleSender().sendMessage(Utils.Colorate("" + msg));
 		}
 	  
+		
+		
+		public static  void setMetaDataPlacedBlock(Block b, boolean placedBlock) {
+		    b.setMetadata("PlacedBlock", new FixedMetadataValue(VallendiaMinigame.getInstance(), placedBlock));
+		}
 	  
 	  public static ItemStack placeholder(byte data, String n) {
 		    @SuppressWarnings("deprecation")

@@ -165,7 +165,7 @@ public class GrapplingHookAbility implements Ability, Listener {
             {
             	if(e.getEntity() instanceof Player && grappling.contains(e.getEntity()))
             	{
-            		e.getProjectile().setVelocity(e.getProjectile().getVelocity().multiply(0.6));
+            		e.getProjectile().setVelocity(e.getProjectile().getVelocity().multiply(0.7));
             	}
             }
             

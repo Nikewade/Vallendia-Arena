@@ -10,6 +10,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -67,13 +69,15 @@ public class RootAbility implements Ability{
 		// TODO Auto-generated method stub
 		if(enabled.contains(p))
 		{
-			enabled.remove(p);
-			p.sendMessage(Utils.Colorate("&3&l[Root] &8Disabled"));
-			if(timers.containsKey(p))
+			if(particle1.containsKey(p))
 			{
-	        	timers.get(p).cancel();
-	        	timers.remove(p);				
+				particle1.get(p).cancel();
+				particle1.remove(p);
+				particle2.get(p).cancel();
+				particle2.remove(p);
 			}
+			RootAbility.removeLists(p);
+			p.sendMessage(Utils.Colorate("&3&l[Root] &8Disabled"));
 			return true;
 		}
 		enabled.add(p);
@@ -120,7 +124,11 @@ public class RootAbility implements Ability{
 	            	}
 	        		sneaking.add(p);
 	        		
-	        		if(p.isOnGround())
+	        		Material one = p.getLocation().subtract(0, 1, 0).add(1, 0, 1).getBlock().getType();
+	        		Material two = p.getLocation().subtract(0, 1, 0).add(1, 0, 1).getBlock().getType();
+	        		Material three = p.getLocation().subtract(0, 1, 0).subtract(1, 0, 1).getBlock().getType();
+	        		Material four = p.getLocation().subtract(0, 1, 0).subtract(1, 0, 1).getBlock().getType();
+	        		if(p.isOnGround() && one.isSolid() && two.isSolid() && three.isSolid() && four.isSolid())
 	        		{
 	        			if(!particle1.containsKey(p))
 	        			{
@@ -179,17 +187,25 @@ public class RootAbility implements Ability{
 	                                p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 
 	        	        			p.getWorld().playSound(p.getLocation(), Sound.ITEM_SHOVEL_FLATTEN, 1, (float) 0.1);
 	        	        			
-	        		        		FountainEffect e = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
-	        		        		e.setDynamicOrigin(new DynamicLocation(p.getLocation().add(0, 0.1, 0)));
-	        		        		e.strands = 3;
-	        		        		e.height = (float) 0.6;
-	        		        		e.iterations = 5;
-	        		        		e.heightSpout = 0;
-	        		        		e.radiusSpout = 0;
-	        		        		e.radius = (float) 1.8;
-	        		        		e.particlesStrand = 5;
-	        		        		e.particle = Particle.TOTEM;
-	        		        		e.start();
+	        	        			
+	            	        		Material one = p.getLocation().subtract(0, 1, 0).add(1, 0, 1).getBlock().getType();
+	            	        		Material two = p.getLocation().subtract(0, 1, 0).add(1, 0, 1).getBlock().getType();
+	            	        		Material three = p.getLocation().subtract(0, 1, 0).subtract(1, 0, 1).getBlock().getType();
+	            	        		Material four = p.getLocation().subtract(0, 1, 0).subtract(1, 0, 1).getBlock().getType();
+	            	        		if(p.isOnGround() && one.isSolid() && two.isSolid() && three.isSolid() && four.isSolid())
+	            	        		{
+		        		        		FountainEffect e = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
+		        		        		e.setDynamicOrigin(new DynamicLocation(p.getLocation().add(0, 0.1, 0)));
+		        		        		e.strands = 3;
+		        		        		e.height = (float) 0.6;
+		        		        		e.iterations = 5;
+		        		        		e.heightSpout = 0;
+		        		        		e.radiusSpout = 0;
+		        		        		e.radius = (float) 1.8;
+		        		        		e.particlesStrand = 5;
+		        		        		e.particle = Particle.TOTEM;
+		        		        		e.start();	
+	            	        		}
 	                        	}     
 	                    }
 	        	    }.runTaskTimer(VallendiaMinigame.getInstance(), 20* 3, 20 * 3);	
@@ -255,40 +271,48 @@ public class RootAbility implements Ability{
             		
             			if(!particle1.containsKey(e.getPlayer()))
             			{
-        	        		FountainEffect f = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
-        	        		f.setTargetEntity(e.getPlayer());
-        	        		f.disappearWithTargetEntity = true;
-        	        		f.setDynamicOrigin(new DynamicLocation(e.getPlayer().getLocation().add(0, 0.1, 0)));
-        	        		f.strands = 3;
-        	        		f.height = (float) 0.6;
-        	        		f.heightSpout = 0;
-	    	        		f.particlesSpout = 0;
-        	        		f.radiusSpout = 0;
-        	        		f.radius = (float) 1.8;
-        	        		f.particlesStrand = 5;
-        	        		f.particle = Particle.BLOCK_CRACK;
-        	        		f.material = Material.DIRT;
-        	        		f.infinite();
-        	        		f.start();
-        	        		
-        	        		
-        	        		FountainEffect d = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
-        	        		d.setTargetEntity(e.getPlayer());
-        	        		d.disappearWithTargetEntity = true;
-        	        		d.setDynamicOrigin(new DynamicLocation(e.getPlayer().getLocation().add(0, 0.1, 0)));
-        	        		d.strands = 3;
-        	        		d.height = (float) 0.6;
-        	        		d.heightSpout = 0;
-        	        		d.radiusSpout = 0;
-	    	        		d.particlesSpout = 0;
-        	        		d.radius = (float) 1.8;
-        	        		d.particlesStrand = 5;
-        	        		d.particle = Particle.CRIT;
-        	        		d.infinite();
-        	        		d.start();
-        	        		
-        	        		particle1.put((Entity)e.getPlayer(), f);
-        	        		particle2.put((Entity)e.getPlayer(), d);
+            				Player p = e.getPlayer();
+        	        		Material one = p.getLocation().subtract(0, 1, 0).add(1, 0, 1).getBlock().getType();
+        	        		Material two = p.getLocation().subtract(0, 1, 0).add(1, 0, 1).getBlock().getType();
+        	        		Material three = p.getLocation().subtract(0, 1, 0).subtract(1, 0, 1).getBlock().getType();
+        	        		Material four = p.getLocation().subtract(0, 1, 0).subtract(1, 0, 1).getBlock().getType();
+        	        		if(p.isOnGround() && one.isSolid() && two.isSolid() && three.isSolid() && four.isSolid())
+        	        		{
+            	        		FountainEffect f = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
+            	        		f.setTargetEntity(e.getPlayer());
+            	        		f.disappearWithTargetEntity = true;
+            	        		f.setDynamicOrigin(new DynamicLocation(e.getPlayer().getLocation().add(0, 0.1, 0)));
+            	        		f.strands = 3;
+            	        		f.height = (float) 0.6;
+            	        		f.heightSpout = 0;
+    	    	        		f.particlesSpout = 0;
+            	        		f.radiusSpout = 0;
+            	        		f.radius = (float) 1.8;
+            	        		f.particlesStrand = 5;
+            	        		f.particle = Particle.BLOCK_CRACK;
+            	        		f.material = Material.DIRT;
+            	        		f.infinite();
+            	        		f.start();
+            	        		
+            	        		
+            	        		FountainEffect d = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
+            	        		d.setTargetEntity(e.getPlayer());
+            	        		d.disappearWithTargetEntity = true;
+            	        		d.setDynamicOrigin(new DynamicLocation(e.getPlayer().getLocation().add(0, 0.1, 0)));
+            	        		d.strands = 3;
+            	        		d.height = (float) 0.6;
+            	        		d.heightSpout = 0;
+            	        		d.radiusSpout = 0;
+    	    	        		d.particlesSpout = 0;
+            	        		d.radius = (float) 1.8;
+            	        		d.particlesStrand = 5;
+            	        		d.particle = Particle.CRIT;
+            	        		d.infinite();
+            	        		d.start();
+            	        		
+            	        		particle1.put((Entity)e.getPlayer(), f);
+            	        		particle2.put((Entity)e.getPlayer(), d);	
+        	        		}
             			}
             			
 	            	Location to = e.getFrom();
@@ -314,7 +338,7 @@ public class RootAbility implements Ability{
             	@EventHandler
             	public void onDamage(EntityDamageEvent e)
             	{
-            		double damage = e.getDamage();
+            		double damage = e.getFinalDamage();
             		double lowerDamage = damage * percent;
 
             		if(e.getEntity() instanceof Player)
@@ -330,6 +354,7 @@ public class RootAbility implements Ability{
                 			return;
                 		}
                 		e.setDamage(lowerDamage);
+        	 	 		p.getWorld().playSound(p.getLocation(), Sound.ITEM_SHIELD_BLOCK, 2, 1);
 
             		}
             	}

@@ -60,9 +60,9 @@ public class MagicArrowsAbility implements Ability, Listener{
 
 	@Override
 	public boolean RunAbility(Player p) {
-		Language.sendAbilityUseMessage(p, "Enabled for " + enabledTime + " seconds.", "Magic Arrows");
+		Language.sendAbilityUseMessage(p, "Your arrows are infused with magic for " + enabledTime + " seconds.", "Magic Arrows");
 		enabled.add(p);
-		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, (float) 0.5);
+		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 2, (float) 0.5);
 		
 		new BukkitRunnable() {
             @Override
@@ -70,7 +70,7 @@ public class MagicArrowsAbility implements Ability, Listener{
         		if(enabled.contains(p))
         		{
         			enabled.remove(p);
-        			Language.sendAbilityUseMessage(p, "Disabled", "Magic Arrows");
+        			Language.sendAbilityUseMessage(p, "The magic in your arrows fade.", "Magic Arrows");
         		};
             }
         }.runTaskLaterAsynchronously(VallendiaMinigame.getInstance(), enabledTime*20L);

@@ -31,7 +31,8 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class SneakAbility implements Ability , Listener {
 	public static ArrayList<Player> sneaking = new ArrayList<Player>();
-
+	double forwardVelocity = 5 / 10D;
+	double upwardVelocity = -5 / 10D;
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
@@ -61,6 +62,8 @@ public class SneakAbility implements Ability , Listener {
 
 	@Override
 	public boolean RunAbility(Player p) {
+		
+		
 		
 		if(sneaking.contains(p))
 		{

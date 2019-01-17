@@ -62,7 +62,7 @@ public class TheHighGroundAbility implements Ability, Listener{
             	{
             		double lowerPercent =  0.8 ; //20%
             		double higherPercent =  1.2 ; //20%
-            		double damage = e.getDamage();
+            		double damage = e.getFinalDamage();
             		double lowerDamage = damage * lowerPercent;
             		double higherDamage = damage * higherPercent;
 

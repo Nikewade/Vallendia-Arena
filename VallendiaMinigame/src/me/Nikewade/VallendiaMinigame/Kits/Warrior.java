@@ -21,6 +21,8 @@ public class Warrior implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Bash"));
 		abilities.add(Main.abilitymanager.getAbility("The High Ground"));
 		abilities.add(Main.abilitymanager.getAbility("Root"));
+		abilities.add(Main.abilitymanager.getAbility("Bull Rush"));
+		abilities.add(Main.abilitymanager.getAbility("Momentum"));
 	}
 	
 	@Override

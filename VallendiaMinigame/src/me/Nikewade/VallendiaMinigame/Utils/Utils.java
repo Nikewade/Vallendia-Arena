@@ -16,6 +16,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -35,7 +36,11 @@ import com.comphenix.protocol.wrappers.EnumWrappers.WorldBorderAction;
 
 import de.slikey.effectlib.Effect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
-import me.Nikewade.VallendiaMinigame.Events.AltitudeChecker;
+import net.minecraft.server.v1_12_R1.NBTTagCompound;
+import net.minecraft.server.v1_12_R1.NBTTagDouble;
+import net.minecraft.server.v1_12_R1.NBTTagInt;
+import net.minecraft.server.v1_12_R1.NBTTagList;
+import net.minecraft.server.v1_12_R1.NBTTagString;
 
 public class Utils {
 	public static HashMap<Location, BlockState> blocks = new HashMap<>();
@@ -136,6 +141,7 @@ public class Utils {
 			}.runTaskLater(VallendiaMinigame.getInstance(), 20 * seconds);	
 			return;
 	  }
+	  
 	  
 	   @SuppressWarnings("deprecation")
 	    public static void restoreBlocks() {

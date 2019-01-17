@@ -118,7 +118,7 @@ public class AbilityUtils {
 	
 	
 	
-		public static Collection<Entity> getAoeTargets(Player originplayer, int Radiusx, int Radiusy, int Radiusz)
+		public static Collection<Entity> getAoeTargets(Player originplayer, double Radiusx, double Radiusy, double Radiusz)
 		{
 			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
 			for(Entity entity : originplayer.getWorld().getNearbyEntities(originplayer.getLocation(), Radiusx, Radiusy, Radiusz))

@@ -13,6 +13,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
@@ -48,7 +49,8 @@ public class GrapplingHookAbility implements Ability, Listener {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Shoot your bow to travel to a location.");
+		return Arrays.asList("Shoot your bow to travel to a location." , 
+				"This makes your arrow a little heavier.");
 	}
 
 	@Override
@@ -158,7 +160,14 @@ public class GrapplingHookAbility implements Ability, Listener {
             
             
             
-            
+            @EventHandler
+            public  void onShoot (EntityShootBowEvent e)
+            {
+            	if(e.getEntity() instanceof Player && grappling.contains(e.getEntity()))
+            	{
+            		e.getProjectile().setVelocity(e.getProjectile().getVelocity().multiply(0.6));
+            	}
+            }
             
             
             

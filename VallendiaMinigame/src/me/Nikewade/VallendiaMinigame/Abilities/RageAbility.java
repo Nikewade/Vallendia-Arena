@@ -35,7 +35,7 @@ public class RageAbility implements Ability{
 private static ArrayList<Player> raging = new ArrayList<>();
 private static HashMap<Player, BukkitTask> tasks = new HashMap<>();
 private  static Map<Entity,Effect> particle = new HashMap<>();
-int ragetime = 60;
+int ragetime = 30;
 int force = 20;
 int yForce = 8;
 int maxYForce = 10;

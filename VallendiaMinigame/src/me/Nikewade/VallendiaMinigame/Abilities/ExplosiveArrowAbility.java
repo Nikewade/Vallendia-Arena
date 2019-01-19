@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -18,19 +20,18 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 
-import de.slikey.effectlib.effect.LineEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import net.minecraft.server.v1_12_R1.Explosion;
 
 public class ExplosiveArrowAbility implements Ability, Listener{
 	private static ArrayList<Player> enabled = new ArrayList<>();
+	private static int damage = 8;
 
 	@Override
 	public String getName() {
@@ -48,7 +49,8 @@ public class ExplosiveArrowAbility implements Ability, Listener{
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Allows you to shoot an arrow that explodes" , 
-				"on impact. This arrow is slightly heavier.");
+				"on impact, doing " + damage + " damage in a radius.",
+				"This arrow is slightly heavier.");
 	}
 
 	@Override
@@ -59,8 +61,12 @@ public class ExplosiveArrowAbility implements Ability, Listener{
 
 	@Override
 	public boolean RunAbility(Player p) {
-		enabled.add(p);
+		if(enabled.contains(p))
+		{
+			return false;
+		}
     	Language.sendAbilityUseMessage(p, "You ready your bow.", "Explosive Arrow");
+    	enabled.add(p);
 		new BukkitRunnable() {
             @Override
             public void run() {
@@ -89,20 +95,19 @@ public class ExplosiveArrowAbility implements Ability, Listener{
                         {
                         	Player p = (Player) arrow.getShooter();
                         	
-                        	if(!enabled.contains(p))
-                        	{
-                        		return;
-                        	}
-                        	
+                    		
+                    		if(!arrow.hasMetadata("Explosive Arrow"))
+                    		{
+                    			return;
+                    		}
                     		if(!VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(p, "Explosive Arrow"))
                     		{
                     			return;
                     		}
                         	
-                        	enabled.remove(p);
                         	
                     		block.setMetadata("Explosive Arrow", new FixedMetadataValue(VallendiaMinigame.getInstance(), block));
-                        	block.getWorld().createExplosion(block.getLocation(), 3, true);
+                    		AbilityUtils.explode(block.getLocation(), p, 4, 8, true, true, true);
                         	
                         	arrow.remove();
                         	
@@ -119,26 +124,21 @@ public class ExplosiveArrowAbility implements Ability, Listener{
             @EventHandler
             public  void onShoot (EntityShootBowEvent e)
             {
-            	if(e.getEntity() instanceof Player && enabled.contains(e.getEntity()))
+
+            	if(!enabled.contains(e.getEntity()) || !(e.getEntity() instanceof Player))
             	{
-            		e.getProjectile().setVelocity(e.getProjectile().getVelocity().multiply(0.7));
+            		return;
             	}
+            	Player p = (Player) e.getEntity();
+        		if(!VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(p, "Explosive Arrow"))
+        		{
+        			return;
+        		}
+            		e.getProjectile().setVelocity(e.getProjectile().getVelocity().multiply(0.7));
+            		e.getProjectile().setMetadata("Explosive Arrow", new FixedMetadataValue(VallendiaMinigame.getInstance(), e.getProjectile()));
+                	enabled.remove(p);
             }
             
-            
-        	@EventHandler
-        	public void onExplode(BlockExplodeEvent e)
-        	{
-        		if(e.getBlock().hasMetadata("Explosive Arrow"))
-        		{
-        			e.setYield(0);
-            		for(Block b : e.blockList())
-            		{
-            				Utils.regenBlock(b, 30);
-            				b.setType(Material.AIR);
-            		}	
-        		}
-        	}
             
             
             
@@ -146,8 +146,6 @@ public class ExplosiveArrowAbility implements Ability, Listener{
             
         };
     }
-	
-	
 	
 	
 	

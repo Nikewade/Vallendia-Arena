@@ -13,27 +13,29 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerToggleSprintEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.Stairs;
+import org.bukkit.material.Step;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
-import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import net.minecraft.server.v1_12_R1.BlockStairs;
 
 public class BullRushAbility implements Ability, Listener{
 	private static int enabledTime = 20;
@@ -73,6 +75,10 @@ public class BullRushAbility implements Ability, Listener{
 
 	@Override
 	public boolean RunAbility(Player p) {
+		if(enabled.contains(p))
+		{
+			return false;
+		}
 		Language.sendAbilityUseMessage(p, "You become an unstoppable force for " + enabledTime + " seconds.", "Bull Rush");
 		enabled.add(p);
 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 1, (float) 1);
@@ -120,29 +126,61 @@ public class BullRushAbility implements Ability, Listener{
             		}
             		
             		if(oneBlockAway1.getBlock().getType().isSolid() || oneBlockAway2.getBlock().getType().isSolid())
-            		{	
-                		oneBlockAway1.getBlock().setMetadata("Bull Rush", new FixedMetadataValue(VallendiaMinigame.getInstance(), oneBlockAway1));
-                		oneBlockAway2.getBlock().setMetadata("Bull Rush", new FixedMetadataValue(VallendiaMinigame.getInstance(), oneBlockAway2));
-            			oneBlockAway2.getWorld().createExplosion(oneBlockAway2, 2, false);
-            			oneBlockAway1.getWorld().createExplosion(oneBlockAway1, 2, false);
-                           
-                           
-                           
-                   		if(enabled.contains(p))
-                		{
-                			enabled.remove(p);
-                			sprinting.remove(p);
-                	        if(tasks.containsKey(p))
-                	        {
-                	        	tasks.get(p).cancel();
-                	            tasks.remove(p);	
-                	        }
-                			Language.sendAbilityUseMessage(p, "Your rush comes to a halt.", "Bull Rush");
-                			if(p.hasPotionEffect(PotionEffectType.SPEED))
-                			{
-                    			p.removePotionEffect(PotionEffectType.SPEED);	
-                			}
-                		}
+            		{
+            			
+            			if(!(oneBlockAway1.getBlock().getType() == Material.GRASS) && !(oneBlockAway2.getBlock().getType() == Material.GRASS) && !(oneBlockAway1.getBlock().getType() == Material.DIRT) && !(oneBlockAway2.getBlock().getType() == Material.DIRT) )
+            			{
+            				if(!oneBlockAway1.getBlock().getType().name().contains("SLAB")  &&  
+            						!oneBlockAway1.getBlock().getType().name().contains("STEP"))
+            				{
+                    			AbilityUtils.explode(oneBlockAway1, p, 2, 3, false, true, false);
+                    			AbilityUtils.explode(oneBlockAway2, p, 2, 3, false, true, false);
+                                   
+                                   
+                                   
+                           		if(enabled.contains(p))
+                        		{
+                        			enabled.remove(p);
+                        			sprinting.remove(p);
+                        	        if(tasks.containsKey(p))
+                        	        {
+                        	        	tasks.get(p).cancel();
+                        	            tasks.remove(p);	
+                        	        }
+                        			Language.sendAbilityUseMessage(p, "Your rush comes to a halt.", "Bull Rush");
+                        			if(p.hasPotionEffect(PotionEffectType.SPEED))
+                        			{
+                            			p.removePotionEffect(PotionEffectType.SPEED);	
+                        			}
+                        		}
+                        		this.cancel();	
+            				}else
+                				if(oneBlockAway1.getBlock().getType().name().contains("SLAB") && oneBlockAway2.getBlock().getType() != Material.AIR ||  
+                						oneBlockAway1.getBlock().getType().name().contains("STEP") && oneBlockAway2.getBlock().getType() != Material.AIR)
+                				{
+                        			AbilityUtils.explode(oneBlockAway1, p, 2, 3, false, true, false);
+                        			AbilityUtils.explode(oneBlockAway2, p, 2, 3, false, true, false);
+                                       
+                                       
+                                       
+                               		if(enabled.contains(p))
+                            		{
+                            			enabled.remove(p);
+                            			sprinting.remove(p);
+                            	        if(tasks.containsKey(p))
+                            	        {
+                            	        	tasks.get(p).cancel();
+                            	            tasks.remove(p);	
+                            	        }
+                            			Language.sendAbilityUseMessage(p, "Your rush comes to a halt.", "Bull Rush");
+                            			if(p.hasPotionEffect(PotionEffectType.SPEED))
+                            			{
+                                			p.removePotionEffect(PotionEffectType.SPEED);	
+                            			}
+                            		}
+                            		this.cancel();	
+                				}
+            			}
             		}                		
 
             		
@@ -219,48 +257,53 @@ public class BullRushAbility implements Ability, Listener{
         	@EventHandler
         	public void onDamage(EntityDamageByEntityEvent e)
         	{
-        		if(!(e.getDamager() instanceof Player) || e.getCause() != DamageCause.ENTITY_ATTACK)
-        		{
-        			return;
-        		}
         		
-        		Player p = (Player) e.getDamager();
-           		if(sprinting.contains(p) && p.isSprinting())
+        		if(e.getDamager() instanceof Player && e.getCause() == DamageCause.ENTITY_ATTACK)
         		{
-            		if(enabled.contains(p))
+            		Player p = (Player) e.getDamager();
+               		if(sprinting.contains(p) && p.isSprinting())
             		{
-            			enabled.remove(p);
-            			sprinting.remove(p);
-            	        if(tasks.containsKey(p))
-            	        {
-            	        	tasks.get(p).cancel();
-            	            tasks.remove(p);	
-            	        }
-            			Language.sendAbilityUseMessage(p, "Your rush comes to a halt.", "Bull Rush");
-            			if(p.hasPotionEffect(PotionEffectType.SPEED))
-            			{
-                			p.removePotionEffect(PotionEffectType.SPEED);	
-            			}
-            			return;
-            		};
+                		if(enabled.contains(p))
+                		{
+                			enabled.remove(p);
+                			sprinting.remove(p);
+                	        if(tasks.containsKey(p))
+                	        {
+                	        	tasks.get(p).cancel();
+                	            tasks.remove(p);	
+                	        }
+                			Language.sendAbilityUseMessage(p, "Your rush comes to a halt.", "Bull Rush");
+                			if(p.hasPotionEffect(PotionEffectType.SPEED))
+                			{
+                    			p.removePotionEffect(PotionEffectType.SPEED);	
+                			}
+                		}
+            		}
+               		return;
         		}
-        		
+
+        		if(e.getDamager() instanceof Player && e.getCause() == DamageCause.ENTITY_EXPLOSION)
+        		{
+        			if(enabled.contains(e.getDamager()))
+        			{
+            			e.setCancelled(true);
+        			}
+        		}
+
         	}
         	
         	
         	@EventHandler
-        	public void onExplode(BlockExplodeEvent e)
+        	public void onExplode(EntityExplodeEvent e)
         	{
-        		if(e.getBlock().hasMetadata("Bull Rush"))
+        		if(e.getEntity() instanceof Player && enabled.contains(e.getEntity()))
         		{
+         	 		e.getLocation().getWorld().playSound(e.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 2, 1);
+         	 		e.getLocation().getWorld().spawnParticle(Particle.CRIT, e.getLocation().add(0, 0, 0), 20);
         			e.setYield(0);
-            		for(Block b : e.blockList())
-            		{
-        				Utils.regenBlock(b, 30);
-        				b.setType(Material.AIR);
-            		}	
         		}
         	}
+        	
         	
         	
         	

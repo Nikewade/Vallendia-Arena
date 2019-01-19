@@ -15,6 +15,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
@@ -124,9 +125,15 @@ public class Utils {
 	  {
 				BlockState state = b.getState();
 				Location location = b.getLocation();
-				blocks.put(location, state);
+				if(!blocks.containsKey(location))
+				{
+					blocks.put(location, state);	
+				}else return;
 				String block = b.getTypeId() + ":" + b.getData() + ":" + b.getWorld().getName() + ":" + b.getX() + ":" + b.getY() + ":" + b.getZ();
-				Utils.changes.add(block);
+				if(!changes.contains(block))
+				{
+					Utils.changes.add(block);	
+				}else return;
 				
 		    	new BukkitRunnable() {
 		    		Location loc = b.getLocation();
@@ -135,6 +142,48 @@ public class Utils {
 		            	if(!blocks.containsKey(loc))
 		            	{
 		            		return;	
+		            	}
+
+		            	for(Entity e : loc.getWorld().getNearbyEntities(loc, 1, 1, 1))
+		            	{
+		            		if(e instanceof LivingEntity)
+		            		{
+		            			int x = 1;
+		            			while(e.getLocation().getBlock().getType().isSolid() || e.getLocation().add(0, 1, 0).getBlock().getType().isSolid())
+		            			{
+		            				
+		            				if(x >= 50)
+		            				{
+			                			e.teleport(e.getLocation().add(0, 1, 0));
+		            				}
+		            				x++;
+		            				Block n = e.getLocation().getBlock().getRelative(BlockFace.NORTH);
+		            				Block s = e.getLocation().getBlock().getRelative(BlockFace.SOUTH);
+		            				Block east = e.getLocation().getBlock().getRelative(BlockFace.EAST);
+		            				Block w = e.getLocation().getBlock().getRelative(BlockFace.WEST);
+		                			e.teleport(e.getLocation().add(0, 1, 0));
+		            				if(!n.getType().isSolid())
+		            				{
+		            					e.teleport(n.getLocation());
+		            				}
+		            				
+		            				if(!s.getType().isSolid())
+		            				{
+		            					e.teleport(s.getLocation());
+		            				}
+		            				
+		            				if(!east.getType().isSolid())
+		            				{
+		            					e.teleport(east.getLocation());
+		            				}
+		            				
+		            				if(!w.getType().isSolid())
+		            				{
+		            					e.teleport(w.getLocation());
+		            				}
+		            					
+		            			}
+		            		}
 		            	}
 		            	
 		            	changes.remove(block);
@@ -164,6 +213,48 @@ public class Utils {
 	          
 	            world.getBlockAt(x, y, z).setTypeId(id);
 	            world.getBlockAt(x, y, z).setData(data);
+            	for(Entity e : world.getNearbyEntities(world.getBlockAt(x, y, z).getLocation(), 1, 1, 1))
+            	{
+            		if(e instanceof LivingEntity)
+            		{
+            			int time = 1;
+            			while(e.getLocation().getBlock().getType().isSolid() || e.getLocation().add(0, 1, 0).getBlock().getType().isSolid())
+            			{
+            				
+            				if(time >= 50)
+            				{
+	                			e.teleport(e.getLocation().add(0, 1, 0));
+            				}
+            				time++;
+            				Block n = e.getLocation().getBlock().getRelative(BlockFace.NORTH);
+            				Block s = e.getLocation().getBlock().getRelative(BlockFace.SOUTH);
+            				Block east = e.getLocation().getBlock().getRelative(BlockFace.EAST);
+            				Block w = e.getLocation().getBlock().getRelative(BlockFace.WEST);
+                			e.teleport(e.getLocation().add(0, 1, 0));
+            				if(!n.getType().isSolid())
+            				{
+            					e.teleport(n.getLocation());
+            				}
+            				
+            				if(!s.getType().isSolid())
+            				{
+            					e.teleport(s.getLocation());
+            				}
+            				
+            				if(!east.getType().isSolid())
+            				{
+            					e.teleport(east.getLocation());
+            				}
+            				
+            				if(!w.getType().isSolid())
+            				{
+            					e.teleport(w.getLocation());
+            				}
+            					
+            			}
+            		}
+            	}
+	            
 	            blocks++;
 	        }
 	      

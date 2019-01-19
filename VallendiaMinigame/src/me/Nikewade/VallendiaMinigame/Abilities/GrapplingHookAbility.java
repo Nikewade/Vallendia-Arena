@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -62,6 +63,10 @@ public class GrapplingHookAbility implements Ability, Listener {
 	@Override
 	public boolean RunAbility(Player p) {
 		// TODO Auto-generated method stub
+		if(grappling.contains(p))
+		{
+			return false;
+		}
 		grappling.add(p);
     	Language.sendAbilityUseMessage(p, "You ready your bow.", "Grappling Hook");
 		new BukkitRunnable() {
@@ -92,7 +97,7 @@ public class GrapplingHookAbility implements Ability, Listener {
                         {
                         	Player p = (Player) arrow.getShooter();
                         	
-                        	if(!grappling.contains(p))
+                        	if(!arrow.hasMetadata("Grappling Hook"))
                         	{
                         		return;
                         	}
@@ -116,6 +121,7 @@ public class GrapplingHookAbility implements Ability, Listener {
                         	}
                         	
                         	grappling.remove(p);
+                        	
                     		
                 			new BukkitRunnable() {
                             	int timer = 0;
@@ -163,10 +169,18 @@ public class GrapplingHookAbility implements Ability, Listener {
             @EventHandler
             public  void onShoot (EntityShootBowEvent e)
             {
-            	if(e.getEntity() instanceof Player && grappling.contains(e.getEntity()))
+
+            	if(!grappling.contains(e.getEntity()) || !(e.getEntity() instanceof Player))
             	{
-            		e.getProjectile().setVelocity(e.getProjectile().getVelocity().multiply(0.7));
+            		return;
             	}
+            	Player p = (Player) e.getEntity();
+        		if(!VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(p, "Grappling Hook"))
+        		{
+        			return;
+        		}
+            		e.getProjectile().setVelocity(e.getProjectile().getVelocity().multiply(0.7));
+            		e.getProjectile().setMetadata("Grappling Hook", new FixedMetadataValue(VallendiaMinigame.getInstance(), e.getProjectile()));
             }
             
             

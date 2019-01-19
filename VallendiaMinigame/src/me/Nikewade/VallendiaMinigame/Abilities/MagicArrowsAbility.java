@@ -60,6 +60,10 @@ public class MagicArrowsAbility implements Ability, Listener{
 
 	@Override
 	public boolean RunAbility(Player p) {
+		if(enabled.contains(p))
+		{
+			return false;
+		}
 		Language.sendAbilityUseMessage(p, "Your arrows are infused with magic for " + enabledTime + " seconds.", "Magic Arrows");
 		enabled.add(p);
 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 2, (float) 0.5);

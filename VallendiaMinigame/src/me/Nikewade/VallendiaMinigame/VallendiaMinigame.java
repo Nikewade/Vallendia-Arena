@@ -1,16 +1,20 @@
 package me.Nikewade.VallendiaMinigame;
 
-import java.io.File;
-
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.flags.Flag;
+import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.flags.registry.FlagConflictException;
+import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
+import com.sk89q.worldguard.protection.managers.RegionManager;
 
 import de.slikey.effectlib.EffectManager;
 import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
@@ -84,14 +88,40 @@ public class VallendiaMinigame extends JavaPlugin{
 	   public AltitudeChecker altchecker;
 	   public SpawningHandler spawnhandler;
 	   public ProtocolManager protocolManager;
-	
+	   public WorldGuardPlugin worldguard;
+	   @SuppressWarnings("rawtypes")
+	   public static final Flag blockAbilities = new StateFlag("block-abilities", true);
+
+	   public void onLoad() {
+	       FlagRegistry registry = WorldGuardPlugin.inst().getFlagRegistry();
+	       try {
+	           registry.register(blockAbilities);
+	       } catch (FlagConflictException e) {
+	           // some other plugin registered a flag by the same name already.
+	           // you may want to re-register with a different name, but this
+	           // could cause issues with saved flags in region files. it's better
+	           // to print a message to let the server admin know of the conflict
+	       }
+	   }
+	   
+	   private WorldGuardPlugin getWorldGuard() {
+		    Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
+		 
+		    // WorldGuard may not be loaded
+		    if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
+		        return null; // Maybe you want throw an exception instead
+		    }
+		 
+		    return (WorldGuardPlugin) plugin;
+		}
+	   
 	   @Override
 	   public void onEnable()
 	   {
 		   Main = this;
 		   if(!IO.getShopFile().exists()) ShopHandler.saveShop();
 		   AbilityUtils.addBlocks();
-		   SneakAbility.onReload();
+		   SneakAbility.onReload();;
 		   //Methods etc..
 		   this.FileManager = new FileManager(this);
 		   this.sb = new ScoreboardHandler(this);
@@ -106,6 +136,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.altchecker = new AltitudeChecker(this);
 		   this.spawnhandler = new SpawningHandler(this);
 		   this.protocolManager = ProtocolLibrary.getProtocolManager();
+		   this.worldguard = getWorldGuard();
 		   
 		   //Listeners
 		   new PlayerJoinEvents(this);
@@ -117,6 +148,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   new PlayerExpEvents(this);
 		   Bukkit.getPluginManager().registerEvents(AdvInventory.getListener(), this);
 		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
+		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);
 		   
 		   //Ability Listeners
 		   Bukkit.getPluginManager().registerEvents(DeflectArrowsAbility.getListener(), this);

@@ -71,6 +71,10 @@ int maxYForce = 10;
 
 	@Override
 	public boolean RunAbility(Player p) {
+		if(raging.contains(p))
+		{
+			return false;
+		}
 			p.sendTitle(ChatColor.DARK_RED + "" + ChatColor.BOLD + "YOU RAGE!", ChatColor.RED + " Your rage will last for " + ragetime + " seconds" , 20, 90, 50);	
 			if(p.getHealth() < p.getMaxHealth() && p.getHealth() + 5 < p.getMaxHealth())
 			{
@@ -151,6 +155,7 @@ int maxYForce = 10;
 		            			RageAbility.particle.get(p).cancel();
 		            			RageAbility.particle.remove(p);	
 	            			}
+	            			raging.remove(p);
 	            			this.cancel();
 	            		}
 	            		if(!raging.contains(p))
@@ -194,6 +199,7 @@ int maxYForce = 10;
 		            			RageAbility.particle.get(p).cancel();
 		            			RageAbility.particle.remove(p);	
 	            			}
+	            			raging.remove(p);
 	                		this.cancel();
 	                	}
 	            }

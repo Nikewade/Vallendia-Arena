@@ -1,11 +1,8 @@
 package me.Nikewade.VallendiaMinigame.Events;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,13 +14,17 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLib;
-import com.comphenix.protocol.events.PacketContainer;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.LocalPlayer;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 
@@ -38,6 +39,7 @@ public class PlayerItemEvents implements Listener {
 		Main.getServer().getPluginManager().registerEvents(this, Main);
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void rightClickItem(PlayerInteractEvent e) {
  	   	if(!(e.getHand() == EquipmentSlot.HAND)) return;
@@ -74,6 +76,14 @@ public class PlayerItemEvents implements Listener {
 	    		   	String ability = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities." + ChatColor.stripColor(Utils.Colorate(item.getItemMeta().getLore().get(0).toLowerCase())));
 	    		   	if(Main.abilitymanager.getAbility(ability) == null)
 	    		   	{
+	    		   		return;
+	    		   	}
+	    		   	RegionManager regionManager = Main.worldguard.getRegionManager(p.getWorld());
+	    		   	ApplicableRegionSet arset = regionManager.getApplicableRegions(p.getLocation());
+	    		   	LocalPlayer localPlayer = Main.worldguard.wrapPlayer(p);
+	    		   	if(!arset.allows((StateFlag) VallendiaMinigame.blockAbilities, localPlayer))
+	    		   	{
+	    		   		Language.sendDefaultMessage(p, "You cant use abilities here!");
 	    		   		return;
 	    		   	}
 		    		if(!AbilityCooldown.isInCooldown(p.getUniqueId(), ability))

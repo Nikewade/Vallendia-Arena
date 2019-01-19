@@ -2,23 +2,40 @@ package me.Nikewade.VallendiaMinigame.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class AbilityUtils {
+import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import net.minecraft.server.v1_12_R1.Explosion;
+
+public class AbilityUtils implements Listener {
 	private static Set<Material> transparentBlocks = null;
+	private static HashMap<Block, Integer> explosives = new HashMap<>();
+	private static HashMap<Entity, Integer> explosivesEntities = new HashMap<>();
 	
 	
 	//If the player already has a potion effect, this will add the existing effects duration to the new one.
@@ -194,6 +211,66 @@ public class AbilityUtils {
 	    transparentBlocks.add(Material.YELLOW_FLOWER);
 	    
 	}
+	
+	
+	//Makes and  explsion and stores it so you can  set its damage.. The damageSubtraction is what we subtract from the normal explosion damage.
+    public static void explode(Location loc, Entity explodeAs, int power, int damage, boolean setFires, boolean terrainDamage, boolean particles) {
+        explosives.put(loc.getBlock(), damage);
+        explosivesEntities.put(explodeAs, damage);
+        Explosion explosion = new Explosion(((CraftWorld) loc.getWorld()).getHandle(),
+               ((CraftEntity) explodeAs).getHandle(), loc.getX(), loc.getY(), loc.getZ(), power, setFires,
+               terrainDamage);
+        explosion.a();
+        explosion.a(true);
+        if(particles)
+        {
+            loc.getWorld().playEffect(loc, Effect.EXPLOSION_HUGE, power);	
+        }
+        loc.getBlock().setMetadata(explodeAs.getName(), new FixedMetadataValue(VallendiaMinigame.getInstance(), loc.getBlock()));
+    }
+	
+	
+    public static Listener getListener() {
+        return new Listener() {
+        	
+        	@EventHandler
+        	public void onExplode(EntityExplodeEvent e)
+        	{
+        			if(explosives.containsKey(e.getLocation().getBlock()))
+        			{
+            			e.setYield(0);
+                		for(Block b : e.blockList())
+                		{
+                				Utils.regenBlock(b, 30);
+                				b.setType(Material.AIR);
+                		}	
+        			}
+        		}
+        	
+        	
+        	@EventHandler
+        	public void onDamage(EntityDamageByEntityEvent e)
+        	{
+        		if(!explosivesEntities.containsKey(e.getDamager()))
+        		{
+        			return;
+        		}
+        		if(e.getDamager() instanceof Player && e.getCause() == DamageCause.ENTITY_EXPLOSION)
+        		{
+        			e.setDamage(explosivesEntities.get(e.getDamager()));
+        			explosivesEntities.remove(e.getEntity());
+        		}
+
+        	}
+            
+            
+            
+            
+            
+        };
+    }
+	
+	
 	
 	
 	

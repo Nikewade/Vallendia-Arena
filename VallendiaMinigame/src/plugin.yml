@@ -8,5 +8,7 @@ commands:
 depend:
   - EffectLib
   - CombatLogX
+  - WorldGuard
+  - WorldEdit
     
 

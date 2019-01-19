@@ -60,6 +60,7 @@ public class PlayerKillEvents implements Listener{
 				killer.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
 				killer.sendMessage("");
 				Language.sendCentredMessage(killer, Utils.Colorate("&3Player killed: " + p.getName()));
+				Language.sendCentredMessage(killer, Utils.Colorate("&3Kit: " + Main.kitmanager.getKit(p).getName(true)));
 				Language.sendCentredMessage(killer, Utils.Colorate("&3Level: " + Main.levelmanager.getLevel(p)));
 				Language.sendCentredMessage(killer, Utils.Colorate("&3Points gained: " + points));
 				killer.sendMessage("");

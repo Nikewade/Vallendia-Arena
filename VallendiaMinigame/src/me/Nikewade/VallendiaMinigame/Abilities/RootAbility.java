@@ -338,7 +338,7 @@ public class RootAbility implements Ability{
             	@EventHandler
             	public void onDamage(EntityDamageEvent e)
             	{
-            		double damage = e.getFinalDamage();
+            		double damage = e.getDamage();
             		double lowerDamage = damage * percent;
 
             		if(e.getEntity() instanceof Player)

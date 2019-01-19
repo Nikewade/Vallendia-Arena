@@ -39,12 +39,13 @@ import net.minecraft.server.v1_12_R1.BlockStairs;
 
 public class BullRushAbility implements Ability, Listener{
 	private static int enabledTime = 20;
-	private static int damage = 7;
+	private static int damage = 8;
 	private static int force = 20;
 	private static int yForce = 6;
 	private static int maxYForce = 6;
 	private static ArrayList<Player> enabled = new ArrayList<>();
 	private static ArrayList<Player> sprinting = new ArrayList<>();
+	private static ArrayList<Player> hasspeed = new ArrayList<>();
 	private static HashMap<Player, BukkitTask> tasks = new HashMap<>();
 
 	@Override
@@ -62,8 +63,10 @@ public class BullRushAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("For " + enabledTime + " seconds, running into a player knocks",
-				"them back and does "  + damage + " damage. If at any point" , 
+		return Arrays.asList("For " + enabledTime + " seconds, you gain a burst of speed.",
+				"Running into a player knocks them back and does",
+				"" + damage + " damage, and if run into a wall you will smash" , 
+				"through the blocks. If at any point",
 				"you stop running, the ability will cancel.");
 	}
 
@@ -82,7 +85,11 @@ public class BullRushAbility implements Ability, Listener{
 		Language.sendAbilityUseMessage(p, "You become an unstoppable force for " + enabledTime + " seconds.", "Bull Rush");
 		enabled.add(p);
 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 1, (float) 1);
-		AbilityUtils.addPotionDuration(p, PotionEffectType.SPEED, 1, enabledTime * 20);
+		if(!p.hasPotionEffect(PotionEffectType.SPEED))
+		{
+			AbilityUtils.addPotionDuration(p, PotionEffectType.SPEED, 1, enabledTime * 20);	
+			hasspeed.add(p);
+		}
 		
 		new BukkitRunnable() {
             @Override
@@ -97,9 +104,10 @@ public class BullRushAbility implements Ability, Listener{
         	            tasks.remove(p);	
         	        }
         			Language.sendAbilityUseMessage(p, "Your rush comes to a halt.", "Bull Rush");
-        			if(p.hasPotionEffect(PotionEffectType.SPEED))
+        			if(p.hasPotionEffect(PotionEffectType.SPEED) && hasspeed.contains(p))
         			{
-            			p.removePotionEffect(PotionEffectType.SPEED);	
+            			p.removePotionEffect(PotionEffectType.SPEED);
+            			hasspeed.remove(p);
         			}
         		}
             }
@@ -148,9 +156,10 @@ public class BullRushAbility implements Ability, Listener{
                         	            tasks.remove(p);	
                         	        }
                         			Language.sendAbilityUseMessage(p, "Your rush comes to a halt.", "Bull Rush");
-                        			if(p.hasPotionEffect(PotionEffectType.SPEED))
+                        			if(p.hasPotionEffect(PotionEffectType.SPEED) && hasspeed.contains(p))
                         			{
-                            			p.removePotionEffect(PotionEffectType.SPEED);	
+                            			p.removePotionEffect(PotionEffectType.SPEED);
+                            			hasspeed.remove(p);
                         			}
                         		}
                         		this.cancel();	
@@ -173,9 +182,10 @@ public class BullRushAbility implements Ability, Listener{
                             	            tasks.remove(p);	
                             	        }
                             			Language.sendAbilityUseMessage(p, "Your rush comes to a halt.", "Bull Rush");
-                            			if(p.hasPotionEffect(PotionEffectType.SPEED))
+                            			if(p.hasPotionEffect(PotionEffectType.SPEED) && hasspeed.contains(p))
                             			{
-                                			p.removePotionEffect(PotionEffectType.SPEED);	
+                                			p.removePotionEffect(PotionEffectType.SPEED);
+                                			hasspeed.remove(p);
                             			}
                             		}
                             		this.cancel();	
@@ -242,9 +252,10 @@ public class BullRushAbility implements Ability, Listener{
             	            tasks.remove(p);	
             	        }
             			Language.sendAbilityUseMessage(p, "Your rush comes to a halt.", "Bull Rush");
-            			if(p.hasPotionEffect(PotionEffectType.SPEED))
+            			if(p.hasPotionEffect(PotionEffectType.SPEED) && hasspeed.contains(p))
             			{
-                			p.removePotionEffect(PotionEffectType.SPEED);	
+                			p.removePotionEffect(PotionEffectType.SPEED);
+                			hasspeed.remove(p);
             			}
             			return;
             		};
@@ -273,9 +284,10 @@ public class BullRushAbility implements Ability, Listener{
                 	            tasks.remove(p);	
                 	        }
                 			Language.sendAbilityUseMessage(p, "Your rush comes to a halt.", "Bull Rush");
-                			if(p.hasPotionEffect(PotionEffectType.SPEED))
+                			if(p.hasPotionEffect(PotionEffectType.SPEED) && hasspeed.contains(p))
                 			{
-                    			p.removePotionEffect(PotionEffectType.SPEED);	
+                    			p.removePotionEffect(PotionEffectType.SPEED);
+                    			hasspeed.remove(p);
                 			}
                 		}
             		}

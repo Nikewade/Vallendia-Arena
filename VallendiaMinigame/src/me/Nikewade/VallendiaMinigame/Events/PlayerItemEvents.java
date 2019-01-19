@@ -19,6 +19,7 @@ import org.bukkit.util.Vector;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.comphenix.protocol.wrappers.EnumWrappers.Hand;
 import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
@@ -42,7 +43,7 @@ public class PlayerItemEvents implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void rightClickItem(PlayerInteractEvent e) {
- 	   	if(!(e.getHand() == EquipmentSlot.HAND)) return;
+ 	   	if(!(e.getHand() == EquipmentSlot.HAND) || e.getHand() == EquipmentSlot.OFF_HAND) return;
 	    Action a = e.getAction();
 	    if (a == Action.RIGHT_CLICK_AIR || a == Action.RIGHT_CLICK_BLOCK)
 	    {

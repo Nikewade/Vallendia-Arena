@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
 import me.Nikewade.VallendiaMinigame.Upgrades.RegenUpgrade;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
@@ -50,6 +51,7 @@ public class PlayerJoinEvents implements Listener{
 	{
 		RootAbility.removeLists(e.getPlayer());
 		e.getPlayer().setGravity(true);
+		EquipBowAbility.removeBow(e.getPlayer());
 	}
 	
 	@SuppressWarnings("deprecation")

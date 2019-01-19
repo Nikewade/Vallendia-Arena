@@ -18,6 +18,8 @@ public class ReloadCommand implements  CommandInterface{
 	    	return false;	    	
 	    }
 	    Bukkit.dispatchCommand(sender, "plugman reload VallendiaMinigame");
+	    sender.sendMessage(Utils.Colorate("&4&lRELOADED This will break things like worldguard flags!"));
+	    sender.sendMessage(Utils.Colorate("&4&lMake sure to do a proper reload / restart to fix."));
 		return false;
 	}
 

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -28,7 +29,7 @@ public class MomentumAbility implements Ability, Listener{
 	private static HashMap<Player, Integer> currentDamage = new HashMap<>();
 	private static HashMap<Player, BukkitTask> tasks = new HashMap<>();
 	private static int percentPerSecond = 10;
-	private static int maxSeconds = 6;
+	private static int maxSeconds = 8;
 
 	@Override
 	public String getName() {
@@ -47,7 +48,7 @@ public class MomentumAbility implements Ability, Listener{
 		// TODO Auto-generated method stub
 		return Arrays.asList("Running gives a damage boost of 10% per",
 				"second spent running to a maximum",
-				"of +60% to your next hit. This damage",
+				"of +80% to your next hit. This damage",
 				"boost fades when you stop running.");
 	}
 
@@ -148,7 +149,7 @@ public class MomentumAbility implements Ability, Listener{
         		}
         		Player p = (Player) e.getDamager();
         		double higherPercent =  ((currentDamage.get(p)* 0.1) * 0.1) + 1;
-        		double damage = e.getFinalDamage();
+        		double damage = e.getDamage();
         		double higherDamage = damage * higherPercent;
         		e.setDamage(higherDamage);
   	 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 2, (float) 0.8);
@@ -159,6 +160,7 @@ public class MomentumAbility implements Ability, Listener{
         		{
         			currentDamage.remove(p);
         		}
+        		
         		
         	}
 

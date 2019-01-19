@@ -33,7 +33,9 @@ public class BashAbility implements Ability {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Bash the target over the head briefly stunning them.");
+		return Arrays.asList("Bash the target over the head briefly stunning them.",
+				"This will cause the target to go blind and",
+				"become very slow for a short time.");
 	}
 
 	@Override

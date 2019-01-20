@@ -37,7 +37,8 @@ public class PickPocketAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Each time you melee hit a player, steal 1 point.");
+		return Arrays.asList("Each time you melee hit a player, steal 1 point.", 
+				"Sending a player into negative points will damage them.");
 	}
 
 	@Override
@@ -76,6 +77,10 @@ public class PickPocketAbility implements Ability, Listener{
         			return;
         		}
         		main.shopmanager.subtractPoints(target, 1);
+        		if(main.shopmanager.getPoints(target) <= 0)
+        		{
+        			return;
+        		}
         		main.shopmanager.addPoints(damager, 1);
         		
         		ItemStack itemstack = null;

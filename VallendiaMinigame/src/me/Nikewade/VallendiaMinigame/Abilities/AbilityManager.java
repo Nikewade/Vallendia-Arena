@@ -53,6 +53,9 @@ public class AbilityManager {
 		abilities.add(new EquipBowAbility());
 		abilities.add(new PillageAbility());
 		abilities.add(new PickPocketAbility());
+		abilities.add(new EarthQuakeAbility());
+		abilities.add(new KineticBarrierAbility());
+		
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
@@ -219,6 +222,7 @@ public class AbilityManager {
 	        }
 			this.addAbility(abilityname, abilityslot, p);
 			Main.shopmanager.subtractPoints(p, price);
+			Main.playerdatamanager.addData(p.getUniqueId(), "PointsSpent", price);
 	        p.sendTitle(Utils.Colorate("&3&lAbility " + abilityname), "", 20, 40, 40);
 	        p.playSound(p.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 2, 0);
 	        Main.levelmanager.addEXP(p, Main.getConfig().getInt("Abilities." + abilityname + "." + Main.kitmanager.getKit(p).getName(false).toLowerCase() + ".exp"));

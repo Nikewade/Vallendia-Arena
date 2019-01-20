@@ -241,8 +241,11 @@ public class AbilityUtils implements Listener {
             			e.setYield(0);
                 		for(Block b : e.blockList())
                 		{
+                			if(!(b.getType() == Material.TORCH))
+                			{
                 				Utils.regenBlock(b, 30);
                 				b.setType(Material.AIR);
+                			}
                 		}	
         			}
         		}

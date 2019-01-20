@@ -22,9 +22,11 @@ import me.Nikewade.VallendiaMinigame.Abilities.BlindingArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.BullRushAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.DeflectArrowsAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.EarthQuakeAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.ExplosiveArrowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.GrapplingHookAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.KineticBarrierAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LeapAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MagicArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MomentumAbility;
@@ -69,6 +71,7 @@ import me.Nikewade.VallendiaMinigame.Upgrades.UpgradeManager;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
+import me.Nikewade.VallendiaMinigame.Utils.FallingBlocksManager;
 import me.Nikewade.VallendiaMinigame.Utils.FileManager;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
@@ -92,6 +95,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	   public ProtocolManager protocolManager;
 	   public WorldGuardPlugin worldguard;
 	   public AbilityCooldown cooldowns;
+	   public FallingBlocksManager fallingblocks;
 	   @SuppressWarnings("rawtypes")
 	   public static final Flag blockAbilities = new StateFlag("block-abilities", true);
 
@@ -140,6 +144,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.spawnhandler = new SpawningHandler(this);
 		   this.protocolManager = ProtocolLibrary.getProtocolManager();
 		   this.worldguard = getWorldGuard();
+	       this.fallingblocks = new FallingBlocksManager(this);
 		   
 		   //Listeners
 		   new PlayerJoinEvents(this);
@@ -174,6 +179,8 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(ExplosiveArrowAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(PillageAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(PickPocketAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(EarthQuakeAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(KineticBarrierAbility.getListener(), this);
 		   
 		   //Commands
 		   this.registerCommands();
@@ -193,6 +200,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   sb.runNameTagUpdater();
 		   sb.runSidebarUpdater();
 		   ShopHandler.loadShop();
+		   KineticBarrierAbility.startTimeCountTask();
 		   
 		   
 		   

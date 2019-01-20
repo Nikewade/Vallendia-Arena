@@ -24,6 +24,7 @@ import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.KickAbility;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
@@ -85,6 +86,11 @@ public class PlayerItemEvents implements Listener {
 	    		   	if(!arset.allows((StateFlag) VallendiaMinigame.blockAbilities, localPlayer))
 	    		   	{
 	    		   		Language.sendDefaultMessage(p, "You cant use abilities here!");
+	    		   		return;
+	    		   	}
+	    		   	if(KickAbility.list.contains(p))
+	    		   	{
+	    		   		Language.sendAbilityUseMessage(p, "Your abilities are silenced.", "Kick");
 	    		   		return;
 	    		   	}
 		    		if(!AbilityCooldown.isInCooldown(p.getUniqueId(), ability))

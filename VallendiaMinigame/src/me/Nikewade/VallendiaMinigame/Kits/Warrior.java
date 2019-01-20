@@ -26,6 +26,7 @@ public class Warrior implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Equip Bow"));
 		abilities.add(Main.abilitymanager.getAbility("Pillage"));
 		abilities.add(Main.abilitymanager.getAbility("Quake"));
+		abilities.add(Main.abilitymanager.getAbility("Kick"));
 	}
 	
 	@Override

@@ -175,7 +175,7 @@ public class PlayerFoodEvents implements Listener {
 			if(healing.contains(p))
 			{
 				healing.remove(p);
-            	p.sendMessage(Utils.Colorate("&cYou have stopped regenerating health."));
+            	Language.sendDefaultMessage(p, "You have stopped regenerating health.");
 			}
 	
 		}
@@ -189,7 +189,7 @@ public class PlayerFoodEvents implements Listener {
 		if(healing.contains(p))
 		{
         	healing.remove(p);
-        	p.sendMessage(Utils.Colorate("&cYou have stopped regenerating health."));
+        	Language.sendDefaultMessage(p, "You have stopped regenerating health.");
 		}
 	}
 	

@@ -19,6 +19,7 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Mage Armor"));
 		abilities.add(Main.abilitymanager.getAbility("Blink"));
 		abilities.add(Main.abilitymanager.getAbility("Kinetic Barrier"));
+		abilities.add(Main.abilitymanager.getAbility("Kick"));
 	}
 
 	@Override

@@ -1,15 +1,16 @@
 package me.Nikewade.VallendiaMinigame.Utils;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 
 public class Language {
-	public static void sendAbilityUseMessage(Player p, String msg, String ability)
+	public static void sendAbilityUseMessage(LivingEntity target, String msg, String ability)
 	{
-		p.sendMessage(Utils.Colorate("&3&l[" + VallendiaMinigame.getInstance().abilitymanager.getAbility(ability).getName() + "] &8" + msg));
+		target.sendMessage(Utils.Colorate("&3&l[" + VallendiaMinigame.getInstance().abilitymanager.getAbility(ability).getName() + "] &8" + msg));
 	}
 	
 	

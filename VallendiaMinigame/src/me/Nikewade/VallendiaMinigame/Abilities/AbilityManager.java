@@ -55,6 +55,7 @@ public class AbilityManager {
 		abilities.add(new PickPocketAbility());
 		abilities.add(new EarthQuakeAbility());
 		abilities.add(new KineticBarrierAbility());
+		abilities.add(new KickAbility());
 		
 		
 		int totalAbilities = abilities.size();

@@ -59,8 +59,8 @@ public class PlayerJoinEvents implements Listener{
 	public void onChat(PlayerChatEvent e)
 	{
 		Player p = e.getPlayer();
-		e.setFormat(Language.getPlayerPrefix(p) + Utils.Colorate("&l[lvl "+ Main.levelmanager.getLevel(p) + "] "
-				+ "&7" + p.getName() + ": ") + e.getMessage());
+		e.setFormat (Utils.Colorate("&8&l[" + Language.getPlayerPrefix(p) + "&llvl" + Main.levelmanager.getLevel(p) + "&8&l]"
+					+ "&8&l[" + Main.chat.getPlayerPrefix(p) + "&8&l]" + "&7" + p.getName() + ": ") + e.getMessage());
 	}
 
 }

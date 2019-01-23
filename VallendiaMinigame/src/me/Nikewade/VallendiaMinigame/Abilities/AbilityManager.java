@@ -53,10 +53,9 @@ public class AbilityManager {
 		abilities.add(new EquipBowAbility());
 		abilities.add(new PillageAbility());
 		abilities.add(new PickPocketAbility());
-		abilities.add(new EarthQuakeAbility());
-		abilities.add(new KineticBarrierAbility());
 		abilities.add(new KickAbility());
-		
+		abilities.add(new MountAbility());
+		abilities.add(new BlurAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");

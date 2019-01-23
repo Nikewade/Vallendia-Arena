@@ -56,16 +56,8 @@ public class KickAbility implements Ability{
  	 		p.getWorld().playSound(p.getLocation(), Sound.BLOCK_WOOD_BUTTON_CLICK_ON, 2, (float) 0.7);
  	 		target.getWorld().spawnParticle(Particle.CRIT, target.getLocation().add(0, 1.8, 0), 20);
  	 		target.damage(damage, p); 
- 	 		list.add(target);
+ 	 		AbilityUtils.silenceAbilities(target, time, "Kick");
          	Language.sendAbilityUseMessage(target, "Your abilities are silenced.", "Kick");
- 	 		
- 			new BukkitRunnable() {
- 	            @Override
- 	            public void run() {
- 	            	Language.sendAbilityUseMessage(target, "Your abilities are no longer silenced.", "Kick");
- 	    			list.remove(target);
- 	            }
- 	        }.runTaskLaterAsynchronously(VallendiaMinigame.getInstance(), time*20L); 
  	 		
  	 		
  			return true;

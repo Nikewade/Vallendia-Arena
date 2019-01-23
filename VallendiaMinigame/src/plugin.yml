@@ -10,5 +10,6 @@ depend:
   - CombatLogX
   - WorldGuard
   - WorldEdit
+  - Vault
     
 

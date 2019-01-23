@@ -26,6 +26,7 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.KickAbility;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import net.md_5.bungee.api.ChatColor;
@@ -88,9 +89,9 @@ public class PlayerItemEvents implements Listener {
 	    		   		Language.sendDefaultMessage(p, "You cant use abilities here!");
 	    		   		return;
 	    		   	}
-	    		   	if(KickAbility.list.contains(p))
+	    		   	if(AbilityUtils.silenced.containsKey(p))
 	    		   	{
-	    		   		Language.sendAbilityUseMessage(p, "Your abilities are silenced.", "Kick");
+	    		   		Language.sendDefaultMessage(p, "Your abilities are silenced.");
 	    		   		return;
 	    		   	}
 		    		if(!AbilityCooldown.isInCooldown(p.getUniqueId(), ability))

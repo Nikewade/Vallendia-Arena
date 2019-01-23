@@ -72,6 +72,10 @@ public class PillageAbility implements Ability, Listener{
         		Player damager = (Player) e.getDamager();
         		Player target = (Player) e.getEntity();
         		VallendiaMinigame main = VallendiaMinigame.getInstance();
+        		if(!main.abilitymanager.playerHasAbility(damager, "Pick Pocket"))
+        		{
+        			return;
+        		}
         		main.shopmanager.subtractPoints(target, 1);
         		if(main.shopmanager.getPoints(target) <= 0)
         		{

@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -21,13 +20,14 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import net.minecraft.server.v1_12_R1.Explosion;
@@ -36,6 +36,7 @@ public class AbilityUtils implements Listener {
 	private static Set<Material> transparentBlocks = null;
 	private static HashMap<Block, Integer> explosives = new HashMap<>();
 	private static HashMap<Entity, Integer> explosivesEntities = new HashMap<>();
+	public static HashMap<LivingEntity, BukkitTask> silenced = new HashMap<>();
 	
 	
 	//If the player already has a potion effect, this will add the existing effects duration to the new one.
@@ -230,6 +231,36 @@ public class AbilityUtils implements Listener {
     }
 	
 	
+    public static void silenceAbilities(LivingEntity e, int seconds, String ability)
+    {
+    	if(silenced.containsKey(e))
+    	{
+    		silenced.remove(e);
+    	}
+    	
+		BukkitTask task = new BukkitRunnable() {
+            @Override
+            public void run() {
+            	if(silenced.containsKey(e))
+            	{
+            		silenced.remove(e);
+            		Language.sendAbilityUseMessage(e, "Your abilities are no longer silenced.", ability);
+            	}
+            }
+        }.runTaskLaterAsynchronously(VallendiaMinigame.getInstance(), seconds*20L);
+        
+        silenced.put(e, task);
+    }
+    
+    
+    public static void removeSilence(LivingEntity e)
+    {
+    	if(silenced.containsKey(e))
+    	{
+    		silenced.remove(e);
+    	}
+    }
+    
     public static Listener getListener() {
         return new Listener() {
         	
@@ -241,7 +272,7 @@ public class AbilityUtils implements Listener {
             			e.setYield(0);
                 		for(Block b : e.blockList())
                 		{
-                			if(!(b.getType() == Material.TORCH))
+                			if(!(b.getType() == Material.TORCH) || !(b.getType() == Material.REDSTONE_TORCH_ON) || !(b.getType() == Material.REDSTONE_TORCH_OFF))
                 			{
                 				Utils.regenBlock(b, 30);
                 				b.setType(Material.AIR);

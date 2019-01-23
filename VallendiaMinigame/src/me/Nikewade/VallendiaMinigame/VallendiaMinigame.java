@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.ScoreboardManager;
 
@@ -19,6 +20,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Abilities.BackFlipAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.BackstabAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.BlindingArrowsAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.BlurAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.BullRushAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.DeflectArrowsAbility;
@@ -30,6 +32,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.KineticBarrierAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LeapAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MagicArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MomentumAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.MountAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.PickPocketAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.PillageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.PoisonArrowsAbility;
@@ -73,7 +76,10 @@ import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
 import me.Nikewade.VallendiaMinigame.Utils.FallingBlocksManager;
 import me.Nikewade.VallendiaMinigame.Utils.FileManager;
+import me.Nikewade.VallendiaMinigame.Utils.GhostManager;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import net.milkbowl.vault.chat.Chat;
+import net.milkbowl.vault.permission.Permission;
 
 
 public class VallendiaMinigame extends JavaPlugin{
@@ -96,6 +102,9 @@ public class VallendiaMinigame extends JavaPlugin{
 	   public WorldGuardPlugin worldguard;
 	   public AbilityCooldown cooldowns;
 	   public FallingBlocksManager fallingblocks;
+	   public Permission perms;
+	   public Chat chat;
+	   public GhostManager ghost;
 	   @SuppressWarnings("rawtypes")
 	   public static final Flag blockAbilities = new StateFlag("block-abilities", true);
 
@@ -145,6 +154,15 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.protocolManager = ProtocolLibrary.getProtocolManager();
 		   this.worldguard = getWorldGuard();
 	       this.fallingblocks = new FallingBlocksManager(this);
+	       this.ghost = new GhostManager(this);
+	       
+	        if (!setupPermissions() ) {
+	            Bukkit.getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+	            getServer().getPluginManager().disablePlugin(this);
+	            return;
+	        }
+	        setupPermissions();
+	        setupChat();
 		   
 		   //Listeners
 		   new PlayerJoinEvents(this);
@@ -181,6 +199,8 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(PickPocketAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(EarthQuakeAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(KineticBarrierAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(MountAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(BlurAbility.getListener(), this);
 		   
 		   //Commands
 		   this.registerCommands();
@@ -192,6 +212,7 @@ public class VallendiaMinigame extends JavaPlugin{
 			   this.levelmanager.updateExpBar(p);
 			   this.levelmanager.updateLevelBar(p);
 				p.setGravity(true);
+				ghost.removeGhost(p);
 			if(this.upgrademanager.getUpgradeAmount(p, "regeneration") > 0)
 				{
 				   RegenUpgrade.addTimer(p); 
@@ -216,6 +237,8 @@ public class VallendiaMinigame extends JavaPlugin{
 		  EquipBowAbility.onReload();
 		  PillageAbility.removeItems();
 		  PickPocketAbility.removeItems();
+		  MountAbility.onReload();
+		  
 	   }
 	   
 	   public FileManager getFileManager()
@@ -241,6 +264,18 @@ public class VallendiaMinigame extends JavaPlugin{
 	        handler.register("kit", new KitCommand());
 	        handler.register("spawn", new SpawnCommand());
 	        getCommand("vallendia").setExecutor(handler);
+	    }
+	    
+	    private boolean setupChat() {
+	        RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
+	        chat = rsp.getProvider();
+	        return chat != null;
+	    }
+	    
+	    private boolean setupPermissions() {
+	        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+	        perms = rsp.getProvider();
+	        return perms != null;
 	    }
 	   
 

@@ -511,7 +511,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "warrior");  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("archer")))
 				  {
@@ -522,7 +522,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "archer");  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("assassin")))
 				  {
@@ -533,7 +533,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "assassin");  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("mage")))
 				  {
@@ -544,7 +544,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "mage");  
 				  }
 			  }
 
@@ -566,7 +566,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "warrior");  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("archer")))
 				  {
@@ -577,7 +577,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "archer");  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("assassin")))
 				  {
@@ -588,7 +588,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "assassin");  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("mage")))
 				  {
@@ -599,7 +599,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "mage");  
 				  }
 			  }
 			  
@@ -622,7 +622,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "warrior");  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("archer")))
 				  {
@@ -633,7 +633,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "archer");  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("assassin")))
 				  {
@@ -644,7 +644,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "assassin");  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("mage")))
 				  {
@@ -655,7 +655,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "mage");  
 				  }
 			  }
 			  
@@ -677,7 +677,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "warrior");  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("archer")))
 				  {
@@ -688,7 +688,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "archer");  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("assassin")))
 				  {
@@ -699,7 +699,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "assassin");  
 				  }
 				  if(Main.abilitymanager.hasAbility(ability.getName(), Main.kitmanager.kit("mage")))
 				  {
@@ -710,7 +710,7 @@ public class AbilitiesGui {
 						    	Player ep = (Player) e.getWhoClicked();
 						    	openAbilitiesSlotMenu(ep, ability);
 						    }
-						}, ability);  
+						}, ability, "mage");  
 				  }
 			  }
 		  }

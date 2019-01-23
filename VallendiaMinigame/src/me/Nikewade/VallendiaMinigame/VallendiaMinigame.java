@@ -24,6 +24,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.BlurAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.BullRushAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.DeflectArrowsAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.DivineShieldAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.EarthQuakeAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.ExplosiveArrowAbility;
@@ -41,6 +42,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.SickeningArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SlowingArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.TheHighGroundAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.VanishAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.WeakeningArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Commands.AdminCommand;
 import me.Nikewade.VallendiaMinigame.Commands.CommandHandler;
@@ -201,6 +203,8 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(KineticBarrierAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(MountAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(BlurAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(DivineShieldAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(VanishAbility.getListener(), this);
 		   
 		   //Commands
 		   this.registerCommands();

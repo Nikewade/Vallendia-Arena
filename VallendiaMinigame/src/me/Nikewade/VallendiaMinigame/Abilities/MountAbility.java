@@ -8,7 +8,6 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Horse;
@@ -186,7 +185,7 @@ public class MountAbility implements Ability, Listener{
         	@EventHandler
         	public void horseDath(EntityDeathEvent e)
         	{
-        		if(e.getEntity().getCustomName().equalsIgnoreCase(Utils.Colorate("&4&lMount")))
+        		if(e.getEntity() instanceof Horse && e.getEntity().getCustomName().equalsIgnoreCase(Utils.Colorate("&4&lMount")))
         		{
         			Entity en = e.getEntity();
         			e.getDrops().clear();

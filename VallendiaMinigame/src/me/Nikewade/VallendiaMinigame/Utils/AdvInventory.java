@@ -21,6 +21,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.AbilityType;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 
@@ -90,7 +91,7 @@ public class AdvInventory {
 		runs.put(slot, executeOnClick);
 	}
 	
-	public void setItemAbility(ItemStack itemstack, String displayname, Integer slot, ClickRunnable executeOnClick, Ability ability) {
+	public void setItemAbility(ItemStack itemstack, String displayname, Integer slot, ClickRunnable executeOnClick, Ability ability, String kit) {
 		ItemStack is = itemstack;
 		ItemMeta im = is.getItemMeta();
 		im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES,
@@ -106,6 +107,10 @@ public class AdvInventory {
 		ArrayList<String> lore = new ArrayList<String>();
 		for (String s : ability.getDescription()) {
 			lore.add(ChatColor.GRAY + s);
+		}
+		if(!(ability.getAbilityType() == AbilityType.PASSIVE))
+		{
+			lore.add(ChatColor.DARK_GRAY + "Cooldown: " + VallendiaMinigame.getInstance().getConfig().getInt( "Abilities." + ability.getName() + "." + kit.toLowerCase() + ".cooldown"));	
 		}
 		im.setLore(lore);
 		

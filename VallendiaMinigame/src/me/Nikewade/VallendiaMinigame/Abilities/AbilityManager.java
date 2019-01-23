@@ -56,6 +56,8 @@ public class AbilityManager {
 		abilities.add(new KickAbility());
 		abilities.add(new MountAbility());
 		abilities.add(new BlurAbility());
+		abilities.add(new DivineShieldAbility());
+		abilities.add(new VanishAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
@@ -150,7 +152,7 @@ public class AbilityManager {
 			abilityim.setDisplayName(Utils.Colorate("&8&l" + abilityname +  " &7(" + ability.getAbilityType() + ")"));
 			ArrayList<String> lore = new ArrayList<String>();
 			lore.add( Utils.Colorate("&8&lSlot " + abilityslot));
-			if(ability.getAbilityType() != AbilityType.PASSIVE)
+			if(ability.getAbilityType() != AbilityType.PASSIVE && this.getCooldown(abilityname, p ) != 0)
 			{
 				lore.add(Utils.Colorate("&8&lCooldown: &7" + this.getCooldown(abilityname, p) + " seconds"));	
 			}

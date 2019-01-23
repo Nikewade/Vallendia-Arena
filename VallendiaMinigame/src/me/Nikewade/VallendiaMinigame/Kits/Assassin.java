@@ -27,6 +27,7 @@ public class Assassin implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Pick Pocket"));
 		abilities.add(Main.abilitymanager.getAbility("Kick"));
 		abilities.add(Main.abilitymanager.getAbility("Blur"));
+		abilities.add(Main.abilitymanager.getAbility("Vanish"));
 	}
 	
 	@Override

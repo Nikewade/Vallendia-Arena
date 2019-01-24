@@ -35,7 +35,7 @@ public class TheHighGroundAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("When higher than your enemy,", "deal 20% more damage and take " , "20% less damage.");
+		return Arrays.asList("When higher than your enemy,", "and on the ground,", "deal 20% more damage and take" , "20% less damage.");
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class TheHighGroundAbility implements Ability, Listener{
                 			}else damager = (Player) e.getDamager();	
                     		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player)damager, "The High Ground"))
                     		{
-                    			if(damager.getLocation().getY() > target.getLocation().getY() && damager.isOnGround())
+                    			if(damager.getLocation().getY() > target.getLocation().getY() && damager.isOnGround() || damager.isInsideVehicle())
                     			{
                     				e.setDamage(higherDamage);
                     	 	 		target.getWorld().playSound(target.getLocation(), Sound.ENTITY_PLAYER_ATTACK_CRIT, 2, 1);

@@ -1,9 +1,13 @@
 package me.Nikewade.VallendiaMinigame.Commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.CommandInterface;
@@ -24,6 +28,7 @@ public class KitCommand implements  CommandInterface{
 	    {
 			sender.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
 			sender.sendMessage("");
+			sender.sendMessage(Utils.Colorate("&3/vallendia kit menu"));
 			sender.sendMessage(Utils.Colorate("&3/vallendia kit get &9(kitname)"));
 			sender.sendMessage(Utils.Colorate("&3/vallendia kit give &9(kitname) (playername)"));
 			sender.sendMessage(Utils.Colorate("&3/vallendia kit create &9(kitname)"));
@@ -37,6 +42,15 @@ public class KitCommand implements  CommandInterface{
 	    if(sender instanceof Player)
 	    {
 	    	Player p = (Player) sender;
+		    if(args.length == 2)
+		    {
+	    		if(args[1].equalsIgnoreCase("menu"))
+	    		{
+	        		VallendiaMinigame.getInstance().guihandler.openGui(p, "kit");   
+	        		p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
+	    		}
+		    }
+	    	
 		    if(args.length == 3)
 		    {
 		    		if(args[1].equalsIgnoreCase("get"))
@@ -81,5 +95,6 @@ public class KitCommand implements  CommandInterface{
 
 	    
 	}
+	
 
 }

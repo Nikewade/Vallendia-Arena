@@ -127,11 +127,13 @@ public class MountAbility implements Ability, Listener{
                 public void run() {
         			if(enabled.containsKey(p))
         			{
+        				p.setAllowFlight(true);
         				p.leaveVehicle();
         				enabled.remove(p);
+        				p.setAllowFlight(false);
         			}
                 }
-            }.runTaskLaterAsynchronously(VallendiaMinigame.getInstance(), time*20L);  
+            }.runTaskLater(VallendiaMinigame.getInstance(),time*20L);  
     		
     		tasks.put(p, task);
     		return true;

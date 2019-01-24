@@ -28,6 +28,7 @@ public class Assassin implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Kick"));
 		abilities.add(Main.abilitymanager.getAbility("Blur"));
 		abilities.add(Main.abilitymanager.getAbility("Vanish"));
+		abilities.add(Main.abilitymanager.getAbility("Vampiric Touch"));
 	}
 	
 	@Override

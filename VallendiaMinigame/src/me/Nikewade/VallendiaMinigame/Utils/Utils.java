@@ -288,7 +288,7 @@ public class Utils {
 	   }
 	   
 	   
-
+	   
 	   
 		public static void sendWorldBorderPacket(Player p, int dist, double oldradius, double newradius, long delay) {
 			ProtocolManager protocolManager = VallendiaMinigame.getInstance().protocolManager;
@@ -343,6 +343,17 @@ public class Utils {
 	        } else {
 	            return axis[Math.round(yaw / 90f) & 0x3];
 	        }
+	    }
+	    
+	    public static double getPercentHigherOrLower(int Percent, boolean add)
+	    {
+	    	double percentReturn = 1;
+	    	if(add)
+	    	{
+        		percentReturn =  ((Percent* 0.1) * 0.1) + 1;
+	    	}else  percentReturn =  1 - ((Percent* 0.1) * 0.1);
+			return percentReturn;
+	    	
 	    }
 	   
 

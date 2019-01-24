@@ -95,7 +95,7 @@ public class PlayerItemEvents implements Listener {
 	    		   		return;
 	    		   	}
 		    		if(!AbilityCooldown.isInCooldown(p.getUniqueId(), ability))
-		    		{
+		    		{  
 			    		if(Main.abilitymanager.getAbility(ability).RunAbility(p))
 			    		{
 				    		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), ability, Main.abilitymanager.getCooldown(ability, p));

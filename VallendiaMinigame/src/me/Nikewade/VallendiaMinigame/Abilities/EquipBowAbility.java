@@ -38,7 +38,8 @@ public class EquipBowAbility implements Ability{
 		return Arrays.asList("Toggle this ability to swap your sword" , 
 				"for a bow, or your bow for a sword." , 
 				"All of you sword enchantments will be" ,
-				"converted to your bow but halved.");
+				"converted to your bow but halved.",
+				"Note: You still have to buy arrows.");
 	}
 
 	@Override
@@ -88,11 +89,9 @@ public class EquipBowAbility implements Ability{
 					{
 						bow.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, knockback / 2);	
 					}
-					bow.addEnchantment(Enchantment.ARROW_INFINITE, 1);
 					swordList.put(p, item);
 					p.getInventory().remove(item);
 					p.getInventory().setItem(x, bow);
-					p.getInventory().addItem(new ItemStack(Material.ARROW));
 					
 				}
 		}
@@ -118,11 +117,6 @@ public class EquipBowAbility implements Ability{
 						swordList.remove(p);	
 					}
 					
-				}
-				
-				if( item.getType() == Material.ARROW )
-				{
-					item.setAmount(item.getAmount() - 1);
 				}
 		}
 		}

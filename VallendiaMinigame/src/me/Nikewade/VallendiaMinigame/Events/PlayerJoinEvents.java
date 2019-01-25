@@ -1,6 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Events;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -8,11 +9,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
 import me.Nikewade.VallendiaMinigame.Upgrades.RegenUpgrade;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
@@ -52,7 +55,26 @@ public class PlayerJoinEvents implements Listener{
 		RootAbility.removeLists(e.getPlayer());
 		e.getPlayer().setGravity(true);
 		EquipBowAbility.removeBow(e.getPlayer());
-	}
+		Player p = e.getPlayer();
+		
+		
+		//item cooldowns
+		for(ItemStack item : p.getInventory().getContents())
+		{
+			if(item != null)
+			{
+				if(item.getType() == Material.INK_SACK && item.getDurability() == 10 && item.getItemMeta().hasLore())
+				{
+		 		   	String ability = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities." + ChatColor.stripColor(Utils.Colorate(item.getItemMeta().getLore().get(0).toLowerCase())));
+		 		   	if(AbilityCooldown.isInCooldown(p.getUniqueId(), ability))
+		 		   	{
+		 		   		item.setAmount(1);
+		 		   	}
+				}
+			}
+		}
+		}
+		
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler

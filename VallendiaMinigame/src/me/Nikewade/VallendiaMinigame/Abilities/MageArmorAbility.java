@@ -70,7 +70,7 @@ public class MageArmorAbility implements Ability{
             public void run() {
     			p.sendMessage(Utils.Colorate("&8&l Your magical shield dissipates."));
             }
-        }.runTaskLaterAsynchronously(VallendiaMinigame.getInstance(), 60*20L);  
+        }.runTaskLater(VallendiaMinigame.getInstance(), 60*20L);  
 		
 		AbilityUtils.addPotionDuration(p, PotionEffectType.DAMAGE_RESISTANCE, 1, 60*20);
 		p.sendMessage(Utils.Colorate("&8&l A magical shield surrounds you."));

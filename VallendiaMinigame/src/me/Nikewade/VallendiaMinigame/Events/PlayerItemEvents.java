@@ -7,7 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -96,9 +98,9 @@ public class PlayerItemEvents implements Listener {
 	    		   	}
 		    		if(!AbilityCooldown.isInCooldown(p.getUniqueId(), ability))
 		    		{  
-			    		if(Main.abilitymanager.getAbility(ability).RunAbility(p))
+			    		if(Main.abilitymanager.getAbility(ability).RunAbility(p) && Main.abilitymanager.getCooldown(ability, p) > 0)
 			    		{
-				    		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), ability, Main.abilitymanager.getCooldown(ability, p));
+				    		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), ability, Main.abilitymanager.getCooldown(ability, p), item);
 				    		c.start();	
 				    		 
 			    		}
@@ -121,6 +123,10 @@ public class PlayerItemEvents implements Listener {
 			if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR) {
 				return;
 			}			
+			if(e.getAction() == InventoryAction.HOTBAR_SWAP)
+			{
+				e.setCancelled(true);
+			}
 		    ItemStack item = e.getCurrentItem();
 		    Material itemtype = item.getType();
 		    String itemname = item.getItemMeta().getDisplayName();
@@ -137,8 +143,20 @@ public class PlayerItemEvents implements Listener {
 				}
 			}
 			
+	    	   if(itemtype == Material.INK_SACK && item.getDurability() == 10 && item.getItemMeta().getLore() != null)
+	    	   {
+	    		   Player p = (Player) e.getWhoClicked();
+	    		   	String ability = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities." + ChatColor.stripColor(Utils.Colorate(item.getItemMeta().getLore().get(0).toLowerCase())));
+	    		   if(ability != null && AbilityCooldown.isInCooldown(p.getUniqueId(), ability))
+	    		   {
+	    			   e.setCancelled(true);
+	    		   }
+	    	   }
+			
+			
 		}
 	}
+	
 	
 	
 	@EventHandler
@@ -146,6 +164,17 @@ public class PlayerItemEvents implements Listener {
 	{		
 	    ItemStack item = e.getOffHandItem();
 	    Material itemtype = item.getType();
+	    
+	 	   if(itemtype == Material.INK_SACK && item.getDurability() == 10 && item.getItemMeta().getLore() != null)
+	 	   {
+	 		   Player p = e.getPlayer();
+	 		   	String ability = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities." + ChatColor.stripColor(Utils.Colorate(item.getItemMeta().getLore().get(0).toLowerCase())));
+	 		   if(ability != null && AbilityCooldown.isInCooldown(p.getUniqueId(), ability))
+	 		   {
+	 			   e.setCancelled(true);
+	 		   }
+	 	   }
+	    
 	    if(itemtype != Material.NETHER_STAR || !item.getItemMeta().hasDisplayName())
 	    {
 	    	return;
@@ -154,6 +183,9 @@ public class PlayerItemEvents implements Listener {
 		if (itemname.equals(Utils.Colorate("&b&lKit")) || itemname.equals(Utils.Colorate("&b&lShop"))) {
 			e.setCancelled(true);
 		}
+		
+		
+		
 	}
 	
 	

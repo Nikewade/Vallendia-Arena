@@ -35,7 +35,7 @@ public class TheHighGroundAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("When higher than your enemy,", "and on the ground,", "deal 20% more damage and take" , "20% less damage.");
+		return Arrays.asList("When higher than your enemy,", "and on the ground,", "deal 50% more damage and take" , "20% less damage.");
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class TheHighGroundAbility implements Ability, Listener{
             	public void onDamage(EntityDamageByEntityEvent e)
             	{
             		double lowerPercent =  0.8 ; //20%
-            		double higherPercent =  1.2 ; //20%
+            		double higherPercent =  1.5 ; //50%
             		double damage = e.getDamage();
             		double lowerDamage = damage * lowerPercent;
             		double higherDamage = damage * higherPercent;

@@ -1,8 +1,11 @@
 package me.Nikewade.VallendiaMinigame;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -244,6 +247,25 @@ public class VallendiaMinigame extends JavaPlugin{
 		  PillageAbility.removeItems();
 		  PickPocketAbility.removeItems();
 		  MountAbility.onReload();
+		  
+		  for(Player p : Bukkit.getOnlinePlayers())
+		  {
+				//item cooldowns
+				for(ItemStack item : p.getInventory().getContents())
+				{
+					if(item != null)
+					{
+						if(item.getType() == Material.INK_SACK && item.getDurability() == 10 && item.getItemMeta().hasLore())
+						{
+				 		   	String ability = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities." + ChatColor.stripColor(Utils.Colorate(item.getItemMeta().getLore().get(0).toLowerCase())));
+				 		   	if(AbilityCooldown.isInCooldown(p.getUniqueId(), ability))
+				 		   	{
+				 		   		item.setAmount(1);
+				 		   	}
+						}
+					}
+				}
+		  }
 		  
 	   }
 	   

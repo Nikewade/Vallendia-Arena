@@ -1,27 +1,34 @@
 package me.Nikewade.VallendiaMinigame.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import net.md_5.bungee.api.ChatColor;
 
 public class AbilityCooldown {
     private static Map<String, AbilityCooldown> cooldowns = new HashMap<String, AbilityCooldown>();
+    private static ArrayList<Integer> cooldownSlots = new ArrayList<>();
     private long start;
     private final int timeInSeconds;
     private final UUID id;
     private final String cooldownName;
+    private final ItemStack i;
+	private int x = -1;
  
-    public AbilityCooldown(UUID id, String cooldownName, int timeInSeconds){
+    public AbilityCooldown(UUID id, String cooldownName, int timeInSeconds, ItemStack i){
         this.id = id;
         this.cooldownName = cooldownName;
         this.timeInSeconds = timeInSeconds;
+        this.i = i;
     }
  
     public static boolean isInCooldown(UUID id, String cooldownName){
@@ -57,29 +64,44 @@ public class AbilityCooldown {
     public void start(){
         this.start = System.currentTimeMillis();
         cooldowns.put(this.id.toString()+this.cooldownName, this);
-    }
-    
-    public static void itemCooldown(Player p, String abilitySlot)
-    {
-		int x = -1;
+        
+        Player p = Bukkit.getPlayer(id);
+        
 		ItemStack abilityItem = null;
 		for(ItemStack item : p.getInventory().getContents())
 		{
 			x++;
 			if(item != null)
 			{
-				if(item.getType() == Material.INK_SACK && item.getDurability() == 10 &&
-						ChatColor.stripColor(Utils.Colorate(item.getItemMeta().getLore().get(0).toLowerCase())) == abilitySlot)
+				if(item.getType() == Material.INK_SACK && item.getDurability() == 10 && item.getItemMeta().getDisplayName() == i.getItemMeta().getDisplayName())
 				{
 					abilityItem = item;
 					break;
 				}
 			}
 		}
-	   	String ability = VallendiaMinigame.getInstance().playerdatamanager.getPlayerStringData(p.getUniqueId(), 
-	   			"Abilities." + ChatColor.stripColor(Utils.Colorate(abilityItem.getItemMeta().getLore().get(0).toLowerCase())));
-		p.sendMessage("" + VallendiaMinigame.getInstance().abilitymanager.getAbility(ability).getName());
+        
+        //item display
+		new BukkitRunnable() {
+            @Override
+            public void run() {
+            	if(p.getInventory().getItem(x) == null || p.getInventory().getItem(x).getType() == Material.AIR)
+            	{
+            		this.cancel();
+            		return;
+            	}
+            	if(getTimeLeft(p.getUniqueId(), cooldownName) > 1)
+            	{
+        			p.getInventory().getItem(x).setAmount(getTimeLeft(p.getUniqueId(), cooldownName));
+            	}else
+            			{
+            			p.getInventory().getItem(x).setAmount(1);
+            			this.cancel(); 
+            			}
+            }
+        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L); 
     }
+    
 	
 	
 }

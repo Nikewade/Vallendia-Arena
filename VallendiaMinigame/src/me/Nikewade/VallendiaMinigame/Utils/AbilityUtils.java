@@ -11,6 +11,7 @@ import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
@@ -302,6 +303,19 @@ public class AbilityUtils implements Listener {
             
             
         };
+    }
+    
+    
+    public static void healEntity(LivingEntity p, double amount)
+    {
+		if(p.getHealth() + amount >= p.getMaxHealth())
+		{
+			p.setHealth(p.getMaxHealth());
+		}else p.setHealth(p.getHealth() + amount);
+    	
+        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
+        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
+        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 
     }
 	
 	

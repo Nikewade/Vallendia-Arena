@@ -59,6 +59,7 @@ public class AbilityManager {
 		abilities.add(new DivineShieldAbility());
 		abilities.add(new VanishAbility());
 		abilities.add(new VampiricTouchAbility());
+		abilities.add(new ParticleTestAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");

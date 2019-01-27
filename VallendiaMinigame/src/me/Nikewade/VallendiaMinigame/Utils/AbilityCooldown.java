@@ -85,7 +85,8 @@ public class AbilityCooldown {
 		new BukkitRunnable() {
             @Override
             public void run() {
-            	if(p.getInventory().getItem(x) == null || p.getInventory().getItem(x).getType() == Material.AIR)
+            	ItemStack xitem = p.getInventory().getItem(x);
+            	if(xitem.getType() != Material.INK_SACK || xitem.getDurability() != 10)
             	{
             		this.cancel();
             		return;

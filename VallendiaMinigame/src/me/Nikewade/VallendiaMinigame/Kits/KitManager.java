@@ -22,6 +22,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class KitManager {
@@ -158,7 +159,7 @@ public class KitManager {
             p.sendMessage(kitName + " does not exist!");
             return;
         }
- 
+   
         p.getInventory().clear();
         Main.upgrademanager.resetUpgrades(p);
         Main.abilitymanager.resetAbilities(p);
@@ -261,7 +262,7 @@ public class KitManager {
             p.getInventory().setBoots(new ItemStack(boots));
         }
         p.updateInventory();
-        p.setGameMode(GameMode.SURVIVAL);
+        p.setGameMode(GameMode.SURVIVAL);  
     }
     
     
@@ -276,6 +277,7 @@ public class KitManager {
             p.sendMessage(kitName + " does not exist!");
             return;
         }
+        
  
         p.getInventory().clear();
         Main.upgrademanager.resetUpgrades(p);
@@ -380,8 +382,13 @@ public class KitManager {
             boots.setItemMeta(bootmeta);
             p.getInventory().setBoots(new ItemStack(boots));
         }
+        
+        
         p.updateInventory();
         p.setGameMode(GameMode.SURVIVAL);
+        
+        
+        
     }
     
     

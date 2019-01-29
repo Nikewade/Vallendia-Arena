@@ -13,9 +13,11 @@ import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.LastStandAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
 import me.Nikewade.VallendiaMinigame.Upgrades.RegenUpgrade;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
@@ -56,7 +58,7 @@ public class PlayerJoinEvents implements Listener{
 		e.getPlayer().setGravity(true);
 		EquipBowAbility.removeBow(e.getPlayer());
 		Player p = e.getPlayer();
-		
+		AbilityUtils.resetAllMaxHealth(p);
 		
 		//item cooldowns
 		for(ItemStack item : p.getInventory().getContents())

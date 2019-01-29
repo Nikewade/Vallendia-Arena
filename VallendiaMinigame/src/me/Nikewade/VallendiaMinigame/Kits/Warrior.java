@@ -28,6 +28,7 @@ public class Warrior implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Kick"));
 		abilities.add(Main.abilitymanager.getAbility("Mount"));
 		abilities.add(Main.abilitymanager.getAbility("Divine Shield"));
+		abilities.add(Main.abilitymanager.getAbility("Last Stand"));
 	}
 	
 	@Override

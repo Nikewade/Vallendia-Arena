@@ -37,7 +37,8 @@ public class DashAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Dash forward at a great speed.");
+		return Arrays.asList("Dash forward at a great speed. You become",
+				"tired after, slowing you down for a few seconds.");
 	}
 
 	@Override

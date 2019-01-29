@@ -46,11 +46,11 @@ public class ParticleTestAbility implements Ability{
 	public boolean RunAbility(Player p) {
 	 	  new BukkitRunnable(){                         
               double t = 0;
+              Location loc = p.getLocation();
             
               public void run(){
             	  //t effects speed of article
                       t = t + 0.5;
-                      Location loc = p.getLocation();
                       Vector direction = loc.getDirection().normalize();
                       double x = direction.getX() * t;
                       double y = direction.getY() * t + 1.5;

@@ -29,9 +29,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.util.Vector;
 
-import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import net.minecraft.server.v1_12_R1.Explosion;
 
@@ -40,6 +38,7 @@ public class AbilityUtils implements Listener {
 	private static HashMap<Block, Integer> explosives = new HashMap<>();
 	private static HashMap<Entity, Integer> explosivesEntities = new HashMap<>();
 	public static HashMap<LivingEntity, BukkitTask> silenced = new HashMap<>();
+	private static HashMap<String, Double> maxHealth = new HashMap<>();
 	
 	
 	//If the player already has a potion effect, this will add the existing effects duration to the new one.
@@ -321,6 +320,39 @@ public class AbilityUtils implements Listener {
         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5);
+    }
+    
+    
+    public static void setMaxHealth(Player p, double amount, String ability)
+    {
+    	double healthAdded = amount - p.getMaxHealth();
+    	p.setMaxHealth(amount);
+    	if(!maxHealth.containsKey(p.toString()+ability))
+    	{
+        	maxHealth.put(p.toString()+ability, healthAdded);	
+    	}
+    }
+    
+    public static void resetMaxHealth(Player p, String ability)
+    {
+    	
+    	if(maxHealth.containsKey(p.toString()+ability))
+    	{
+    		p.setMaxHealth(p.getMaxHealth() - maxHealth.get(p.toString()+ability));
+    		maxHealth.remove(p.toString()+ability);
+    	}
+    }
+    
+    public static void resetAllMaxHealth(Player p)
+    {
+    	for(String s : maxHealth.keySet())
+    	{
+    		if(s.contains(p.toString()))
+    		{
+    			p.setMaxHealth(p.getMaxHealth() - maxHealth.get(s));
+        		maxHealth.remove(s);
+    		}
+    	}
     }
     
     

@@ -33,6 +33,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.ExplosiveArrowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.GrapplingHookAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.KineticBarrierAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.LastStandAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LeapAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MagicArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MomentumAbility;
@@ -250,6 +251,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		  
 		  for(Player p : Bukkit.getOnlinePlayers())
 		  {
+			  AbilityUtils.resetAllMaxHealth(p);
 				//item cooldowns
 				for(ItemStack item : p.getInventory().getContents())
 				{
@@ -304,6 +306,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
 	        perms = rsp.getProvider();
 	        return perms != null;
+	        
 	    }
 	   
 

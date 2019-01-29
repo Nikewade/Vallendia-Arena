@@ -7,6 +7,7 @@ import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftAreaEffectCloud;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -68,7 +69,7 @@ public class TheHighGroundAbility implements Ability, Listener{
 
             		if(e.getEntity() instanceof LivingEntity || e.getDamager() instanceof Projectile)
             		{
-            			LivingEntity damager;
+            			LivingEntity damager = null;
             			LivingEntity target = (LivingEntity) e.getEntity();
             			
                 		//person attacking has the ability
@@ -99,7 +100,7 @@ public class TheHighGroundAbility implements Ability, Listener{
                 			{
                 				Projectile p = (Projectile) e.getDamager();
                 				damager = (Player) p.getShooter();
-                			}else damager = (LivingEntity) e.getDamager();	
+                			}else if(e.getDamager() instanceof LivingEntity) damager = (LivingEntity) e.getDamager();	
                     		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) targetP, "The High Ground"))
                     		{
                     			if(targetP.getLocation().getY() > damager.getLocation().getY() && targetP.isOnGround())

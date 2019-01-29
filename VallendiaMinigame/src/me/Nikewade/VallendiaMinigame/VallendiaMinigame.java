@@ -252,6 +252,8 @@ public class VallendiaMinigame extends JavaPlugin{
 		  for(Player p : Bukkit.getOnlinePlayers())
 		  {
 			  AbilityUtils.resetAllMaxHealth(p);
+			  AbilityUtils.removeCast(p);
+			  AbilityUtils.removeSoftCast(p);
 				//item cooldowns
 				for(ItemStack item : p.getInventory().getContents())
 				{

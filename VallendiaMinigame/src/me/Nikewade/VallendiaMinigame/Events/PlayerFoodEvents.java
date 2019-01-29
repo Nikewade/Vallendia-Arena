@@ -62,7 +62,6 @@ public class PlayerFoodEvents implements Listener {
 		{
 			Player p = e.getPlayer();
 			
-			
 			if(healing.contains(p))
 			{
 				e.setCancelled(true);
@@ -130,7 +129,7 @@ public class PlayerFoodEvents implements Listener {
 				                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
 				                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 
 				     }
-				}.runTaskTimer(Main, 0, 40);
+				}.runTaskTimer(Main, 0, (2*20));
 				
 			}else
 			{

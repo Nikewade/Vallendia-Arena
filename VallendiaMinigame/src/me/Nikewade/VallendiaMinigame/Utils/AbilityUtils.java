@@ -24,6 +24,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -38,6 +39,12 @@ public class AbilityUtils implements Listener {
 	private static HashMap<Block, Integer> explosives = new HashMap<>();
 	private static HashMap<Entity, Integer> explosivesEntities = new HashMap<>();
 	public static HashMap<LivingEntity, BukkitTask> silenced = new HashMap<>();
+	private static HashMap<Player, Float> casting = new HashMap<>();
+	private static HashMap<Player, BukkitTask> castingTask = new HashMap<>();
+	private static HashMap<Player, BukkitTask> castingTask2 = new HashMap<>();
+	private static HashMap<Player, Float> softCasting = new HashMap<>();
+	private static HashMap<Player, BukkitTask> softCastingTask = new HashMap<>();
+	private static HashMap<Player, BukkitTask> softCastingTask2 = new HashMap<>();
 	private static HashMap<String, Double> maxHealth = new HashMap<>();
 	
 	
@@ -252,7 +259,7 @@ public class AbilityUtils implements Listener {
             		Language.sendAbilityUseMessage(e, "Your abilities are no longer silenced.", ability);
             	}
             }
-        }.runTaskLaterAsynchronously(VallendiaMinigame.getInstance(), seconds*20L);
+        }.runTaskLater(VallendiaMinigame.getInstance(), seconds*20L);
         
         silenced.put(e, task);
     }
@@ -265,6 +272,137 @@ public class AbilityUtils implements Listener {
     		silenced.remove(e);
     	}
     }
+    
+    
+    public static boolean castAbility(Player p, int seconds, Runnable run)
+    {
+    	if(!casting.containsKey(p))
+    	{
+        	casting.put(p, p.getWalkSpeed());	
+    	}else 
+    		{
+    		Language.sendDefaultMessage(p, "You are already casting!");
+    		return false;
+    		}
+    	
+    	p.setWalkSpeed((float) 0.04);
+    	
+    	
+    	BukkitTask task2 =	new BukkitRunnable() {
+			int x = seconds;
+            @Override
+            public void run() {
+            	if(casting.containsKey(p))
+            	{
+    		        p.sendTitle(Utils.Colorate("&3&lCasting " + x), null, 0, 21, 0);
+            		x--;
+            	}else this.cancel();
+            }
+        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L);
+    	
+		BukkitTask task = new BukkitRunnable() {
+            @Override
+            public void run() {
+            	if(casting.containsKey(p))
+            	{
+            		removeCast(p);
+            		run.run();
+            	}
+            }
+        }.runTaskLater(VallendiaMinigame.getInstance(), seconds*20L);
+        
+        castingTask.put(p, task);
+        castingTask2.put(p, task2);
+        
+        
+        
+		return true;
+    }
+    
+    
+    
+    
+    public static void removeCast(Player p)
+    {
+    	if(casting.containsKey(p))
+    	{
+    		p.setWalkSpeed(casting.get(p));
+    		casting.remove(p);
+    		castingTask.get(p).cancel();
+    		castingTask.remove(p);
+    		castingTask2.get(p).cancel();
+    		castingTask2.remove(p);
+    	}
+    }
+    
+    
+    
+    
+    
+    public static boolean softCastAbility(Player p, int seconds, Runnable run)
+    {
+    	if(!softCasting.containsKey(p))
+    	{
+        	softCasting.put(p, p.getWalkSpeed());	
+    	}else 
+    		{
+    		Language.sendDefaultMessage(p, "You are already casting!");
+    		return false;
+    		}
+    	
+    	p.setWalkSpeed((float) 0.04);
+    	
+    	
+    	BukkitTask task2 =	new BukkitRunnable() {
+			int x = seconds;
+            @Override
+            public void run() {
+            	if(softCasting.containsKey(p))
+            	{
+    		        p.sendTitle(Utils.Colorate("&3&lCasting " + x), null, 0, 21, 0);
+            		x--;
+            	}else this.cancel();
+            }
+        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L);
+    	
+		BukkitTask task = new BukkitRunnable() {
+            @Override
+            public void run() {
+            	if(softCasting.containsKey(p))
+            	{
+            		removeSoftCast(p);
+		        	run.run();
+            	}
+            }
+        }.runTaskLater(VallendiaMinigame.getInstance(), seconds*20L);
+        softCastingTask.put(p, task);
+        softCastingTask2.put(p, task2);
+        
+        
+        
+		return true;
+    }
+    
+    
+    
+    
+    public static void removeSoftCast(Player p)
+    {
+    	if(softCasting.containsKey(p))
+    	{
+    		p.setWalkSpeed(softCasting.get(p));
+    		softCasting.remove(p);
+    		softCastingTask.get(p).cancel();
+    		softCastingTask.remove(p);
+    		softCastingTask2.get(p).cancel();
+    		softCastingTask2.remove(p);
+    	}
+    }
+    
+    
+    
+    
+    
     
     public static Listener getListener() {
         return new Listener() {
@@ -290,22 +428,52 @@ public class AbilityUtils implements Listener {
         	@EventHandler
         	public void onDamage(EntityDamageByEntityEvent e)
         	{
-        		if(!explosivesEntities.containsKey(e.getDamager()))
+        		if(explosivesEntities.containsKey(e.getDamager()))
         		{
-        			return;
+            		if(e.getDamager() instanceof Player && e.getCause() == DamageCause.ENTITY_EXPLOSION)
+            		{
+            			e.setDamage(explosivesEntities.get(e.getDamager()));
+            			explosivesEntities.remove(e.getEntity());
+            		}
         		}
-        		if(e.getDamager() instanceof Player && e.getCause() == DamageCause.ENTITY_EXPLOSION)
+        		
+        		if(e.getEntity() instanceof Player && casting.containsKey(e.getEntity()))
         		{
-        			e.setDamage(explosivesEntities.get(e.getDamager()));
-        			explosivesEntities.remove(e.getEntity());
+        			removeCast((Player) e.getEntity());
+        			Language.sendDefaultMessage((Player) e.getEntity(), "Your casting was interrupted.");
         		}
 
         	}
+        	
+        	@EventHandler
+        	public void onMove(PlayerMoveEvent e)
+        	{
+        		
+        		if(softCasting.containsKey(e.getPlayer()))
+        		{
+            		if(e.getTo().getY() > e.getFrom().getY() && !e.getPlayer().isOnGround())
+            		{
+            			e.setCancelled(true);
+            		}
+        		}
+        		if(casting.containsKey(e.getPlayer()))
+        		{
+        			Player p = e.getPlayer();
+            		if(e.getTo().getY() > e.getFrom().getY() && !e.getPlayer().isOnGround())
+            		{
+            			e.setCancelled(true);
+            		}	
+            		
+            		  if (e.getFrom().getBlockX() == e.getTo().getBlockX() && e.getFrom().getBlockZ() == e.getTo().getBlockZ())
+            		  {
+            			  return;
+            		  }
+          			Language.sendDefaultMessage(p, "Your casting was interrupted.");
+          			removeCast(p);
+        		}
+        	}
             
-            
-            
-            
-            
+ 
         };
     }
     

@@ -59,6 +59,8 @@ public class PlayerJoinEvents implements Listener{
 		EquipBowAbility.removeBow(e.getPlayer());
 		Player p = e.getPlayer();
 		AbilityUtils.resetAllMaxHealth(p);
+		AbilityUtils.removeCast(p);
+		AbilityUtils.removeSoftCast(p);
 		
 		//item cooldowns
 		for(ItemStack item : p.getInventory().getContents())

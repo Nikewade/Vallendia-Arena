@@ -42,6 +42,8 @@ public class PlayerDeathEvents implements Listener {
 		p.setExp(0);
 		RootAbility.removeLists(p);
 		Main.playerdatamanager.addData(p.getUniqueId(), "Deaths", 1);
+		AbilityUtils.removeCast(p);
+		AbilityUtils.removeSoftCast(p);
 		
 		
 		//death effects

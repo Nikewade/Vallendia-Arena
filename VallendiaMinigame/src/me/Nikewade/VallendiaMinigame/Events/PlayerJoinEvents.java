@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.BandageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LastStandAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
@@ -61,6 +62,7 @@ public class PlayerJoinEvents implements Listener{
 		AbilityUtils.resetAllMaxHealth(p);
 		AbilityUtils.removeCast(p);
 		AbilityUtils.removeSoftCast(p);
+		BandageAbility.removeBandage(p);
 		
 		//item cooldowns
 		for(ItemStack item : p.getInventory().getContents())

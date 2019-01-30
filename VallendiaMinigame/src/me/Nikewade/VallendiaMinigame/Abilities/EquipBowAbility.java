@@ -17,7 +17,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class EquipBowAbility implements Ability{
-	private ArrayList<Player> enabled = new ArrayList<>();
+	private static ArrayList<Player> enabled = new ArrayList<>();
 	private static HashMap<Player, ItemStack> swordList = new HashMap<>();
 
 	@Override
@@ -102,6 +102,10 @@ public class EquipBowAbility implements Ability{
 	
 	public static void removeBow(Player p)
 	{
+		if(!enabled.contains(p))
+		{
+			return;
+		}
 		int x = -1;
 		for(ItemStack item : p.getInventory().getContents())
 		{

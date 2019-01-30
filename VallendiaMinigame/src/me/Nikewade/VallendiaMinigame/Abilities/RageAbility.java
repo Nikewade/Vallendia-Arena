@@ -120,6 +120,7 @@ int maxYForce = 10;
         		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
         		se.setEntity(p);
         		se.particle = Particle.EXPLOSION_NORMAL;
+        		se.disappearWithOriginEntity = true;
         		se.infinite();
         		se.radius = 0.2;
         		se.particles = 1;

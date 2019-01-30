@@ -7,9 +7,11 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.BandageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.SurvivalistAbility;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
@@ -41,6 +43,8 @@ public class PlayerDeathEvents implements Listener {
 		p.setLevel(0);
 		p.setExp(0);
 		RootAbility.removeLists(p);
+		BandageAbility.removeBandage(p);
+		SurvivalistAbility.removeEnabled(p);
 		Main.playerdatamanager.addData(p.getUniqueId(), "Deaths", 1);
 		AbilityUtils.removeCast(p);
 		AbilityUtils.removeSoftCast(p);

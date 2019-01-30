@@ -62,6 +62,7 @@ public class AbilityManager {
 		abilities.add(new ParticleTestAbility());
 		abilities.add(new LastStandAbility());
 		abilities.add(new BandageAbility());
+		abilities.add(new SurvivalistAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");

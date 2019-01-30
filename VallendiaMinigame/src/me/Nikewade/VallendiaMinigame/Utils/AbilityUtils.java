@@ -485,6 +485,7 @@ public class AbilityUtils implements Listener {
 			p.setHealth(p.getMaxHealth());
 		}else p.setHealth(p.getHealth() + amount);
     	
+		
         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5);

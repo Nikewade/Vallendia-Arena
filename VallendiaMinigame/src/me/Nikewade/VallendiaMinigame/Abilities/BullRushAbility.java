@@ -212,7 +212,7 @@ public class BullRushAbility implements Ability, Listener{
               		              v.setY(maxYForce / 10.0D);
               		            }
               		          entity.setVelocity(v);	
-              		          livingE.damage(5, p);
+              		          AbilityUtils.damageEntity(livingE, p, damage);
               	 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 2, (float) 0.8);
               	 	 		entity.getWorld().spawnParticle(Particle.CRIT, entity.getLocation().add(0, 1, 0), 20);
  

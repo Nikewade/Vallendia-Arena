@@ -67,28 +67,13 @@ public class BlurAbility implements Ability, Listener{
 		main.ghost.addGhost(p);
 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 2, (float) 1.6);
 		
-        PacketPlayOutEntityEquipment helmetPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.HEAD, CraftItemStack.asNMSCopy(new ItemStack(Material.AIR)));
-        PacketPlayOutEntityEquipment chestPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.CHEST, CraftItemStack.asNMSCopy(new ItemStack(Material.AIR)));
-        PacketPlayOutEntityEquipment legPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.LEGS, CraftItemStack.asNMSCopy(new ItemStack(Material.AIR)));
-        PacketPlayOutEntityEquipment bootsPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.FEET, CraftItemStack.asNMSCopy(new ItemStack(Material.AIR)));
         
 		new BukkitRunnable() {
             @Override
             public void run() {
         		if(enabled.contains(p))
         		{
-    	            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(helmetPacket);
-    	            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(chestPacket);
-    	            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(legPacket);
-    	            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(bootsPacket);
-        	        for(Entity player : p.getNearbyEntities(20, 20, 20)) {
-        	        	if(!(player instanceof Player)) continue;
-        	            Player reciever = (Player) player;
-        	            ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(helmetPacket);
-        	            ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(chestPacket);
-        	            ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(legPacket);
-        	            ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(bootsPacket);
-        	        }
+        			Utils.hideArmor(p);
         		}else this.cancel();
             }
         }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1L);
@@ -102,7 +87,7 @@ public class BlurAbility implements Ability, Listener{
         			main.ghost.removeGhost(p);
         			Language.sendAbilityUseMessage(p, "Disabled", "Blur");
         			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 2, (float) 0.6);
-        			main.protocolManager.updateEntity(p, (List<Player>) Bukkit.getOnlinePlayers());
+        			Utils.showArmor(p);
         			
         	        PacketPlayOutEntityEquipment helmetPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.HEAD, CraftItemStack.asNMSCopy(p.getInventory().getHelmet()));
         	        PacketPlayOutEntityEquipment chestPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.CHEST, CraftItemStack.asNMSCopy(p.getInventory().getChestplate()));

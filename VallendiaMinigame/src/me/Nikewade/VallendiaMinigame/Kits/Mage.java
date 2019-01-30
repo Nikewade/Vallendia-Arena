@@ -22,6 +22,7 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Blur"));
 		abilities.add(Main.abilitymanager.getAbility("Particle Test"));
 		abilities.add(Main.abilitymanager.getAbility("Bandage"));
+		abilities.add(Main.abilitymanager.getAbility("Fireball"));
 	}
 
 	@Override

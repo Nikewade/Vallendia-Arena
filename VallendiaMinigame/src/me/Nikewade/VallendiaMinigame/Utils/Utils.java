@@ -17,6 +17,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -38,11 +39,13 @@ import com.comphenix.protocol.wrappers.EnumWrappers.WorldBorderAction;
 
 import de.slikey.effectlib.Effect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import net.minecraft.server.v1_12_R1.EnumItemSlot;
 import net.minecraft.server.v1_12_R1.NBTTagCompound;
 import net.minecraft.server.v1_12_R1.NBTTagDouble;
 import net.minecraft.server.v1_12_R1.NBTTagInt;
 import net.minecraft.server.v1_12_R1.NBTTagList;
 import net.minecraft.server.v1_12_R1.NBTTagString;
+import net.minecraft.server.v1_12_R1.PacketPlayOutEntityEquipment;
 
 public class Utils {
 	public static HashMap<Location, BlockState> blocks = new HashMap<>();
@@ -354,6 +357,34 @@ public class Utils {
 	    	}else  percentReturn =  1 - ((Percent* 0.1) * 0.1);
 			return percentReturn;
 	    	
+	    }
+	    
+	    
+	    public static void hideArmor(Player p)
+	    {
+	        PacketPlayOutEntityEquipment helmetPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.HEAD, CraftItemStack.asNMSCopy(new ItemStack(Material.AIR)));
+	        PacketPlayOutEntityEquipment chestPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.CHEST, CraftItemStack.asNMSCopy(new ItemStack(Material.AIR)));
+	        PacketPlayOutEntityEquipment legPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.LEGS, CraftItemStack.asNMSCopy(new ItemStack(Material.AIR)));
+	        PacketPlayOutEntityEquipment bootsPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.FEET, CraftItemStack.asNMSCopy(new ItemStack(Material.AIR)));
+	        
+	    	            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(helmetPacket);
+	    	            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(chestPacket);
+	    	            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(legPacket);
+	    	            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(bootsPacket);
+	        	        for(Entity player : p.getNearbyEntities(20, 20, 20)) 
+	        	        {
+	        	        	if(!(player instanceof Player)) continue;
+	        	            Player reciever = (Player) player;
+	        	            ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(helmetPacket);
+	        	            ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(chestPacket);
+	        	            ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(legPacket);
+	        	            ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(bootsPacket);
+	        	        }
+	    }
+	    
+	    public static void showArmor(Player p)
+	    {
+			VallendiaMinigame.getInstance().protocolManager.updateEntity(p, (List<Player>) Bukkit.getOnlinePlayers());
 	    }
 	   
 

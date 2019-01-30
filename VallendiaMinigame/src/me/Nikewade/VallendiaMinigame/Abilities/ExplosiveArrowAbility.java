@@ -134,7 +134,7 @@ public class ExplosiveArrowAbility implements Ability, Listener{
         		{
         			return;
         		}
-            		e.getProjectile().setVelocity(e.getProjectile().getVelocity().multiply(0.7));
+            		e.getProjectile().setVelocity(e.getProjectile().getVelocity().multiply(0.6));
             		e.getProjectile().setMetadata("Explosive Arrow", new FixedMetadataValue(VallendiaMinigame.getInstance(), e.getProjectile()));
                 	enabled.remove(p);
             }

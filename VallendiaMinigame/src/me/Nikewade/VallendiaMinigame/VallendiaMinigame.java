@@ -33,11 +33,11 @@ import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.ExplosiveArrowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.GrapplingHookAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.KineticBarrierAbility;
-import me.Nikewade.VallendiaMinigame.Abilities.LastStandAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LeapAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MagicArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MomentumAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MountAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.ParticleTestAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.PickPocketAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.PillageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.PoisonArrowsAbility;
@@ -213,6 +213,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(VanishAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(VampiricTouchAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(SurvivalistAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(ParticleTestAbility.getListener(), this);
 		   
 		   //Commands
 		   this.registerCommands();

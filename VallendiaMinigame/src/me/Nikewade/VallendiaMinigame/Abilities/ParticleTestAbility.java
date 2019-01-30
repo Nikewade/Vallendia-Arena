@@ -3,20 +3,29 @@ package me.Nikewade.VallendiaMinigame.Abilities;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Snowball;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+import net.minecraft.server.v1_12_R1.PacketPlayOutEntityDestroy;
 
-public class ParticleTestAbility implements Ability{
+public class ParticleTestAbility implements Ability, Listener{
 
 	@Override
 	public String getName() {
@@ -59,7 +68,7 @@ public class ParticleTestAbility implements Ability{
               		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
             		se.particle = Particle.FLAME;
             		se.iterations = 10;
-            		se.particles = 10;
+            		se.particles = 1;
             		se.speed = (float) 0;
             		se.visibleRange = 200;
             			se.setLocation(loc);
@@ -70,7 +79,7 @@ public class ParticleTestAbility implements Ability{
                             this.cancel();
             			}
                       loc.subtract(x,y,z);
-                      if (t > 500){
+                      if (t > 50){
                           this.cancel();
                   }
                     
@@ -78,5 +87,12 @@ public class ParticleTestAbility implements Ability{
  	 	  }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
 		return false;
 	}
+	
+    public static Listener getListener() {
+        return new Listener() {
+        
+
+        };
+    }
 
 }

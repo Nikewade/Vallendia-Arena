@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.bukkit.Effect;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -16,14 +16,20 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
@@ -31,8 +37,10 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import de.slikey.effectlib.Effect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import net.minecraft.server.v1_12_R1.Explosion;
+import net.minecraft.server.v1_12_R1.PacketPlayOutEntityDestroy;
 
 public class AbilityUtils implements Listener {
 	private static Set<Material> transparentBlocks = null;
@@ -46,6 +54,8 @@ public class AbilityUtils implements Listener {
 	private static HashMap<Player, BukkitTask> softCastingTask = new HashMap<>();
 	private static HashMap<Player, BukkitTask> softCastingTask2 = new HashMap<>();
 	private static HashMap<String, Double> maxHealth = new HashMap<>();
+	private static HashMap<Projectile, Runnable> arcProjectiles = new HashMap<>();
+	private static HashMap<LivingEntity, Integer> handleDamage = new HashMap<>();
 	
 	
 	//If the player already has a potion effect, this will add the existing effects duration to the new one.
@@ -237,7 +247,7 @@ public class AbilityUtils implements Listener {
         explosion.a(true);
         if(particles)
         {
-            loc.getWorld().playEffect(loc, Effect.EXPLOSION_HUGE, power);	
+            loc.getWorld().playEffect(loc, org.bukkit.Effect.EXPLOSION_HUGE, power);	
         }
         loc.getBlock().setMetadata(explodeAs.getName(), new FixedMetadataValue(VallendiaMinigame.getInstance(), loc.getBlock()));
     }
@@ -432,7 +442,8 @@ public class AbilityUtils implements Listener {
         		{
             		if(e.getDamager() instanceof Player && e.getCause() == DamageCause.ENTITY_EXPLOSION)
             		{
-            			e.setDamage(explosivesEntities.get(e.getDamager()));
+            			e.setDamage(0);
+            			e.setDamage(DamageModifier.ARMOR, (explosivesEntities.get(e.getDamager())));
             			explosivesEntities.remove(e.getEntity());
             		}
         		}
@@ -442,7 +453,13 @@ public class AbilityUtils implements Listener {
         			removeCast((Player) e.getEntity());
         			Language.sendDefaultMessage((Player) e.getEntity(), "Your casting was interrupted.");
         		}
-
+        		
+        		if(handleDamage.containsKey(e.getEntity()))
+        		{
+        			e.setDamage(0);
+        			e.setDamage(DamageModifier.ARMOR, handleDamage.get(e.getEntity()));
+        			handleDamage.remove(e.getEntity());
+        		}
         	}
         	
         	@EventHandler
@@ -472,6 +489,15 @@ public class AbilityUtils implements Listener {
           			removeCast(p);
         		}
         	}
+        	
+        	@EventHandler
+        	public void projectileHit(ProjectileHitEvent e)
+        	{
+        		if(e.getEntityType() == EntityType.SNOWBALL && e.getEntity().getShooter() instanceof Player && arcProjectiles.containsKey(e.getEntity()))
+        		{
+        			arcProjectiles.get(e.getEntity()).run();
+        		}
+        	}
             
  
         };
@@ -489,6 +515,12 @@ public class AbilityUtils implements Listener {
         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5);
+    }
+    
+    public static void damageEntity(LivingEntity target, LivingEntity damager, int amount)
+    {
+		handleDamage.put(target, amount);
+		target.damage(amount, damager);
     }
     
     
@@ -524,6 +556,34 @@ public class AbilityUtils implements Listener {
     	}
     }
     
+    
+    
+    public static void arcParticle(LivingEntity e, Effect effect, double velocity, Runnable run)
+    {
+		Snowball ball = e.launchProjectile(Snowball.class);
+		ball.setSilent(true);
+		ball.setVelocity(ball.getVelocity().multiply(velocity));
+		arcProjectiles.put(ball, run);
+			
+			BukkitTask task = new BukkitRunnable() {
+	            @Override
+	            public void run() {
+	            	if(ball.isDead())
+	            	{
+	            		this.cancel();
+	            	}
+
+        			for(Player p : Bukkit.getServer().getOnlinePlayers()) {
+        			    PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(ball.getEntityId());
+        			    ((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
+        			}
+	            	
+	            }
+	        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
+	        
+			effect.setEntity(ball);
+			effect.start();
+    }
     
     /*
      * Particle tests

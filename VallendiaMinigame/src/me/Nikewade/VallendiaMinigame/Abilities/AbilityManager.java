@@ -64,6 +64,8 @@ public class AbilityManager {
 		abilities.add(new BandageAbility());
 		abilities.add(new SurvivalistAbility());
 		abilities.add(new FireballAbility());
+		abilities.add(new LightningBoltAbility());
+		abilities.add(new DisintegrateAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");

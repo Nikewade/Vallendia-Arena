@@ -1,32 +1,36 @@
 package me.Nikewade.VallendiaMinigame.Events;
 
+import java.util.ArrayList;
+
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.comphenix.protocol.wrappers.EnumWrappers.Hand;
-import com.sk89q.worldguard.LocalPlayer;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
+import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
-import me.Nikewade.VallendiaMinigame.Abilities.KickAbility;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
@@ -35,6 +39,8 @@ import net.md_5.bungee.api.ChatColor;
 
 public class PlayerItemEvents implements Listener {
 	VallendiaMinigame Main;
+	ArrayList<Player> wandCooldown = new ArrayList<>();
+	double wandCooldownAmount = 0.5;
 	
 	
 	
@@ -69,7 +75,73 @@ public class PlayerItemEvents implements Listener {
 			    		Main.guihandler.openGui(p, "shop");  
 			    		p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
 			    		return;
-		    	   }	
+		    	   }
+		    	   
+		    	   
+		    	   //MAGE WAND
+		    	   if(itemtype == Material.STICK && itemname.equals(Utils.Colorate("&3&lWand")))
+		    	   {
+		    		   if(!wandCooldown.contains(p))
+		    		   {
+			    		 	  new BukkitRunnable(){                         
+			    	              double t = 0;
+			    	              Location loc = p.getLocation();
+			    	            
+			    	              public void run(){
+			    	            	  //t effects speed of article
+			    	                      t = t + 2;
+			    	                      Vector direction = loc.getDirection().normalize();
+			    	                      double x = direction.getX() * t;
+			    	                      double y = direction.getY() * t + 1.5;
+			    	                      double z = direction.getZ() * t;
+			    	                      loc.add(x,y,z);
+			    	            			for(Entity e : loc.getWorld().getNearbyEntities(loc, 0.6, 0.6, 0.6))
+			    	            			{
+			    	            				if(e instanceof LivingEntity && e != p)
+			    	            				{
+			    	            					AbilityUtils.damageEntity((LivingEntity)e, p, 2);
+			    	            					this.cancel();
+			    	            				}
+			    	            			}
+			    	              		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+			    	            		se.particle = Particle.END_ROD;
+			    	            		se.iterations = 1;
+			    	            		se.particles = 1;
+			    	            		se.radius = 0.2;
+			    	            		se.speed = (float) 0;
+			    	            		se.visibleRange = 50;
+			    	            			se.setLocation(loc);
+			    	            			se.start();
+			    	            			if(loc.getBlock().getType().isSolid())
+			    	            			{
+			    	                            this.cancel();
+			    	            			}
+			    	                      loc.subtract(x,y,z);
+			    	                      if (t > 50){
+			    	                          this.cancel();
+			    	                  }
+			    	                    
+			    	              }
+			    	 	 	  }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
+			    	 	 	  
+			    		 	  new BukkitRunnable(){
+
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+									if(wandCooldown.contains(p))
+									{
+										wandCooldown.remove(p);
+									}
+								}                         
+	
+			    		 	  }.runTaskLater(VallendiaMinigame.getInstance(), (long) (wandCooldownAmount * 20));
+			    		 	  wandCooldown.add(p);
+				    		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 2, (float) 1.5);
+				    		return;   
+		    		   }
+		    	   }
+		    	   	
 	    	}
 	    	
 	    	
@@ -111,6 +183,10 @@ public class PlayerItemEvents implements Listener {
 		    		}
 		    		return;
 	    	   }
+	    	   
+	    	   	
+	    	   
+	    	   
 	    }
 	}
 	

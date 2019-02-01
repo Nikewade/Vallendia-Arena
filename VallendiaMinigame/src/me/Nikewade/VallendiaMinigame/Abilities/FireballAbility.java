@@ -55,13 +55,33 @@ public class FireballAbility implements Ability{
 		se.speed = (float) 0;
 		se.visibleRange = 50;
 		
+  		SphereEffect se2 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+		se2.particle = Particle.FLAME;
+		se2.iterations = 2;
+		se2.particles = 100;
+		se2.radius = 7;
+		se2.speed = (float) 0.1;
+		se2.visibleRange = 50;
+		
+  		SphereEffect se3 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+		se3.particle = Particle.EXPLOSION_HUGE;
+		se3.iterations = 1;
+		se3.particles = 10;
+		se3.radius = 2;
+		se3.speed = (float) 0.1;
+		se3.visibleRange = 50;
+		
 		Runnable run = new Runnable()
 		{
 
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				AbilityUtils.explode(se.getLocation(), p, 5, damage, true, true, true);
+				AbilityUtils.explode(se.getLocation(), p, 5, damage, true, true, false);
+				se2.setLocation(se.getLocation());
+				se2.start();
+				se3.setLocation(se.getLocation());
+				se3.start();
 			}
 			
 		};

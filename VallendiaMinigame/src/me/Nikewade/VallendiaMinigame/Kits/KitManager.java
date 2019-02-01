@@ -1,6 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Kits;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -327,6 +328,12 @@ public class KitManager {
                 }
             }
             
+            if(name != null && name.equalsIgnoreCase(Utils.Colorate("&3&lWand")))
+            {
+            	List loreadd = Arrays.asList(Utils.Colorate("&7Right click to shoot weak magic"),
+            			Utils.Colorate("&7that does 1 heart."));
+            	im.setLore(loreadd);
+            }
             im.setUnbreakable(true);
             im.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES  });
             

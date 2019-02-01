@@ -36,8 +36,11 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.util.Vector;
 
 import de.slikey.effectlib.Effect;
+import de.slikey.effectlib.effect.ExplodeEffect;
+import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import net.minecraft.server.v1_12_R1.Explosion;
 import net.minecraft.server.v1_12_R1.PacketPlayOutEntityDestroy;
@@ -154,6 +157,34 @@ public class AbilityUtils implements Listener {
 	
 	
 	
+	
+	public static List<Block> getLine(Player p, int range)
+	{
+		List<Block> lineOfSight = null;
+	    if (p.getLocation().getBlockY() > p.getLocation().getWorld().getMaxHeight()) {
+	        return null;
+	      }
+	      try
+	      {
+	       lineOfSight = p.getLineOfSight(AbilityUtils.transparentBlocks, range);
+	      }
+	      catch (IllegalStateException e)
+	      {
+	        return null;
+	      }
+	      Set<Location> locs = new HashSet();
+	      int x = 0;
+	      for (Block block : p.getLineOfSight(AbilityUtils.transparentBlocks, range))
+	      {
+	    	  if(x >= range)
+	    	  {
+	  	        locs.add(block.getRelative(BlockFace.UP).getLocation());
+		        locs.add(block.getLocation());
+		        locs.add(block.getRelative(BlockFace.DOWN).getLocation());  
+	    	  }
+	      }
+	      return lineOfSight;
+	    }
 	
 	
 	
@@ -585,42 +616,5 @@ public class AbilityUtils implements Listener {
 			effect.start();
     }
     
-    /*
-     * Particle tests
-     * 
-     * sends particle foward from location
-     * 
-     * We can get the location and stop the particle with se.getlocation... we can track the particle and do things like damage players
-     *  	 	  new BukkitRunnable(){                         
-              double t = 0;
-            
-              public void run(){
-                      t = t + 0.5;
-                      Location loc = p.getLocation();
-                      Vector direction = loc.getDirection().normalize();
-                      double x = direction.getX() * t;
-                      double y = direction.getY() * t + 1.5;
-                      double z = direction.getZ() * t;
-                      loc.add(x,y,z);
-            			SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
-            			se.setLocation(loc);
-            			se.particle = Particle.END_ROD;
-            			se.iterations = 10;
-            			se.particles = 2;
-            			se.speed = (float) 0;
-            			se.start();
-                      loc.subtract(x,y,z);
-                      if (t > 30){
-                          this.cancel();
-                  }
-                    
-              }
- 	 	  }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 5);
-     */
-	
-	
-	
-	
-	
-	
+
 }

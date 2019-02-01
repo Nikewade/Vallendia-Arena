@@ -45,7 +45,7 @@ public class BandageAbility implements Ability{
 				"If an entity is within 4 blocks of you,",
 				"target that entity to heal them instead.",
 				"Healing another entity will use their max health.",
-				Utils.Colorate("&8Softcast"));
+				Utils.Colorate("&8Softcast: " + castTime));
 	}
 
 	@Override

@@ -59,7 +59,7 @@ public class BashAbility implements Ability {
  	 		AbilityUtils.addPotionDuration(target, PotionEffectType.CONFUSION, 4, 8*20);
  	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 2, 1);
  	 		target.getWorld().spawnParticle(Particle.CRIT, target.getLocation().add(0, 1.8, 0), 20);
- 	 		target.damage(damage, p); 
+ 	 		AbilityUtils.damageEntity(target, p, 2);
  	 		return true;
  		}
 		return false;

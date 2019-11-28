@@ -12,6 +12,9 @@ import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityToggleGlideEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -29,6 +32,7 @@ public class FlyAbility implements Ability, Listener{
 	private static ArrayList<Player> falling = new ArrayList<>();
 	private static HashMap<Player, BukkitTask> fallingTimer = new HashMap<>();
 	private static HashMap<Player, BukkitTask> tasks = new HashMap<>();
+	private static HashMap<Player, BukkitTask> countDown = new HashMap<>();
 	private static HashMap<Player, BukkitTask> timer = new HashMap<>();
 	private static HashMap<Player,SphereEffect> effect = new HashMap<>();
 	int time = 30;
@@ -72,6 +76,9 @@ public class FlyAbility implements Ability, Listener{
     		v.setY(0).normalize().setY(upwardVelocity);
     		p.setVelocity(v);
     		
+    		//Start glide
+            ep.getHandle().setFlag(7, true);
+    		
     		//Effects / sounds
 	 	 	p.getWorld().spawnParticle(Particle.CLOUD, p.getLocation(), 20);
 	 	 	p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.8);
@@ -99,6 +106,7 @@ public class FlyAbility implements Ability, Listener{
         		         FlyAbility.timer.remove(p);
         		         effect.get(p).cancel();
         		         effect.remove(p);
+        		         countDown.remove(p);
         		         
         		         //Start falling
         		         	falling.add(p);
@@ -138,11 +146,11 @@ public class FlyAbility implements Ability, Listener{
               		         FlyAbility.timer.remove(p);
             		         effect.get(p).cancel();
             		         effect.remove(p);
+            		         countDown.remove(p);
         	                }
         				
         	               if (!p.isOnGround()) {
         	            	   p.setFallDistance(0);
-        	                   ep.getHandle().setFlag(7, true);
         	                   p.setVelocity(p.getLocation().getDirection().multiply(0.8));
         	                }
         			}
@@ -170,6 +178,7 @@ public class FlyAbility implements Ability, Listener{
                 	}else this.cancel();
                 }
             }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L);
+            FlyAbility.countDown.put(p, countdown);
             return true;
 			
 			
@@ -190,6 +199,7 @@ public class FlyAbility implements Ability, Listener{
             FlyAbility.timer.remove(p);	
 	        effect.get(p).cancel();
 	        effect.remove(p);
+	        countDown.remove(p);
         }
 	}
 	
@@ -213,6 +223,33 @@ public class FlyAbility implements Ability, Listener{
         	        }
 
         	    }
+        	}
+        	
+        	@EventHandler
+        	public void onGlide(EntityToggleGlideEvent e)
+        	{
+        		if(!(e.getEntity() instanceof Player))
+        		{
+        			return;
+        		}
+        		Player p = (Player) e.getEntity();
+        		if(!(p.getInventory().getChestplate().getType() == Material.ELYTRA))
+        		{
+            		e.setCancelled(true);	
+        		}
+        	}
+        	
+        	@EventHandler
+        	public void onDamage(EntityDamageEvent e)
+        	{
+        		if(e.getEntity() instanceof Player && e.getCause() == DamageCause.FLY_INTO_WALL)
+        		{
+        			Player p = (Player) e.getEntity();
+            		if(!(p.getInventory().getChestplate().getType() == Material.ELYTRA))
+            		{
+                		e.setCancelled(true);	
+            		}
+        		}
         	}
         	
         };

@@ -55,7 +55,7 @@ public class RootAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Sneak to extend roots into the ground making you" , "immovable. You also take 20% less damage and", "regenerate health over time.");
+		return Arrays.asList("Toggling this ability allows sneaking", "to extend roots into the ground making you" , "immovable. You also take 20% less damage and", "regenerate health over time.");
 	}
 
 	@Override
@@ -386,5 +386,23 @@ public class RootAbility implements Ability{
 			   RootAbility.timers.remove(p);   
 		   }
 	   }
+
+	@Override
+	public void DisableAbility(Player p) {
+		// TODO Auto-generated method stub
+		   if(enabled.contains(p))
+		   {
+			   RootAbility.enabled.remove(p);   
+		   }
+		   if(sneaking.contains(p))
+		   {
+			   RootAbility.sneaking.remove(p);   
+		   }
+		   if(timers.containsKey(p))
+		   {
+			   RootAbility.timers.get(p).cancel();
+			   RootAbility.timers.remove(p);   
+		   }
+	}
 	   
 }

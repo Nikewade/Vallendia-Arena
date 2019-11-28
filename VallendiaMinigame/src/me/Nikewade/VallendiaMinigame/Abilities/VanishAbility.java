@@ -167,4 +167,10 @@ public class VanishAbility implements Ability{
 			Language.sendAbilityUseMessage(p, "You reappear.", "Vanish");
 		}
     }
+
+	@Override
+	public void DisableAbility(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
 }

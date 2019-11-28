@@ -94,7 +94,7 @@ public class MomentumAbility implements Ability, Listener{
         		}
         		
         		
-        		if(!p.isSprinting() && !running.contains(p) && p.isOnGround())
+        		if(!p.isSprinting() && !running.contains(p)) // removed if on ground for bug reasons
         		{
             			running.add(p);
             			
@@ -167,5 +167,11 @@ public class MomentumAbility implements Ability, Listener{
         		
         };
     }
+
+	@Override
+	public void DisableAbility(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

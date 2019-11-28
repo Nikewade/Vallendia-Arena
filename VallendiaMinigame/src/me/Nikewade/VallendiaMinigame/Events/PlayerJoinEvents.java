@@ -16,6 +16,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.BandageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LastStandAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
+import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Upgrades.RegenUpgrade;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
@@ -55,6 +56,10 @@ public class PlayerJoinEvents implements Listener{
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onLeave(PlayerQuitEvent e)
 	{
+	      for(Ability ability : VallendiaMinigame.getInstance().abilitymanager.getAbilities())
+	      {
+	    	  ability.DisableAbility(e.getPlayer());
+	      }
 		RootAbility.removeLists(e.getPlayer());
 		e.getPlayer().setGravity(true);
 		EquipBowAbility.removeBow(e.getPlayer());

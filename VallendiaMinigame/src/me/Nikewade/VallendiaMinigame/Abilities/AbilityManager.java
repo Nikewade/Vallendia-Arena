@@ -66,6 +66,7 @@ public class AbilityManager {
 		abilities.add(new FireballAbility());
 		abilities.add(new LightningBoltAbility());
 		abilities.add(new DisintegrateAbility());
+		abilities.add(new FlyAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
@@ -173,6 +174,11 @@ public class AbilityManager {
 			if(Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), slot).equalsIgnoreCase(abilityname)) //player already has that ability
 			{
 				return;
+			}
+			
+			if(!Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), slot).equalsIgnoreCase("empty")) //Ability is being swapped... so disable the ability if needed.
+			{
+				VallendiaMinigame.getInstance().abilitymanager.getAbility(Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), slot)).DisableAbility(p);
 			}
 			
 			if(Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), slot).equalsIgnoreCase("empty"))

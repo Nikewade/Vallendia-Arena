@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -38,9 +39,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
-import de.slikey.effectlib.Effect;
 import de.slikey.effectlib.effect.ExplodeEffect;
 import de.slikey.effectlib.effect.SphereEffect;
+import de.slikey.effectlib.util.ParticleEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import net.minecraft.server.v1_12_R1.Explosion;
 import net.minecraft.server.v1_12_R1.PacketPlayOutEntityDestroy;
@@ -267,21 +268,21 @@ public class AbilityUtils implements Listener {
 	}
 	
 	
-	//Makes and  explsion and stores it so you can  set its damage.. The damageSubtraction is what we subtract from the normal explosion damage.
-    public static void explode(Location loc, Entity explodeAs, int power, int damage, boolean setFires, boolean terrainDamage, boolean particles) {
-        explosives.put(loc.getBlock(), damage);
-        explosivesEntities.put(explodeAs, damage);
-        Explosion explosion = new Explosion(((CraftWorld) loc.getWorld()).getHandle(),
-               ((CraftEntity) explodeAs).getHandle(), loc.getX(), loc.getY(), loc.getZ(), power, setFires,
-               terrainDamage);
-        explosion.a();
-        explosion.a(true);
-        if(particles)
-        {
-            loc.getWorld().playEffect(loc, org.bukkit.Effect.EXPLOSION_HUGE, power);	
-        }
-        loc.getBlock().setMetadata(explodeAs.getName(), new FixedMetadataValue(VallendiaMinigame.getInstance(), loc.getBlock()));
-    }
+	//Makes and  explosion and stores it so you can  set its damage.. The damageSubtraction is what we subtract from the normal explosion damage.
+	   public static void explode(Location loc, Entity explodeAs, int power, int damage, boolean setFires, boolean terrainDamage, boolean particles) {
+		      Explosion explosion = new Explosion(((CraftWorld)loc.getWorld()).
+		      getHandle(), ((CraftEntity)explodeAs).getHandle(), loc.getX(), 
+		      loc.getY(), loc.getZ(), (float)power, setFires, terrainDamage);
+		      explosives.put(loc.getBlock(), damage);
+		      explosivesEntities.put(explodeAs, damage);
+		      explosion.a();
+		      explosion.a(true);
+		      if (particles) {
+		         loc.getWorld().playEffect(loc, Effect.EXPLOSION_HUGE, power);
+		      }
+
+		      loc.getBlock().setMetadata(explodeAs.getName(), new FixedMetadataValue(VallendiaMinigame.getInstance(), loc.getBlock()));
+		   }
 	
 	
     public static void silenceAbilities(LivingEntity e, int seconds, String ability)
@@ -454,13 +455,17 @@ public class AbilityUtils implements Listener {
         			if(explosives.containsKey(e.getLocation().getBlock()))
         			{
             			e.setYield(0);
-                		for(Block b : e.blockList())
+            	        for (Block b : new ArrayList<Block>(e.blockList()))
                 		{
-                			if(!(b.getType() == Material.TORCH) || !(b.getType() == Material.REDSTONE_TORCH_ON) || !(b.getType() == Material.REDSTONE_TORCH_OFF))
-                			{
-                				Utils.regenBlock(b, 30);
-                				b.setType(Material.AIR);
+                			
+                			if((b.getType() == Material.TORCH) || (b.getType() == Material.REDSTONE_TORCH_ON) || (b.getType() == Material.REDSTONE_TORCH_OFF) || (b.getType() == Material.BANNER)|| (b.getType() == Material.STANDING_BANNER)|| (b.getType() == Material.WALL_BANNER) || (b.getType() == Material.FLOWER_POT) || (b.getType() == Material.ITEM_FRAME) || (b.getType() == Material.PAINTING))
+                			{ 
+                				e.blockList().remove(b);
+                				continue;
                 			}
+
+            				Utils.regenBlock(b, 30);
+            				b.setType(Material.AIR);
                 		}	
         			}
         		}
@@ -589,7 +594,7 @@ public class AbilityUtils implements Listener {
     
     
     
-    public static void arcParticle(LivingEntity e, Effect effect, double velocity, Runnable run)
+    public static void arcParticle(LivingEntity e, de.slikey.effectlib.Effect effect, double velocity, Runnable run)
     {
 		Snowball ball = e.launchProjectile(Snowball.class);
 		ball.setSilent(true);

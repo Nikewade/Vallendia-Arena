@@ -168,5 +168,11 @@ public class BandageAbility implements Ability{
 			enabled.remove(p);
 		}
 	}
+
+	@Override
+	public void DisableAbility(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

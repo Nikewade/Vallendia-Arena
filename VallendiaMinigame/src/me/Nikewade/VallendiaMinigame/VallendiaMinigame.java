@@ -1,5 +1,7 @@
 package me.Nikewade.VallendiaMinigame;
 
+import java.util.Iterator;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -28,11 +30,10 @@ import me.Nikewade.VallendiaMinigame.Abilities.BullRushAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.DeflectArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.DivineShieldAbility;
-import me.Nikewade.VallendiaMinigame.Abilities.EarthQuakeAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.ExplosiveArrowAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.FlyAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.GrapplingHookAbility;
-import me.Nikewade.VallendiaMinigame.Abilities.KineticBarrierAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LeapAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MagicArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MomentumAbility;
@@ -68,6 +69,7 @@ import me.Nikewade.VallendiaMinigame.Events.PlayerFoodEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerItemEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerJoinEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerKillEvents;
+import me.Nikewade.VallendiaMinigame.Events.ProjectileEvents;
 import me.Nikewade.VallendiaMinigame.Graphics.GuiHandler;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import me.Nikewade.VallendiaMinigame.Kits.KitManager;
@@ -180,6 +182,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   new PlayerFoodEvents(this);
 		   new PlayerBlockEvents(this);
 		   new PlayerExpEvents(this);
+		   new ProjectileEvents(this);
 		   Bukkit.getPluginManager().registerEvents(AdvInventory.getListener(), this);
 		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
 		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);
@@ -205,8 +208,6 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(ExplosiveArrowAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(PillageAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(PickPocketAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(EarthQuakeAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(KineticBarrierAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(MountAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(BlurAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(DivineShieldAbility.getListener(), this);
@@ -214,27 +215,29 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(VampiricTouchAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(SurvivalistAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(ParticleTestAbility.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(FlyAbility.getListener(), this);
 		   
 		   //Commands
 		   this.registerCommands();
 		   
-		   for(Player p : Bukkit.getServer().getOnlinePlayers()) { 
-			   //sb.runScoreboard(p);
-			   sb.setupPlayerScoreboard(p);
-			   p.closeInventory();
-			   this.levelmanager.updateExpBar(p);
-			   this.levelmanager.updateLevelBar(p);
-				p.setGravity(true);
-				ghost.removeGhost(p);
-			if(this.upgrademanager.getUpgradeAmount(p, "regeneration") > 0)
-				{
-				   RegenUpgrade.addTimer(p); 
-				}
-		   }
-		   sb.runNameTagUpdater();
-		   sb.runSidebarUpdater();
-		   ShopHandler.loadShop();
-		   KineticBarrierAbility.startTimeCountTask();
+	         Iterator var2 = Bukkit.getServer().getOnlinePlayers().iterator();
+
+	         while(var2.hasNext()) {
+	            Player p = (Player)var2.next();
+	            this.sb.setupPlayerScoreboard(p);
+	            p.closeInventory();
+	            this.levelmanager.updateExpBar(p);
+	            this.levelmanager.updateLevelBar(p);
+	            p.setGravity(true);
+	            this.ghost.removeGhost(p);
+	            if (this.upgrademanager.getUpgradeAmount(p, "regeneration") > 0) {
+	               RegenUpgrade.addTimer(p);
+	            }
+	         }
+
+	         this.sb.runNameTagUpdater();
+	         this.sb.runSidebarUpdater();
+	         ShopHandler.loadShop();
 		   
 		   
 		   

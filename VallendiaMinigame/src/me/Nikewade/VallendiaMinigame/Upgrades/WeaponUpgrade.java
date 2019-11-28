@@ -1,11 +1,13 @@
 package me.Nikewade.VallendiaMinigame.Upgrades;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 

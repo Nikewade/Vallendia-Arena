@@ -127,4 +127,10 @@ public class PickPocketAbility implements Ability, Listener{
     	}
     }
 
+	@Override
+	public void DisableAbility(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

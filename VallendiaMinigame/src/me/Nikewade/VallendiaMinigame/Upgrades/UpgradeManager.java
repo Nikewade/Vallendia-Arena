@@ -7,6 +7,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
@@ -236,6 +237,13 @@ public class UpgradeManager {
 		int price = this.getPrice(p, upgrade, enchant) * amount;
 		int upgradeamount = this.getUpgradeAmount(p, upgrade);
 		
+		
+		if(EquipBowAbility.enabled.contains(p) && upgrade.equalsIgnoreCase("weapon"))
+		{
+	        p.sendTitle(Utils.Colorate("&4&lX"), Utils.Colorate("&4&lMelee weapon not equiped!"), 20, 40, 40);
+	        p.playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 1, 1);
+	        return;
+		}
 		
 		if(upgradeamount + amount > this.getMaxUpgrade(upgrade , enchant))
 		{

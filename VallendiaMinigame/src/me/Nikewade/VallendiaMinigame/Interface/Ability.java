@@ -19,4 +19,6 @@ public interface Ability {
 	
 	public boolean RunAbility(Player p);
 	
+	public void DisableAbility(Player p);
+	
 }

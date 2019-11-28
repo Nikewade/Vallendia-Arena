@@ -214,4 +214,10 @@ int maxYForce = 10;
 		raging.remove(p);
 	}
 
+	@Override
+	public void DisableAbility(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

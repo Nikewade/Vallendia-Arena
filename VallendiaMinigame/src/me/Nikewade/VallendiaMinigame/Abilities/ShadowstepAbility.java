@@ -66,4 +66,10 @@ public class ShadowstepAbility implements Ability{
 		return false;
 	}
 
+	@Override
+	public void DisableAbility(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

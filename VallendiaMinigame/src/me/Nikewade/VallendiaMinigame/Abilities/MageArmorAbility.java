@@ -76,6 +76,12 @@ public class MageArmorAbility implements Ability{
 		p.sendMessage(Utils.Colorate("&8&l A magical shield surrounds you."));
 		return true;
 	}
+
+	@Override
+	public void DisableAbility(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

@@ -27,7 +27,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 public class VampiricTouchAbility implements Ability, Listener{
 	private static ArrayList<Player> enabled = new ArrayList<>();
 	private int time = 5;
-	private static int Percent = 20;
+	private static int Percent = 30;
 
 	@Override
 	public String getName() {
@@ -132,4 +132,10 @@ public class VampiricTouchAbility implements Ability, Listener{
         	
         };
     }
+
+	@Override
+	public void DisableAbility(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
 }

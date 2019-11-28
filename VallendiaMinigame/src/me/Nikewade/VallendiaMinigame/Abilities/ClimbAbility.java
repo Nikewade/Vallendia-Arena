@@ -158,7 +158,6 @@ public class ClimbAbility implements Ability , Listener {
         return new Listener() {
         	
         	
-        	
         	@EventHandler
         	public void onClick(PlayerInteractEvent e)
         	{
@@ -315,6 +314,15 @@ public class ClimbAbility implements Ability , Listener {
         	ClimbAbility.climbing.remove(p);
     	}
     }
+
+	@Override
+	public void DisableAbility(Player p) {
+		if(ClimbAbility.climbing.contains(p))
+    	{
+        	ClimbAbility.climbing.remove(p);
+    	}
+		
+	}
     
 	
 	

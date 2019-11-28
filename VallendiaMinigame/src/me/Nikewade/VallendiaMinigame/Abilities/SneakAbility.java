@@ -172,5 +172,14 @@ public class SneakAbility implements Ability , Listener {
         }
 	}
 
+	@Override
+	public void DisableAbility(Player p) {
+		if(sneaking.contains(p.getPlayer()))
+    	{
+        	sneaking.remove(p.getPlayer());
+    		p.getPlayer().setSneaking(false);
+    	}
+	}
+
 }
 

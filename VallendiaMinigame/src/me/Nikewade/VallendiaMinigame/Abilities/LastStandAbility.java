@@ -76,4 +76,10 @@ public class LastStandAbility implements Ability{
         return true;
 	}
 
+	@Override
+	public void DisableAbility(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

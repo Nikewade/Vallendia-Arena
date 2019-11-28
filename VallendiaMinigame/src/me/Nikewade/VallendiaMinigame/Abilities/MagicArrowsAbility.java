@@ -156,4 +156,10 @@ public class MagicArrowsAbility implements Ability, Listener{
     		a.setGravity(true);
     	}
     }
+
+	@Override
+	public void DisableAbility(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
 }

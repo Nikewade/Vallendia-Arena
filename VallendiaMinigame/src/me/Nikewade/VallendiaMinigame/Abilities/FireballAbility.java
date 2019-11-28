@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -86,9 +87,15 @@ public class FireballAbility implements Ability{
 			
 		};
 		
-		
+		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1, (float) 1.6);
 		AbilityUtils.arcParticle(p, se, 0.7, run);
 		return false;
+	}
+
+	@Override
+	public void DisableAbility(Player p) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

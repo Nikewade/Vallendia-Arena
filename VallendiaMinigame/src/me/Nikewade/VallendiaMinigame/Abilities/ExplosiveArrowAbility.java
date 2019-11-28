@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Color;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
@@ -22,6 +24,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.comphenix.protocol.wrappers.EnumWrappers.Particle;
+
+import de.slikey.effectlib.effect.SphereEffect;
+import de.slikey.effectlib.util.ParticleEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
@@ -136,6 +142,16 @@ public class ExplosiveArrowAbility implements Ability, Listener{
         		}
             		e.getProjectile().setVelocity(e.getProjectile().getVelocity().multiply(0.6));
             		e.getProjectile().setMetadata("Explosive Arrow", new FixedMetadataValue(VallendiaMinigame.getInstance(), e.getProjectile()));
+            		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+            		se.setEntity(e.getProjectile());
+            		se.disappearWithOriginEntity = true;
+            		se.particle = org.bukkit.Particle.SMOKE_NORMAL;
+            		se.particleCount = 1;
+            		se.radius = 0.1;
+            		se.particles = 5;
+            		se.start();	
+            		
+            		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_TNT_PRIMED, 1, 1);
                 	enabled.remove(p);
             }
             
@@ -146,6 +162,12 @@ public class ExplosiveArrowAbility implements Ability, Listener{
             
         };
     }
+
+	@Override
+	public void DisableAbility(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

@@ -1,5 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Commands;
 
+import java.text.DecimalFormat;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -25,6 +27,7 @@ public class StatsCommand implements  CommandInterface {
 			{
 				kdr  =  (double) main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Kills") / (double)  main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Deaths");	
 			}
+			kdr = Double.parseDouble(new DecimalFormat("#.###").format(kdr));
 			sender.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
 			sender.sendMessage("");
 			sender.sendMessage(Utils.Colorate("&8&l" + p.getName()));			

@@ -34,7 +34,8 @@ public class ScoreboardHandler {
 	      (new BukkitRunnable() {
 	         public void run() {
 	            scoreboard.setTitle(Utils.Colorate("&8&l✶ Vallendia Stats ✶"));
-	            row1.setMessage(Utils.Colorate("&3Kit: " + ScoreboardHandler.this.Main.kitmanager.getKit(p).getName(true)));
+	            //Had to add a space at the end for some reason Archer shows up weird without it?
+	            row1.setMessage(Utils.Colorate("&3Kit: ") + ScoreboardHandler.this.Main.kitmanager.getKit(p).getName(true) + " ");
 	            row2.setMessage(Utils.Colorate("&3Level: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Level")));
 	            row3.setMessage(Utils.Colorate("&3Kills: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "KillStreak")));
 	            row4.setMessage(Utils.Colorate("&3Upgrades: &8" + ScoreboardHandler.this.Main.upgrademanager.getUpgradeTotal(p)));

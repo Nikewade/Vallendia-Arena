@@ -63,7 +63,8 @@ public class BlinkAbility implements Ability{
 	 	 		{
 					p.setFallDistance(0);	
 	 	 		}
-		        p.teleport(new Location(b.getLocation().getWorld(), b.getLocation().getX(), b.getLocation().getY(), b.getLocation().getZ(), p.getLocation().getYaw(), p.getLocation().getPitch()).add(0, 1, 0));
+	 	 		//Added 0.5 to x and y to make it go to the center of the block
+		        p.teleport(new Location(b.getLocation().getWorld(), b.getLocation().getX() + 0.5, b.getLocation().getY(), b.getLocation().getZ() + 0.5, p.getLocation().getYaw(), p.getLocation().getPitch()).add(0, 1, 0));
 	 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 2, (float) 1.4);
 	 	 		p.getWorld().spawnParticle(Particle.PORTAL, p.getLocation().add(0, 1, 0), 20);
 	 	 		p.getWorld().spawnParticle(Particle.PORTAL, p.getLocation().add(0, 1, 0), 20);

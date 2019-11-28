@@ -13,8 +13,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -24,6 +26,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import com.sk89q.worldedit.blocks.ItemType;
 import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.StateFlag;
@@ -195,22 +198,32 @@ public class PlayerItemEvents implements Listener {
 	//stop from moving item
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
-		if (e.getWhoClicked() instanceof Player && e.getWhoClicked().getGameMode() != GameMode.CREATIVE) {
-			if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR) {
-				return;
-			}			
-			if(e.getAction() == InventoryAction.HOTBAR_SWAP)
-			{
-				e.setCancelled(true);
-			}
+		if (e.getWhoClicked() instanceof Player && e.getWhoClicked().getGameMode() != GameMode.CREATIVE) {	
 		    ItemStack item = e.getCurrentItem();
-		    Material itemtype = item.getType();
-		    String itemname = item.getItemMeta().getDisplayName();
+		    Material itemtype = null;
+		    String itemname = "Air";
+		    e.getClick();
+		    
+			if (!(e.getCurrentItem() == null) && !(e.getCurrentItem().getType() == Material.AIR)) {
+				itemtype = item.getType();
+				itemname = item.getItemMeta().getDisplayName();
+			}else {itemtype = Material.AIR;}
+		    
 		    
 			if(e.getSlotType() == SlotType.ARMOR)
 			{
 				e.setCancelled(true);
 			}
+			
+			//Moving the nether star with number key
+			if(e.getAction() == InventoryAction.HOTBAR_SWAP || e.getAction() == InventoryAction.HOTBAR_MOVE_AND_READD)
+			{
+				if(e.getHotbarButton() == 8)
+				{
+					e.setCancelled(true);
+				}
+			}
+			
 			
 			if (itemtype == Material.NETHER_STAR && itemname != null) {
 				if(itemname.equals(Utils.Colorate("&b&lKit")) || itemname.equals(Utils.Colorate("&b&lShop")))
@@ -232,6 +245,7 @@ public class PlayerItemEvents implements Listener {
 			
 		}
 	}
+	
 	
 	
 	

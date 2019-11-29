@@ -215,7 +215,25 @@ public class BullRushAbility implements Ability, Listener{
               		          AbilityUtils.damageEntity(livingE, p, damage);
               	 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 2, (float) 0.8);
               	 	 		entity.getWorld().spawnParticle(Particle.CRIT, entity.getLocation().add(0, 1, 0), 20);
- 
+              	 	 		if(livingE != null)
+              	 	 		{
+              	        		if(enabled.contains(p))
+              	        		{
+              	        			enabled.remove(p);
+              	        			sprinting.remove(p);
+              	        	        if(tasks.containsKey(p))
+              	        	        {
+              	        	        	tasks.get(p).cancel();
+              	        	            tasks.remove(p);	
+              	        	        }
+              	        			Language.sendAbilityUseMessage(p, "Your rush comes to a halt.", "Bull Rush");
+              	        			if(p.hasPotionEffect(PotionEffectType.SPEED) && hasspeed.contains(p))
+              	        			{
+              	            			p.removePotionEffect(PotionEffectType.SPEED);
+              	            			hasspeed.remove(p);
+              	        			}
+              	        		}
+              	 	 		}
             		}		
             	}
             }

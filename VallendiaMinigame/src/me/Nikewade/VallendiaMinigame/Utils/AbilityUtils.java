@@ -15,9 +15,11 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.craftbukkit.Main;
 import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -102,7 +104,10 @@ public class AbilityUtils implements Listener {
 	
 	
 	
-	
+	public static String getPlayerParty(Player p)
+	{
+		return VallendiaMinigame.getInstance().parties.getPartyPlayer(p.getUniqueId()).getPartyName();
+	}
 	
 	
 	public static LivingEntity getTarget(Player p, int range)
@@ -135,11 +140,19 @@ public class AbilityUtils implements Listener {
 	      List<Entity> nearbyEntities = p.getNearbyEntities(range, range, range);
 	      for (Entity entity : nearbyEntities) {
 	        if (((entity instanceof LivingEntity)) && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
-	          (locs.contains(entity.getLocation().getBlock().getLocation()))) {
+	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)) {
 	        	
 	  	        if(entity instanceof Player)
 		        {
 		        	Player player = (Player) entity;
+		        	
+		        	//In party
+		        	if(AbilityUtils.getPlayerParty(player).equalsIgnoreCase(AbilityUtils.getPlayerParty(p)))
+		        	{
+		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
+			            return null;
+		        	}
+		        	
 					if(!(player.getGameMode() == GameMode.SURVIVAL) && !(player.getGameMode() == GameMode.ADVENTURE))
 		        	{
 		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
@@ -195,11 +208,19 @@ public class AbilityUtils implements Listener {
 			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
 			for(Entity entity : originplayer.getWorld().getNearbyEntities(originplayer.getLocation(), Radiusx, Radiusy, Radiusz))
 			{
-				if(entity instanceof LivingEntity && !(entity == originplayer))
+				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand))
 				{
 					if(entity instanceof Player)
 					{
 						Player entityplayer = (Player) entity;
+						
+						
+			        	//In party
+			        	if(AbilityUtils.getPlayerParty(entityplayer).equalsIgnoreCase(AbilityUtils.getPlayerParty(originplayer)))
+			        	{
+			        		continue;
+			        	}
+						
 						if(!(entityplayer.getGameMode() == GameMode.SURVIVAL) && !(entityplayer.getGameMode() == GameMode.ADVENTURE))
 						{
 							continue;

@@ -13,6 +13,8 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.ScoreboardManager;
 
+import com.alessiodp.parties.api.Parties;
+import com.alessiodp.parties.api.interfaces.PartiesAPI;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
@@ -115,6 +117,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	   public Permission perms;
 	   public Chat chat;
 	   public GhostManager ghost;
+	   public PartiesAPI parties;
 	   @SuppressWarnings("rawtypes")
 	   public static final Flag blockAbilities = new StateFlag("block-abilities", true);
 
@@ -165,6 +168,12 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.worldguard = getWorldGuard();
 	       this.fallingblocks = new FallingBlocksManager(this);
 	       this.ghost = new GhostManager(this);
+	       
+	       if (getServer().getPluginManager().getPlugin("Parties") != null) {
+	    	    if (getServer().getPluginManager().getPlugin("Parties").isEnabled()) {
+	    	    	this.parties = Parties.getApi();
+	    	    }
+	    	}
 	       
 	        if (!setupPermissions() ) {
 	            Bukkit.getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));

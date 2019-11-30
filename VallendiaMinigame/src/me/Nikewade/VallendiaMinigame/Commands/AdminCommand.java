@@ -11,7 +11,6 @@ public class AdminCommand implements CommandInterface{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-	    if(args.length > 1) return false;
 	    if(sender instanceof  Player && !sender.hasPermission("vallendia.admin"))
 	    {
 	    	sender.sendMessage(Utils.Colorate("&8You lack permissions!"));
@@ -24,6 +23,7 @@ public class AdminCommand implements CommandInterface{
 		sender.sendMessage(Utils.Colorate("&3/vallendia spawn  &8- Commands for spawning."));
 		sender.sendMessage(Utils.Colorate("&3/vallendia stats &9(name)  &8- Commands for kits."));
 		sender.sendMessage(Utils.Colorate("&3/shop help  &8- Commands for the  shop."));
+		sender.sendMessage(Utils.Colorate("&3/vallendia regen  &8- Force all blocks to regenerate."));
 		sender.sendMessage(Utils.Colorate("&3/vallendia reload  &8- Reloads (Will break things)."));
 		sender.sendMessage("");
 		sender.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));

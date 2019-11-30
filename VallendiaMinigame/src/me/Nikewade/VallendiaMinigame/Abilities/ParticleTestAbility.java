@@ -59,7 +59,7 @@ public class ParticleTestAbility implements Ability, Listener{
             
               public void run(){
             	  //t effects speed of article
-                      t = t + 0.5;
+                      t = t + 2;
                       Vector direction = loc.getDirection().normalize();
                       double x = direction.getX() * t;
                       double y = direction.getY() * t + 1.5;

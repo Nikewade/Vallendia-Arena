@@ -57,6 +57,7 @@ import me.Nikewade.VallendiaMinigame.Commands.AdminCommand;
 import me.Nikewade.VallendiaMinigame.Commands.CommandHandler;
 import me.Nikewade.VallendiaMinigame.Commands.KitCommand;
 import me.Nikewade.VallendiaMinigame.Commands.PointsCommand;
+import me.Nikewade.VallendiaMinigame.Commands.RegenCommand;
 import me.Nikewade.VallendiaMinigame.Commands.ReloadCommand;
 import me.Nikewade.VallendiaMinigame.Commands.ShopCommand;
 import me.Nikewade.VallendiaMinigame.Commands.SpawnCommand;
@@ -252,7 +253,6 @@ public class VallendiaMinigame extends JavaPlugin{
 		   
 	   }
 	   
-	   
 	   @Override
 	   public void onDisable()
 	   {
@@ -306,6 +306,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	 
 	        handler.register("points", new PointsCommand());
 	        handler.register("admin", new AdminCommand());
+	        handler.register("regen", new RegenCommand());
 	        handler.register("reload", new ReloadCommand());
 	        handler.register("stats", new StatsCommand());
 	        handler.register("kit", new KitCommand());

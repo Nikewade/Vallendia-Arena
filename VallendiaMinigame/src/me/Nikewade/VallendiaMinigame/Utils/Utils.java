@@ -74,6 +74,19 @@ public class Utils {
 		public static final void log(Object msg) {
 			Bukkit.getServer().getConsoleSender().sendMessage(Utils.Colorate("" + msg));
 		}
+		
+		
+	    public static List<Block> getNearbyBlocks(Location location, double radius) {
+	        List<Block> blocks = new ArrayList<Block>();
+	        for(double x = location.getBlockX() - radius; x <= location.getBlockX() + radius; x++) {
+	            for(double y = location.getBlockY() - radius; y <= location.getBlockY() + radius; y++) {
+	                for(double z = location.getBlockZ() - radius; z <= location.getBlockZ() + radius; z++) {
+	                   blocks.add(location.getWorld().getBlockAt((int)x, (int)y, (int)z));
+	                }
+	            }
+	        }
+	        return blocks;
+	    }
 	  
 		
 		

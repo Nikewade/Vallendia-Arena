@@ -7,16 +7,15 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -26,7 +25,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import com.sk89q.worldedit.blocks.ItemType;
 import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.StateFlag;
@@ -84,28 +82,19 @@ public class PlayerItemEvents implements Listener {
 		    	   //MAGE WAND
 		    	   if(itemtype == Material.STICK && itemname.equals(Utils.Colorate("&3&lWand")))
 		    	   {
-		    		   if(!wandCooldown.contains(p))
-		    		   {
-			    		 	  new BukkitRunnable(){                         
-			    	              double t = 0;
+		    		   /*
+		    		    * 			    		 	  new BukkitRunnable(){                         
+			    	              double t = -1;
 			    	              Location loc = p.getLocation();
 			    	            
 			    	              public void run(){
-			    	            	  //t effects speed of article
+			    	            	  //t effects speed of particle
 			    	                      t = t + 2;
 			    	                      Vector direction = loc.getDirection().normalize();
 			    	                      double x = direction.getX() * t;
 			    	                      double y = direction.getY() * t + 1.5;
 			    	                      double z = direction.getZ() * t;
 			    	                      loc.add(x,y,z);
-			    	            			for(Entity e : loc.getWorld().getNearbyEntities(loc, 0.6, 0.6, 0.6))
-			    	            			{
-			    	            				if(e instanceof LivingEntity && e != p)
-			    	            				{
-			    	            					AbilityUtils.damageEntity((LivingEntity)e, p, 2);
-			    	            					this.cancel();
-			    	            				}
-			    	            			}
 			    	              		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 			    	            		se.particle = Particle.END_ROD;
 			    	            		se.iterations = 1;
@@ -115,9 +104,17 @@ public class PlayerItemEvents implements Listener {
 			    	            		se.visibleRange = 50;
 			    	            			se.setLocation(loc);
 			    	            			se.start();
-			    	            			if(loc.getBlock().getType().isSolid())
+				    	                     if(loc.getBlock().getType().isSolid())
+				    	                     {
+				    	                    	 this.cancel();
+				    	                     }
+			    	            			for(Entity e : loc.getWorld().getNearbyEntities(loc, 0.6, 0.6, 0.6))
 			    	            			{
-			    	                            this.cancel();
+			    	            				if(e instanceof LivingEntity && e != p)
+			    	            				{
+			    	            					AbilityUtils.damageEntity((LivingEntity)e, p, 2);
+			    	            					this.cancel();
+			    	            				}
 			    	            			}
 			    	                      loc.subtract(x,y,z);
 			    	                      if (t > 50){
@@ -126,6 +123,66 @@ public class PlayerItemEvents implements Listener {
 			    	                    
 			    	              }
 			    	 	 	  }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
+		    		    * 
+		    		    */
+		    		   
+		    		   if(!wandCooldown.contains(p))
+		    		   {
+		    			   
+			    		   new BukkitRunnable(){
+			    		         
+			    	            double t = 1;
+			    	            Location loc = p.getLocation();
+			    	            Vector dir = loc.getDirection().normalize();
+			    	         
+			    	            @Override
+			    	            public void run() {
+			    	            	t = t + 0.7;
+			    	                double x = dir.getX() * t;
+			    	                double y = dir.getY() * t + 1.5D;
+			    	                double z = dir.getZ() * t;
+			    	                loc.add(x,y,z);
+			    	                
+
+		    	              		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+		    	            		se.particle = Particle.END_ROD;
+		    	            		se.iterations = 1;
+		    	            		se.particles = 1;
+		    	            		se.radius = 0.2;
+		    	            		se.speed = (float) 0;
+		    	            		se.visibleRange = 50;
+		    	            			se.setLocation(loc);
+		    	            			se.start();
+		    	            			//block behind the particle incase the particle passes thru a block
+				    	                Location locBehind = se.getLocation();
+				    	                Vector dir2 = locBehind.getDirection().normalize().multiply(-1);
+				    	                locBehind.add(dir2);
+			    	                     if(loc.getBlock().getType().isSolid() || 
+			    	                    		 locBehind.getBlock().getType().isSolid())
+			    	                     {
+			    	                    	 this.cancel();
+			    	                     }
+		    	            			for(Entity e : loc.getWorld().getNearbyEntities(loc, 0.6, 0.6, 0.6))
+		    	            			{
+		    	            				if(e instanceof LivingEntity && e != p)
+		    	            				{
+		    	            					AbilityUtils.damageEntity((LivingEntity)e, p, 2);
+		    	            					this.cancel();
+		    	            				}
+		    	            			}
+			    	             
+			    	                loc.subtract(x,y,z);
+			    	             
+			    	                if(t >= 30){
+			    	                    this.cancel();
+			    	                }
+			    	             
+			    	                t++;
+			    	             
+			    	            }
+			    	         
+			    	        }.runTaskTimer(VallendiaMinigame.getInstance(), 0l, 1l);
+		    			   
 			    	 	 	  
 			    		 	  new BukkitRunnable(){
 

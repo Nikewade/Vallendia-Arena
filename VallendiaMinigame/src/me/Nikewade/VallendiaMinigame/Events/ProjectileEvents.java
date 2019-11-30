@@ -25,6 +25,10 @@
 /*    */   @EventHandler
 /*    */   public void onHit(ProjectileHitEvent e) {
 /* 26 */     Block block = e.getHitBlock();
+			 if(block == null)
+			 {
+				 return;
+			 }
 /* 27 */     if (block.getTypeId() == 95 || block.getTypeId() == 20 || block.getTypeId() == 160 || block.getTypeId() == 102) {
 /*    */ 
 /*    */       

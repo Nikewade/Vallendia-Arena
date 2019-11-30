@@ -36,7 +36,7 @@ public class SpawnCommand implements CommandInterface{
 			sender.sendMessage("");
 			sender.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));	    
 			return false;
-	    }
+	    }else {sender.sendMessage(Utils.Colorate("&8That command doesn't exist!"));}
 	    
 	    if(sender instanceof Player)
 	    {

@@ -172,6 +172,68 @@ public class AbilityUtils implements Listener {
 	
 	
 	
+	public static LivingEntity getHealingTarget(Player p, int range)
+	{
+		
+		if(p.hasPotionEffect(PotionEffectType.BLINDNESS))
+		{
+			p.sendMessage(Utils.Colorate("&8&l You have to be able to see to do that!"));
+			return null;
+		}
+	    if (p.getLocation().getBlockY() > p.getLocation().getWorld().getMaxHeight()) {
+	        return null;
+	      }
+	      try
+	      {
+	       List lineOfSight = p.getLineOfSight(AbilityUtils.transparentBlocks, range);
+	      }
+	      catch (IllegalStateException e)
+	      {
+	        return null;
+	      }
+	      Set<Location> locs = new HashSet();
+	      for (Block block : p.getLineOfSight(AbilityUtils.transparentBlocks, range))
+	      {
+	        locs.add(block.getRelative(BlockFace.UP).getLocation());
+	        locs.add(block.getLocation());
+	        locs.add(block.getRelative(BlockFace.DOWN).getLocation());
+	      }
+	      List<Block> lineOfSight = null;
+	      List<Entity> nearbyEntities = p.getNearbyEntities(range, range, range);
+	      for (Entity entity : nearbyEntities) {
+	        if (((entity instanceof LivingEntity)) && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
+	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)) {
+	        	
+	  	        if(entity instanceof Player)
+		        {
+		        	Player player = (Player) entity;
+		        	
+		        	//Not in party
+		        	if(!AbilityUtils.getPlayerParty(player).equalsIgnoreCase(AbilityUtils.getPlayerParty(p)))
+		        	{
+		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
+			            return null;
+		        	}
+		        	
+					if(!(player.getGameMode() == GameMode.SURVIVAL) && !(player.getGameMode() == GameMode.ADVENTURE))
+		        	{
+		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
+			            return null;
+		        	}
+		        }
+	        	
+	          if ((!(entity instanceof Player)) || (p.canSee((Player)entity))) {
+	            return (LivingEntity)entity;
+	          }
+	        }
+	      }
+	      p.sendMessage(Utils.Colorate("&8&l Target not found."));
+	      return null;
+	    }
+	
+	
+	
+	
 	public static List<Block> getLine(Player p, int range)
 	{
 		List<Block> lineOfSight = null;
@@ -217,6 +279,41 @@ public class AbilityUtils implements Listener {
 						
 			        	//In party
 			        	if(AbilityUtils.getPlayerParty(entityplayer).equalsIgnoreCase(AbilityUtils.getPlayerParty(originplayer)))
+			        	{
+			        		continue;
+			        	}
+						
+						if(!(entityplayer.getGameMode() == GameMode.SURVIVAL) && !(entityplayer.getGameMode() == GameMode.ADVENTURE))
+						{
+							continue;
+						}
+					}
+					nearbyEntities.add(entity);
+					continue;
+				}
+			}
+			return nearbyEntities;
+			
+		}
+		
+		
+		
+		
+		
+		public static Collection<Entity> getHealingAoeTargets(Player originplayer, double Radiusx, double Radiusy, double Radiusz)
+		{
+			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
+			for(Entity entity : originplayer.getWorld().getNearbyEntities(originplayer.getLocation(), Radiusx, Radiusy, Radiusz))
+			{
+				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand))
+				{
+					if(entity instanceof Player)
+					{
+						Player entityplayer = (Player) entity;
+						
+						
+			        	//Not in party
+			        	if(!AbilityUtils.getPlayerParty(entityplayer).equalsIgnoreCase(AbilityUtils.getPlayerParty(originplayer)))
 			        	{
 			        		continue;
 			        	}

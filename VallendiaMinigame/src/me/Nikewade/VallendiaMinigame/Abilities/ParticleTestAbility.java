@@ -3,27 +3,15 @@ package me.Nikewade.VallendiaMinigame.Abilities;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Snowball;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.util.Vector;
 
-import de.slikey.effectlib.effect.SphereEffect;
+import de.slikey.effectlib.effect.EquationEffect;
+import de.slikey.effectlib.util.DynamicLocation;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
-import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
-import net.minecraft.server.v1_12_R1.PacketPlayOutEntityDestroy;
 
 public class ParticleTestAbility implements Ability, Listener{
 
@@ -53,6 +41,20 @@ public class ParticleTestAbility implements Ability, Listener{
 
 	@Override
 	public boolean RunAbility(Player p) {
+		
+  		EquationEffect ee = new EquationEffect(VallendiaMinigame.getInstance().effectmanager);
+  		ee.x2Equation = "sin (0.3 *t)";
+  		ee.y2Equation = "0.25t";
+  		ee.zEquation = "cos(0.3 * t)";
+  		ee.duration = 99999;
+  		ee.particles = 20;
+  		ee.cycleMiniStep = false;
+  		ee.setDynamicOrigin(new DynamicLocation(p.getLocation()));
+  		ee.start();
+		
+		
+		
+		/*
 	 	  new BukkitRunnable(){                         
               double t = 0;
               Location loc = p.getLocation();
@@ -85,6 +87,7 @@ public class ParticleTestAbility implements Ability, Listener{
                     
               }
  	 	  }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
+		 */
 		return false;
 	}
 	

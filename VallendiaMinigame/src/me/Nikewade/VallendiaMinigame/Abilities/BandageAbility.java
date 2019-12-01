@@ -17,6 +17,7 @@ import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class BandageAbility implements Ability{
@@ -42,9 +43,9 @@ public class BandageAbility implements Ability{
 		// TODO Auto-generated method stub
 		return Arrays.asList("Apply bandages to your wounds healing",
 				percent + "% of your max health over "  +(int)healTime+ " seconds.",
-				"If an entity is within 4 blocks of you,",
-				"target that entity to heal them instead.",
-				"Healing another entity will use their max health.",
+				"If a party member is within 4 blocks of you,",
+				"target that player to heal them instead.",
+				"Healing another player will use their max health.",
 				Utils.Colorate("&8Softcast: " + castTime));
 	}
 
@@ -62,7 +63,7 @@ public class BandageAbility implements Ability{
 
 			@Override
 			public void run() {
-		 		LivingEntity target = AbilityUtils.getTarget(p, 4);
+		 		LivingEntity target = AbilityUtils.getHealingTarget(p, 4);
 		 		if(target != null)
 		 		{
 		 			if(enabled.containsKey(target))
@@ -103,6 +104,7 @@ public class BandageAbility implements Ability{
         			se.speed = (float) 0;
         			se.start();
         			p.getWorld().playSound(target.getLocation(), Sound.ITEM_ARMOR_EQUIP_LEATHER, 1, (float)1);
+        			Language.sendAbilityUseMessage((Player)target, "Your wounds have been bandaged.", "bandage");
 		 	        
 		 	        
 		 			return;

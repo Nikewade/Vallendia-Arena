@@ -109,7 +109,7 @@ public class PointsCommand implements CommandInterface{
 					   int randomAmount = random.nextInt(maxAmount) + lowestAmount;
 					   main.shopmanager.addPoints(p, randomAmount);
 					   sender.sendMessage(Utils.Colorate( "&8Gave " + randomAmount +  " points to " +  p.getName() +  "."));
-					   p.sendMessage(Utils.Colorate( "&8You were given " + randomAmount +  " points."));
+					   p.sendMessage(Utils.Colorate( "&8You gained " + randomAmount +  " points."));
 				   }
 			   }
 			   

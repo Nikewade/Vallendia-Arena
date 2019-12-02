@@ -45,6 +45,8 @@ import de.slikey.effectlib.effect.ExplodeEffect;
 import de.slikey.effectlib.effect.SphereEffect;
 import de.slikey.effectlib.util.ParticleEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_12_R1.Explosion;
 import net.minecraft.server.v1_12_R1.PacketPlayOutEntityDestroy;
 

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -73,6 +74,8 @@ import me.Nikewade.VallendiaMinigame.Events.PlayerItemEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerJoinEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerKillEvents;
 import me.Nikewade.VallendiaMinigame.Events.ProjectileEvents;
+import me.Nikewade.VallendiaMinigame.Graphics.BossBarHandler;
+import me.Nikewade.VallendiaMinigame.Graphics.BossBars;
 import me.Nikewade.VallendiaMinigame.Graphics.GuiHandler;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import me.Nikewade.VallendiaMinigame.Kits.KitManager;
@@ -196,6 +199,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(AdvInventory.getListener(), this);
 		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
 		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);
+		   this.getServer().getPluginManager().registerEvents(new BossBarHandler(), this);
 		   
 		   //Ability Listeners
 		   Bukkit.getPluginManager().registerEvents(DeflectArrowsAbility.getListener(), this);
@@ -227,6 +231,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(ParticleTestAbility.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(FlyAbility.getListener(), this);
 		   
+		   
 		   //Commands
 		   this.registerCommands();
 		   
@@ -248,6 +253,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	         this.sb.runNameTagUpdater();
 	         this.sb.runSidebarUpdater();
 	         ShopHandler.loadShop();
+	         BossBarHandler.removeEnemyBars();
 		   
 		   
 		   
@@ -266,6 +272,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		  
 		  for(Player p : Bukkit.getOnlinePlayers())
 		  {
+			  BossBars.removeAll();
 			  AbilityUtils.resetAllMaxHealth(p);
 			  AbilityUtils.removeCast(p);
 			  AbilityUtils.removeSoftCast(p);

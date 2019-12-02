@@ -341,7 +341,11 @@ public class PlayerItemEvents implements Listener {
 	{
 		Player p = e.getPlayer();
 		if (p.getGameMode() != GameMode.CREATIVE) {
-			e.setCancelled(true);
+			if(PlayerDeathEvents.drops.contains(e.getItemDrop().getItemStack().getType()))
+			{
+				e.setCancelled(true);
+				Language.sendDefaultMessage(p, "You can't drop that!");
+			}
 		}
 		
 	}

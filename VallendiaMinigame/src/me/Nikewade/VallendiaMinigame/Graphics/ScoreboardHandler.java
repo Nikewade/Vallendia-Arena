@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
@@ -14,7 +15,7 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.CScoreboard;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
-public class ScoreboardHandler {
+public class ScoreboardHandler{
 	   VallendiaMinigame Main;
 	   YamlConfiguration Config;
 
@@ -54,52 +55,57 @@ public class ScoreboardHandler {
 	   }
 
 	   public void runNameTagUpdater() {
-	      Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this.Main, new Runnable() {
-	         public void run() {
-	            Iterator var2 = Bukkit.getOnlinePlayers().iterator();
+		   
+		   
+			BukkitTask task = new BukkitRunnable() {
+	            @Override
+	            public void run() {
+		            Iterator var2 = Bukkit.getOnlinePlayers().iterator();
 
-	            while(var2.hasNext()) {
-	               Player player = (Player)var2.next();
-	               Scoreboard sb = player.getScoreboard();
-	               Team gray = sb.getTeam("gray");
-	               Team lightblue = sb.getTeam("lightblue");
-	               Team darkblue = sb.getTeam("darkblue");
-	               Team yellow = sb.getTeam("yellow");
-	               Team red = sb.getTeam("red");
-	               Iterator var10 = Bukkit.getOnlinePlayers().iterator();
+		            while(var2.hasNext()) {
+		               Player player = (Player)var2.next();
+		               Scoreboard sb = player.getScoreboard();
+		               Team gray = sb.getTeam("gray");
+		               Team lightblue = sb.getTeam("lightblue");
+		               Team darkblue = sb.getTeam("darkblue");
+		               Team yellow = sb.getTeam("yellow");
+		               Team red = sb.getTeam("red");
+		               Iterator var10 = Bukkit.getOnlinePlayers().iterator();
 
-	               while(var10.hasNext()) {
-	                  Player p = (Player)var10.next();
-	                  if (!gray.hasPlayer(p) && ScoreboardHandler.this.Main.levelmanager.getLevel(p) >= 1 && ScoreboardHandler.this.Main.levelmanager.getLevel(p) <= 4) {
-	                     gray.addPlayer(p);
-	                  }
+		               while(var10.hasNext()) {
+		                  Player p = (Player)var10.next();
+		                  if (!gray.hasPlayer(p) && ScoreboardHandler.this.Main.levelmanager.getLevel(p) >= 1 && ScoreboardHandler.this.Main.levelmanager.getLevel(p) <= 4) {
+		                     gray.addPlayer(p);
+		                  }
 
-	                  if (!lightblue.hasPlayer(p) && ScoreboardHandler.this.Main.levelmanager.getLevel(p) >= 5 && ScoreboardHandler.this.Main.levelmanager.getLevel(p) <= 8) {
-	                     lightblue.addPlayer(p);
-	                  }
+		                  if (!lightblue.hasPlayer(p) && ScoreboardHandler.this.Main.levelmanager.getLevel(p) >= 5 && ScoreboardHandler.this.Main.levelmanager.getLevel(p) <= 8) {
+		                     lightblue.addPlayer(p);
+		                  }
 
-	                  if (!darkblue.hasPlayer(p) && ScoreboardHandler.this.Main.levelmanager.getLevel(p) >= 9 && ScoreboardHandler.this.Main.levelmanager.getLevel(p) <= 12) {
-	                     darkblue.addPlayer(p);
-	                  }
+		                  if (!darkblue.hasPlayer(p) && ScoreboardHandler.this.Main.levelmanager.getLevel(p) >= 9 && ScoreboardHandler.this.Main.levelmanager.getLevel(p) <= 12) {
+		                     darkblue.addPlayer(p);
+		                  }
 
-	                  if (!yellow.hasPlayer(p) && ScoreboardHandler.this.Main.levelmanager.getLevel(p) >= 13 && ScoreboardHandler.this.Main.levelmanager.getLevel(p) <= 16) {
-	                     yellow.addPlayer(p);
-	                  }
+		                  if (!yellow.hasPlayer(p) && ScoreboardHandler.this.Main.levelmanager.getLevel(p) >= 13 && ScoreboardHandler.this.Main.levelmanager.getLevel(p) <= 16) {
+		                     yellow.addPlayer(p);
+		                  }
 
-	                  if (!red.hasPlayer(p) && ScoreboardHandler.this.Main.levelmanager.getLevel(p) >= 17 && ScoreboardHandler.this.Main.levelmanager.getLevel(p) <= 20) {
-	                     red.addPlayer(p);
-	                  }
-	               }
+		                  if (!red.hasPlayer(p) && ScoreboardHandler.this.Main.levelmanager.getLevel(p) >= 17 && ScoreboardHandler.this.Main.levelmanager.getLevel(p) <= 20) {
+		                     red.addPlayer(p);
+		                  }
+		               }
 
-	               gray.setPrefix(ChatColor.GRAY.toString());
-	               lightblue.setPrefix(ChatColor.DARK_AQUA.toString());
-	               darkblue.setPrefix(ChatColor.BLUE.toString());
-	               yellow.setPrefix(ChatColor.GOLD.toString());
-	               red.setPrefix(ChatColor.DARK_RED.toString());
+		               gray.setPrefix(ChatColor.GRAY.toString());
+		               lightblue.setPrefix(ChatColor.DARK_AQUA.toString());
+		               darkblue.setPrefix(ChatColor.BLUE.toString());
+		               yellow.setPrefix(ChatColor.GOLD.toString());
+		               red.setPrefix(ChatColor.DARK_RED.toString());
+		            }
 	            }
-
-	         }
-	      }, 0L, 20L);
+	        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L);
+	        
+		   
+		   
 	   }
 
 	   public void runSidebarUpdater() {

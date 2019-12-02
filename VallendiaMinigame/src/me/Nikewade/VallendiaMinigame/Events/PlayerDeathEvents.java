@@ -1,10 +1,15 @@
 package me.Nikewade.VallendiaMinigame.Events;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.BandageAbility;
@@ -19,10 +24,50 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class PlayerDeathEvents implements Listener {
 	   VallendiaMinigame Main;
+	   public static List<Material> drops = new ArrayList<>();
 
 	   public PlayerDeathEvents(VallendiaMinigame Main) {
 	      this.Main = Main;
 	      Main.getServer().getPluginManager().registerEvents(this, Main);
+	      
+	      
+	      drops.add(Material.STICK);
+	      drops.add(Material.DIAMOND_SWORD);
+	      drops.add(Material.GOLD_SWORD);
+	      drops.add(Material.IRON_SWORD);
+	      drops.add(Material.STONE_SWORD);
+	      drops.add(Material.WOOD_SWORD);
+	      drops.add(Material.BOW);
+	      
+	      drops.add(Material.DIAMOND_PICKAXE);
+	      drops.add(Material.IRON_PICKAXE);
+	      drops.add(Material.GOLD_PICKAXE);
+	      drops.add(Material.STONE_PICKAXE);
+	      drops.add(Material.WOOD_PICKAXE);
+	      
+	      drops.add(Material.NETHER_STAR);
+	      drops.add(Material.INK_SACK);
+	      
+	      drops.add(Material.CHAINMAIL_HELMET);
+	      drops.add(Material.DIAMOND_HELMET);
+	      drops.add(Material.IRON_HELMET);
+	      drops.add(Material.GOLD_HELMET);
+	      drops.add(Material.LEATHER_HELMET);
+	      drops.add(Material.CHAINMAIL_CHESTPLATE);
+	      drops.add(Material.DIAMOND_CHESTPLATE);
+	      drops.add(Material.IRON_CHESTPLATE);
+	      drops.add(Material.GOLD_CHESTPLATE);
+	      drops.add(Material.LEATHER_CHESTPLATE);
+	      drops.add(Material.CHAINMAIL_LEGGINGS);
+	      drops.add(Material.DIAMOND_LEGGINGS);
+	      drops.add(Material.IRON_LEGGINGS);
+	      drops.add(Material.GOLD_LEGGINGS);
+	      drops.add(Material.LEATHER_LEGGINGS);
+	      drops.add(Material.CHAINMAIL_BOOTS);
+	      drops.add(Material.DIAMOND_BOOTS);
+	      drops.add(Material.IRON_BOOTS);
+	      drops.add(Material.GOLD_BOOTS);
+	      drops.add(Material.LEATHER_BOOTS);
 	   }
 
 	   @EventHandler
@@ -39,7 +84,7 @@ public class PlayerDeathEvents implements Listener {
 	      }
 	      RageAbility.onDie(p);
 	      EquipBowAbility.onDie(p);
-	      e.getDrops().clear();
+	      e.getDrops().removeIf(is -> drops.contains(is.getType()));
 	      e.setDroppedExp(0);
 	      p.setLevel(0);
 	      p.setExp(0.0F);

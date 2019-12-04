@@ -46,7 +46,7 @@ public class BandageAbility implements Ability{
 				"If a party member is within 4 blocks of you,",
 				"target that player to heal them instead.",
 				"Healing another player will use their max health.",
-				Utils.Colorate("&8Softcast: " + castTime));
+				Utils.Colorate("&8Cast: " + castTime + " seconds."));
 	}
 
 	@Override
@@ -151,14 +151,13 @@ public class BandageAbility implements Ability{
     			p.getWorld().playSound(p.getLocation(), Sound.ITEM_ARMOR_EQUIP_LEATHER, 1, (float)1);
 		 		
 		 		
-		 		
 				
 			}
 			
 		};
-		AbilityUtils.softCastAbility(p, castTime, run);
-
+		AbilityUtils.castAbility(p, castTime, run);
 		return true;
+
 	}
 
 	

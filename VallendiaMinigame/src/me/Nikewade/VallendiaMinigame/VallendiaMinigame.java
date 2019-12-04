@@ -5,7 +5,6 @@ import java.util.Iterator;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -78,6 +77,7 @@ import me.Nikewade.VallendiaMinigame.Graphics.BossBarHandler;
 import me.Nikewade.VallendiaMinigame.Graphics.BossBars;
 import me.Nikewade.VallendiaMinigame.Graphics.GuiHandler;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
+import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Kits.KitManager;
 import me.Nikewade.VallendiaMinigame.Levels.LevelManager;
 import me.Nikewade.VallendiaMinigame.Shop.GuiShopHandler;
@@ -269,13 +269,12 @@ public class VallendiaMinigame extends JavaPlugin{
 		  PillageAbility.removeItems();
 		  PickPocketAbility.removeItems();
 		  MountAbility.onReload();
+		  BossBars.removeAll();
 		  
 		  for(Player p : Bukkit.getOnlinePlayers())
 		  {
-			  BossBars.removeAll();
 			  AbilityUtils.resetAllMaxHealth(p);
 			  AbilityUtils.removeCast(p);
-			  AbilityUtils.removeSoftCast(p);
 				//item cooldowns
 				for(ItemStack item : p.getInventory().getContents())
 				{

@@ -28,11 +28,13 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
@@ -45,6 +47,7 @@ import de.slikey.effectlib.effect.ExplodeEffect;
 import de.slikey.effectlib.effect.SphereEffect;
 import de.slikey.effectlib.util.ParticleEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.FlyAbility;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_12_R1.Explosion;
@@ -58,12 +61,10 @@ public class AbilityUtils implements Listener {
 	private static HashMap<Player, Float> casting = new HashMap<>();
 	private static HashMap<Player, BukkitTask> castingTask = new HashMap<>();
 	private static HashMap<Player, BukkitTask> castingTask2 = new HashMap<>();
-	private static HashMap<Player, Float> softCasting = new HashMap<>();
-	private static HashMap<Player, BukkitTask> softCastingTask = new HashMap<>();
-	private static HashMap<Player, BukkitTask> softCastingTask2 = new HashMap<>();
 	private static HashMap<String, Double> maxHealth = new HashMap<>();
 	private static HashMap<Projectile, Runnable> arcProjectiles = new HashMap<>();
 	private static HashMap<LivingEntity, Integer> handleDamage = new HashMap<>();
+	static int castingHealthPercent = 70;
 	
 	
 	//If the player already has a potion effect, this will add the existing effects duration to the new one.
@@ -435,7 +436,7 @@ public class AbilityUtils implements Listener {
     	}
     }
     
-    
+    /*
     public static boolean castAbility(Player p, int seconds, Runnable run)
     {
     	if(!casting.containsKey(p))
@@ -496,30 +497,31 @@ public class AbilityUtils implements Listener {
     		castingTask2.remove(p);
     	}
     }
+    */
     
     
     
     
     
-    public static boolean softCastAbility(Player p, int seconds, Runnable run)
+    public static boolean castAbility(Player p, int seconds, Runnable run)
     {
-    	if(!softCasting.containsKey(p))
+    	if(!casting.containsKey(p))
     	{
-        	softCasting.put(p, p.getWalkSpeed());	
+        	casting.put(p, p.getWalkSpeed());	
     	}else 
     		{
     		Language.sendDefaultMessage(p, "You are already casting!");
     		return false;
     		}
     	
-    	p.setWalkSpeed((float) 0.04);
+    	p.setWalkSpeed((float) 0.07);
     	
     	
     	BukkitTask task2 =	new BukkitRunnable() {
 			int x = seconds;
             @Override
             public void run() {
-            	if(softCasting.containsKey(p))
+            	if(casting.containsKey(p))
             	{
     		        p.sendTitle(Utils.Colorate("&3&lCasting " + x), null, 0, 21, 0);
             		x--;
@@ -530,15 +532,15 @@ public class AbilityUtils implements Listener {
 		BukkitTask task = new BukkitRunnable() {
             @Override
             public void run() {
-            	if(softCasting.containsKey(p))
+            	if(casting.containsKey(p))
             	{
-            		removeSoftCast(p);
+            		removeCast(p);
 		        	run.run();
             	}
             }
         }.runTaskLater(VallendiaMinigame.getInstance(), seconds*20L);
-        softCastingTask.put(p, task);
-        softCastingTask2.put(p, task2);
+        castingTask.put(p, task);
+        castingTask2.put(p, task2);
         
         
         
@@ -548,16 +550,16 @@ public class AbilityUtils implements Listener {
     
     
     
-    public static void removeSoftCast(Player p)
+    public static void removeCast(Player p)
     {
-    	if(softCasting.containsKey(p))
+    	if(casting.containsKey(p))
     	{
-    		p.setWalkSpeed(softCasting.get(p));
-    		softCasting.remove(p);
-    		softCastingTask.get(p).cancel();
-    		softCastingTask.remove(p);
-    		softCastingTask2.get(p).cancel();
-    		softCastingTask2.remove(p);
+    		p.setWalkSpeed(casting.get(p));
+    		casting.remove(p);
+    		castingTask.get(p).cancel();
+    		castingTask.remove(p);
+    		castingTask2.get(p).cancel();
+    		castingTask2.remove(p);
     	}
     }
     
@@ -606,8 +608,14 @@ public class AbilityUtils implements Listener {
         		
         		if(e.getEntity() instanceof Player && casting.containsKey(e.getEntity()))
         		{
-        			removeCast((Player) e.getEntity());
-        			Language.sendDefaultMessage((Player) e.getEntity(), "Your casting was interrupted.");
+        			Player p = (Player) e.getEntity();
+        			double currentHealth = p.getHealth() - e.getFinalDamage();
+        			double lowestHealth = p.getMaxHealth() * Utils.getPercentHigherOrLower(castingHealthPercent, false);
+        			if(currentHealth <= lowestHealth)
+        			{
+            			removeCast((Player) e.getEntity());
+            			Language.sendDefaultMessage((Player) e.getEntity(), "Your casting was interrupted.");	
+        			}
         		}
         		
         		if(handleDamage.containsKey(e.getEntity()))
@@ -622,27 +630,26 @@ public class AbilityUtils implements Listener {
         	public void onMove(PlayerMoveEvent e)
         	{
         		
-        		if(softCasting.containsKey(e.getPlayer()))
+        		if(casting.containsKey(e.getPlayer()) &&
+        		   !FlyAbility.enabled.contains(e.getPlayer()))
         		{
             		if(e.getTo().getY() > e.getFrom().getY() && !e.getPlayer().isOnGround())
             		{
             			e.setCancelled(true);
             		}
         		}
-        		if(casting.containsKey(e.getPlayer()))
+        	}
+        	
+        	@EventHandler
+        	public void leftClick(PlayerInteractEvent e)
+        	{
+        		if(e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK)
         		{
-        			Player p = e.getPlayer();
-            		if(e.getTo().getY() > e.getFrom().getY() && !e.getPlayer().isOnGround())
-            		{
-            			e.setCancelled(true);
-            		}	
-            		
-            		  if (e.getFrom().getBlockX() == e.getTo().getBlockX() && e.getFrom().getBlockZ() == e.getTo().getBlockZ())
-            		  {
-            			  return;
-            		  }
-          			Language.sendDefaultMessage(p, "Your casting was interrupted.");
-          			removeCast(p);
+        			if(casting.containsKey(e.getPlayer()))
+        			{
+        				AbilityUtils.removeCast(e.getPlayer());
+        				Language.sendDefaultMessage(e.getPlayer(), "You stop casting.");
+        			}
         		}
         	}
         	

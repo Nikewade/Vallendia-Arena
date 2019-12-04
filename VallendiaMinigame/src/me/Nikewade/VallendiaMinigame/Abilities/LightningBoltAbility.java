@@ -41,7 +41,7 @@ public class LightningBoltAbility implements Ability {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Shoot a bolt of lightning forward " + range + " blocks",
 				"damaging all entities within the line for " + damage + " damage.",
-				Utils.Colorate("&8Cast: " + castTime));
+				Utils.Colorate("&8Cast: " + castTime + " seconds."));
 	}
 
 	@Override

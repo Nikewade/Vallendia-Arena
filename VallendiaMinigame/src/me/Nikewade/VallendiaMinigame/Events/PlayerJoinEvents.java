@@ -66,7 +66,6 @@ public class PlayerJoinEvents implements Listener{
 		Player p = e.getPlayer();
 		AbilityUtils.resetAllMaxHealth(p);
 		AbilityUtils.removeCast(p);
-		AbilityUtils.removeSoftCast(p);
 		BandageAbility.removeBandage(p);
 		
 		//item cooldowns

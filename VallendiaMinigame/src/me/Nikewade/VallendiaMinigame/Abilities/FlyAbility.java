@@ -28,7 +28,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class FlyAbility implements Ability, Listener{
-	private static ArrayList<Player> enabled = new ArrayList<>();
+	public static ArrayList<Player> enabled = new ArrayList<>();
 	private static ArrayList<Player> falling = new ArrayList<>();
 	private static HashMap<Player, BukkitTask> fallingTimer = new HashMap<>();
 	private static HashMap<Player, BukkitTask> tasks = new HashMap<>();

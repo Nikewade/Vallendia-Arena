@@ -78,7 +78,10 @@ public class TheHighGroundAbility implements Ability, Listener{
                 			if(e.getDamager() instanceof Projectile)
                 			{
                 				Projectile p = (Projectile) e.getDamager();
-                				damager = (Player) p.getShooter();
+                				if(p.getShooter() instanceof Player)
+                				{
+                    				damager = (Player) p.getShooter();	
+                				}
                 			}else damager = (Player) e.getDamager();	
                     		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player)damager, "The High Ground"))
                     		{

@@ -29,6 +29,9 @@ public class BossBars {
 	   
 	   public static void removeAll()
 	   {
-		   BossBars.enemyHp2.removeAll();
+		   if(BossBars.enemyHp2 != null)
+		   {
+			   BossBars.enemyHp2.removeAll();   
+		   }
 	   }
 	}

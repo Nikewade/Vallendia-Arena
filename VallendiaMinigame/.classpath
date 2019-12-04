@@ -9,7 +9,6 @@
 	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/worldguard-6.2.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/worldedit-bukkit-6.1.9.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/Vault.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/Parties-2.6.10.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/HealthBar (1).jar"/>
+	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/Parties-2.6.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

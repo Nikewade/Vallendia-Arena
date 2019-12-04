@@ -93,7 +93,6 @@ public class PlayerDeathEvents implements Listener {
 	      SurvivalistAbility.removeEnabled(p);
 	      this.Main.playerdatamanager.addData(p.getUniqueId(), "Deaths", 1);
 	      AbilityUtils.removeCast(p);
-	      AbilityUtils.removeSoftCast(p);
 	      if (this.Main.levelmanager.getLevel(p) >= 10) {
 	         AbilityUtils.explode(p.getLocation(), p, 3, 0, true, true, true);
 	      }

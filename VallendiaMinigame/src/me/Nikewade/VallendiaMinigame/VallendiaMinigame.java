@@ -73,6 +73,7 @@ import me.Nikewade.VallendiaMinigame.Events.PlayerItemEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerJoinEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerKillEvents;
 import me.Nikewade.VallendiaMinigame.Events.ProjectileEvents;
+import me.Nikewade.VallendiaMinigame.Events.SignEvents;
 import me.Nikewade.VallendiaMinigame.Graphics.BossBarHandler;
 import me.Nikewade.VallendiaMinigame.Graphics.BossBars;
 import me.Nikewade.VallendiaMinigame.Graphics.GuiHandler;
@@ -196,6 +197,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   new PlayerBlockEvents(this);
 		   new PlayerExpEvents(this);
 		   new ProjectileEvents(this);
+		   new SignEvents(this);
 		   Bukkit.getPluginManager().registerEvents(AdvInventory.getListener(), this);
 		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
 		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);

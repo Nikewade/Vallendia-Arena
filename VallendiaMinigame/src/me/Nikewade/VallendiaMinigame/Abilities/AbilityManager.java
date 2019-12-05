@@ -178,7 +178,9 @@ public class AbilityManager {
 			
 			if(!Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), slot).equalsIgnoreCase("empty")) //Ability is being swapped... so disable the ability if needed.
 			{
-				VallendiaMinigame.getInstance().abilitymanager.getAbility(Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), slot)).DisableAbility(p);
+				if(VallendiaMinigame.getInstance().abilitymanager.getAbility((Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), slot))) != null ){
+					VallendiaMinigame.getInstance().abilitymanager.getAbility(Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), slot)).DisableAbility(p);	
+				}
 			}
 			
 			if(Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), slot).equalsIgnoreCase("empty"))

@@ -13,6 +13,11 @@ public class RegenCommand implements CommandInterface {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		// TODO Auto-generated method stub
+	    if(sender instanceof  Player && !sender.hasPermission("vallendia.admin"))
+	    {
+	    	sender.sendMessage(Utils.Colorate("&8You lack permissions!"));
+	    	return false;	    	
+	    }
 		Utils.restoreBlocks();
 		if(sender instanceof Player)
 		{

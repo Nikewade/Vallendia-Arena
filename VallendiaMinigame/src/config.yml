@@ -181,3 +181,14 @@ langAddedItem: '&2&lAdded item to the shop.'
 langRemovedItem: '&2&lRemoved item to the shop.'
 langNoHand: '&4&lThere is no item in your hand.'
 langNoRem: '&4&lCould not remove item from shop.'
+Resources:
+  coal: 1
+  iron: 2
+  gold: 3
+  diamond: 4
+  emerald: 5
+  carrot: 1
+  potato: 2
+  poison_potato: 10
+  wheat: 4
+  nether_wart: 5

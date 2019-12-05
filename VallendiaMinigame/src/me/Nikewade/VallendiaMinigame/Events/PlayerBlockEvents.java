@@ -2,12 +2,9 @@ package me.Nikewade.VallendiaMinigame.Events;
 
 import java.util.HashMap;
 
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.ItemFrame;
@@ -17,15 +14,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
-import me.Nikewade.VallendiaMinigame.Spawning.SpawningHandler;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 
@@ -68,29 +64,40 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 		Block block = e.getBlock();
 		
 		
-		if(block.getType() == Material.COAL_ORE || block.getType() == Material.IRON_ORE || block.getType() == Material.GOLD_ORE || block.getType() == Material.DIAMOND_ORE || block.getType() == Material.EMERALD_ORE)
-		{
-			Utils.regenBlock(block, 300);
-			e.setExpToDrop(0);
-			return;
-		}
-		
-		if(block.getType() == Material.CROPS || block.getType() == Material.CARROT || block.getType() == Material.POTATO || block.getType() == Material.NETHER_WARTS)
-		{
-			Utils.regenBlock(block, 300);
-			e.setExpToDrop(0);
-			return;
-		}
-		
-		if(block.getType() == Material.LEAVES || block.getTypeId() == 95 || block.getTypeId() == 20 || block.getTypeId() == 160 || block.getTypeId() == 102)
-		{
-			Utils.regenBlock(block, 15);
-			block.setType(Material.AIR);
-			e.setDropItems(false);
-			e.setCancelled(true);
-			return;
+				if(VallendiaMinigame.getInstance().worldguard.canBuild(p
+				, block))
+				{
+					if(block.getType() == Material.COAL_ORE || block.getType() == Material.IRON_ORE || block.getType() == Material.GOLD_ORE || block.getType() == Material.DIAMOND_ORE || block.getType() == Material.EMERALD_ORE)
+					{
+						Utils.regenBlock(block, 300);
+						e.setExpToDrop(0);
+						return;
+					}
+					
+					if(block.getType() == Material.CROPS || block.getType() == Material.CARROT || block.getType() == Material.POTATO || block.getType() == Material.NETHER_WARTS)
+					{
+						Utils.regenBlock(block, 300);
+						e.setExpToDrop(0);
+						if(block.getType() == Material.CROPS)
+						{
+							e.setDropItems(false);
+							block.getWorld().dropItemNaturally(block.getLocation(), 
+									new ItemStack(Material.WHEAT));
+						}
+						return;
+					}
+					
+					if(block.getType() == Material.LEAVES || block.getTypeId() == 95 || block.getTypeId() == 20 || block.getTypeId() == 160 || block.getTypeId() == 102)
+					{
+						Utils.regenBlock(block, 15);
+						block.setType(Material.AIR);
+						e.setDropItems(false);
+						e.setCancelled(true);
+						return;
 
-		}
+					}
+				}
+		
 		
 		e.setCancelled(true);
 	}

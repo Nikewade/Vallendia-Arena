@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
+import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
@@ -92,6 +93,7 @@ public class UpgradeManager {
 	{
 		p.setHealth(20);
 		p.setMaxHealth(20);
+		ScoreboardHandler.updateHealth(p, 0, 0);
 		p.setWalkSpeed((float) 0.2);
 		armor.resetArmor(p);
 		weapon.resetWeapon(p);

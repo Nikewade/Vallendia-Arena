@@ -393,6 +393,7 @@ public class KitManager {
         
         p.updateInventory();
         p.setGameMode(GameMode.SURVIVAL);
+
         
         
         

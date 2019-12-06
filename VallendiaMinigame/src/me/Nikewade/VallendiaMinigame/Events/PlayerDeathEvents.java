@@ -17,6 +17,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SurvivalistAbility;
+import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
@@ -150,5 +151,6 @@ public class PlayerDeathEvents implements Listener {
 	   public void onRespawn(PlayerRespawnEvent e) {
 	      Player p = e.getPlayer();
 	      this.Main.kitmanager.giveRespawnKit(p, "starter");
+	      ScoreboardHandler.updateHealth(p, 0, 0);
 	   }
 	}

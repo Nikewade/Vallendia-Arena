@@ -1,13 +1,14 @@
 package me.Nikewade.VallendiaMinigame.Events;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
-import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -23,6 +24,7 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 import com.sk89q.worldguard.LocalPlayer;
@@ -42,6 +44,7 @@ public class PlayerItemEvents implements Listener {
 	VallendiaMinigame Main;
 	ArrayList<Player> wandCooldown = new ArrayList<>();
 	double wandCooldownAmount = 0.5;
+	public static Map<Player, BukkitTask> casting = new HashMap<>();
 	
 	
 	
@@ -82,49 +85,6 @@ public class PlayerItemEvents implements Listener {
 		    	   //MAGE WAND
 		    	   if(itemtype == Material.STICK && itemname.equals(Utils.Colorate("&3&lWand")))
 		    	   {
-		    		   /*
-		    		    * 			    		 	  new BukkitRunnable(){                         
-			    	              double t = -1;
-			    	              Location loc = p.getLocation();
-			    	            
-			    	              public void run(){
-			    	            	  //t effects speed of particle
-			    	                      t = t + 2;
-			    	                      Vector direction = loc.getDirection().normalize();
-			    	                      double x = direction.getX() * t;
-			    	                      double y = direction.getY() * t + 1.5;
-			    	                      double z = direction.getZ() * t;
-			    	                      loc.add(x,y,z);
-			    	              		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
-			    	            		se.particle = Particle.END_ROD;
-			    	            		se.iterations = 1;
-			    	            		se.particles = 1;
-			    	            		se.radius = 0.2;
-			    	            		se.speed = (float) 0;
-			    	            		se.visibleRange = 50;
-			    	            			se.setLocation(loc);
-			    	            			se.start();
-				    	                     if(loc.getBlock().getType().isSolid())
-				    	                     {
-				    	                    	 this.cancel();
-				    	                     }
-			    	            			for(Entity e : loc.getWorld().getNearbyEntities(loc, 0.6, 0.6, 0.6))
-			    	            			{
-			    	            				if(e instanceof LivingEntity && e != p)
-			    	            				{
-			    	            					AbilityUtils.damageEntity((LivingEntity)e, p, 2);
-			    	            					this.cancel();
-			    	            				}
-			    	            			}
-			    	                      loc.subtract(x,y,z);
-			    	                      if (t > 50){
-			    	                          this.cancel();
-			    	                  }
-			    	                    
-			    	              }
-			    	 	 	  }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
-		    		    * 
-		    		    */
 		    		   
 		    		   if(!wandCooldown.contains(p))
 		    		   {
@@ -232,8 +192,31 @@ public class PlayerItemEvents implements Listener {
 		    		{  
 			    		if(Main.abilitymanager.getAbility(ability).RunAbility(p) && Main.abilitymanager.getCooldown(ability, p) > 0)
 			    		{
-				    		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), ability, Main.abilitymanager.getCooldown(ability, p), item);
-				    		c.start();	
+			    			if(AbilityUtils.casting.containsKey(p))
+			    			{
+			    				//already checking for casting
+			    				if(casting.containsKey(p))
+			    				{
+			    					return;
+			    				}
+			    	 			BukkitTask task = new BukkitRunnable() {
+			    	 	            @Override
+			    	 	            public void run() {
+			    	 	            	if(!AbilityUtils.casting.containsKey(p))
+			    	 	            	{
+			    	 	            		
+			    				    		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), ability, Main.abilitymanager.getCooldown(ability, p), item);
+			    				    		c.start();
+			    				    		casting.remove(p);
+			    				    		this.cancel();
+			    	 	            	}
+			    	 	            }
+			    	 	        }.runTaskTimer(VallendiaMinigame.getInstance(), 0 , 20L);
+			    	 	        casting.put(p, task);
+			    			}else{
+					    		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), ability, Main.abilitymanager.getCooldown(ability, p), item);
+					    		c.start();		
+			    			}
 				    		 
 			    		}
 		    		}else 

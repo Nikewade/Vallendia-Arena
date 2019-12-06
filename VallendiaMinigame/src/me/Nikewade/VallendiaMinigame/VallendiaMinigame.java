@@ -72,13 +72,11 @@ import me.Nikewade.VallendiaMinigame.Events.PlayerFoodEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerItemEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerJoinEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerKillEvents;
+import me.Nikewade.VallendiaMinigame.Events.PlayerTakeDamageEvent;
 import me.Nikewade.VallendiaMinigame.Events.ProjectileEvents;
 import me.Nikewade.VallendiaMinigame.Events.SignEvents;
-import me.Nikewade.VallendiaMinigame.Graphics.BossBarHandler;
-import me.Nikewade.VallendiaMinigame.Graphics.BossBars;
 import me.Nikewade.VallendiaMinigame.Graphics.GuiHandler;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
-import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Kits.KitManager;
 import me.Nikewade.VallendiaMinigame.Levels.LevelManager;
 import me.Nikewade.VallendiaMinigame.Shop.GuiShopHandler;
@@ -197,11 +195,11 @@ public class VallendiaMinigame extends JavaPlugin{
 		   new PlayerBlockEvents(this);
 		   new PlayerExpEvents(this);
 		   new ProjectileEvents(this);
+		   new PlayerTakeDamageEvent(this);
 		   new SignEvents(this);
 		   Bukkit.getPluginManager().registerEvents(AdvInventory.getListener(), this);
 		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
 		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);
-		   this.getServer().getPluginManager().registerEvents(new BossBarHandler(), this);
 		   
 		   //Ability Listeners
 		   Bukkit.getPluginManager().registerEvents(DeflectArrowsAbility.getListener(), this);
@@ -255,7 +253,6 @@ public class VallendiaMinigame extends JavaPlugin{
 	         this.sb.runNameTagUpdater();
 	         this.sb.runSidebarUpdater();
 	         ShopHandler.loadShop();
-	         BossBarHandler.removeEnemyBars();
 		   
 		   
 		   
@@ -271,7 +268,6 @@ public class VallendiaMinigame extends JavaPlugin{
 		  PillageAbility.removeItems();
 		  PickPocketAbility.removeItems();
 		  MountAbility.onReload();
-		  BossBars.removeAll();
 		  
 		  for(Player p : Bukkit.getOnlinePlayers())
 		  {

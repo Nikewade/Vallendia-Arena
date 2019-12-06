@@ -111,7 +111,7 @@ public class AdvInventory {
 		if(!(ability.getAbilityType() == AbilityType.PASSIVE) && 
 				VallendiaMinigame.getInstance().getConfig().getInt( "Abilities." + ability.getName() + "." + kit.toLowerCase() + ".cooldown") > 0)
 		{
-			lore.add(ChatColor.DARK_GRAY + "Cooldown: " + VallendiaMinigame.getInstance().getConfig().getInt( "Abilities." + ability.getName() + "." + kit.toLowerCase() + ".cooldown"));	
+			lore.add(ChatColor.DARK_GRAY + "Cooldown: " + VallendiaMinigame.getInstance().getConfig().getInt( "Abilities." + ability.getName() + "." + kit.toLowerCase() + ".cooldown") + " seconds");	
 		}
 		im.setLore(lore);
 		

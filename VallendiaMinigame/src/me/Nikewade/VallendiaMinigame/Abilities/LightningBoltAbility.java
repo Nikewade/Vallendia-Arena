@@ -81,7 +81,7 @@ public class LightningBoltAbility implements Ability {
 						line.setLocation(p.getLocation().add(0, 1.2, 0));
 						line.setTargetLocation(loc);
 						line.particle = Particle.CRIT_MAGIC;
-						line.iterations = 10;
+						line.iterations = 20;
 						line.isZigZag = true;
 						line.start();
 						
@@ -95,6 +95,7 @@ public class LightningBoltAbility implements Ability {
 						se.yOffset = -0.8;
 						se.start();
 		                p.getWorld().playSound(p.getLocation(), Sound.ENTITY_LIGHTNING_THUNDER, 2, (float) 1.6);
+		                p.getWorld().strikeLightningEffect(p.getLocation().add(0, 100, 0));
 				
 			}
 			

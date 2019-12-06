@@ -66,6 +66,10 @@ public class AbilityCooldown {
         cooldowns.put(this.id.toString()+this.cooldownName, this);
         
         Player p = Bukkit.getPlayer(id);
+    	if(p == null)
+    	{
+    		return;
+    	}
         
 		ItemStack abilityItem = null;
 		for(ItemStack item : p.getInventory().getContents())

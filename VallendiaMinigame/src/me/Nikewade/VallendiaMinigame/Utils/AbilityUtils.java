@@ -15,7 +15,6 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.Main;
 import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
@@ -41,15 +40,16 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.util.Vector;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
 
-import de.slikey.effectlib.effect.ExplodeEffect;
 import de.slikey.effectlib.effect.SphereEffect;
-import de.slikey.effectlib.util.ParticleEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.FlyAbility;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
+import me.Nikewade.VallendiaMinigame.Events.PlayerItemEvents;
+import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import net.minecraft.server.v1_12_R1.Explosion;
 import net.minecraft.server.v1_12_R1.PacketPlayOutEntityDestroy;
 
@@ -58,12 +58,13 @@ public class AbilityUtils implements Listener {
 	private static HashMap<Block, Integer> explosives = new HashMap<>();
 	private static HashMap<Entity, Integer> explosivesEntities = new HashMap<>();
 	public static HashMap<LivingEntity, BukkitTask> silenced = new HashMap<>();
-	private static HashMap<Player, Float> casting = new HashMap<>();
-	private static HashMap<Player, BukkitTask> castingTask = new HashMap<>();
+	public static HashMap<Player, Float> casting = new HashMap<>();
+	public static HashMap<Player, BukkitTask> castingTask = new HashMap<>();
 	private static HashMap<Player, BukkitTask> castingTask2 = new HashMap<>();
 	private static HashMap<String, Double> maxHealth = new HashMap<>();
 	private static HashMap<Projectile, Runnable> arcProjectiles = new HashMap<>();
 	private static HashMap<LivingEntity, Integer> handleDamage = new HashMap<>();
+	private static HashMap<Player, SphereEffect> castingParticles = new HashMap<>();
 	static int castingHealthPercent = 70;
 	
 	
@@ -436,72 +437,6 @@ public class AbilityUtils implements Listener {
     	}
     }
     
-    /*
-    public static boolean castAbility(Player p, int seconds, Runnable run)
-    {
-    	if(!casting.containsKey(p))
-    	{
-        	casting.put(p, p.getWalkSpeed());	
-    	}else 
-    		{
-    		Language.sendDefaultMessage(p, "You are already casting!");
-    		return false;
-    		}
-    	
-    	p.setWalkSpeed((float) 0.04);
-    	
-    	
-    	BukkitTask task2 =	new BukkitRunnable() {
-			int x = seconds;
-            @Override
-            public void run() {
-            	if(casting.containsKey(p))
-            	{
-    		        p.sendTitle(Utils.Colorate("&3&lCasting " + x), null, 0, 21, 0);
-            		x--;
-            	}else this.cancel();
-            }
-        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L);
-    	
-		BukkitTask task = new BukkitRunnable() {
-            @Override
-            public void run() {
-            	if(casting.containsKey(p))
-            	{
-            		removeCast(p);
-            		run.run();
-            	}
-            }
-        }.runTaskLater(VallendiaMinigame.getInstance(), seconds*20L);
-        
-        castingTask.put(p, task);
-        castingTask2.put(p, task2);
-        
-        
-        
-		return true;
-    }
-    
-    
-    
-    
-    public static void removeCast(Player p)
-    {
-    	if(casting.containsKey(p))
-    	{
-    		p.setWalkSpeed(casting.get(p));
-    		casting.remove(p);
-    		castingTask.get(p).cancel();
-    		castingTask.remove(p);
-    		castingTask2.get(p).cancel();
-    		castingTask2.remove(p);
-    	}
-    }
-    */
-    
-    
-    
-    
     
     public static boolean castAbility(Player p, int seconds, Runnable run)
     {
@@ -515,6 +450,18 @@ public class AbilityUtils implements Listener {
     		}
     	
     	p.setWalkSpeed((float) 0.07);
+		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+		se.setEntity(p);
+		se.disappearWithOriginEntity = true;
+		se.infinite();
+		se.particle = Particle.ENCHANTMENT_TABLE;
+		se.radius = 0.4;
+		se.particles = 1;
+		se.yOffset = -0.4;
+		se.particleOffsetZ = (float) 0.4;
+		se.speed = (float) 0;
+		se.start();
+		castingParticles.put(p, se);
     	
     	
     	BukkitTask task2 =	new BukkitRunnable() {
@@ -560,6 +507,8 @@ public class AbilityUtils implements Listener {
     		castingTask.remove(p);
     		castingTask2.get(p).cancel();
     		castingTask2.remove(p);
+    		castingParticles.get(p).cancel();
+    		castingParticles.remove(p);
     	}
     }
     
@@ -647,6 +596,11 @@ public class AbilityUtils implements Listener {
         		{
         			if(casting.containsKey(e.getPlayer()))
         			{
+        				if(PlayerItemEvents.casting.containsKey(e.getPlayer()))
+        				{
+            				PlayerItemEvents.casting.get(e.getPlayer()).cancel();
+            				PlayerItemEvents.casting.remove(e.getPlayer());
+        				}
         				AbilityUtils.removeCast(e.getPlayer());
         				Language.sendDefaultMessage(e.getPlayer(), "You stop casting.");
         			}
@@ -678,6 +632,10 @@ public class AbilityUtils implements Listener {
         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5);
+        if(p instanceof Player)
+        {
+            ScoreboardHandler.updateHealth((Player) p, amount, 0);	
+        }
     }
     
     public static void damageEntity(LivingEntity target, LivingEntity damager, int amount)

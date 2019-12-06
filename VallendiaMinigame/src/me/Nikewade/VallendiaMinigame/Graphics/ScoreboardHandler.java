@@ -5,15 +5,20 @@ import java.util.Iterator;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.CScoreboard;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import net.minecraft.server.v1_12_R1.PacketPlayOutEntityDestroy;
 
 public class ScoreboardHandler{
 	   VallendiaMinigame Main;
@@ -52,6 +57,33 @@ public class ScoreboardHandler{
 	      sb.registerNewTeam("darkblue");
 	      sb.registerNewTeam("yellow");
 	      sb.registerNewTeam("red");
+	        Objective objective = sb.registerNewObjective("health", "dummy");
+	        objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+	        objective.setDisplayName("%");
+	        for(Player all : VallendiaMinigame.getInstance().getServer().getOnlinePlayers())
+	        {
+	        	ScoreboardHandler.updateHealth(all, 0, 0);
+	        }
+	   }
+	   
+	   public static void updateHealth(Player p, double add, double d)
+	   {
+	        for(Player all : VallendiaMinigame.getInstance().getServer().getOnlinePlayers())
+	        {
+	      		Scoreboard sb = all.getScoreboard();
+				Objective obj = sb.getObjective(DisplaySlot.BELOW_NAME);
+	   			Score score = obj.getScore(p.getName());
+	   			float health = Math.round(((float) ((p.getHealth() - d) + add) / (float) p.getMaxHealth()) * 100.0F);
+	   			if(health <= 0)
+	   			{
+	   				health = 1;
+	   			}
+	   			if(health > 100)
+	   			{
+	   				health = 100;
+	   			}
+	   	        score.setScore((int) health);
+	        }
 	   }
 
 	   public void runNameTagUpdater() {

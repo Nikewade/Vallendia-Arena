@@ -414,6 +414,16 @@ public class AbilityUtils implements Listener {
     		silenced.remove(e);
     	}
     	
+    	if(e instanceof Player )
+    	{
+    		Player p = (Player) e;
+    		if(casting.containsKey(p))
+    		{
+    			removeCast(p);
+    			Language.sendDefaultMessage(p, "Your casting was interrupted.");
+    		}	
+    	}
+    	
 		BukkitTask task = new BukkitRunnable() {
             @Override
             public void run() {

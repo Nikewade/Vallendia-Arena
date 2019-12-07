@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
@@ -398,6 +399,13 @@ public class Utils {
 	    public static void showArmor(Player p)
 	    {
 			VallendiaMinigame.getInstance().protocolManager.updateEntity(p, (List<Player>) Bukkit.getOnlinePlayers());
+	    }
+	    
+	    
+	    
+	    public static int randomNumberBetween(int lowestAmount, int maxAmount)
+	    {
+	    	return ThreadLocalRandom.current().nextInt(lowestAmount, maxAmount + 1);
 	    }
 	   
 

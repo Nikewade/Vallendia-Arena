@@ -1,6 +1,6 @@
 package me.Nikewade.VallendiaMinigame.Commands;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -13,7 +13,6 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class PointsCommand implements CommandInterface{
 	VallendiaMinigame main  =  VallendiaMinigame.getInstance();
-	private static Random random = new Random();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -106,7 +105,7 @@ public class PointsCommand implements CommandInterface{
 					    } catch (NumberFormatException nfe) {
 					        return false;
 					    }
-					   int randomAmount = random.nextInt(maxAmount) + lowestAmount;
+					    int randomAmount = ThreadLocalRandom.current().nextInt(lowestAmount, maxAmount + 1);
 					   main.shopmanager.addPoints(p, randomAmount);
 					   sender.sendMessage(Utils.Colorate( "&8Gave " + randomAmount +  " points to " +  p.getName() +  "."));
 					   p.sendMessage(Utils.Colorate( "&8You gained " + randomAmount +  " points."));

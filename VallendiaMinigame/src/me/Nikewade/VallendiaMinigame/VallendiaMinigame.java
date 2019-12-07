@@ -66,6 +66,7 @@ import me.Nikewade.VallendiaMinigame.Commands.VallendiaMainCommand;
 import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Events.AltitudeChecker;
 import me.Nikewade.VallendiaMinigame.Events.PlayerBlockEvents;
+import me.Nikewade.VallendiaMinigame.Events.PlayerCustomFoodCookEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerDeathEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerExpEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerFoodEvents;
@@ -197,6 +198,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   new ProjectileEvents(this);
 		   new PlayerTakeDamageEvent(this);
 		   new SignEvents(this);
+		   new PlayerCustomFoodCookEvents(this);
 		   Bukkit.getPluginManager().registerEvents(AdvInventory.getListener(), this);
 		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
 		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);

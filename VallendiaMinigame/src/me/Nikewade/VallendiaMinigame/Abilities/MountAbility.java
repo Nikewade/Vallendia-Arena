@@ -90,12 +90,12 @@ public class MountAbility implements Ability, Listener{
 				speed = maxSpeed;
 			}
 			
-			if(level >= 3)
+			if(level >= 5)
 			{
 				armor = new ItemStack(Material.IRON_BARDING);
 			}
 			
-			if(level >= 6)
+			if(level >= 10)
 			{
 				armor = new ItemStack(Material.DIAMOND_BARDING);
 			}

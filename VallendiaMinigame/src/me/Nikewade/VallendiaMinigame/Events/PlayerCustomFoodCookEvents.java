@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.block.Furnace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -78,8 +79,9 @@ public class PlayerCustomFoodCookEvents implements Listener{
 					se2.particles = 1;
 					se2.iterations = 20;
 					se2.start();
+					byte tempData = b.getData();
 					
-					new BukkitRunnable() {
+					 new BukkitRunnable() {
 						int x = 0;
 					     @Override
 					     public void run() {
@@ -89,6 +91,7 @@ public class PlayerCustomFoodCookEvents implements Listener{
 					    		 this.cancel();
 					    	 }
 					    	 b.setType(Material.BURNING_FURNACE);
+					    	 b.setData(tempData);
 					    	 
 					     }
 					}.runTaskTimer(Main, 0, 1L);

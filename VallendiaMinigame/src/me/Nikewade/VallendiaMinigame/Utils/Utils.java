@@ -166,7 +166,9 @@ public class Utils {
 		            		if(e instanceof LivingEntity)
 		            		{
 		            			int x = 1;
-		            			while(e.getLocation().getBlock().getType().isSolid() || e.getLocation().add(0, 1, 0).getBlock().getType().isSolid())
+		            			while(e.getLocation().getBlock().getType().isSolid() || 
+		            					e.getLocation().add(0, 1, 0).getBlock().getType().isSolid() ||
+		            					e.getLocation().add(0, 2, 0).getBlock().getType().isSolid())
 		            			{
 		            				
 		            				if(x >= 50)

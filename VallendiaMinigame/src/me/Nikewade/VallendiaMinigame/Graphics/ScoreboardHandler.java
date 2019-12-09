@@ -1,5 +1,6 @@
 package me.Nikewade.VallendiaMinigame.Graphics;
 
+import java.lang.reflect.Field;
 import java.util.Iterator;
 
 import org.bukkit.Bukkit;
@@ -15,10 +16,12 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import com.mojang.authlib.GameProfile;
+
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.CScoreboard;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
-import net.minecraft.server.v1_12_R1.PacketPlayOutEntityDestroy;
+import net.minecraft.server.v1_12_R1.EntityPlayer;
 
 public class ScoreboardHandler{
 	   VallendiaMinigame Main;
@@ -65,6 +68,8 @@ public class ScoreboardHandler{
 	        	ScoreboardHandler.updateHealth(all, 0, 0);
 	        }
 	   }
+	   
+	   
 	   
 	   public static void updateHealth(Player p, double add, double d)
 	   {

@@ -343,7 +343,6 @@ public class AbilityUtils implements Listener {
 		
 		
 		
-		
 		public static Collection<Entity> getHealingAoeTargets(Player originplayer, Location loc, double Radiusx, double Radiusy, double Radiusz)
 		{
 			Collection<Entity> nearbyEntities = new ArrayList<Entity>();

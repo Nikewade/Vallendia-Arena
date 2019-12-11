@@ -171,7 +171,6 @@ public class BullRushAbility implements Ability, Listener{
                         			AbilityUtils.explode(oneBlockAway2, p, 2, 3, false, true, false);
                                        
                                        
-                                       
                                		if(enabled.contains(p))
                             		{
                             			enabled.remove(p);

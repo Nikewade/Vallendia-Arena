@@ -103,7 +103,6 @@ int maxYForce = 10;
 		          entity.setVelocity(v);
 			}
 			
-
 			
 			//red screen
 			  BukkitTask task = new BukkitRunnable() {

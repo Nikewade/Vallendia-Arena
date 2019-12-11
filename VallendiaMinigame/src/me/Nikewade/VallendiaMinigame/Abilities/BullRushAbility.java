@@ -198,7 +198,7 @@ public class BullRushAbility implements Ability, Listener{
         			Location location = p.getLocation().add(0.0D, -1.0F, 0.0D);
         		    Vector t = location.toVector();
         		    //knockback
-            		for(Entity entity : AbilityUtils.getAoeTargets(p, 1, 1, 1))
+            		for(Entity entity : AbilityUtils.getAoeTargets(p, p.getLocation(), 1, 1, 1))
             		{
             			LivingEntity livingE = (LivingEntity) entity;
             		          Vector ve = entity.getLocation().toVector();

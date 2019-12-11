@@ -88,7 +88,7 @@ int maxYForce = 10;
 			Location location = p.getLocation().add(0.0D, -1.0F, 0.0D);
 		    Vector t = location.toVector();
 
-			for(Entity entity : AbilityUtils.getAoeTargets(p, 8, 8, 8))
+			for(Entity entity : AbilityUtils.getAoeTargets(p, p.getLocation(), 8, 8, 8))
 			{
 		          Vector e = entity.getLocation().toVector();
 		          Vector v = e.subtract(t).normalize().multiply(force / 10.0D);

@@ -309,10 +309,10 @@ public class AbilityUtils implements Listener {
 	
 	
 	
-		public static Collection<Entity> getAoeTargets(Player originplayer, double Radiusx, double Radiusy, double Radiusz)
+		public static Collection<Entity> getAoeTargets(Player originplayer, Location loc, double Radiusx, double Radiusy, double Radiusz)
 		{
 			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
-			for(Entity entity : originplayer.getWorld().getNearbyEntities(originplayer.getLocation(), Radiusx, Radiusy, Radiusz))
+			for(Entity entity : loc.getWorld().getNearbyEntities(loc, Radiusx, Radiusy, Radiusz))
 			{
 				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand))
 				{
@@ -344,10 +344,10 @@ public class AbilityUtils implements Listener {
 		
 		
 		
-		public static Collection<Entity> getHealingAoeTargets(Player originplayer, double Radiusx, double Radiusy, double Radiusz)
+		public static Collection<Entity> getHealingAoeTargets(Player originplayer, Location loc, double Radiusx, double Radiusy, double Radiusz)
 		{
 			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
-			for(Entity entity : originplayer.getWorld().getNearbyEntities(originplayer.getLocation(), Radiusx, Radiusy, Radiusz))
+			for(Entity entity : loc.getWorld().getNearbyEntities(loc, Radiusx, Radiusy, Radiusz))
 			{
 				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand))
 				{

@@ -12,8 +12,14 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.WorldBorderAction;
+import com.sk89q.worldguard.LocalPlayer;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class AltitudeChecker {
@@ -24,10 +30,18 @@ public class AltitudeChecker {
 		AltitudeChecker.Main = Main; 
 	   new BukkitRunnable() {
 
-            @Override
+            @SuppressWarnings("deprecation")
+			@Override
             public void run() {	
             		for(Player p : Bukkit.getOnlinePlayers())
             		{
+    	    		   	RegionManager regionManager = Main.worldguard.getRegionManager(p.getWorld());
+    	    		   	ApplicableRegionSet arset = regionManager.getApplicableRegions(p.getLocation());
+    	    		   	LocalPlayer localPlayer = Main.worldguard.wrapPlayer(p);
+    	    		   	if(!arset.allows((StateFlag) VallendiaMinigame.checkAltitude, localPlayer))
+    	    		   	{
+    	    		   		return;
+    	    		   	}
             			if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude"))
             			{
             				if(p.getGameMode() != GameMode.CREATIVE)

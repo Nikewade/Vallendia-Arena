@@ -74,16 +74,26 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 						return;
 					}
 					
-					if(block.getType() == Material.CROPS || block.getType() == Material.CARROT || block.getType() == Material.POTATO || block.getType() == Material.NETHER_WARTS)
+					if(block.getType() == Material.CROPS && block.getData() == (byte) 7 || block.getType() == Material.BROWN_MUSHROOM ||
+						block.getType() == Material.RED_MUSHROOM || block.getType() == Material.CARROT ||
+						block.getType() == Material.POTATO || block.getType() == Material.NETHER_WARTS)
 					{
-						Utils.regenBlock(block, 300);
-						e.setExpToDrop(0);
 						if(block.getType() == Material.CROPS)
 						{
 							e.setDropItems(false);
 							block.getWorld().dropItemNaturally(block.getLocation(), 
 									new ItemStack(Material.WHEAT));
+							Utils.regenBlock(block, 300);
+							block.setType(Material.CROPS);
+							e.setExpToDrop(0);
+							e.setCancelled(true);
+							return;
 						}
+						Utils.regenBlock(block, 300);
+						block.breakNaturally();
+						block.setType(Material.CROPS);
+						e.setExpToDrop(0);
+						e.setCancelled(true);
 						return;
 					}
 					

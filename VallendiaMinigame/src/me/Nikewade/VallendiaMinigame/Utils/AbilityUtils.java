@@ -40,10 +40,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
+
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
@@ -56,7 +56,7 @@ import net.minecraft.server.v1_12_R1.PacketPlayOutEntityDestroy;
 public class AbilityUtils implements Listener {
 	private static Set<Material> transparentBlocks = null;
 	private static HashMap<Block, Integer> explosives = new HashMap<>();
-	private static HashMap<Entity, Integer> explosivesEntities = new HashMap<>();
+	public static HashMap<Entity, Integer> explosivesEntities = new HashMap<>();
 	public static HashMap<LivingEntity, BukkitTask> silenced = new HashMap<>();
 	public static HashMap<Player, Float> casting = new HashMap<>();
 	public static HashMap<Player, BukkitTask> castingTask = new HashMap<>();
@@ -106,12 +106,52 @@ public class AbilityUtils implements Listener {
 	}
 	
 	
-	
+	public static boolean partyCheck(Player p1, Player p2)
+	{
+		if(getPlayerParty(p1).equalsIgnoreCase(getPlayerParty(p2)))
+		{
+			return true;
+		}
+		return false;
+
+	}
 	
 	public static String getPlayerParty(Player p)
 	{
 		return VallendiaMinigame.getInstance().parties.getPartyPlayer(p.getUniqueId()).getPartyName();
 	}
+	
+	
+	public static boolean runPassive(Player p, Player p2)
+	{
+		//Checking for party
+		if(p2 != null)
+		{
+			if(AbilityUtils.getPlayerParty(p).equalsIgnoreCase(AbilityUtils.getPlayerParty(p2)))
+			{
+				return false;
+			}	
+		}
+		
+        RegionManager regionManager = VallendiaMinigame.getInstance().worldguard.getRegionManager(p.getWorld());
+        ApplicableRegionSet set = regionManager.getApplicableRegions(p.getLocation());
+
+        for (ProtectedRegion region : set) {
+
+            if (region != null){
+
+            	if(region.getId().equalsIgnoreCase("minigamespawn"))
+            	{
+            		return false;
+            	}
+
+            }
+
+        }
+		return true;
+	}
+	
+	
 	
 	
 	public static LivingEntity getTarget(Player p, int range)
@@ -553,15 +593,29 @@ public class AbilityUtils implements Listener {
         	
         	
         	@EventHandler
+        	public void onEntityExplode(EntityExplodeEvent e)
+        	{
+        		if(explosivesEntities.containsKey(e.getEntity()))
+        		{
+        			explosivesEntities.remove(e.getEntity());
+        		}
+        	}
+        	
+        	@EventHandler
         	public void onDamage(EntityDamageByEntityEvent e)
         	{
+        		
+        		if(e.getEntity() instanceof ArmorStand)
+        				{
+        				return;
+        				}
         		if(explosivesEntities.containsKey(e.getDamager()))
         		{
             		if(e.getDamager() instanceof Player && e.getCause() == DamageCause.ENTITY_EXPLOSION)
             		{
             			e.setDamage(0);
             			e.setDamage(DamageModifier.ARMOR, (explosivesEntities.get(e.getDamager())));
-            			explosivesEntities.remove(e.getEntity());
+            			explosivesEntities.remove(e.getDamager());
             		}
         		}
         		
@@ -644,7 +698,7 @@ public class AbilityUtils implements Listener {
         p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5);
         if(p instanceof Player)
         {
-            ScoreboardHandler.updateHealth((Player) p, amount, 0);	
+            ScoreboardHandler.updateMaxHealth((Player) p);	
         }
     }
     
@@ -663,6 +717,7 @@ public class AbilityUtils implements Listener {
     	{
         	maxHealth.put(p.toString()+ability, healthAdded);	
     	}
+        ScoreboardHandler.updateMaxHealth(p);	
     }
     
     public static void resetMaxHealth(Player p, String ability)
@@ -673,6 +728,7 @@ public class AbilityUtils implements Listener {
     		p.setMaxHealth(p.getMaxHealth() - maxHealth.get(p.toString()+ability));
     		maxHealth.remove(p.toString()+ability);
     	}
+        ScoreboardHandler.updateMaxHealth(p);
     }
     
     public static void resetAllMaxHealth(Player p)
@@ -683,6 +739,7 @@ public class AbilityUtils implements Listener {
     		{
     			p.setMaxHealth(p.getMaxHealth() - maxHealth.get(s));
         		maxHealth.remove(s);
+                ScoreboardHandler.updateMaxHealth(p);
     		}
     	}
     }

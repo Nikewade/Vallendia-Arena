@@ -122,13 +122,17 @@ public class VallendiaMinigame extends JavaPlugin{
 	   public Chat chat;
 	   public GhostManager ghost;
 	   public PartiesAPI parties;
+	   //Custom flags
 	   @SuppressWarnings("rawtypes")
 	   public static final Flag blockAbilities = new StateFlag("block-abilities", true);
+	   @SuppressWarnings("rawtypes")
+	   public static final Flag checkAltitude = new StateFlag("check-altitude", true);
 
 	   public void onLoad() {
 	       FlagRegistry registry = WorldGuardPlugin.inst().getFlagRegistry();
 	       try {
 	           registry.register(blockAbilities);
+	           registry.register(checkAltitude);
 	       } catch (IllegalStateException e) {
 	           // some other plugin registered a flag by the same name already.
 	           // you may want to re-register with a different name, but this

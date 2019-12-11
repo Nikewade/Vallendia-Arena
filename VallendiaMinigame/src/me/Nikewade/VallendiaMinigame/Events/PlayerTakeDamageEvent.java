@@ -3,6 +3,7 @@ package me.Nikewade.VallendiaMinigame.Events;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -31,7 +32,7 @@ public class PlayerTakeDamageEvent implements Listener{
 		@EventHandler
 		public void onDamageByEntity(EntityDamageByEntityEvent e)
 		{
-			if(!(e.getEntity() instanceof Player))
+			if(!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Player))
 			{
 				return;
 			}
@@ -41,7 +42,15 @@ public class PlayerTakeDamageEvent implements Listener{
 			//In party so dont update health
         	if(AbilityUtils.getPlayerParty(p).equalsIgnoreCase(AbilityUtils.getPlayerParty(dp)))
         	{
+        		e.setCancelled(true);
         		return;
+        	}
+        	
+        	if(AbilityUtils.explosivesEntities.containsKey(dp))
+        	{
+    			ScoreboardHandler.updateHealth((Player)e.getEntity(), 0, 
+    					AbilityUtils.explosivesEntities.get(dp));
+    			return;
         	}
 
 			ScoreboardHandler.updateHealth((Player)e.getEntity(), 0, e.getFinalDamage());

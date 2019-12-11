@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
@@ -31,6 +32,7 @@ import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
@@ -332,5 +334,30 @@ public class PlayerItemEvents implements Listener {
 		}
 		
 	}
+	
+    @EventHandler
+    public void onShootBow(EntityShootBowEvent e){
+    	if(!(e.getEntity() instanceof Player))
+    	{
+    		return;
+    	}
+    	Player p = (Player) e.getEntity();
+        RegionManager regionManager = Main.worldguard.getRegionManager(p.getWorld());
+        ApplicableRegionSet set = regionManager.getApplicableRegions(p.getLocation());
+
+        for (ProtectedRegion region : set) {
+
+            if (region != null){
+
+            	if(region.getId().equalsIgnoreCase("minigamespawn"))
+            	{
+            		e.setCancelled(true);
+            		Language.sendDefaultMessage(p, "You can't use that here!");
+            	}
+
+            }
+
+        }
+    }
 	
 }

@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -17,6 +18,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class PickPocketAbility implements Ability, Listener{
@@ -71,6 +73,10 @@ public class PickPocketAbility implements Ability, Listener{
         		}
         		Player damager = (Player) e.getDamager();
         		Player target = (Player) e.getEntity();
+        		if(!AbilityUtils.runPassive(damager, target))
+        		{
+        			return;
+        		}
         		VallendiaMinigame main = VallendiaMinigame.getInstance();
         		if(!main.abilitymanager.playerHasAbility(damager, "Pick Pocket"))
         		{

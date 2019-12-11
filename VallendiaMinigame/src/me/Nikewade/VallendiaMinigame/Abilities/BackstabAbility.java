@@ -17,9 +17,10 @@ import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class BackstabAbility implements Ability , Listener {
-	private static Random random = new Random();
+	static int percent = 20;
 
 	@Override
 	public String getName() {
@@ -36,7 +37,7 @@ public class BackstabAbility implements Ability , Listener {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Hitting your target in the back does 2-4 extra damage.");
+		return Arrays.asList("Stabbing your target in the back does " + percent + "% extra damage.");
 	}
 
 	@Override
@@ -69,15 +70,14 @@ public class BackstabAbility implements Ability , Listener {
                 		{
                 			return;
                 		}
-            			double damage = e.getDamage();
-            			int addedDamage = random.nextInt(4) + 2;
+                		double higherPercent =  Utils.getPercentHigherOrLower(percent, true);
+                		double damage = e.getDamage();
+                		double higherDamage = damage * higherPercent;
             	        if (e.getEntity().getLocation().getDirection().dot(p.getLocation().getDirection()) <= 0.0D) 
             	          {
             	            return;
             	          }
-            	        p.sendMessage("" + e.getFinalDamage());
-            			e.setDamage(damage + addedDamage);
-            			p.sendMessage("" + e.getFinalDamage());
+            			e.setDamage(higherDamage);
             			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_HURT, 22, (float) 1.5);
             			p.getWorld().playEffect(e.getEntity().getLocation().add(0,1,0), Effect.STEP_SOUND, Material.REDSTONE_WIRE.getId());
             		}

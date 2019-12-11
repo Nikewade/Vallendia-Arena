@@ -29,6 +29,7 @@ import de.slikey.effectlib.effect.FountainEffect;
 import de.slikey.effectlib.util.DynamicLocation;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class RootAbility implements Ability{
@@ -177,14 +178,7 @@ public class RootAbility implements Ability{
 	                    public void run() {	
 	                        	if(p.getHealth() < p.getMaxHealth())
 	                        	{
-	                            	if(p.getHealth() >= p.getMaxHealth() - 1)
-	                            	{
-	                            		p.setHealth(p.getMaxHealth());
-	                            	}else
-	                        		p.setHealth(p.getHealth() + 1);
-	                                p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
-	                                p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
-	                                p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 
+	                        		AbilityUtils.healEntity(p, 1);
 	        	        			p.getWorld().playSound(p.getLocation(), Sound.ITEM_SHOVEL_FLATTEN, 1, (float) 0.1);
 	        	        			
 	        	        			

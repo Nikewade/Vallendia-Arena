@@ -71,6 +71,26 @@ public class ScoreboardHandler{
 	   
 	   
 	   
+	   public static void updateMaxHealth(Player p)
+	   {
+	        for(Player all : VallendiaMinigame.getInstance().getServer().getOnlinePlayers())
+	        {
+	      		Scoreboard sb = all.getScoreboard();
+				Objective obj = sb.getObjective(DisplaySlot.BELOW_NAME);
+	   			Score score = obj.getScore(p.getName());
+	   			float health = Math.round(((float) (p.getHealth()) / (float) p.getMaxHealth()) * 100.0F);
+	   			if(health <= 0)
+	   			{
+	   				health = 1;
+	   			}
+	   			if(health > 100)
+	   			{
+	   				health = 100;
+	   			}
+	   	        score.setScore((int) health);
+	        } 
+	   }
+	   
 	   public static void updateHealth(Player p, double add, double d)
 	   {
 	        for(Player all : VallendiaMinigame.getInstance().getServer().getOnlinePlayers())

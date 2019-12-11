@@ -8,15 +8,17 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.entity.Creature;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -29,7 +31,8 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 public class VanishAbility implements Ability{
 	private static ArrayList<Player> enabled = new ArrayList<>();
 	private static HashMap<Player, BukkitTask> tasks = new HashMap<>();
-	int enabledTime = 10;
+	private static HashMap<Player, BukkitTask> countDown = new HashMap<>();
+	int enabledTime = 20;
 
 	@Override
 	public String getName() {
@@ -65,11 +68,31 @@ public class VanishAbility implements Ability{
 			return false;
 		}
 		enabled.add(p);
+		
+		
+		
+		//Untarget entities
+		for(Entity e : p.getNearbyEntities(50, 50, 50))
+		{
+			if(!(e instanceof Player) && e instanceof Creature)
+			{
+				Creature mob = (Creature) e;
+				if(mob.getTarget() != null)
+				{
+					if(enabled.contains(mob.getTarget()))
+					{
+						mob.setTarget(null);
+					}
+				}
+			}
+		}
 
 		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 		se.setLocation(p.getLocation());
 		se.particle = Particle.SMOKE_NORMAL;
-		se.particles = 5;
+		se.radius = 1;
+		se.particles = 10;
+		se.yOffset = 0.6;
 		se.iterations = 3;
 		se.start();
 		Language.sendAbilityUseMessage(p, "You vanish.", "Vanish");
@@ -102,12 +125,46 @@ public class VanishAbility implements Ability{
             }
         }.runTaskLater(VallendiaMinigame.getInstance(), enabledTime*20L);
         tasks.put(p, task);
+        
+        
+        
+        
+    	BukkitTask countdown =	new BukkitRunnable() {
+			int x = enabledTime;
+            @Override
+            public void run() {
+            	if(enabled.contains(p))
+            	{
+            		if(x == 10)
+            		{
+        		        p.sendTitle(Utils.Colorate("&3&lVanish " + x + " seconds"), null, 0, 26, 0);
+            		}
+            		if(x <= 5)
+            		{
+        		        p.sendTitle(Utils.Colorate("&3&lVanish " + x + " seconds"), null, 0, 26, 0);
+            		}
+            		x--;
+            	}else this.cancel();
+            }
+        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L);
+        countDown.put(p, countdown);
         return true;
 	}
 	
 	
     public static Listener getListener() {
         return new Listener() {
+        	@EventHandler
+        	public void onTarget(EntityTargetLivingEntityEvent e)
+        	{
+        		if(enabled.contains(e.getTarget()))
+        		{
+        			e.setCancelled(true);
+        		}
+        	}
+        	
+        	
+        	
         	@EventHandler
         	public void playerLeave(PlayerQuitEvent e)
         	{
@@ -158,10 +215,14 @@ public class VanishAbility implements Ability{
 			}
 			tasks.get(p).cancel();
 			tasks.remove(p);
+			countDown.get(p).cancel();
+			countDown.remove(p);
 			SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 			se.setLocation(p.getLocation());
 			se.particle = Particle.SMOKE_NORMAL;
-			se.particles = 5;
+			se.radius = 1;
+			se.particles = 10;
+			se.yOffset = 0.6;
 			se.iterations = 3;
 			se.start();
 			Language.sendAbilityUseMessage(p, "You reappear.", "Vanish");

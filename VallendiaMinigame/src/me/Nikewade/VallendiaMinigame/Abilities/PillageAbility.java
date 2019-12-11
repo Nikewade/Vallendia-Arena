@@ -17,6 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class PillageAbility implements Ability, Listener{
@@ -71,6 +72,10 @@ public class PillageAbility implements Ability, Listener{
         		}
         		Player damager = (Player) e.getDamager();
         		Player target = (Player) e.getEntity();
+        		if(!AbilityUtils.runPassive(damager, target))
+        		{
+        			return;
+        		}
         		VallendiaMinigame main = VallendiaMinigame.getInstance();
         		if(!main.abilitymanager.playerHasAbility(damager, "Pillage"))
         		{

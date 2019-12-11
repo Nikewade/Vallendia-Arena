@@ -29,6 +29,8 @@ public class SignEvents implements Listener{
 	  int carrot= 1;
 	  int potato= 2;
 	  int poison_potato= 10;
+	  int red_mushroom = 1;
+	  int brown_mushroom = 1;
 	  int wheat= 4;
 	  int nether_wart= 5;
 
@@ -45,6 +47,8 @@ public class SignEvents implements Listener{
 		potato = Main.getConfig().getInt("Resources.potato");
 		poison_potato = Main.getConfig().getInt("Resources.poison_potato");
 		wheat = Main.getConfig().getInt("Resources.wheat");
+		red_mushroom = Main.getConfig().getInt("Resources.red_mushroom");
+		brown_mushroom = Main.getConfig().getInt("Resources.brown_mushroom");
 		nether_wart = Main.getConfig().getInt("Resources.nether_wart");
 		
 		prices.put(Material.COAL, coal);
@@ -54,6 +58,9 @@ public class SignEvents implements Listener{
 		prices.put(Material.EMERALD, emerald);
 		prices.put(Material.CARROT_ITEM, carrot);
 		prices.put(Material.POTATO_ITEM, potato);
+		prices.put(Material.WHEAT, wheat);
+		prices.put(Material.BROWN_MUSHROOM, brown_mushroom);
+		prices.put(Material.RED_MUSHROOM, red_mushroom);
 		prices.put(Material.WHEAT, wheat);
 		prices.put(Material.POISONOUS_POTATO, poison_potato);
 		prices.put(Material.NETHER_STALK, nether_wart);
@@ -85,6 +92,8 @@ public class SignEvents implements Listener{
 			  int potato= 0;
 			  int poison_potato= 0;
 			  int wheat= 0;
+			  int red_mushroom= 0;
+			  int brown_mushroom= 0;
 			  int nether_wart= 0;
 			Inventory inv = p.getInventory();
 			Sign sign = (Sign) e.getClickedBlock().getState();
@@ -124,6 +133,14 @@ public class SignEvents implements Listener{
 				            if(wheat > 0)
 				            {
 					            Language.sendCentredMessage(p, Utils.Colorate("&3Wheat x" + wheat + " (" + this.wheat * wheat + " points)" ));
+				            }
+				            if(red_mushroom > 0)
+				            {
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Red Mushroom x" + red_mushroom + " (" + this.red_mushroom * red_mushroom + " points)" ));
+				            }
+				            if(brown_mushroom > 0)
+				            {
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Brown Mushroom x" + brown_mushroom + " (" + this.brown_mushroom * brown_mushroom + " points)" ));
 				            }
 				            if(carrot > 0)
 				            {
@@ -175,6 +192,12 @@ public class SignEvents implements Listener{
 		                    break;
 		                case WHEAT:
 		                	wheat = wheat + is.getAmount();;
+		                    break;
+		                case RED_MUSHROOM:
+		                	red_mushroom =red_mushroom + is.getAmount();;
+		                    break;
+		                case BROWN_MUSHROOM:
+		                	brown_mushroom =brown_mushroom + is.getAmount();;
 		                    break;
 		                case CARROT_ITEM:
 		                	carrot = carrot + is.getAmount();;

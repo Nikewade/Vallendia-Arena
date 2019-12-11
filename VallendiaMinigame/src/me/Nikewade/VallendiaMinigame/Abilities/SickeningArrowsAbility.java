@@ -118,6 +118,13 @@ public class SickeningArrowsAbility implements Ability, Listener {
         		if(e.getHitEntity() != null && e.getHitEntity() instanceof LivingEntity)
         		{
         			LivingEntity entity = (LivingEntity) e.getHitEntity();
+        			if(entity instanceof Player)
+        			{
+                		if(!AbilityUtils.runPassive((Player)e.getEntity().getShooter(), (Player)entity))
+                		{
+                			return;
+                		}	
+        			}
         			AbilityUtils.addPotionDuration(entity, PotionEffectType.CONFUSION, 3, duration * 20);
         			entity.getLocation().getWorld().playSound(entity.getLocation(), Sound.ENTITY_SPLASH_POTION_BREAK, 2, 1);
         		}

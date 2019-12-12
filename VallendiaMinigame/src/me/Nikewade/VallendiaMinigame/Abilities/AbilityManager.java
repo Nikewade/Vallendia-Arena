@@ -67,6 +67,7 @@ public class AbilityManager {
 		abilities.add(new LightningBoltAbility());
 		abilities.add(new DisintegrateAbility());
 		abilities.add(new FlyAbility());
+		abilities.add(new FlashbangAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");

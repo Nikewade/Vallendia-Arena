@@ -108,18 +108,22 @@ public class AbilityUtils implements Listener {
 	
 	public static boolean partyCheck(Player p1, Player p2)
 	{
-		if(getPlayerParty(p1).equalsIgnoreCase(getPlayerParty(p2)))
+		if(!getPlayerParty(p1).isEmpty() || !getPlayerParty(p2).isEmpty())
 		{
-			return true;
+			if(getPlayerParty(p1).equalsIgnoreCase(getPlayerParty(p2)))
+			{
+				return true;
+			}
 		}
 		return false;
 
 	}
-	
+
 	public static String getPlayerParty(Player p)
 	{
 		return VallendiaMinigame.getInstance().parties.getPartyPlayer(p.getUniqueId()).getPartyName();
 	}
+
 	
 	
 	public static boolean runPassive(Player p, Player p2)
@@ -127,7 +131,7 @@ public class AbilityUtils implements Listener {
 		//Checking for party
 		if(p2 != null)
 		{
-			if(AbilityUtils.getPlayerParty(p).equalsIgnoreCase(AbilityUtils.getPlayerParty(p2)))
+			if(partyCheck(p,p2))
 			{
 				return false;
 			}	
@@ -191,7 +195,7 @@ public class AbilityUtils implements Listener {
 		        	Player player = (Player) entity;
 		        	
 		        	//In party
-		        	if(AbilityUtils.getPlayerParty(player).equalsIgnoreCase(AbilityUtils.getPlayerParty(p)))
+		        	if(partyCheck(player, p))
 		        	{
 		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
 			            return null;
@@ -253,7 +257,7 @@ public class AbilityUtils implements Listener {
 		        	Player player = (Player) entity;
 		        	
 		        	//Not in party
-		        	if(!AbilityUtils.getPlayerParty(player).equalsIgnoreCase(AbilityUtils.getPlayerParty(p)))
+		        	if(!partyCheck((Player)entity, p))
 		        	{
 		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
 			            return null;
@@ -322,7 +326,7 @@ public class AbilityUtils implements Listener {
 						
 						
 			        	//In party
-			        	if(AbilityUtils.getPlayerParty(entityplayer).equalsIgnoreCase(AbilityUtils.getPlayerParty(originplayer)))
+			        	if(partyCheck(entityplayer, originplayer))
 			        	{
 			        		continue;
 			        	}
@@ -356,7 +360,7 @@ public class AbilityUtils implements Listener {
 						
 						
 			        	//Not in party
-			        	if(!AbilityUtils.getPlayerParty(entityplayer).equalsIgnoreCase(AbilityUtils.getPlayerParty(originplayer)))
+			        	if(!partyCheck(originplayer, entityplayer))
 			        	{
 			        		continue;
 			        	}

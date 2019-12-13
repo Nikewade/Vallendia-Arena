@@ -124,11 +124,11 @@ public class PlayerItemEvents implements Listener {
 			    	                     {
 			    	                    	 this.cancel();
 			    	                     }
-		    	            			for(Entity e : loc.getWorld().getNearbyEntities(loc, 0.6, 0.6, 0.6))
+		    	            			for(Entity e : loc.getWorld().getNearbyEntities(loc, 0.5, 0.5, 0.5))
 		    	            			{
 		    	            				if(e instanceof LivingEntity && e != p)
 		    	            				{
-		    	            					AbilityUtils.damageEntity((LivingEntity)e, p, 2);
+		    	            					AbilityUtils.damageEntity((LivingEntity)e, p, 1);
 		    	            					this.cancel();
 		    	            				}
 		    	            			}

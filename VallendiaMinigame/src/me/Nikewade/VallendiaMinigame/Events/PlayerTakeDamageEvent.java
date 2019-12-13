@@ -32,25 +32,28 @@ public class PlayerTakeDamageEvent implements Listener{
 		@EventHandler
 		public void onDamageByEntity(EntityDamageByEntityEvent e)
 		{
-			if(!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Player))
+			if(!(e.getEntity() instanceof Player))
 			{
 				return;
 			}
 			Player p = (Player) e.getEntity();
-			Player dp = (Player) e.getDamager();
-			
-			//In party so dont update health
-        	if(AbilityUtils.partyCheck(p, dp))
-        	{
-        		e.setDamage(0);
-        		e.setCancelled(true);
-        		return;
-        	}
+			if((e.getDamager() instanceof Player))
+			{
+				Player dp = (Player) e.getDamager();
+				
+				//In party so dont update health
+	        	if(AbilityUtils.partyCheck(p, dp))
+	        	{
+	        		e.setDamage(0);
+	        		e.setCancelled(true);
+	        		return;
+	        	}	
+			}
         	
-        	if(AbilityUtils.explosivesEntities.containsKey(dp))
+        	if(AbilityUtils.explosivesEntities.containsKey(e.getDamager()))
         	{
     			ScoreboardHandler.updateHealth((Player)e.getEntity(), 0, 
-    					AbilityUtils.explosivesEntities.get(dp));
+    					AbilityUtils.explosivesEntities.get(e.getDamager()));
     			return;
         	}
 

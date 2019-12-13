@@ -24,7 +24,6 @@ public class BackFlipAbility implements Ability , Listener{
 	private static ArrayList<UUID> backflipping  = new ArrayList<>();
 	double forwardVelocity = -10 / 10D;;
 	double upwardVelocity = 8 / 10D;
-
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub

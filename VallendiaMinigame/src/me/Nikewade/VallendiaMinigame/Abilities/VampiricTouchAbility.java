@@ -91,6 +91,10 @@ public class VampiricTouchAbility implements Ability, Listener{
     			{
     				return;
     			}
+    			if(e.isCancelled())
+    			{
+    				return;
+    			}
         		
         		double lowerPercent =  Utils.getPercentHigherOrLower(Percent, false);
         		double damage = e.getDamage();

@@ -121,6 +121,7 @@ public class BlurAbility implements Ability, Listener{
             			if(random <= 25)
             			{
                 			e.getEntity().getWorld().playSound(e.getEntity().getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 2, (float) 1.6);
+                			e.setDamage(0);
             				e.setCancelled(true);
             			}	
         			}

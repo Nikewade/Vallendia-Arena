@@ -61,7 +61,7 @@ public class FlyAbility implements Ability, Listener{
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack(Material.FEATHER);
+		return new ItemStack(Material.ELYTRA);
 	}
 
 	@Override

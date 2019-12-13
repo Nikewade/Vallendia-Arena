@@ -78,13 +78,15 @@ import me.Nikewade.VallendiaMinigame.Events.ProjectileEvents;
 import me.Nikewade.VallendiaMinigame.Events.SignEvents;
 import me.Nikewade.VallendiaMinigame.Graphics.GuiHandler;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
+import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Kits.KitManager;
 import me.Nikewade.VallendiaMinigame.Levels.LevelManager;
+import me.Nikewade.VallendiaMinigame.Saves.FireLocations;
+import me.Nikewade.VallendiaMinigame.Saves.SpawningHandler;
 import me.Nikewade.VallendiaMinigame.Shop.GuiShopHandler;
 import me.Nikewade.VallendiaMinigame.Shop.IO;
 import me.Nikewade.VallendiaMinigame.Shop.PointsManager;
 import me.Nikewade.VallendiaMinigame.Shop.ShopHandler;
-import me.Nikewade.VallendiaMinigame.Spawning.SpawningHandler;
 import me.Nikewade.VallendiaMinigame.Upgrades.RegenUpgrade;
 import me.Nikewade.VallendiaMinigame.Upgrades.UpgradeManager;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
@@ -114,6 +116,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	   public LevelManager levelmanager;
 	   public AltitudeChecker altchecker;
 	   public SpawningHandler spawnhandler;
+	   public FireLocations firelocations;
 	   public ProtocolManager protocolManager;
 	   public WorldGuardPlugin worldguard;
 	   public AbilityCooldown cooldowns;
@@ -172,10 +175,12 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.effectmanager = new EffectManager(this);
 		   this.altchecker = new AltitudeChecker(this);
 		   this.spawnhandler = new SpawningHandler(this);
+		   this.firelocations = new FireLocations(this);
 		   this.protocolManager = ProtocolLibrary.getProtocolManager();
 		   this.worldguard = getWorldGuard();
 	       this.fallingblocks = new FallingBlocksManager(this);
 	       this.ghost = new GhostManager(this);
+	       
 	       
 	       if (getServer().getPluginManager().getPlugin("Parties") != null) {
 	    	    if (getServer().getPluginManager().getPlugin("Parties").isEnabled()) {
@@ -259,7 +264,6 @@ public class VallendiaMinigame extends JavaPlugin{
 	         this.sb.runNameTagUpdater();
 	         this.sb.runSidebarUpdater();
 	         ShopHandler.loadShop();
-		   
 		   
 		   
 	   }

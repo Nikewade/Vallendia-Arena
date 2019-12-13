@@ -2,9 +2,11 @@ package me.Nikewade.VallendiaMinigame.Events;
 
 import java.util.UUID;
 
+import org.bukkit.entity.Creature;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
@@ -57,5 +59,15 @@ public class PlayerKillEvents implements Listener {
 	         killer.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
 	      }
 
+	   }
+	   
+	   
+	   @EventHandler
+	   public void killMobEvent(EntityDeathEvent e)
+	   {
+		   if(e.getEntity() instanceof Creature)
+		   {
+			   e.setDroppedExp(0);
+		   }
 	   }
 	}

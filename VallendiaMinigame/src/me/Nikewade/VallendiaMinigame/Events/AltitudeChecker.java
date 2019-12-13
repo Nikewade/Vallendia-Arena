@@ -40,7 +40,7 @@ public class AltitudeChecker {
     	    		   	LocalPlayer localPlayer = Main.worldguard.wrapPlayer(p);
     	    		   	if(!arset.allows((StateFlag) VallendiaMinigame.checkAltitude, localPlayer))
     	    		   	{
-    	    		   		return;
+    	    		   		continue;
     	    		   	}
             			if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude"))
             			{

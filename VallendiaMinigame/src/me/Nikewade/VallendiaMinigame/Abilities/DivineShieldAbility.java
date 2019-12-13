@@ -12,6 +12,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -129,6 +130,7 @@ public class DivineShieldAbility implements Ability, Listener{
         			se.yOffset = -0.8;
         			se.speed = (float) 0;
         			se.start();
+        			e.setDamage(0);
         			e.setCancelled(true);
         		}
         	}
@@ -138,6 +140,7 @@ public class DivineShieldAbility implements Ability, Listener{
         	{
         		if(e.getDamager() instanceof Player && enabled.contains(e.getDamager()))
         		{
+        			e.setDamage(0);
         			e.setCancelled(true);
         		}
         		

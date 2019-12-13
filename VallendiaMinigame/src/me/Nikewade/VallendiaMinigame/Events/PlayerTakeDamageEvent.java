@@ -42,6 +42,7 @@ public class PlayerTakeDamageEvent implements Listener{
 			//In party so dont update health
         	if(AbilityUtils.partyCheck(p, dp))
         	{
+        		e.setDamage(0);
         		e.setCancelled(true);
         		return;
         	}

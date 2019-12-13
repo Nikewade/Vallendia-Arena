@@ -38,7 +38,7 @@ public class FlashbangAbility implements Ability{
         // TODO Auto-generated method stub
         return Arrays.asList("Throw a flashbang projectile",
         		"that explodes when landing,",
-                "blinding nearby players within",
+                "blinding nearby enemies within",
                 + range + " blocks for " + blindTime + " seconds.");
     }
  

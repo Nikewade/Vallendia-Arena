@@ -26,6 +26,7 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Lightning Bolt"));
 		abilities.add(Main.abilitymanager.getAbility("Disintegrate"));
 		abilities.add(Main.abilitymanager.getAbility("Fly"));
+		abilities.add(Main.abilitymanager.getAbility("Swap"));
 	}
 
 	@Override

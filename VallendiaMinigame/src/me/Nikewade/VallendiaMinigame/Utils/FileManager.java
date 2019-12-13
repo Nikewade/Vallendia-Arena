@@ -9,6 +9,7 @@ public class FileManager {
 	   private final VallendiaMinigame pl;
 	   private File UsersFile;
 	   private File SpawnFile;
+	   private File FireLocationsFile;
 
 
 	   public FileManager(VallendiaMinigame instance) {
@@ -24,6 +25,11 @@ public class FileManager {
 	      if(!this.SpawnFile.exists()) {
 	         this.SpawnFile.mkdirs();
 	      }
+	      
+	      FireLocationsFile = new File(this.pl.getDataFolder().getAbsolutePath(), "FireLocations");
+	      if(!FireLocationsFile.exists()) {
+	         FireLocationsFile.mkdirs();
+	      }
 
 	   }
 
@@ -33,5 +39,9 @@ public class FileManager {
 	   
 	   public File getSpawnFile() {
 		      return this.SpawnFile;
+		   }
+	   
+	   public File getFireLocationsFile() {
+		      return FireLocationsFile;
 		   }
 	}

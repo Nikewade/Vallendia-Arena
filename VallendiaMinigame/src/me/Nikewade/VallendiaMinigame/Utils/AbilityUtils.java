@@ -1,5 +1,6 @@
 package me.Nikewade.VallendiaMinigame.Utils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -28,10 +30,12 @@ import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -50,6 +54,7 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.FlyAbility;
 import me.Nikewade.VallendiaMinigame.Events.PlayerItemEvents;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
+import me.Nikewade.VallendiaMinigame.Saves.FireLocations;
 import net.minecraft.server.v1_12_R1.Explosion;
 import net.minecraft.server.v1_12_R1.PacketPlayOutEntityDestroy;
 
@@ -71,6 +76,15 @@ public class AbilityUtils implements Listener {
 	//If the player already has a potion effect, this will add the existing effects duration to the new one.
 	public static void addPotionDuration(LivingEntity e, PotionEffectType p, int amplifier, int duration )
 	{
+		//If blindness, remove target if its a mob. I cancel targeting below in the events if they have the blond effect
+		if(e instanceof Creature && p == PotionEffectType.BLINDNESS)
+		{
+			Creature mob = (Creature) e;
+			if(mob.getTarget() != null)
+			{
+				mob.setTarget(null);
+			}
+		}
 		if(!e.hasPotionEffect(p))
 		{
 			e.addPotionEffect(new PotionEffect(p, duration, amplifier));
@@ -280,6 +294,59 @@ public class AbilityUtils implements Listener {
 	    }
 	
 	
+	public static LivingEntity getTargetBoth(Player p, int range)
+	{
+		
+		if(p.hasPotionEffect(PotionEffectType.BLINDNESS))
+		{
+			p.sendMessage(Utils.Colorate("&8&l You have to be able to see to do that!"));
+			return null;
+		}
+	    if (p.getLocation().getBlockY() > p.getLocation().getWorld().getMaxHeight()) {
+	        return null;
+	      }
+	      try
+	      {
+	       List lineOfSight = p.getLineOfSight(AbilityUtils.transparentBlocks, range);
+	      }
+	      catch (IllegalStateException e)
+	      {
+	        return null;
+	      }
+	      Set<Location> locs = new HashSet();
+	      for (Block block : p.getLineOfSight(AbilityUtils.transparentBlocks, range))
+	      {
+	        locs.add(block.getRelative(BlockFace.UP).getLocation());
+	        locs.add(block.getLocation());
+	        locs.add(block.getRelative(BlockFace.DOWN).getLocation());
+	      }
+	      List<Block> lineOfSight = null;
+	      List<Entity> nearbyEntities = p.getNearbyEntities(range, range, range);
+	      for (Entity entity : nearbyEntities) {
+	        if (((entity instanceof LivingEntity)) && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
+	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)) {
+	        	
+	  	        if(entity instanceof Player)
+		        {
+		        	Player player = (Player) entity;
+		        	
+					if(!(player.getGameMode() == GameMode.SURVIVAL) && !(player.getGameMode() == GameMode.ADVENTURE))
+		        	{
+		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
+			            return null;
+		        	}
+		        }
+	        	
+	          if ((!(entity instanceof Player)) || (p.canSee((Player)entity))) {
+	            return (LivingEntity)entity;
+	          }
+	        }
+	      }
+	      p.sendMessage(Utils.Colorate("&8&l Target not found."));
+	      return null;
+	    }
+	
+	
 	
 	
 	public static List<Block> getLine(Player p, int range)
@@ -378,6 +445,32 @@ public class AbilityUtils implements Listener {
 			
 		}
 	
+		
+		
+		
+		public static Collection<Entity> getgAoeTargetsBoth(Player originplayer, Location loc, double Radiusx, double Radiusy, double Radiusz)
+		{
+			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
+			for(Entity entity : loc.getWorld().getNearbyEntities(loc, Radiusx, Radiusy, Radiusz))
+			{
+				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand))
+				{
+					if(entity instanceof Player)
+					{
+						Player entityplayer = (Player) entity;
+						
+						if(!(entityplayer.getGameMode() == GameMode.SURVIVAL) && !(entityplayer.getGameMode() == GameMode.ADVENTURE))
+						{
+							continue;
+						}
+					}
+					nearbyEntities.add(entity);
+					continue;
+				}
+			}
+			return nearbyEntities;
+			
+		}
 	
 	
 	
@@ -582,7 +675,11 @@ public class AbilityUtils implements Listener {
             	        for (Block b : new ArrayList<Block>(e.blockList()))
                 		{
                 			
-                			if((b.getType() == Material.TORCH) || (b.getType() == Material.REDSTONE_TORCH_ON) || (b.getType() == Material.REDSTONE_TORCH_OFF) || (b.getType() == Material.BANNER)|| (b.getType() == Material.STANDING_BANNER)|| (b.getType() == Material.WALL_BANNER) || (b.getType() == Material.FLOWER_POT) || (b.getType() == Material.ITEM_FRAME) || (b.getType() == Material.PAINTING))
+                			if((b.getType() == Material.TORCH) || (b.getType() == Material.REDSTONE_TORCH_ON) || 
+                			(b.getType() == Material.REDSTONE_TORCH_OFF) || (b.getType() == Material.BANNER)||
+                			(b.getType() == Material.STANDING_BANNER)|| (b.getType() == Material.WALL_BANNER) || 
+                			(b.getType() == Material.FLOWER_POT) || (b.getType() == Material.ITEM_FRAME) || 
+                			(b.getType() == Material.PAINTING) || FireLocations.locations.contains(b.getLocation() + ".yml"))
                 			{ 
                 				e.blockList().remove(b);
                 				continue;
@@ -671,6 +768,22 @@ public class AbilityUtils implements Listener {
         				AbilityUtils.removeCast(e.getPlayer());
         				Language.sendDefaultMessage(e.getPlayer(), "You stop casting.");
         			}
+        			
+        			
+        			if(e.getPlayer().getGameMode() == GameMode.CREATIVE)
+        			{
+        				Block relative = e.getClickedBlock().getRelative(e.getBlockFace());
+        				String location = relative.getLocation().toString();
+        				if(relative.getType()==Material.FIRE && FireLocations.locations.contains(location + ".yml")) {
+    						File f = new File(VallendiaMinigame.getInstance().getFileManager().getFireLocationsFile().getAbsolutePath() + "/" + location + ".yml");
+    						if(f.exists())
+    						{
+    							f.delete();
+    							Language.sendVallendiaMessage(e.getPlayer(), "Fire location removed.");
+    						}
+        				}
+        			}
+        			
         		}
         	}
         	
@@ -682,6 +795,45 @@ public class AbilityUtils implements Listener {
         			arcProjectiles.get(e.getEntity()).run();
         		}
         	}
+        	
+        	@EventHandler
+        	public void onIgnite(BlockIgniteEvent e)
+        	{
+        		if(e.getIgnitingEntity() instanceof Player)
+        		{
+        			Player p = (Player) e.getIgnitingEntity();
+        			Material mainhand = p.getInventory().getItemInMainHand().getType();
+        			Material offhand = p.getInventory().getItemInOffHand().getType();
+        			Location loc = e.getBlock().getLocation();
+        			if(p.getGameMode() == GameMode.CREATIVE)
+        			{
+        				if(mainhand == Material.FLINT_AND_STEEL || offhand == Material.FLINT_AND_STEEL)
+        				{
+        					if(mainhand == Material.INK_SACK || offhand == Material.INK_SACK)
+        					{
+        						return;
+        					}
+            				VallendiaMinigame.getInstance().firelocations.createFile(loc.toString(), loc);
+            				FireLocations.locations.add(loc.toString() + ".yml");
+                			Language.sendVallendiaMessage(p, "Saved fire location.");		
+        				}
+        			}
+        		}
+        	}
+        	
+        	@EventHandler
+        	public void onTarget(EntityTargetEvent e)
+        	{
+        		if(e.getEntity() instanceof Creature)
+        		{
+        			Creature mob = (Creature) e.getEntity();
+        			if(mob.hasPotionEffect(PotionEffectType.BLINDNESS))
+        			{
+        				e.setCancelled(true);
+        			}
+        		}
+        	}
+        	
             
  
         };
@@ -755,23 +907,11 @@ public class AbilityUtils implements Listener {
 		ball.setSilent(true);
 		ball.setVelocity(ball.getVelocity().multiply(velocity));
 		arcProjectiles.put(ball, run);
-			
-			BukkitTask task = new BukkitRunnable() {
-	            @Override
-	            public void run() {
-	            	if(ball.isDead())
-	            	{
-	            		this.cancel();
-	            	}
-
-        			for(Player p : Bukkit.getServer().getOnlinePlayers()) {
-        			    PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(ball.getEntityId());
-        			    ((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
-        			}
-	            	
-	            }
-	        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
-	        
+		
+		for(Player p : Bukkit.getServer().getOnlinePlayers()) {
+		    PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(ball.getEntityId());
+		    ((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
+		}
 			effect.setEntity(ball);
 			effect.start();
     }

@@ -1,4 +1,4 @@
-package me.Nikewade.VallendiaMinigame.Spawning;
+package me.Nikewade.VallendiaMinigame.Saves;
 
 import java.io.File;
 import java.io.IOException;

@@ -56,8 +56,6 @@ public class PillageAbility implements Ability, Listener{
 	
 	
 	
-    public static Listener getListener() {
-        return new Listener() {
         	
         	@EventHandler
         	public void onDamage(EntityDamageByEntityEvent e)
@@ -121,8 +119,6 @@ public class PillageAbility implements Ability, Listener{
         	}
         	
         	
-        };
-    }
     
     
     public static void removeItems()

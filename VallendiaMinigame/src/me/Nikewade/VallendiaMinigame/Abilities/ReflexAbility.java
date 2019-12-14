@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
@@ -26,14 +25,14 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import net.minecraft.server.v1_12_R1.EnumItemSlot;
 import net.minecraft.server.v1_12_R1.PacketPlayOutEntityEquipment;
 
-public class BlurAbility implements Ability, Listener{
+public class ReflexAbility implements Ability, Listener{
 	private static ArrayList<Player> enabled = new ArrayList<>();
-	int enabledTime = 10;
+	int enabledTime = 1;
 
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Blur";
+		return "Reflex";
 	}
 
 	@Override
@@ -45,15 +44,14 @@ public class BlurAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("For " + enabledTime + " seconds, your body becomes",
-				"blurred, shifting and wavering. All melee or ranged",
-				"attacks done to you have a 25% chance to miss.");
+		return Arrays.asList("You quickly dodge out of the way of any harm",
+				"becoming completly invincible for " + enabledTime + " second.");
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack(Material.STAINED_GLASS);
+		return new ItemStack(Material.LEATHER_LEGGINGS);
 	}
 
 	@Override
@@ -65,7 +63,7 @@ public class BlurAbility implements Ability, Listener{
 		VallendiaMinigame main = VallendiaMinigame.getInstance();
 		enabled.add(p);
 		main.ghost.addGhost(p);
-		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 2, (float) 1.6);
+		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.6);
 		
         
 		new BukkitRunnable() {
@@ -85,8 +83,7 @@ public class BlurAbility implements Ability, Listener{
         		{
         			enabled.remove(p);
         			main.ghost.removeGhost(p);
-        			Language.sendAbilityUseMessage(p, "Disabled", "Blur");
-        			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 2, (float) 0.6);
+        			Language.sendAbilityUseMessage(p, "Disabled", "Reflex");
         			Utils.showArmor(p);
         			
         	        PacketPlayOutEntityEquipment helmetPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.HEAD, CraftItemStack.asNMSCopy(p.getInventory().getHelmet()));
@@ -105,21 +102,15 @@ public class BlurAbility implements Ability, Listener{
 	}
 	
 	
+	
+        	
         	@EventHandler
-        	public void onDamage(EntityDamageByEntityEvent e)
+        	public void onDamage(EntityDamageEvent e)
         	{
         		if(e.getEntity() instanceof Player && enabled.contains(e.getEntity()))
         		{
-        			if(e.getCause() == DamageCause.ENTITY_ATTACK || e.getCause() == DamageCause.PROJECTILE || e.getCause() == DamageCause.ENTITY_EXPLOSION)
-        			{
-            			int random = Utils.randomNumber(1, 100);
-            			if(random <= 25)
-            			{
-                			e.getEntity().getWorld().playSound(e.getEntity().getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 2, (float) 1.6);
                 			e.setDamage(0);
             				e.setCancelled(true);
-            			}	
-        			}
         		}
         	}
         	
@@ -133,14 +124,12 @@ public class BlurAbility implements Ability, Listener{
         			VallendiaMinigame.getInstance().ghost.removeGhost(p);
         		}
         	}
+        	
 
 	@Override
 	public void DisableAbility(Player p) {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-	
 
 }

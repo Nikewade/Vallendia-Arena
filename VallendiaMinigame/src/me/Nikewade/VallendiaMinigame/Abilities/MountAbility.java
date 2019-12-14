@@ -69,7 +69,7 @@ public class MountAbility implements Ability, Listener{
 			int health = 20;
 			double jump = 0.5;
 			double speed = 0.20;
-			ItemStack armor = new ItemStack(Material.GOLD_BARDING);
+			ItemStack armor = new ItemStack(Material.IRON_BARDING);
 			int enchantAmount = 0;
 			double maxJump = 1.5;
 			double maxSpeed = 0.50;
@@ -92,7 +92,7 @@ public class MountAbility implements Ability, Listener{
 			
 			if(level >= 5)
 			{
-				armor = new ItemStack(Material.IRON_BARDING);
+				armor = new ItemStack(Material.GOLD_BARDING);
 			}
 			
 			if(level >= 10)
@@ -152,9 +152,6 @@ public class MountAbility implements Ability, Listener{
 		}
 	}
 	
-    public static Listener getListener() {
-        return new Listener() {
-        	
         	@EventHandler
         	public void unMount(VehicleExitEvent e)
         	{
@@ -212,8 +209,6 @@ public class MountAbility implements Ability, Listener{
         			e.getPlayer().leaveVehicle();
         		}
         	}
-        };
-    }
 
 	@Override
 	public void DisableAbility(Player p) {

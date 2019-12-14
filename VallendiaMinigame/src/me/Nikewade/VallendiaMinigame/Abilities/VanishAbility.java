@@ -28,7 +28,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
-public class VanishAbility implements Ability{
+public class VanishAbility implements Ability, Listener{
 	private static ArrayList<Player> enabled = new ArrayList<>();
 	private static HashMap<Player, BukkitTask> tasks = new HashMap<>();
 	private static HashMap<Player, BukkitTask> countDown = new HashMap<>();
@@ -152,8 +152,6 @@ public class VanishAbility implements Ability{
 	}
 	
 	
-    public static Listener getListener() {
-        return new Listener() {
         	@EventHandler
         	public void onTarget(EntityTargetLivingEntityEvent e)
         	{
@@ -201,8 +199,6 @@ public class VanishAbility implements Ability{
             		unVanish((Player)e.getEntity());	
         		}
         	}
-        };
-    }
     
     private static void unVanish(Player p)
     {

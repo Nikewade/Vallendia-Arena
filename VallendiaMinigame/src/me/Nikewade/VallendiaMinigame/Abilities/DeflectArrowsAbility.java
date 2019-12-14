@@ -49,8 +49,6 @@ public class DeflectArrowsAbility implements Ability, Listener{
         return false;
     }
    
-    public static Listener getListener() {
-        return new Listener() {
             @EventHandler
             public void onDamage(EntityDamageByEntityEvent e) {
                 if (!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Arrow)) {
@@ -68,8 +66,6 @@ public class DeflectArrowsAbility implements Ability, Listener{
                     a.remove();
                 }
             }
-        };
-    }
 
 	@Override
 	public void DisableAbility(Player p) {

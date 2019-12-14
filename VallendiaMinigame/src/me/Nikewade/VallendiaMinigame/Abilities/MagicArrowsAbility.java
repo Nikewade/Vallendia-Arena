@@ -84,12 +84,6 @@ public class MagicArrowsAbility implements Ability, Listener{
 
 	
 	
-	
-    public static Listener getListener() {
-        return new Listener() {
-        	
-        	
-        	
         	
             @EventHandler
             public void onShootBow(EntityShootBowEvent e){
@@ -143,9 +137,6 @@ public class MagicArrowsAbility implements Ability, Listener{
 
          
             }
- 
-        };
-    }
     
     
     

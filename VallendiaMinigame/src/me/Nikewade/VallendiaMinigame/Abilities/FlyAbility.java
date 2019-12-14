@@ -203,10 +203,6 @@ public class FlyAbility implements Ability, Listener{
         }
 	}
 	
-	
-	
-    public static Listener getListener() {
-        return new Listener() {
         	
         	//Slow fall
         	@EventHandler
@@ -252,7 +248,5 @@ public class FlyAbility implements Ability, Listener{
         		}
         	}
         	
-        };
-    }
 
 }

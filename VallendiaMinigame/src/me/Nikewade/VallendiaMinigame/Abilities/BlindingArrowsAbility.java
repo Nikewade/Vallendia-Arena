@@ -58,13 +58,6 @@ public class BlindingArrowsAbility implements Ability, Listener {
 		return false;
 	}
 	
-	
-	
-    public static Listener getListener() {
-        return new Listener() {
-        	
-        	
-        	
         	
             @EventHandler
             public void onShootBow(EntityShootBowEvent e){
@@ -128,11 +121,6 @@ public class BlindingArrowsAbility implements Ability, Listener {
             
             
             
-            
-            
-        };
-    }
-
 	@Override
 	public void DisableAbility(Player p) {
 		// TODO Auto-generated method stub

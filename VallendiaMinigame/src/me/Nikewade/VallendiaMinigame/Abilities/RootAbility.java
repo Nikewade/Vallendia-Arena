@@ -87,12 +87,6 @@ public class RootAbility implements Ability{
 	}
 	
 	
-	
-	   public static Listener getListener() {
-	        return new Listener() {
-	        	
-	        	
-	        	
 	        	
 	            @EventHandler
 	            public void onPlayerToggleSneak(PlayerToggleSneakEvent e)
@@ -358,12 +352,6 @@ public class RootAbility implements Ability{
 	            
 	            
 	            
-	            
-	            
-	            
-	        };
-	    }
-	
 	   public static void removeLists(Player p)
 	   {
 		   if(enabled.contains(p))

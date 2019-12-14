@@ -53,12 +53,6 @@ public class BackstabAbility implements Ability , Listener {
 	}
 	
 	
-    public static Listener getListener() {
-        return new Listener() {
-        	
-        	
-        	
-        	
             	@EventHandler
             	public void onDamage(EntityDamageByEntityEvent e)
             	{
@@ -85,11 +79,6 @@ public class BackstabAbility implements Ability , Listener {
 
            
             
-            
-            
-            
-        };
-    }
 
 	@Override
 	public void DisableAbility(Player p) {

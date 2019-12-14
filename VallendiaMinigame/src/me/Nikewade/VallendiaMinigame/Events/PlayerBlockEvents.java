@@ -90,8 +90,9 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 							return;
 						}
 						Utils.regenBlock(block, 300);
+						Block b = block;
 						block.breakNaturally();
-						block.setType(Material.CROPS);
+						block.setType(Material.CROPS);	
 						e.setExpToDrop(0);
 						e.setCancelled(true);
 						return;

@@ -72,8 +72,8 @@ public class DivineShieldAbility implements Ability, Listener{
 		se.infinite();
 		se.particle = Particle.END_ROD;
 		se.color = org.bukkit.Color.YELLOW;
-		se.radius = 0.9;
-		se.particles = 2;
+		se.radius = 1;
+		se.particles = 1;
 		se.yOffset = -0.8;
 		se.speed = (float) 0;
 		se.start();
@@ -111,9 +111,6 @@ public class DivineShieldAbility implements Ability, Listener{
 	}
 	
 	
-	
-    public static Listener getListener() {
-        return new Listener() {
         	@EventHandler
         	public void onDamage(EntityDamageEvent e)
         	{
@@ -151,8 +148,6 @@ public class DivineShieldAbility implements Ability, Listener{
         			}
         		}
         	}
-        };
-    }
 
 	@Override
 	public void DisableAbility(Player p) {

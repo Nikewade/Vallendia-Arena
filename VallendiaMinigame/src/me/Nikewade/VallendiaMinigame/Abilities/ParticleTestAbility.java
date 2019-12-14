@@ -91,12 +91,6 @@ public class ParticleTestAbility implements Ability, Listener{
 		return false;
 	}
 	
-    public static Listener getListener() {
-        return new Listener() {
-        
-
-        };
-    }
 
 	@Override
 	public void DisableAbility(Player p) {

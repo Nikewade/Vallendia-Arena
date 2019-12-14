@@ -88,9 +88,6 @@ public class ExplosiveArrowAbility implements Ability, Listener{
 	
 	
 	
-	
-    public static Listener getListener() {
-        return new Listener() {
             @EventHandler
             public void onProjectileHit(ProjectileHitEvent e) {
                  Entity ent = e.getEntity();
@@ -156,13 +153,6 @@ public class ExplosiveArrowAbility implements Ability, Listener{
             }
             
             
-            
-            
-            
-            
-        };
-    }
-
 	@Override
 	public void DisableAbility(Player p) {
 		// TODO Auto-generated method stub

@@ -75,13 +75,6 @@ public class SneakAbility implements Ability , Listener {
 	
 	
 	
-	
-    public static Listener getListener() {
-        return new Listener() {
-        	
-        	
-        	
-        	
             @EventHandler
             public void onPlayerToggleSneak(PlayerToggleSneakEvent e)
             {
@@ -146,14 +139,6 @@ public class SneakAbility implements Ability , Listener {
             }
 
 
-            
-            
-            
-            
-            
-            
-        };
-    }
     
     
     public static void onDie(Player p)

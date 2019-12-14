@@ -76,12 +76,6 @@ public class BackFlipAbility implements Ability , Listener{
 	
 	
 	
-    public static Listener getListener() {
-        return new Listener() {
-        	
-        	
-        	
-        	
             @EventHandler
             public void onDamage(EntityDamageEvent e) {
             	if(!(e.getEntity() instanceof Player))
@@ -108,10 +102,6 @@ public class BackFlipAbility implements Ability , Listener{
             
             
             
-            
-            
-        };
-    }
 
 	@Override
 	public void DisableAbility(Player p) {

@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -37,6 +38,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.ExplosiveArrowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.FlyAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.GrapplingHookAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LeapAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.LevitateAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MagicArrowsAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MomentumAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.MountAbility;
@@ -213,34 +215,14 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);
 		   
 		   //Ability Listeners
-		   Bukkit.getPluginManager().registerEvents(DeflectArrowsAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(BackFlipAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(LeapAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(ClimbAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(SneakAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(BackstabAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(GrapplingHookAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(TheHighGroundAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(BlindingArrowsAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(PoisonArrowsAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(SickeningArrowsAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(WeakeningArrowsAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(SlowingArrowsAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(MagicArrowsAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(RootAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(BullRushAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(MomentumAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(ExplosiveArrowAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(PillageAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(PickPocketAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(MountAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(BlurAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(DivineShieldAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(VanishAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(VampiricTouchAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(SurvivalistAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(ParticleTestAbility.getListener(), this);
-		   Bukkit.getPluginManager().registerEvents(FlyAbility.getListener(), this);
+		   
+		   for(Ability ability : this.abilitymanager.getAbilities())
+		   {
+			   if(ability instanceof Listener)
+			   {
+				   Bukkit.getPluginManager().registerEvents((Listener) ability, this);
+			   }
+		   }
 		   
 		   
 		   //Commands

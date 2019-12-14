@@ -21,4 +21,5 @@ public interface Ability {
 	
 	public void DisableAbility(Player p);
 	
+	
 }

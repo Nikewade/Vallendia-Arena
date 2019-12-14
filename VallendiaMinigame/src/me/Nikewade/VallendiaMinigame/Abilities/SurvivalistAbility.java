@@ -60,10 +60,6 @@ public class SurvivalistAbility implements Ability, Listener{
 	
 	
 	
-    public static Listener getListener() {
-        return new Listener() {
-        	
-        	
         	@EventHandler
         	public void onDeath(EntityDeathEvent e)
         	{
@@ -138,8 +134,6 @@ public class SurvivalistAbility implements Ability, Listener{
         		
         	}
         	
-        };
-    }
     
 	public static void removeEnabled(LivingEntity p)
 	{

@@ -122,7 +122,7 @@ public class AbilityUtils implements Listener {
 	
 	public static boolean partyCheck(Player p1, Player p2)
 	{
-		if(!getPlayerParty(p1).isEmpty() || !getPlayerParty(p2).isEmpty())
+		if(!getPlayerParty(p1).isEmpty() && !getPlayerParty(p2).isEmpty())
 		{
 			if(getPlayerParty(p1).equalsIgnoreCase(getPlayerParty(p2)))
 			{
@@ -203,18 +203,24 @@ public class AbilityUtils implements Listener {
 	      for (Entity entity : nearbyEntities) {
 	        if (((entity instanceof LivingEntity)) && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
 	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)) {
-	        	
+	        	//Can damage
+	        	if(!Utils.canDamage(p, entity))
+	        	{
+	      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
+		            return null;
+	        	}
 	  	        if(entity instanceof Player)
 		        {
 		        	Player player = (Player) entity;
 		        	
+		        	
 		        	//In party
-		        	if(partyCheck(player, p))
+		        	if(partyCheck(player, p) == true)
 		        	{
 		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
 			            return null;
 		        	}
-		        	
+
 					if(!(player.getGameMode() == GameMode.SURVIVAL) && !(player.getGameMode() == GameMode.ADVENTURE))
 		        	{
 		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
@@ -387,6 +393,11 @@ public class AbilityUtils implements Listener {
 			{
 				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand))
 				{
+		        	//Can damage
+		        	if(!Utils.canDamage(originplayer, entity))
+		        	{
+			            continue;
+		        	}
 					if(entity instanceof Player)
 					{
 						Player entityplayer = (Player) entity;
@@ -399,7 +410,7 @@ public class AbilityUtils implements Listener {
 			        	}
 						
 						if(!(entityplayer.getGameMode() == GameMode.SURVIVAL) && !(entityplayer.getGameMode() == GameMode.ADVENTURE))
-						{
+			        	{
 							continue;
 						}
 					}
@@ -734,7 +745,13 @@ public class AbilityUtils implements Listener {
         		if(handleDamage.containsKey(e.getEntity()))
         		{
         			e.setDamage(0);
-        			e.setDamage(DamageModifier.ARMOR, handleDamage.get(e.getEntity()));
+        			if(e.getEntity() instanceof Player)
+        			{
+            			e.setDamage(DamageModifier.ARMOR, handleDamage.get(e.getEntity()));	
+        			}else
+        			{
+            			e.setDamage(handleDamage.get(e.getEntity()));
+        			}
         			handleDamage.remove(e.getEntity());
         		}
         	}

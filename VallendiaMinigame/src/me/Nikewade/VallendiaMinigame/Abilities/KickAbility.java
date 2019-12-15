@@ -58,6 +58,7 @@ public class KickAbility implements Ability{
  	 		AbilityUtils.damageEntity(target, p, 2); 
  	 		AbilityUtils.silenceAbilities(target, time, "Kick");
          	Language.sendAbilityUseMessage(target, "Your abilities are silenced.", "Kick");
+         	
  	 		
  	 		
  			return true;

@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,6 +24,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -41,11 +43,6 @@ import com.comphenix.protocol.wrappers.EnumWrappers.WorldBorderAction;
 import de.slikey.effectlib.Effect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import net.minecraft.server.v1_12_R1.EnumItemSlot;
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
-import net.minecraft.server.v1_12_R1.NBTTagDouble;
-import net.minecraft.server.v1_12_R1.NBTTagInt;
-import net.minecraft.server.v1_12_R1.NBTTagList;
-import net.minecraft.server.v1_12_R1.NBTTagString;
 import net.minecraft.server.v1_12_R1.PacketPlayOutEntityEquipment;
 
 public class Utils {
@@ -409,6 +406,13 @@ public class Utils {
 	    public static int randomNumberBetween(int lowestAmount, int maxAmount)
 	    {
 	    	return ThreadLocalRandom.current().nextInt(lowestAmount, maxAmount + 1);
+	    }
+	    
+	    @SuppressWarnings("deprecation")
+	    public static boolean canDamage(Entity attacker, Entity damaged) {
+	        EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(attacker, damaged, DamageCause.ENTITY_ATTACK, 1.0);
+	        Bukkit.getPluginManager().callEvent(event);
+	        return !event.isCancelled();
 	    }
 	   
 

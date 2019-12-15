@@ -18,6 +18,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 
 public class PlayerCustomFoodCookEvents implements Listener{
 	VallendiaMinigame Main;
@@ -50,6 +51,10 @@ public class PlayerCustomFoodCookEvents implements Listener{
 			ItemStack offHand = p.getInventory().getItemInOffHand();
 			if(b.getType() == Material.FURNACE)
 			{
+				if(!food.containsKey(mainHand.getType()) && !food.containsKey(offHand.getType()))
+				{
+					Language.sendDefaultMessage(p, "Right click me with food in your hand to cook!");
+				}
 				if(food.containsKey(mainHand.getType()) || food.containsKey(offHand.getType()))
 				{
 					if(food.containsKey(mainHand.getType()))

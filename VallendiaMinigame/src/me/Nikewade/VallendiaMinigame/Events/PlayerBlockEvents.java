@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -76,7 +77,7 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 					
 					if(block.getType() == Material.CROPS && block.getData() == (byte) 7 || block.getType() == Material.BROWN_MUSHROOM ||
 						block.getType() == Material.RED_MUSHROOM || block.getType() == Material.CARROT ||
-						block.getType() == Material.POTATO || block.getType() == Material.NETHER_WARTS)
+						block.getType() == Material.POTATO || block.getType() == Material.NETHER_WARTS && block.getData() == (byte) 3)
 					{
 						if(block.getType() == Material.CROPS)
 						{
@@ -90,9 +91,15 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 							return;
 						}
 						Utils.regenBlock(block, 300);
-						Block b = block;
+						Material tempData = block.getState().getType();
 						block.breakNaturally();
-						block.setType(Material.CROPS);	
+						if(tempData == Material.NETHER_WARTS)
+						{
+							block.setType(Material.NETHER_WARTS);
+						}else
+						{
+							block.setType(Material.CROPS);	
+						}	
 						e.setExpToDrop(0);
 						e.setCancelled(true);
 						return;
@@ -154,7 +161,7 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 			}
 		    if(e.getAction() == Action.RIGHT_CLICK_BLOCK) 
 		    {
-		        if(e.getClickedBlock().getState() instanceof InventoryHolder)
+		        if(e.getClickedBlock().getState() instanceof InventoryHolder || e.getClickedBlock().getType() == Material.ENDER_CHEST)
 		        {
 		            e.setCancelled(true);
 		        }   
@@ -179,6 +186,16 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 			e.setCancelled(true);
 		}
 	}
+	
+	
+    @EventHandler
+    public void onVinesGrow(BlockGrowEvent e)
+    {
+        if(e.getBlock().getType() == Material.CROPS || e.getBlock().getType() == Material.NETHER_WARTS)
+        {
+            e.setCancelled(true);
+        }
+    }
 	
 	
 }

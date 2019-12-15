@@ -106,6 +106,7 @@ public class FlyAbility implements Ability, Listener{
         		         FlyAbility.timer.remove(p);
         		         effect.get(p).cancel();
         		         effect.remove(p);
+        			     countDown.get(p).cancel();
         		         countDown.remove(p);
         		         
         		         //Start falling
@@ -146,6 +147,7 @@ public class FlyAbility implements Ability, Listener{
               		         FlyAbility.timer.remove(p);
             		         effect.get(p).cancel();
             		         effect.remove(p);
+            			      countDown.get(p).cancel();
             		         countDown.remove(p);
         	                }
         				
@@ -194,12 +196,14 @@ public class FlyAbility implements Ability, Listener{
         {
             enabled.remove(p);
             ep.getHandle().setFlag(7, false);
-            tasks.remove(p);
             FlyAbility.timer.get(p).cancel();
             FlyAbility.timer.remove(p);	
 	        effect.get(p).cancel();
 	        effect.remove(p);
+	        countDown.get(p).cancel();
 	        countDown.remove(p);
+	        tasks.get(p).cancel();
+            tasks.remove(p);
         }
 	}
 	

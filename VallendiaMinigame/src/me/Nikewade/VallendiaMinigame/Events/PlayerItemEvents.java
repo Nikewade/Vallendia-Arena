@@ -64,6 +64,10 @@ public class PlayerItemEvents implements Listener {
 	    if (a == Action.RIGHT_CLICK_AIR || a == Action.RIGHT_CLICK_BLOCK)
 	    {
 		    Player p = e.getPlayer();
+			if(AbilityUtils.isStunned(p))
+			{
+				return;
+			}
 		    ItemStack item = p.getInventory().getItemInMainHand();
 		    Material itemtype = item.getType();
 	    	if(itemtype != Material.AIR && item.getItemMeta().hasDisplayName())
@@ -257,14 +261,15 @@ public class PlayerItemEvents implements Listener {
 				e.setCancelled(true);
 			}
 			
-			//Moving the nether star with number key
-			if(e.getAction() == InventoryAction.HOTBAR_SWAP || e.getAction() == InventoryAction.HOTBAR_MOVE_AND_READD)
-			{
-				if(e.getHotbarButton() == 8)
-				{
-					e.setCancelled(true);
-				}
-			}
+			
+			//Stops moving stuff with number keys
+			if (e.getAction().name().contains("HOTBAR")) {
+                item = e.getView().getBottomInventory().getItem(e.getHotbarButton());
+            } else {
+                item = e.getCurrentItem();
+            }
+			
+			itemtype = item.getType();
 			
 			
 			if (itemtype == Material.NETHER_STAR && itemname != null) {

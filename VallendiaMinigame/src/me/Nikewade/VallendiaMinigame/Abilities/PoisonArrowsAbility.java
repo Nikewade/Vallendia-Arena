@@ -118,7 +118,7 @@ public class PoisonArrowsAbility implements Ability, Listener {
                 			return;
                 		}	
         			}
-        			AbilityUtils.addPotionDuration(entity, PotionEffectType.POISON, 0, duration * 20);
+        			AbilityUtils.addPotionDuration((LivingEntity)e.getEntity().getShooter(), entity, this.getName(), PotionEffectType.POISON, 0, duration * 20);
         			entity.getLocation().getWorld().playSound(entity.getLocation(), Sound.ENTITY_SPLASH_POTION_BREAK, 2, 1);
         		}
          

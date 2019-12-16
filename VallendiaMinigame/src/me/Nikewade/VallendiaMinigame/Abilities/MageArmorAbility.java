@@ -72,7 +72,7 @@ public class MageArmorAbility implements Ability{
             }
         }.runTaskLater(VallendiaMinigame.getInstance(), 60*20L);  
 		
-		AbilityUtils.addPotionDuration(p, PotionEffectType.DAMAGE_RESISTANCE, 1, 60*20);
+		AbilityUtils.addPotionDuration(p , p, this.getName(), PotionEffectType.DAMAGE_RESISTANCE, 1, 60*20);
 		p.sendMessage(Utils.Colorate("&8&l A magical shield surrounds you."));
 		return true;
 	}

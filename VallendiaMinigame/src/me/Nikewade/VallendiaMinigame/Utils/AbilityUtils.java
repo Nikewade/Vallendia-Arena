@@ -14,6 +14,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
@@ -28,6 +29,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockIgniteEvent;
@@ -37,8 +39,11 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerAnimationEvent;
+import org.bukkit.event.player.PlayerAnimationType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -70,11 +75,16 @@ public class AbilityUtils implements Listener {
 	private static HashMap<Projectile, Runnable> arcProjectiles = new HashMap<>();
 	private static HashMap<LivingEntity, Integer> handleDamage = new HashMap<>();
 	private static HashMap<Player, SphereEffect> castingParticles = new HashMap<>();
+	private static List<LivingEntity> stunned = new ArrayList<>();
+	private static HashMap<LivingEntity ,String> stunName = new HashMap<>();
+	private static HashMap<LivingEntity, BukkitTask> stunTimer = new HashMap<>();
+	private static HashMap<LivingEntity, BukkitTask> stunCountdown = new HashMap<>();
+	private static HashMap<LivingEntity ,SphereEffect> stunParticle = new HashMap<>();
 	static int castingHealthPercent = 70;
 	
 	
 	//If the player already has a potion effect, this will add the existing effects duration to the new one.
-	public static void addPotionDuration(LivingEntity e, PotionEffectType p, int amplifier, int duration )
+	public static void addPotionDuration(LivingEntity caster, LivingEntity e, String abilityname, PotionEffectType p, int amplifier, int duration )
 	{
 		//If blindness, remove target if its a mob. I cancel targeting below in the events if they have the blond effect
 		if(e instanceof Creature && p == PotionEffectType.BLINDNESS)
@@ -85,6 +95,20 @@ public class AbilityUtils implements Listener {
 				mob.setTarget(null);
 			}
 		}
+		
+		if(e instanceof Player && p == PotionEffectType.SLOW)
+		{
+    		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e, "Escape Artist"))
+    		{
+    			Player newP = (Player) e;
+    			Language.sendAbilityUseMessage((Player)caster, "The target evades your slow.", abilityname);
+    			Language.sendAbilityUseMessage((Player)e, "You break free from the slowness.", abilityname);
+    			newP.getWorld().playSound(newP.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.6);
+    			return;	
+    		}
+		}
+		
+		
 		if(!e.hasPotionEffect(p))
 		{
 			e.addPotionEffect(new PotionEffect(p, duration, amplifier));
@@ -118,6 +142,11 @@ public class AbilityUtils implements Listener {
 			  }
 			} 
 	}
+	
+	
+	
+	
+	
 	
 	
 	public static boolean partyCheck(Player p1, Player p2)
@@ -671,6 +700,136 @@ public class AbilityUtils implements Listener {
     
     
     
+    public static void stun(LivingEntity caster, LivingEntity e, String abilityname, int time)
+    {
+    	if(e instanceof Player)
+    	{
+    		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e, "Escape Artist"))
+    		{
+    			Language.sendAbilityUseMessage((Player)caster, "The target evades your stun.", abilityname);
+    			Language.sendAbilityUseMessage((Player)e, "You break free from the stun.", abilityname);
+    			caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.6);
+    			return;
+    		}
+    	}
+    		removeAllStuns(e);
+    		stunned.add(e);
+    		if(e instanceof Creature)
+    		{
+    			AbilityUtils.addPotionDuration(caster, e, abilityname, PotionEffectType.SLOW, 10, time*20);
+    			Creature mob = (Creature) e;
+    			if(mob.getTarget() != null)
+    			{
+    				mob.setTarget(null);
+    			}
+    		}
+    		
+        		BukkitTask countdown = new BukkitRunnable() {
+        			int x = time + 1;
+                    @Override
+                    public void run() {
+                    	if(!stunned.contains(e))
+                    	{
+                    		this.cancel();
+                    	}
+                    	x--;
+                		if(e instanceof Player)
+                		{
+                			Player p = (Player) e;
+            		        p.sendTitle(Utils.Colorate("&3&lStunned " + x), null, 0, 26, 0);	
+                		}
+                    }
+                }.runTaskTimer(VallendiaMinigame.getInstance(),0, 20L);	
+    		
+    		BukkitTask timer = new BukkitRunnable() {
+                @Override
+                public void run() {
+                	removeStun(e, abilityname);
+                }
+            }.runTaskLater(VallendiaMinigame.getInstance(), time*20L);
+            
+            stunTimer.put(e, timer);
+            stunCountdown.put(e, countdown);
+            stunName.put(e, abilityname);
+            
+            
+			SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+			se.setEntity(e);
+			se.disappearWithOriginEntity = true;
+			se.infinite();
+			se.particle = Particle.CRIT;
+			se.radius = 0.1;
+			se.particles = 1;
+			se.yOffset = 0.8;
+			se.start();
+			
+			stunParticle.put(e, se);
+            
+    	}
+    
+    
+    public static void removeStun(LivingEntity e, String abilityname)
+    {
+    	if(stunned.contains(e))
+    	{
+    		if(stunName.containsKey(e) && stunName.get(e) == abilityname)
+    		{
+        		if(e instanceof Creature)
+        		{
+        			Creature mob = (Creature) e;
+        			if(mob.hasPotionEffect(PotionEffectType.SLOW))
+        			{
+        				mob.removePotionEffect(PotionEffectType.SLOW);
+        			}
+        		}
+        		stunned.remove(e);
+        		stunTimer.get(e).cancel();
+        		stunTimer.remove(e);
+        		stunCountdown.get(e).cancel();
+        		stunCountdown.remove(e);	
+        		stunName.remove(e);
+        		stunParticle.get(e).cancel();
+        		stunParticle.remove(e);
+    		}
+    	}
+    }
+    
+    public static void removeAllStuns(LivingEntity e)
+    {
+    	if(stunned.contains(e))
+    	{
+        		if(e instanceof Creature)
+        		{
+        			Creature mob = (Creature) e;
+        			if(mob.hasPotionEffect(PotionEffectType.SLOW))
+        			{
+        				mob.removePotionEffect(PotionEffectType.SLOW);
+        			}
+        		}
+        		stunned.remove(e);
+        		stunTimer.get(e).cancel();
+        		stunTimer.remove(e);
+        		stunCountdown.get(e).cancel();
+        		stunCountdown.remove(e);	
+        		stunName.remove(e);
+        		stunParticle.get(e).cancel();
+        		stunParticle.remove(e);
+    		}
+    }
+    
+    
+    public static boolean isStunned(LivingEntity e)
+    {
+    	if(stunned.contains(e))
+    	{
+    		return true;
+    	}else
+    	{
+    		return false;
+    	}
+    }
+    
+    
     
     
     
@@ -720,6 +879,15 @@ public class AbilityUtils implements Listener {
         				{
         				return;
         				}
+        		
+        		if(e.getDamager() instanceof LivingEntity)
+        		{
+            		if(isStunned((LivingEntity)e.getDamager()))
+            		{
+            			e.setCancelled(true);
+            		}	
+        		}
+        		
         		if(explosivesEntities.containsKey(e.getDamager()))
         		{
             		if(e.getDamager() instanceof Player && e.getCause() == DamageCause.ENTITY_EXPLOSION)
@@ -760,6 +928,10 @@ public class AbilityUtils implements Listener {
         	public void onMove(PlayerMoveEvent e)
         	{
         		
+        		if(isStunned(e.getPlayer()) && (e.getTo().getY() >= e.getFrom().getY())){
+        			e.setCancelled(true);
+        			}
+        		
         		if(casting.containsKey(e.getPlayer()) &&
         		   !FlyAbility.enabled.contains(e.getPlayer()))
         		{
@@ -771,8 +943,31 @@ public class AbilityUtils implements Listener {
         	}
         	
         	@EventHandler
-        	public void leftClick(PlayerInteractEvent e)
+        	public void onSwing(PlayerAnimationEvent e)
         	{
+        		if(isStunned(e.getPlayer()) && e.getAnimationType() == PlayerAnimationType.ARM_SWING)
+        		{
+        			e.setCancelled(true);
+        		}
+        	}
+        	
+        	@EventHandler
+        	public void onSneak(PlayerToggleSneakEvent e)
+        	{
+        		if(isStunned(e.getPlayer()))
+        		{
+        			e.setCancelled(true);
+        		}
+        	}
+        	
+        	@EventHandler
+        	public void playerInteract(PlayerInteractEvent e)
+        	{
+        		if(isStunned(e.getPlayer()))
+        		{
+        			e.setCancelled(true);
+        			return;
+        		}
         		if(e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK)
         		{
         			if(casting.containsKey(e.getPlayer()))
@@ -847,9 +1042,17 @@ public class AbilityUtils implements Listener {
         			if(mob.hasPotionEffect(PotionEffectType.BLINDNESS))
         			{
         				e.setCancelled(true);
+        				return;
+        			}
+        			
+        			if(isStunned(mob))
+        			{
+        				e.setCancelled(true);
         			}
         		}
         	}
+        	
+        	
         	
             
  

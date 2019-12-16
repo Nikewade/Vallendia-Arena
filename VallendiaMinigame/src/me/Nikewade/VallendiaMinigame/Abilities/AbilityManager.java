@@ -71,6 +71,12 @@ public class AbilityManager {
 		abilities.add(new SwapAbility());
 		abilities.add(new LevitateAbility());
 		abilities.add(new ReflexAbility());
+		abilities.add(new CheapShotAbility());
+		abilities.add(new KidneyShotAbility());
+		abilities.add(new HoldPersonAbility());
+		abilities.add(new EnvenomAbility());
+		abilities.add(new EscapeArtistAbility());
+		abilities.add(new FanOfKnivesAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");

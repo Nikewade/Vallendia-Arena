@@ -46,7 +46,7 @@ public class DivineShieldAbility implements Ability, Listener{
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Call forth divine intervention, an impenetrable" ,
-				"holy shield blocks all incoming damage",
+				"holy shield blocks all incoming damage and effects",
 				"for " + enabledTime + " seconds. This also stops",
 				"you from dealing any damage.");
 	}

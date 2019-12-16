@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
@@ -69,7 +70,7 @@ public class DashAbility implements Ability{
                 	{
     	        		
                 		this.cancel();
-    	                AbilityUtils.addPotionDuration(p, PotionEffectType.SLOW, 1, 2*20);
+    	                AbilityUtils.addPotionDuration(p ,p, "Dash Ability", PotionEffectType.SLOW, 1, 2*20);
     	                newLocation = p.getLocation();
                 	}
             }

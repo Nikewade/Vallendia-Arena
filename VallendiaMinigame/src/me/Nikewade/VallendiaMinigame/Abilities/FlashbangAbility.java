@@ -97,7 +97,7 @@ public class FlashbangAbility implements Ability{
                 for(Entity e : AbilityUtils.getAoeTargets(p, se.getLocation(), range, range, range))
                 {
                 
-                    AbilityUtils.addPotionDuration((LivingEntity) e, PotionEffectType.BLINDNESS, 2, blindTime*20);
+                    AbilityUtils.addPotionDuration((LivingEntity)e, (LivingEntity)e, "Flashbang", PotionEffectType.BLINDNESS, 2, blindTime*20);
                 
                 }
                 

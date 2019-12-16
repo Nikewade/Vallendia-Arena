@@ -3,7 +3,6 @@ package me.Nikewade.VallendiaMinigame.Abilities;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -11,21 +10,17 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 
-import de.slikey.effectlib.effect.SphereEffect;
-import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
-public class BashAbility implements Ability {
-	int time = 3;
+public class KidneyShotAbility implements Ability{
+	int time = 5;
 
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Bash";
+		return "Kidney Shot";
 	}
 
 	@Override
@@ -34,19 +29,16 @@ public class BashAbility implements Ability {
 		return AbilityType.OFFENSIVE;
 	}
 
-	
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Bash the target over the head briefly stunning them",
-				"for " +time+  " seconds. This will cause the target to go blind and",
-				"become confused for a short time.");
+		return Arrays.asList("Stun your target for " + time + " seconds.");
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack(Material.SKULL_ITEM);
+		return new ItemStack(Material.INK_SACK);
 	}
 
 	@Override
@@ -55,9 +47,7 @@ public class BashAbility implements Ability {
  		if(target != null)
  		{
  			AbilityUtils.stun(p,target, this.getName(), time);
- 	 		AbilityUtils.addPotionDuration(p, target, this.getName(), PotionEffectType.BLINDNESS, 4, 3*20);
- 	 		AbilityUtils.addPotionDuration(p, target, this.getName(), PotionEffectType.CONFUSION, 4, 8*20);
- 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 2, 1);
+ 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_BIG_FALL, 1, 0.1F);
  	 		target.getWorld().spawnParticle(Particle.CRIT, target.getLocation().add(0, 1.8, 0), 20);
  	 		AbilityUtils.damageEntity(target, p, 2);
  	 		return true;

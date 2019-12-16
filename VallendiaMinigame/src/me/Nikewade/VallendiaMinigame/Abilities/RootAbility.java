@@ -10,8 +10,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,7 +30,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
-public class RootAbility implements Ability{
+public class RootAbility implements Ability, Listener{
 	private static ArrayList<Player> sneaking = new ArrayList<>();
 	private static ArrayList<Player> soundCooldown = new ArrayList<>();
 	private static ArrayList<Player> enabled = new ArrayList<>();

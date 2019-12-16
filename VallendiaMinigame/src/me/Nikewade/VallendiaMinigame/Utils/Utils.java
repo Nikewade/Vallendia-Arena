@@ -410,7 +410,7 @@ public class Utils {
 	    
 	    @SuppressWarnings("deprecation")
 	    public static boolean canDamage(Entity attacker, Entity damaged) {
-	        EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(attacker, damaged, DamageCause.ENTITY_ATTACK, 1.0);
+	        EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(attacker, damaged, DamageCause.ENTITY_ATTACK, 0);
 	        Bukkit.getPluginManager().callEvent(event);
 	        return !event.isCancelled();
 	    }

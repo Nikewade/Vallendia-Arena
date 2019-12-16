@@ -6,23 +6,31 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import net.md_5.bungee.api.ChatColor;
 
 public class LevitateAbility implements Ability, Listener{
 	//made by Emma
@@ -32,7 +40,7 @@ public class LevitateAbility implements Ability, Listener{
 	private static List<LivingEntity> targetLevitating = new ArrayList<>();
 	private static HashMap<Player,LivingEntity> storeTarget = new HashMap<>();
 	private static HashMap<Player, BukkitTask> storetimers = new HashMap<>();
-	private static int duration = 30;
+	private static int duration = 10;
 	private static int amplifier = 2;
 
 	@Override
@@ -50,8 +58,10 @@ public class LevitateAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Leviate yourself by jumping or",
-				"others by hitting them.");
+		return Arrays.asList("Activate this ability to Levitate yourself by jumping or others",
+				"by hitting them. The levitation lasts for " + duration + " seconds and you",
+				"can cancel the levitation by left clicking with the ability",
+				"in your hand at any time.");
 	}
 
 	@Override
@@ -67,19 +77,15 @@ public class LevitateAbility implements Ability, Listener{
 
 		//player activates or deactivates ability:
 		
-		//checks if they have activated the ability and are not levitating anyone
-		if(abilityActive.contains(p) && !isLevitating.contains(p) ||
-				abilityActive.contains(p) && !targetLevitating.contains(p))
+		if(targetLevitating.contains(p))
 		{
-			abilityActive.remove(p);
-        	Language.sendAbilityUseMessage(p, "You are no longer infused with "
-        			+ "magical energy.", "Levitate");
-        	storetimers.get(p).cancel();
-        	storetimers.remove(p);
-        	
-        	return false;
+			Language.sendAbilityUseMessage(p, "You are already levitating your target.", "Levitate");
+			return false;
+		}
+
+		
 			
-		}else
+			if(!abilityActive.contains(p))
 		{
 		// checks if they havent activated the ability
 			//checks if theyre levitating themself or someone else
@@ -129,30 +135,8 @@ public class LevitateAbility implements Ability, Listener{
 		//player hits player with ability active
 		//refer to entity damage by entity event
 		
-		
-	//if caster is levitating themselves
-		if(isLevitating.contains(p))
-		{
-			isLevitating.remove(p);
-			Language.sendAbilityUseMessage(p, "You feel heavier", "Levitate");
-			p.removePotionEffect(PotionEffectType.LEVITATION);	
-			storetimers.get(p).cancel();
-			storetimers.remove(p);
-		}
-		
-	//if caster is levitating someone else
-		if(targetLevitating.contains(p))
-		{
-			targetLevitating.remove(p);
-			Language.sendAbilityUseMessage(storeTarget.get(p), "You feel heavier.2", "Levitate");
-			storeTarget.get(p).removePotionEffect(PotionEffectType.LEVITATION);
-			abilityActive.remove(p);
-			storeTarget.remove(p);
-			storetimers.get(p).cancel();
-			storetimers.remove(p);
 
-				
-		}
+
 		
 		return true;
 	}
@@ -181,8 +165,7 @@ public class LevitateAbility implements Ability, Listener{
 			storeTarget.remove(p);
 		}
 		
-		
-		//REMOVE ALL LISTS ETC
+
 		
 	}
 	
@@ -199,9 +182,11 @@ public class LevitateAbility implements Ability, Listener{
         			{
         			if(abilityActive.contains(p))
         			{
-        				AbilityUtils.addPotionDuration(p, PotionEffectType.LEVITATION, amplifier, duration*20);
+        				AbilityUtils.addPotionDuration(p,p, this.getName(), PotionEffectType.LEVITATION, amplifier, duration*20);
         				isLevitating.add(p);
         				abilityActive.remove(p);
+        				
+
         				
         				// if caster doesnt end levitating early all lists will be reset
         				BukkitTask timer2 = new BukkitRunnable() {
@@ -212,7 +197,7 @@ public class LevitateAbility implements Ability, Listener{
         	                	{
         	 
         	                	isLevitating.remove(p);
-        	        			Language.sendAbilityUseMessage(p, "You feel heavier.3", "Levitate");
+        	        			Language.sendAbilityUseMessage(p, "You feel heavier", "Levitate");
         	                	
         	                	}
         	                	
@@ -221,6 +206,52 @@ public class LevitateAbility implements Ability, Listener{
         	            }.runTaskLater(VallendiaMinigame.getInstance(), duration*20);  	
         				
         			storetimers.put(p, timer2);
+        			//particles and sounds
+        			
+        	 	 	p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.8);
+        	 	 	
+    		        SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+
+    		        se.particle = Particle.CLOUD;
+    		        se.radius = 2;
+    		        se.particles = 80;
+    		        se.speed = (float) 0;  
+    		        se.iterations = 2;
+    		        se.visibleRange = 50;
+    		        
+                	se.setLocation(p.getLocation());
+                	se.start();
+
+    		        
+    				BukkitTask effects = new BukkitRunnable() {
+    	                @Override
+    	                public void run()
+    	                {
+    	                	
+    	                	if(!isLevitating.contains(p))  
+    	                	{
+
+    	                	this.cancel();
+    	        			
+    	                	}
+    	    		        SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+
+    	    		        se.particle = Particle.CLOUD;
+    	    		        se.radius = 1;
+    	    		        se.particles = 5;
+    	    		        se.speed = (float) 0;  
+    	    		        se.iterations = 2;
+    	    		        se.visibleRange = 50;
+    	    		        
+    	                	se.setLocation(p.getLocation());
+    	                	se.start();
+
+    	                	
+    	                }
+    	            
+    	            }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20);
+        			
+        			
 
         			}
         			
@@ -240,6 +271,59 @@ public class LevitateAbility implements Ability, Listener{
         	}
         	
         	@EventHandler
+        	public void onClick (PlayerInteractEvent e)
+        	{
+        		
+        		if(e.getAction() == Action.LEFT_CLICK_AIR || 
+        				e.getAction() == Action.LEFT_CLICK_BLOCK)
+        		{
+            		Player p = e.getPlayer();
+            		
+            		ItemStack dye = p.getInventory().getItemInMainHand(); 
+            		
+	    		   	String ability = VallendiaMinigame.getInstance().playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities." + ChatColor.stripColor(Utils.Colorate(dye.getItemMeta().getLore().get(0).toLowerCase())));
+            		
+            		if(dye.getType() == Material.INK_SACK &&
+            				dye.getDurability() == 10 &&
+            				ability.equalsIgnoreCase("Levitate"))
+            		{
+            			if(targetLevitating.contains(p))
+            			{
+            				targetLevitating.remove(p);
+            				Language.sendAbilityUseMessage(storeTarget.get(p), "You feel heavier", "Levitate");
+            				Language.sendAbilityUseMessage(p, "You stopped your target from levitating.", "Levitate");
+            				storeTarget.get(p).removePotionEffect(PotionEffectType.LEVITATION);
+            				abilityActive.remove(p);
+            				storeTarget.remove(p);
+            				storetimers.get(p).cancel();
+            				storetimers.remove(p);
+
+            				
+            			}
+            			
+            			
+            			
+            			//if caster is levitating themselves
+            				if(isLevitating.contains(p))
+            				{
+            					isLevitating.remove(p);
+            					Language.sendAbilityUseMessage(p, "You feel heavier.", "Levitate");
+            					p.removePotionEffect(PotionEffectType.LEVITATION);	
+            					storetimers.get(p).cancel();
+            					storetimers.remove(p);
+            				}
+            				
+
+            				
+            			
+            		}
+        		}
+        		
+        		
+        	}
+	        	
+        	    
+        	@EventHandler
         	public void onHit (EntityDamageByEntityEvent e)
         	{
         		if(e.getDamager() instanceof Player)
@@ -250,13 +334,25 @@ public class LevitateAbility implements Ability, Listener{
         		
         		if(abilityActive.contains(p))
         		{
-        			AbilityUtils.addPotionDuration(target, PotionEffectType.LEVITATION, amplifier, duration*20);
-        			targetLevitating.add(p);
+        			AbilityUtils.addPotionDuration(target,target, this.getName(), PotionEffectType.LEVITATION, amplifier, duration*20);
         			abilityActive.remove(p);
         			storeTarget.put(p, target);
         			
+        			BukkitTask timer3 = new BukkitRunnable() {
+    	                @Override
+    	                public void run()
+    	                {
+    	                
+    	                	targetLevitating.add(p);
+    	                	
+    	                }
+    	            
+    	            }.runTaskLater(VallendiaMinigame.getInstance(), 5); 
+    	            
+    	            storetimers.put(p, timer3);
+        			
     				// if caster doesnt end levitation early all lists will be reset        			
-    				BukkitTask timer3 = new BukkitRunnable() {
+    				BukkitTask timer4 = new BukkitRunnable() {
     	                @Override
     	                public void run()
     	                {
@@ -265,17 +361,63 @@ public class LevitateAbility implements Ability, Listener{
     	                	{
     	                		
         	                	targetLevitating.remove(p);
-        	        			Language.sendAbilityUseMessage(target, "You feel heavier.4", "Levitate");
+        	        			Language.sendAbilityUseMessage(target, "You feel heavier", "Levitate");
     	                		storeTarget.remove(p);
         	        			
     	                	}
+    	                	
 
     	                	
     	                }
     	            
     	            }.runTaskLater(VallendiaMinigame.getInstance(), duration*20);  
         		
-    	            storetimers.put(p, timer3);
+    	            storetimers.put(p, timer4);
+    	            
+    	            //particles and effects
+    	            
+    		 	 	p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.8);
+    	            
+    		        SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+
+    		        se.particle = Particle.CLOUD;
+    		        se.radius = 2;
+    		        se.particles = 80;
+    		        se.speed = (float) 0;  
+    		        se.iterations = 2;
+    		        se.visibleRange = 50;
+    		        
+                	se.setLocation(target.getLocation());
+                	se.start();
+
+    		        
+    				BukkitTask effects = new BukkitRunnable() {
+    	                @Override
+    	                public void run()
+    	                {
+    	                	
+    	                	if(!targetLevitating.contains(p))  
+    	                	{
+
+    	                	this.cancel();
+    	        			
+    	                	}
+    	    		        SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+
+    	    		        se.particle = Particle.CLOUD;
+    	    		        se.radius = 1;
+    	    		        se.particles = 5;
+    	    		        se.speed = (float) 0;  
+    	    		        se.iterations = 2;
+    	    		        se.visibleRange = 50;
+    	    		        
+    	                	se.setLocation(target.getLocation());
+    	                	se.start();
+
+    	                	
+    	                }
+    	            
+    	            }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20);
     	            
         		}
         		
@@ -283,7 +425,7 @@ public class LevitateAbility implements Ability, Listener{
         		
         		
         	}
-        	        	
+        	    	
 	
 	
 

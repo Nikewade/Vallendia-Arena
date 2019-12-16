@@ -87,7 +87,7 @@ public class BullRushAbility implements Ability, Listener{
 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 1, (float) 1);
 		if(!p.hasPotionEffect(PotionEffectType.SPEED))
 		{
-			AbilityUtils.addPotionDuration(p, PotionEffectType.SPEED, 1, enabledTime * 20);	
+			AbilityUtils.addPotionDuration((LivingEntity) p , p, this.getName(), PotionEffectType.SPEED, 1, enabledTime * 20);	
 			hasspeed.add(p);
 		}
 		

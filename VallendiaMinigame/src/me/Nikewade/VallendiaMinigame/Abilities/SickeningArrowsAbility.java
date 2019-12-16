@@ -120,7 +120,7 @@ public class SickeningArrowsAbility implements Ability, Listener {
                 			return;
                 		}	
         			}
-        			AbilityUtils.addPotionDuration(entity, PotionEffectType.CONFUSION, 3, duration * 20);
+        			AbilityUtils.addPotionDuration((LivingEntity)e.getEntity().getShooter(), entity, this.getName(), PotionEffectType.CONFUSION, 3, duration * 20);
         			entity.getLocation().getWorld().playSound(entity.getLocation(), Sound.ENTITY_SPLASH_POTION_BREAK, 2, 1);
         		}
          

@@ -80,9 +80,9 @@ int maxYForce = 10;
 			{
 		    	p.setHealth(p.getHealth() + 5 );	
 			}else p.setHealth(p.getMaxHealth());
-			AbilityUtils.addPotionDuration(p, PotionEffectType.INCREASE_DAMAGE, 0, ragetime * 20);
-			AbilityUtils.addPotionDuration(p, PotionEffectType.SPEED, 1, ragetime * 20);
-			AbilityUtils.addPotionDuration(p, PotionEffectType.DAMAGE_RESISTANCE, 0, ragetime * 20);
+			AbilityUtils.addPotionDuration(p,p, this.getName(), PotionEffectType.INCREASE_DAMAGE, 0, ragetime * 20);
+			AbilityUtils.addPotionDuration(p,p, this.getName(), PotionEffectType.SPEED, 1, ragetime * 20);
+			AbilityUtils.addPotionDuration(p,p, this.getName(), PotionEffectType.DAMAGE_RESISTANCE, 0, ragetime * 20);
 			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 2, (float) 0.4);
 			raging.add(p);
 			Location location = p.getLocation().add(0.0D, -1.0F, 0.0D);
@@ -183,9 +183,9 @@ int maxYForce = 10;
 	                	}	
 	                	if(ragetimer == 0)
 	                	{
-	    	                AbilityUtils.addPotionDuration(p, PotionEffectType.WEAKNESS, 0, ragetime*20);
-	    	                AbilityUtils.addPotionDuration(p, PotionEffectType.CONFUSION, 1, 8*20);
-	    	                AbilityUtils.addPotionDuration(p, PotionEffectType.SLOW, 1, ragetime*20);
+	    	                AbilityUtils.addPotionDuration(p,p, "Rage", PotionEffectType.WEAKNESS, 0, ragetime*20);
+	    	                AbilityUtils.addPotionDuration(p,p, "Rage", PotionEffectType.CONFUSION, 1, 8*20);
+	    	                AbilityUtils.addPotionDuration(p,p, "Rage", PotionEffectType.SLOW, 1, ragetime*20);
 	    	                Language.sendAbilityUseMessage(p, "You feel fatigued.", "Rage");
             				Utils.sendWorldBorderPacket(p, 0, 200000D, 200000D, 0);
             				
@@ -216,7 +216,7 @@ int maxYForce = 10;
 	@Override
 	public void DisableAbility(Player p) {
 		// TODO Auto-generated method stub
-		
+		raging.remove(p);
 	}
 
 }

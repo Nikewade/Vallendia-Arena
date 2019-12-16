@@ -32,6 +32,11 @@ public class Assassin implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Bandage"));
 		abilities.add(Main.abilitymanager.getAbility("Flashbang"));
 		abilities.add(Main.abilitymanager.getAbility("Reflex"));
+		abilities.add(Main.abilitymanager.getAbility("Cheap Shot"));
+		abilities.add(Main.abilitymanager.getAbility("Kidney Shot"));
+		abilities.add(Main.abilitymanager.getAbility("Envenom"));
+		abilities.add(Main.abilitymanager.getAbility("Escape Artist"));
+		abilities.add(Main.abilitymanager.getAbility("Fan Of Knives"));
 	}
 	
 	@Override

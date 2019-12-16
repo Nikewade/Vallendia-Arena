@@ -90,6 +90,7 @@ public class PlayerDeathEvents implements Listener {
 	      p.setLevel(0);
 	      p.setExp(0.0F);
 	      RootAbility.removeLists(p);
+	      AbilityUtils.removeAllStuns(p);
 	      BandageAbility.removeBandage(p);
 	      SurvivalistAbility.removeEnabled(p);
 	      this.Main.playerdatamanager.addData(p.getUniqueId(), "Deaths", 1);

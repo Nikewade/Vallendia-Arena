@@ -14,6 +14,7 @@ import com.alessiodp.parties.api.events.bukkit.unique.BukkitPartiesFriendlyFireB
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class PlayerTakeDamageEvent implements Listener{
 	VallendiaMinigame Main;
@@ -40,6 +41,12 @@ public class PlayerTakeDamageEvent implements Listener{
 			if((e.getDamager() instanceof Player))
 			{
 				Player dp = (Player) e.getDamager();
+				//check if can damage
+				if(e.isCancelled())
+				{
+					return;
+				}
+				
 				
 				//In party so dont update health
 	        	if(AbilityUtils.partyCheck(p, dp))

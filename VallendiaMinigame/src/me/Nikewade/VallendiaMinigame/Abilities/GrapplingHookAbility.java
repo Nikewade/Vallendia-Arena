@@ -140,7 +140,7 @@ public class GrapplingHookAbility implements Ability, Listener {
                             		{
                             			this.cancel();
                             			p.setFallDistance(0);
-                            			AbilityUtils.addPotionDuration(p, PotionEffectType.JUMP, 2, 3 * 20);
+                            			AbilityUtils.addPotionDuration(p , p, "Grappling Hook", PotionEffectType.JUMP, 2, 3 * 20);
                             		}
                                 }
                             }.runTaskTimer(VallendiaMinigame.getInstance(), 5L, 0L);  

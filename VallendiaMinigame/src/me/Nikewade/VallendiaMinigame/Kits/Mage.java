@@ -29,6 +29,7 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Swap"));
 		abilities.add(Main.abilitymanager.getAbility("Levitate"));
 		abilities.add(Main.abilitymanager.getAbility("Hold Person"));
+		abilities.add(Main.abilitymanager.getAbility("Siphon"));
 	}
 
 	@Override

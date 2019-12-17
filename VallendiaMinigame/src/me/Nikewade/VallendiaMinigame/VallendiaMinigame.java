@@ -265,6 +265,10 @@ public class VallendiaMinigame extends JavaPlugin{
 		  {
 			  AbilityUtils.resetAllMaxHealth(p);
 			  AbilityUtils.removeCast(p);
+		      for(Ability ability : VallendiaMinigame.getInstance().abilitymanager.getAbilities())
+		      {
+		    	  ability.DisableAbility(p);
+		      }
 				//item cooldowns
 				for(ItemStack item : p.getInventory().getContents())
 				{

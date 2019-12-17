@@ -34,6 +34,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.entity.EntityExplodeEvent;
@@ -80,6 +81,7 @@ public class AbilityUtils implements Listener {
 	private static HashMap<LivingEntity, BukkitTask> stunTimer = new HashMap<>();
 	private static HashMap<LivingEntity, BukkitTask> stunCountdown = new HashMap<>();
 	private static HashMap<LivingEntity ,SphereEffect> stunParticle = new HashMap<>();
+	private static List<LivingEntity> invisible = new ArrayList<>();
 	static int castingHealthPercent = 70;
 	
 	
@@ -831,6 +833,76 @@ public class AbilityUtils implements Listener {
     
     
     
+    public static boolean makeInvisible(Player p)
+    {
+    	if(invisible.contains(p))
+    	{
+    		return false;
+    	}
+    	invisible.add(p);
+    	
+		//Untarget entities
+		for(Entity en : p.getNearbyEntities(50, 50, 50))
+		{
+			if(!(en instanceof Player) && en instanceof Creature)
+			{
+				Creature mob = (Creature) en;
+				if(mob.getTarget() != null)
+				{
+					if(invisible.contains(mob.getTarget()))
+					{
+						mob.setTarget(null);
+					}
+				}
+			}
+		}
+		
+		
+		//Invis task
+		BukkitTask task = new BukkitRunnable() {
+            @Override
+            public void run() {
+        		if(invisible.contains(p))
+        		{
+        			for(Player player : Bukkit.getOnlinePlayers())
+        			{
+        				player.hidePlayer(p);
+        			}
+        		}else 
+        		{
+        			this.cancel();
+        		}
+            }
+        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20);
+        
+        return true;
+        
+    }
+    
+    
+    
+    public static void removeInvisible(Player p)
+    {
+    	if(invisible.contains(p))
+    	{
+			for(Player player : Bukkit.getOnlinePlayers())
+			{
+				player.showPlayer(p);
+			}
+			invisible.remove(p);
+    	}
+    }
+    
+    public static boolean isInvisible(Player p)
+    {
+    	if(invisible.contains(p))
+    	{
+    		return true;
+    	}	
+    	return false;
+
+    }
+    
     
     
     public static Listener getListener() {
@@ -872,7 +944,7 @@ public class AbilityUtils implements Listener {
         	}
         	
         	@EventHandler
-        	public void onDamage(EntityDamageByEntityEvent e)
+        	public void onEntityDamage(EntityDamageByEntityEvent e)
         	{
         		
         		if(e.getEntity() instanceof ArmorStand)
@@ -922,6 +994,17 @@ public class AbilityUtils implements Listener {
         			}
         			handleDamage.remove(e.getEntity());
         		}
+        	}
+        	
+        	
+        	@EventHandler
+        	public void onDamage(EntityDamageEvent e)
+        	{
+        		if(!(e.getEntity() instanceof Player))
+        		{
+        			return;	
+        		}
+        		
         	}
         	
         	@EventHandler
@@ -1046,6 +1129,11 @@ public class AbilityUtils implements Listener {
         			}
         			
         			if(isStunned(mob))
+        			{
+        				e.setCancelled(true);
+        			}
+        			
+        			if(invisible.contains(e.getTarget()))
         			{
         				e.setCancelled(true);
         			}

@@ -5,19 +5,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.entity.Creature;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -25,6 +20,7 @@ import org.bukkit.scheduler.BukkitTask;
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
@@ -68,24 +64,6 @@ public class VanishAbility implements Ability, Listener{
 			return false;
 		}
 		enabled.add(p);
-		
-		
-		
-		//Untarget entities
-		for(Entity e : p.getNearbyEntities(50, 50, 50))
-		{
-			if(!(e instanceof Player) && e instanceof Creature)
-			{
-				Creature mob = (Creature) e;
-				if(mob.getTarget() != null)
-				{
-					if(enabled.contains(mob.getTarget()))
-					{
-						mob.setTarget(null);
-					}
-				}
-			}
-		}
 
 		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 		se.setLocation(p.getLocation());
@@ -97,31 +75,13 @@ public class VanishAbility implements Ability, Listener{
 		se.start();
 		Language.sendAbilityUseMessage(p, "You vanish.", "Vanish");
 		
-		new BukkitRunnable() {
-            @Override
-            public void run() {
-        		if(enabled.contains(p))
-        		{
-        			for(Player player : Bukkit.getOnlinePlayers())
-        			{
-        				player.hidePlayer(p);
-        			}
-        		}else 
-        		{
-            		unVanish(p);	
-        			this.cancel();
-        		}
-            }
-        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20);
+		AbilityUtils.makeInvisible(p);
 		
 		
 		BukkitTask task = new BukkitRunnable() {
             @Override
             public void run() {
-        		if(enabled.contains(p))
-        		{	
-            		unVanish(p);	
-        		};
+            	removeVanish(p);
             }
         }.runTaskLater(VallendiaMinigame.getInstance(), enabledTime*20L);
         tasks.put(p, task);
@@ -151,68 +111,15 @@ public class VanishAbility implements Ability, Listener{
         return true;
 	}
 	
-	
-        	@EventHandler
-        	public void onTarget(EntityTargetLivingEntityEvent e)
-        	{
-        		if(enabled.contains(e.getTarget()))
-        		{
-        			e.setCancelled(true);
-        		}
-        	}
-        	
-        	
-        	
-        	@EventHandler
-        	public void playerLeave(PlayerQuitEvent e)
-        	{
-        		if(enabled.contains(e.getPlayer()))
-        		{
-        			enabled.remove(e.getPlayer());
-        		}
-        	}
-        	
-        	@EventHandler
-        	public void damage(EntityDamageEvent e)
-        	{
-        		if(e.getEntity() instanceof Player && enabled.contains(e.getEntity()))
-        		{
-            		unVanish((Player)e.getEntity());	
-        		}
-        	}
-        	
-        	@EventHandler
-        	public void damageDelt(EntityDamageByEntityEvent e)
-        	{
-        		if(e.getDamager() instanceof Player && enabled.contains(e.getDamager()))
-        		{
-        			Player p = (Player) e.getDamager();
-        			unVanish(p);
-        		}
-        	}
-        	
-        	@EventHandler
-        	public void playerDeath(PlayerDeathEvent e)
-        	{
-        		if(enabled.contains(e.getEntity()))
-        		{
-            		unVanish((Player)e.getEntity());	
-        		}
-        	}
-    
-    private static void unVanish(Player p)
-    {
+
+	private void removeVanish(Player p)
+	{
 		if(enabled.contains(p))
 		{
 			enabled.remove(p);
-			for(Player player : Bukkit.getOnlinePlayers())
-			{
-				player.showPlayer(p);
-			}
-			tasks.get(p).cancel();
-			tasks.remove(p);
-			countDown.get(p).cancel();
-			countDown.remove(p);
+    		AbilityUtils.removeInvisible(p);
+    		countDown.get(p).cancel();
+    		countDown.remove(p);
 			SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 			se.setLocation(p.getLocation());
 			se.particle = Particle.SMOKE_NORMAL;
@@ -223,11 +130,53 @@ public class VanishAbility implements Ability, Listener{
 			se.start();
 			Language.sendAbilityUseMessage(p, "You reappear.", "Vanish");
 		}
-    }
-
+	}
+	
+	
+	
+	@EventHandler
+	public void onEntityDamage(EntityDamageByEntityEvent e)
+	{
+		
+		if(e.getDamager() instanceof Player && enabled.contains(e.getDamager()))
+		{
+			removeVanish((Player)e.getDamager());
+		}
+		
+		if(e.getDamager() instanceof Projectile)
+		{
+			Projectile proj = (Projectile) e.getDamager();
+			if(enabled.contains(proj.getShooter()))
+			{
+				removeVanish((Player)proj.getShooter());
+			}
+		}
+	}
+	
+	
+	@EventHandler
+	public void onDamage(EntityDamageEvent e)
+	{
+		if(!(e.getEntity() instanceof Player))
+		{
+			return;	
+		}
+		if(enabled.contains(e.getEntity()))
+		{
+			removeVanish((Player)e.getEntity());
+		}
+		
+	}
+	
 	@Override
 	public void DisableAbility(Player p) {
 		// TODO Auto-generated method stub
-		
+		if(enabled.contains(p))
+		{	
+			enabled.remove(p);
+    		AbilityUtils.removeInvisible(p);
+    		countDown.remove(p);
+			Language.sendAbilityUseMessage(p, "You reappear.", "Vanish");
+		};
 	}
 }

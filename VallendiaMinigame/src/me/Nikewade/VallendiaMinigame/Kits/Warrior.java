@@ -30,6 +30,8 @@ public class Warrior implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Divine Shield"));
 		abilities.add(Main.abilitymanager.getAbility("Last Stand"));
 		abilities.add(Main.abilitymanager.getAbility("Bandage"));
+		abilities.add(Main.abilitymanager.getAbility("Sunder"));
+		abilities.add(Main.abilitymanager.getAbility("Stunning Blows"));
 	}
 	
 	@Override

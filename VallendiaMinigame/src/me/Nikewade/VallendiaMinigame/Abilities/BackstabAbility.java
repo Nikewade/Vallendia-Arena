@@ -37,7 +37,7 @@ public class BackstabAbility implements Ability , Listener {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Stabbing your target in the back does " + percent + "% extra damage.");
+		return Arrays.asList("Stabbing your target in the back deals " + percent + "% extra damage.");
 	}
 
 	@Override

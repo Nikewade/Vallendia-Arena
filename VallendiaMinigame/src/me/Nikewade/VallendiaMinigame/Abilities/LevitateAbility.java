@@ -58,10 +58,8 @@ public class LevitateAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Activate this ability to Levitate yourself by jumping or others",
-				"by hitting them. The levitation lasts for " + duration + " seconds and you",
-				"can cancel the levitation by left clicking with the ability",
-				"in your hand at any time.");
+		return Arrays.asList("Leviate yourself by jumping or",
+				"others by hitting them for " + duration + " seconds");
 	}
 
 	@Override
@@ -112,6 +110,7 @@ public class LevitateAbility implements Ability, Listener{
 	                	abilityActive.remove(p);
 	                	
 	                	
+	                	
 	                	}
 	                	
 	                }
@@ -119,15 +118,18 @@ public class LevitateAbility implements Ability, Listener{
 	            }.runTaskLater(VallendiaMinigame.getInstance(), 15*20);  	
 				
 				storetimers.put(p, timer);
+				return true;
 			}
 			
 		}else
 		{
 			Language.sendAbilityUseMessage(p, "You are already levitating!", "Levitate");
+			return false;
 		}
 		
 		}
 
+			return false;
 		
 		//player jumps with ability active
 		//refer to player move event
@@ -136,9 +138,6 @@ public class LevitateAbility implements Ability, Listener{
 		//refer to entity damage by entity event
 		
 
-
-		
-		return true;
 	}
 
 	@Override
@@ -168,7 +167,6 @@ public class LevitateAbility implements Ability, Listener{
 
 		
 	}
-	
         	
         	@EventHandler
         	public void onJump (PlayerMoveEvent e)
@@ -182,7 +180,7 @@ public class LevitateAbility implements Ability, Listener{
         			{
         			if(abilityActive.contains(p))
         			{
-        				AbilityUtils.addPotionDuration(p,p, this.getName(), PotionEffectType.LEVITATION, amplifier, duration*20);
+        				AbilityUtils.addPotionDuration(p,p, "Levitate", PotionEffectType.LEVITATION, amplifier, duration*20);
         				isLevitating.add(p);
         				abilityActive.remove(p);
         				
@@ -280,15 +278,18 @@ public class LevitateAbility implements Ability, Listener{
             		Player p = e.getPlayer();
             		
             		ItemStack dye = p.getInventory().getItemInMainHand(); 
+            	
             		
-	    		   	String ability = VallendiaMinigame.getInstance().playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities." + ChatColor.stripColor(Utils.Colorate(dye.getItemMeta().getLore().get(0).toLowerCase())));
-            		
+	    		   	if(dye.getItemMeta().hasLore() == true)
+	    		   	{
+	    		   		String ability = VallendiaMinigame.getInstance().playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities." + ChatColor.stripColor(Utils.Colorate(dye.getItemMeta().getLore().get(0).toLowerCase())));
             		if(dye.getType() == Material.INK_SACK &&
             				dye.getDurability() == 10 &&
             				ability.equalsIgnoreCase("Levitate"))
             		{
             			if(targetLevitating.contains(p))
             			{
+            			
             				targetLevitating.remove(p);
             				Language.sendAbilityUseMessage(storeTarget.get(p), "You feel heavier", "Levitate");
             				Language.sendAbilityUseMessage(p, "You stopped your target from levitating.", "Levitate");
@@ -297,7 +298,6 @@ public class LevitateAbility implements Ability, Listener{
             				storeTarget.remove(p);
             				storetimers.get(p).cancel();
             				storetimers.remove(p);
-
             				
             			}
             			
@@ -319,6 +319,8 @@ public class LevitateAbility implements Ability, Listener{
             		}
         		}
         		
+        		}
+        		
         		
         	}
 	        	
@@ -334,7 +336,7 @@ public class LevitateAbility implements Ability, Listener{
         		
         		if(abilityActive.contains(p))
         		{
-        			AbilityUtils.addPotionDuration(target,target, this.getName(), PotionEffectType.LEVITATION, amplifier, duration*20);
+        			AbilityUtils.addPotionDuration(p,target, "Levitate", PotionEffectType.LEVITATION, amplifier, duration*20);
         			abilityActive.remove(p);
         			storeTarget.put(p, target);
         			
@@ -398,7 +400,7 @@ public class LevitateAbility implements Ability, Listener{
     	                	
     	                	if(!targetLevitating.contains(p))  
     	                	{
-
+    	                		
     	                	this.cancel();
     	        			
     	                	}
@@ -409,15 +411,14 @@ public class LevitateAbility implements Ability, Listener{
     	    		        se.particles = 5;
     	    		        se.speed = (float) 0;  
     	    		        se.iterations = 2;
-    	    		        se.visibleRange = 50;
-    	    		        
+    	    		        se.visibleRange = 50;  	    		        
     	                	se.setLocation(target.getLocation());
     	                	se.start();
 
     	                	
     	                }
     	            
-    	            }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20);
+    	            }.runTaskTimer(VallendiaMinigame.getInstance(), 6, 20);
     	            
         		}
         		
@@ -426,7 +427,6 @@ public class LevitateAbility implements Ability, Listener{
         		
         	}
         	    	
-	
 	
 
 }

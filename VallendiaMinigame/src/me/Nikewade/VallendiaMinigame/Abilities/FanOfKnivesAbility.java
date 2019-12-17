@@ -132,7 +132,8 @@ public class FanOfKnivesAbility implements Ability, Listener{
         				
         				if(arrows.contains(ball))
         				{
-        					e.setDamage(damage);
+        					e.setCancelled(true);
+        					AbilityUtils.damageEntity(target, p, damage);
         					
         					arrows.remove(ball);
         				}

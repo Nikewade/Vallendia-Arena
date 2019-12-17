@@ -77,6 +77,7 @@ public class AbilityManager {
 		abilities.add(new EnvenomAbility());
 		abilities.add(new EscapeArtistAbility());
 		abilities.add(new FanOfKnivesAbility());
+		abilities.add(new SniperAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");

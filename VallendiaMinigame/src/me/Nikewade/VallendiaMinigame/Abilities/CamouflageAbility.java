@@ -7,12 +7,15 @@ import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -24,37 +27,41 @@ import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
-public class VanishAbility implements Ability, Listener{
+public class CamouflageAbility implements Ability, Listener {
 	private static ArrayList<Player> enabled = new ArrayList<>();
 	private static HashMap<Player, BukkitTask> tasks = new HashMap<>();
+	private static HashMap<Player, BukkitTask> healTasks = new HashMap<>();
 	private static HashMap<Player, BukkitTask> countDown = new HashMap<>();
-	int enabledTime = 20;
+	int enabledTime = 60;
+	double healPercent = 2;
+	int healPerSecond = 5;
+	int healDelay = 3;
 
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Vanish";
+		return "Camouflage";
 	}
 
 	@Override
 	public AbilityType getAbilityType() {
 		// TODO Auto-generated method stub
-		return AbilityType.UTILITY;
+		return AbilityType.DEFENSIVE;
 	}
 
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Vanish into thin air turning",
-				"invisible for " + enabledTime + " seconds.",
-				"any damage delt or taken will",
-				"cause you to reappear.");
+		return Arrays.asList("You camouflage yourself to match your surroundings,",
+				"becoming invisible for " + enabledTime + " seconds. You also regenerate ",
+				"health over time. Moving, taking damage, or dealing",
+				"damage will cause you to reappear.");
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack(Material.STAINED_GLASS_PANE);
+		return new ItemStack(Material.LEAVES);
 	}
 
 	@Override
@@ -64,17 +71,30 @@ public class VanishAbility implements Ability, Listener{
 			Language.sendAbilityUseMessage(p, "You are already using this.", this.getName());
 			return false;
 		}
+		if(!p.isOnGround())
+		{
+			Language.sendAbilityUseMessage(p, "You must be on the ground.", this.getName());
+			return false;
+		}
 		enabled.add(p);
+		Block b = p.getLocation().getBlock().getRelative(BlockFace.DOWN);
 
 		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 		se.setLocation(p.getLocation());
-		se.particle = Particle.SMOKE_NORMAL;
-		se.radius = 1;
-		se.particles = 10;
+		se.particle = Particle.BLOCK_CRACK;
+		if(b.getType() == Material.GRASS || b.getType() == Material.AIR)
+		{
+			se.material = Material.LEAVES;
+		}else
+		{
+			se.material = b.getType();	
+		}
+		se.radius = 1.2;
+		se.particles = 15;
 		se.yOffset = 0.6;
 		se.iterations = 3;
 		se.start();
-		Language.sendAbilityUseMessage(p, "You vanish.", "Vanish");
+		Language.sendAbilityUseMessage(p, "You camouflage yourself.", this.getName());
 		
 		AbilityUtils.makeInvisible(p);
 		
@@ -88,6 +108,21 @@ public class VanishAbility implements Ability, Listener{
         tasks.put(p, task);
         
         
+			BukkitTask healTask = new BukkitRunnable() {
+ 	            @Override
+ 	            public void run() {
+ 	            	double healAmount = p.getMaxHealth() * (healPercent / 100);
+ 	            	if(p.getHealth() >= p.getMaxHealth())
+ 	            	{
+ 	            		this.cancel();
+ 	            	}
+ 	            	AbilityUtils.healEntity(p, healAmount);
+ 	            	
+ 	            }
+ 	        }.runTaskTimer(VallendiaMinigame.getInstance(), healDelay * 20, healPerSecond * 20L); 
+ 	        
+ 	        healTasks.put(p, healTask);
+        
         
         
     	BukkitTask countdown =	new BukkitRunnable() {
@@ -98,11 +133,11 @@ public class VanishAbility implements Ability, Listener{
             	{
             		if(x == 10)
             		{
-        		        p.sendTitle(Utils.Colorate("&3&lVanish " + x + " seconds"), null, 0, 26, 0);
+        		        p.sendTitle(Utils.Colorate("&3&lCamouflage " + x + " seconds"), null, 0, 26, 0);
             		}
             		if(x <= 5)
             		{
-        		        p.sendTitle(Utils.Colorate("&3&lVanish " + x + " seconds"), null, 0, 26, 0);
+        		        p.sendTitle(Utils.Colorate("&3&lCamouflage " + x + " seconds"), null, 0, 26, 0);
             		}
             		x--;
             	}else this.cancel();
@@ -123,15 +158,26 @@ public class VanishAbility implements Ability, Listener{
     		countDown.remove(p);
     		tasks.get(p).cancel();
     		tasks.remove(p);
-			SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
-			se.setLocation(p.getLocation());
-			se.particle = Particle.SMOKE_NORMAL;
-			se.radius = 1;
-			se.particles = 10;
-			se.yOffset = 0.6;
-			se.iterations = 3;
-			se.start();
-			Language.sendAbilityUseMessage(p, "You reappear.", "Vanish");
+    		healTasks.get(p).cancel();
+    		healTasks.remove(p);
+    		Block b = p.getLocation().getBlock().getRelative(BlockFace.DOWN);
+
+    		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+    		se.setLocation(p.getLocation());
+    		se.particle = Particle.BLOCK_CRACK;
+    		if(b.getType() == Material.GRASS || b.getType() == Material.AIR)
+    		{
+    			se.material = Material.LEAVES;
+    		}else
+    		{
+    			se.material = b.getType();	
+    		}
+    		se.radius = 1.2;
+    		se.particles = 15;
+    		se.yOffset = 0.6;
+    		se.iterations = 3;
+    		se.start();
+			Language.sendAbilityUseMessage(p, "You reappear.", "Camouflage");
 		}
 	}
 	
@@ -171,6 +217,19 @@ public class VanishAbility implements Ability, Listener{
 		
 	}
 	
+	@EventHandler
+	public void onMove(PlayerMoveEvent e)
+	{
+		if(enabled.contains(e.getPlayer()))
+		{
+			if(e.getFrom().getBlockX() != e.getTo().getBlockX() || e.getFrom().getBlockZ() != e.getTo().getBlockZ())
+			{
+			removeVanish(e.getPlayer());
+			}
+		}
+		
+	}
+	
 	@Override
 	public void DisableAbility(Player p) {
 		// TODO Auto-generated method stub
@@ -179,7 +238,8 @@ public class VanishAbility implements Ability, Listener{
 			enabled.remove(p);
     		AbilityUtils.removeInvisible(p);
     		countDown.remove(p);
-			Language.sendAbilityUseMessage(p, "You reappear.", "Vanish");
+			Language.sendAbilityUseMessage(p, "You reappear.", "Camouflage");
 		};
 	}
 }
+

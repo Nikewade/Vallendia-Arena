@@ -33,6 +33,8 @@ public class Archer implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Survivalist"));
 		abilities.add(Main.abilitymanager.getAbility("Sniper"));
 		abilities.add(Main.abilitymanager.getAbility("Repurpose"));
+		abilities.add(Main.abilitymanager.getAbility("Camouflage"));
+		abilities.add(Main.abilitymanager.getAbility("Ice Trap"));
 	}
 	
 	@Override

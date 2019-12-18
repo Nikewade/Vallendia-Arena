@@ -5,29 +5,36 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
-public class SunderAbility implements Ability, Listener{
-	
-	List<Player> abilityActive = new ArrayList<>();
-	List<Player> sundered = new ArrayList<>();
+public class SunderWeaponAbility implements Ability, Listener{
+	//made by Emma
+	public static List<Player> sundered = new ArrayList<>();
 	HashMap<Player, Integer> storeSlot = new HashMap<>();
 	HashMap<Player, ItemStack> storeWeapon = new HashMap<>();
 	int duration = 10;
@@ -35,7 +42,7 @@ public class SunderAbility implements Ability, Listener{
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Sunder";
+		return "Sunder Weapon";
 	}
 
 	@Override
@@ -47,7 +54,7 @@ public class SunderAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Sunder your enemy for", + duration + "seconds");
+		return Arrays.asList("Sunder your enemies weapon for", + duration + "seconds");
 	}
 
 	@Override
@@ -60,13 +67,13 @@ public class SunderAbility implements Ability, Listener{
 	public boolean RunAbility(Player p) {
 		// TODO Auto-generated method stub
 		
-		if(!(AbilityUtils.getTarget(p, 20) instanceof Player))
+		if(!(AbilityUtils.getTarget(p, 5) instanceof Player))
 		{
-			Language.sendAbilityUseMessage(p, "You can only sunder players!", "Sunder");
+			Language.sendAbilityUseMessage(p, "You can only sunder players!", "Sunder Weapon");
 			return false;
 		}
 		
-		Player target = (Player) AbilityUtils.getTarget(p, 20);
+		Player target = (Player) AbilityUtils.getTarget(p, 5);
 					
 		if(target.getInventory().getItemInMainHand().getType() == Material.DIAMOND_SWORD ||
 				target.getInventory().getItemInMainHand().getType() == Material.GOLD_SWORD||
@@ -82,7 +89,23 @@ public class SunderAbility implements Ability, Listener{
 			sundered.add(target);
 			storeSlot.put(target, slot);
 			storeWeapon.put(target, weapon);
-			Language.sendAbilityUseMessage(p, "You sunder your target.", "Sunder");
+			Language.sendAbilityUseMessage(p, "You sunder your targets weapon.", "Sunder Weapon");
+			
+			target.getWorld().playSound(target.getLocation(), Sound.ITEM_SHIELD_BREAK, 1, (float) 1.5);
+			SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+
+			Location loc = target.getLocation();
+			loc.setY(loc.getY()+1);
+
+			se.particle = Particle.BLOCK_DUST;
+			se.material = Material.IRON_BLOCK;
+			se.radius = 1;
+			se.particles = 1;
+			se.iterations = 1;
+			
+			se.setLocation(loc);
+			
+			se.start();
 			
 			BukkitTask timer2 = new BukkitRunnable()
 			
@@ -108,7 +131,7 @@ public class SunderAbility implements Ability, Listener{
 		
 	}else
 	{
-		Language.sendAbilityUseMessage(p, "You can only sunder enemies holding a weapon!", "Sunder");
+		Language.sendAbilityUseMessage(p, "You can only sunder enemies holding a weapon!", "Sunder Weapon");
 		return false;
 	}
 
@@ -126,6 +149,7 @@ public class SunderAbility implements Ability, Listener{
 				}
 
 	}
+	
 	
 	@EventHandler
 	public void onSwitchHand(PlayerSwapHandItemsEvent e)

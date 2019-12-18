@@ -19,6 +19,7 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
@@ -50,27 +51,27 @@ public class AltitudeChecker {
                 		        p.sendTitle(Utils.Colorate("&4&lToo high!"), null, 20, 1, 1);
                 		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 5)
                 		        {
-                		        	p.damage(2);
-                		        }
-                		        
-                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 10)
-                		        {
-                		        	p.damage(4);
+                		 	 		AbilityUtils.damageEntity(p, p, 2);
                 		        }
                 		        
                 		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 15)
                 		        {
-                		        	p.damage(6);
+                		 	 		AbilityUtils.damageEntity(p, p, 4);
                 		        }
                 		        
                 		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 20)
                 		        {
-                		        	p.damage(10);
+                		 	 		AbilityUtils.damageEntity(p, p, 4);
                 		        }
                 		        
                 		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 30)
                 		        {
-                		        	p.damage(20);
+                		 	 		AbilityUtils.damageEntity(p, p, 10);
+                		        }
+                		        
+                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 35)
+                		        {
+                		 	 		AbilityUtils.damageEntity(p, p, 20);
                 		        }	
             				}
             			}else

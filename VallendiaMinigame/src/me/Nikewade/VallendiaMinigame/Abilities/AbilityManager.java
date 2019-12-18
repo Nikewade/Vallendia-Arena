@@ -80,15 +80,19 @@ public class AbilityManager {
 		abilities.add(new SniperAbility());
 		abilities.add(new SiphonAbility());
 		abilities.add(new RepurposeAbility());
-		abilities.add(new SunderAbility());
 		abilities.add(new StunningBlowsAbility());
+		abilities.add(new CamouflageAbility());
+		abilities.add(new IceTrapAbility());
+        abilities.add(new SunderWeaponAbility());
+        abilities.add(new StompAbility());
+        abilities.add(new PiercingRoarAbility());
+        abilities.add(new SunderArmorAbility());
+        abilities.add(new PummelAbility());
+        abilities.add(new QuakeAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);
-		
-		
-		
 		
 		this.generateAbilityPrices();
 	}

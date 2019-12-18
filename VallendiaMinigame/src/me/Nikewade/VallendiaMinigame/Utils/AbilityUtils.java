@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -55,7 +56,10 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
+import de.slikey.effectlib.EffectLib;
+import de.slikey.effectlib.effect.FountainEffect;
 import de.slikey.effectlib.effect.SphereEffect;
+import de.slikey.effectlib.util.DynamicLocation;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.FlyAbility;
 import me.Nikewade.VallendiaMinigame.Events.PlayerItemEvents;
@@ -65,7 +69,7 @@ import net.minecraft.server.v1_12_R1.Explosion;
 import net.minecraft.server.v1_12_R1.PacketPlayOutEntityDestroy;
 
 public class AbilityUtils implements Listener {
-	private static Set<Material> transparentBlocks = null;
+	public static Set<Material> transparentBlocks = null;
 	private static HashMap<Block, Integer> explosives = new HashMap<>();
 	public static HashMap<Entity, Integer> explosivesEntities = new HashMap<>();
 	public static HashMap<LivingEntity, BukkitTask> silenced = new HashMap<>();
@@ -81,6 +85,9 @@ public class AbilityUtils implements Listener {
 	private static HashMap<LivingEntity, BukkitTask> stunTimer = new HashMap<>();
 	private static HashMap<LivingEntity, BukkitTask> stunCountdown = new HashMap<>();
 	private static HashMap<LivingEntity ,SphereEffect> stunParticle = new HashMap<>();
+	private static HashMap<String ,Location> traps = new HashMap<>();
+	private static HashMap<Location ,SphereEffect> trapParticle = new HashMap<>();
+	private static HashMap<Location ,BukkitTask> trapTasks = new HashMap<>();
 	private static List<LivingEntity> invisible = new ArrayList<>();
 	static int castingHealthPercent = 70;
 	
@@ -638,18 +645,21 @@ public class AbilityUtils implements Listener {
     		}
     	
     	p.setWalkSpeed((float) 0.07);
-		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
-		se.setEntity(p);
-		se.disappearWithOriginEntity = true;
-		se.infinite();
-		se.particle = Particle.ENCHANTMENT_TABLE;
-		se.radius = 0.4;
-		se.particles = 1;
-		se.yOffset = -0.4;
-		se.particleOffsetZ = (float) 0.4;
-		se.speed = (float) 0;
-		se.start();
-		castingParticles.put(p, se);
+    	if(!isInvisible(p))
+    	{
+    		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+    		se.setEntity(p);
+    		se.disappearWithOriginEntity = true;
+    		se.infinite();
+    		se.particle = Particle.ENCHANTMENT_TABLE;
+    		se.radius = 0.4;
+    		se.particles = 1;
+    		se.yOffset = -0.4;
+    		se.particleOffsetZ = (float) 0.4;
+    		se.speed = (float) 0;
+    		se.start();
+    		castingParticles.put(p, se);	
+    	}
     	
     	
     	BukkitTask task2 =	new BukkitRunnable() {
@@ -695,8 +705,11 @@ public class AbilityUtils implements Listener {
     		castingTask.remove(p);
     		castingTask2.get(p).cancel();
     		castingTask2.remove(p);
-    		castingParticles.get(p).cancel();
-    		castingParticles.remove(p);
+    		if(castingParticles.containsKey(p))
+    		{
+        		castingParticles.get(p).cancel();
+        		castingParticles.remove(p);	
+    		}
     	}
     }
     
@@ -901,6 +914,87 @@ public class AbilityUtils implements Listener {
     	}	
     	return false;
 
+    }
+    
+    
+    
+    public static boolean makeTrap(String playername, String abilityname, Location loc, Runnable run)
+    {
+    	if(!traps.containsKey(playername+abilityname))
+    	{
+    		Player p = VallendiaMinigame.getInstance().getServer().getPlayer(playername);
+    		
+			Runnable runnable = new Runnable()
+			{
+				@Override
+				public void run() {
+		      		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+		      		se.particle = Particle.SUSPENDED_DEPTH;
+		    		se.radius = 0.2;
+		    		se.infinite();
+		    		se.particles = 2;
+		    		//This makes it flat-ish
+		    		se.particleOffsetX = 0.3F;
+		    		se.particleOffsetZ = 0.3F;
+		    		
+		        	se.setLocation(loc);
+		        	se.start();	
+		        	
+		        	
+		    	    BukkitTask task = new BukkitRunnable() {
+		                @Override
+		                public void run() {	
+		                	for(Entity e : AbilityUtils.getAoeTargets(p, loc, 1, 1.8, 1))
+		                	{
+		                		if(e != null)
+		                		{
+		                    		run.run();
+		                    		removeTrap(p, abilityname);
+		                    		this.cancel();
+		                		}
+		                	}
+		                }
+		    	    }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);	
+		    	    
+		    	    trapTasks.put(loc, task);
+		        	
+		        	
+		        	
+		        	traps.put(playername+abilityname, loc);
+		        	trapParticle.put(loc, se);
+		    	}
+				
+			};
+			
+    		AbilityUtils.castAbility(p, 3, runnable);
+    		
+    		
+    	return true;
+    	}
+		return false;
+    }
+    
+    public static void removeTrap(Player p, String abilityname)
+    {
+    	
+    	if(traps.containsKey(p.getName()+abilityname))
+    	{
+    		trapParticle.get(getTrap(p, abilityname)).cancel();
+    		trapParticle.remove(getTrap(p, abilityname)).cancel();
+    		trapTasks.get(getTrap(p, abilityname)).cancel();
+    		trapTasks.remove(getTrap(p, abilityname));
+    		traps.remove(p.getName()+abilityname);
+    	}
+    }
+    
+    
+    public static Location getTrap(Player p, String abilityname)
+    {
+    	if(traps.containsKey(p.getName()+abilityname))
+    	{
+    		return traps.get(p.getName()+abilityname);	
+    	}
+    	return null;
     }
     
     
@@ -1155,10 +1249,12 @@ public class AbilityUtils implements Listener {
 			p.setHealth(p.getMaxHealth());
 		}else p.setHealth(p.getHealth() + amount);
     	
-		
-        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
-        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
-        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5);
+		if(!invisible.contains(p))
+		{
+	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
+	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
+	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5);	
+		}
         if(p instanceof Player)
         {
             ScoreboardHandler.updateMaxHealth((Player) p);	

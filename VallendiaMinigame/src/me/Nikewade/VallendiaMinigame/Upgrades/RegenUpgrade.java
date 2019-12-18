@@ -14,6 +14,7 @@ import com.comphenix.protocol.ProtocolManager;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class RegenUpgrade implements Upgrade{
@@ -73,9 +74,12 @@ public class RegenUpgrade implements Upgrade{
                     		p.setHealth(p.getMaxHealth());
                     	}else
                 		p.setHealth(p.getHealth() + 1);
-                        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
-                        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
-                        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 
+                		if(!AbilityUtils.isInvisible(p))
+                		{
+                	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
+                	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
+                	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5);	
+                		}
                 	}     
             }
 	    }.runTaskTimer(VallendiaMinigame.getInstance(), 20* 3, (long) (20 * time));

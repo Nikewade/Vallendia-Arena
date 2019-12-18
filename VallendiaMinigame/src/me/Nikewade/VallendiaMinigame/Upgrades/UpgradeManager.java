@@ -246,7 +246,6 @@ public class UpgradeManager {
 	        p.playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 1, 1);
 	        return;
 		}
-		
 		if(upgradeamount + amount > this.getMaxUpgrade(upgrade , enchant))
 		{
 	        p.sendTitle(Utils.Colorate("&4&lX"), Utils.Colorate("&4&lMax upgrade!"), 20, 40, 40);

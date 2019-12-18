@@ -22,6 +22,7 @@ import com.SirBlobman.combatlogx.event.PlayerTagEvent;
 import com.SirBlobman.combatlogx.utility.CombatUtil;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
@@ -124,10 +125,13 @@ public class PlayerFoodEvents implements Listener {
 						    	 		return;
 						    	 	}
 						    	 	
-				                    p.setHealth(p.getHealth() + healAmount);
-				                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
-				                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
-				                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 
+						    	 	if(!AbilityUtils.isInvisible(p))
+						    	 	{
+					                    p.setHealth(p.getHealth() + healAmount);
+					                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
+					                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
+					                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 	
+						    	 	}
 				     }
 				}.runTaskTimer(Main, 0, (2*20));
 				

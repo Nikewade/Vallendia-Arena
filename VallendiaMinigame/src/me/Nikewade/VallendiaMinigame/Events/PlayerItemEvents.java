@@ -2,6 +2,7 @@ package me.Nikewade.VallendiaMinigame.Events;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.GameMode;
@@ -16,7 +17,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -36,6 +36,8 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.SunderArmorAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.SunderWeaponAbility;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
@@ -47,6 +49,7 @@ public class PlayerItemEvents implements Listener {
 	ArrayList<Player> wandCooldown = new ArrayList<>();
 	double wandCooldownAmount = 0.5;
 	public static Map<Player, BukkitTask> casting = new HashMap<>();
+	private static List<String> noStunAbilities = new ArrayList<>();
 	
 	
 	
@@ -54,6 +57,9 @@ public class PlayerItemEvents implements Listener {
 	{
 		this.Main = Main;
 		Main.getServer().getPluginManager().registerEvents(this, Main);
+		noStunAbilities.add("Adaptation");
+		
+
 	}
 
 	@SuppressWarnings("deprecation")
@@ -64,112 +70,114 @@ public class PlayerItemEvents implements Listener {
 	    if (a == Action.RIGHT_CLICK_AIR || a == Action.RIGHT_CLICK_BLOCK)
 	    {
 		    Player p = e.getPlayer();
-			if(AbilityUtils.isStunned(p))
-			{
-				return;
-			}
 		    ItemStack item = p.getInventory().getItemInMainHand();
 		    Material itemtype = item.getType();
-	    	if(itemtype != Material.AIR && item.getItemMeta().hasDisplayName())
-	    	{
-		 	   	String itemname = item.getItemMeta().getDisplayName();
-		    	   if(itemtype == Material.NETHER_STAR && itemname.equals(Utils.Colorate("&b&lKit")))
-		    	   {
-			    		Main.guihandler.openGui(p, "kit");   
-			    		p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
-			    		return;
-		    	   }	
-		    	   
-		    	   if(itemtype == Material.NETHER_STAR && itemname.equals(Utils.Colorate("&b&lShop")))
-		    	   {
-			    		Main.guihandler.openGui(p, "shop");  
-			    		p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
-			    		return;
-		    	   }
-		    	   
-		    	   
-		    	   //MAGE WAND
-		    	   if(itemtype == Material.STICK && itemname.equals(Utils.Colorate("&3&lWand")))
-		    	   {
-		    		   
-		    		   if(!wandCooldown.contains(p))
-		    		   {
-		    			   
-			    		   new BukkitRunnable(){
-			    		         
-			    	            double t = 1;
-			    	            Location loc = p.getLocation();
-			    	            Vector dir = loc.getDirection().normalize();
-			    	         
-			    	            @Override
-			    	            public void run() {
-			    	            	t = t + 0.7;
-			    	                double x = dir.getX() * t;
-			    	                double y = dir.getY() * t + 1.5D;
-			    	                double z = dir.getZ() * t;
-			    	                loc.add(x,y,z);
-			    	                
+			if(!AbilityUtils.isStunned(p))
+			{
+		    	if(itemtype != Material.AIR && item.getItemMeta().hasDisplayName())
+		    	{
+			 	   	String itemname = item.getItemMeta().getDisplayName();
+			    	   if(itemtype == Material.NETHER_STAR && itemname.equals(Utils.Colorate("&b&lKit")))
+			    	   {
+				    		Main.guihandler.openGui(p, "kit");   
+				    		p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
+				    		return;
+			    	   }	
+			    	   
+			    	   if(itemtype == Material.NETHER_STAR && itemname.equals(Utils.Colorate("&b&lShop")))
+			    	   {
+			    		   if(SunderWeaponAbility.sundered.contains(p)||SunderArmorAbility.sundered.contains(p))
+	                       {
+	                           return;
+	                       }
+				    		Main.guihandler.openGui(p, "shop");  
+				    		p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
+				    		return;
+			    	   }
+			    	   
+			    	   
+			    	   //MAGE WAND
+			    	   if(itemtype == Material.STICK && itemname.equals(Utils.Colorate("&3&lWand")))
+			    	   {
+			    		   
+			    		   if(!wandCooldown.contains(p))
+			    		   {
+			    			   
+				    		   new BukkitRunnable(){
+				    		         
+				    	            double t = 1;
+				    	            Location loc = p.getLocation();
+				    	            Vector dir = loc.getDirection().normalize();
+				    	         
+				    	            @Override
+				    	            public void run() {
+				    	            	t = t + 0.7;
+				    	                double x = dir.getX() * t;
+				    	                double y = dir.getY() * t + 1.5D;
+				    	                double z = dir.getZ() * t;
+				    	                loc.add(x,y,z);
+				    	                
 
-		    	              		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
-		    	            		se.particle = Particle.END_ROD;
-		    	            		se.iterations = 1;
-		    	            		se.particles = 1;
-		    	            		se.radius = 0.2;
-		    	            		se.speed = (float) 0;
-		    	            		se.visibleRange = 50;
-		    	            			se.setLocation(loc);
-		    	            			se.start();
-		    	            			//block behind the particle incase the particle passes thru a block
-				    	                Location locBehind = se.getLocation();
-				    	                Vector dir2 = locBehind.getDirection().normalize().multiply(-1);
-				    	                locBehind.add(dir2);
-			    	                     if(loc.getBlock().getType().isSolid() || 
-			    	                    		 locBehind.getBlock().getType().isSolid())
-			    	                     {
-			    	                    	 this.cancel();
-			    	                     }
-		    	            			for(Entity e : loc.getWorld().getNearbyEntities(loc, 0.5, 0.5, 0.5))
-		    	            			{
-		    	            				if(e instanceof LivingEntity && e != p)
-		    	            				{
-		    	            					AbilityUtils.damageEntity((LivingEntity)e, p, 1);
-		    	            					this.cancel();
-		    	            				}
-		    	            			}
-			    	             
-			    	                loc.subtract(x,y,z);
-			    	             
-			    	                if(t >= 30){
-			    	                    this.cancel();
-			    	                }
-			    	             
-			    	                t++;
-			    	             
-			    	            }
-			    	         
-			    	        }.runTaskTimer(VallendiaMinigame.getInstance(), 0l, 1l);
-		    			   
-			    	 	 	  
-			    		 	  new BukkitRunnable(){
+			    	              		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+			    	            		se.particle = Particle.END_ROD;
+			    	            		se.iterations = 1;
+			    	            		se.particles = 1;
+			    	            		se.radius = 0.2;
+			    	            		se.speed = (float) 0;
+			    	            		se.visibleRange = 50;
+			    	            			se.setLocation(loc);
+			    	            			se.start();
+			    	            			//block behind the particle incase the particle passes thru a block
+					    	                Location locBehind = se.getLocation();
+					    	                Vector dir2 = locBehind.getDirection().normalize().multiply(-1);
+					    	                locBehind.add(dir2);
+				    	                     if(loc.getBlock().getType().isSolid() || 
+				    	                    		 locBehind.getBlock().getType().isSolid())
+				    	                     {
+				    	                    	 this.cancel();
+				    	                     }
+			    	            			for(Entity e : loc.getWorld().getNearbyEntities(loc, 0.5, 0.5, 0.5))
+			    	            			{
+			    	            				if(e instanceof LivingEntity && e != p)
+			    	            				{
+			    	            					AbilityUtils.damageEntity((LivingEntity)e, p, 1);
+			    	            					this.cancel();
+			    	            				}
+			    	            			}
+				    	             
+				    	                loc.subtract(x,y,z);
+				    	             
+				    	                if(t >= 30){
+				    	                    this.cancel();
+				    	                }
+				    	             
+				    	                t++;
+				    	             
+				    	            }
+				    	         
+				    	        }.runTaskTimer(VallendiaMinigame.getInstance(), 0l, 1l);
+			    			   
+				    	 	 	  
+				    		 	  new BukkitRunnable(){
 
-								@Override
-								public void run() {
-									// TODO Auto-generated method stub
-									if(wandCooldown.contains(p))
-									{
-										wandCooldown.remove(p);
-									}
-								}                         
-	
-			    		 	  }.runTaskLater(VallendiaMinigame.getInstance(), (long) (wandCooldownAmount * 20));
-			    		 	  wandCooldown.add(p);
-				    		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 2, (float) 1.5);
-				    		return;   
-		    		   }
-		    	   }
-		    	   	
-	    	}
-	    	
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										if(wandCooldown.contains(p))
+										{
+											wandCooldown.remove(p);
+										}
+									}                         
+		
+				    		 	  }.runTaskLater(VallendiaMinigame.getInstance(), (long) (wandCooldownAmount * 20));
+				    		 	  wandCooldown.add(p);
+					    		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 2, (float) 1.5);
+					    		return;   
+			    		   }
+			    	   }
+			    	   	
+		    	}	
+			}
 	    	
 	    	
 	    	
@@ -177,6 +185,10 @@ public class PlayerItemEvents implements Listener {
 	    	   if(itemtype == Material.INK_SACK && item.getDurability() == 10 && item.getItemMeta().getLore() != null) // green dye
 	    	   {
 	    		   	String ability = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities." + ChatColor.stripColor(Utils.Colorate(item.getItemMeta().getLore().get(0).toLowerCase())));
+	    		   	if(AbilityUtils.isStunned(p) && !noStunAbilities.contains(ability))
+	    		   	{
+	    		   		return;
+	    		   	}
 	    		   	if(Main.abilitymanager.getAbility(ability) == null)
 	    		   	{
 	    		   		return;

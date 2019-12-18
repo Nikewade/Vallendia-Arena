@@ -182,6 +182,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.worldguard = getWorldGuard();
 	       this.fallingblocks = new FallingBlocksManager(this);
 	       this.ghost = new GhostManager(this);
+	      
 	       
 	       
 	       if (getServer().getPluginManager().getPlugin("Parties") != null) {
@@ -245,9 +246,7 @@ public class VallendiaMinigame extends JavaPlugin{
 
 	         this.sb.runNameTagUpdater();
 	         this.sb.runSidebarUpdater();
-	         ShopHandler.loadShop();
-		   
-		   
+	         ShopHandler.loadShop();   
 	   }
 	   
 	   @Override

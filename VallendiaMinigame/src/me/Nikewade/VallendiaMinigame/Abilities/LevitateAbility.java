@@ -167,7 +167,6 @@ public class LevitateAbility implements Ability, Listener{
 
 		
 	}
-        	
         	@EventHandler
         	public void onJump (PlayerMoveEvent e)
         	{
@@ -180,7 +179,7 @@ public class LevitateAbility implements Ability, Listener{
         			{
         			if(abilityActive.contains(p))
         			{
-        				AbilityUtils.addPotionDuration(p,p, "Levitate", PotionEffectType.LEVITATION, amplifier, duration*20);
+        				AbilityUtils.addPotionDuration(p,p,"Levitate", PotionEffectType.LEVITATION, amplifier, duration*20);
         				isLevitating.add(p);
         				abilityActive.remove(p);
         				
@@ -336,7 +335,7 @@ public class LevitateAbility implements Ability, Listener{
         		
         		if(abilityActive.contains(p))
         		{
-        			AbilityUtils.addPotionDuration(p,target, "Levitate", PotionEffectType.LEVITATION, amplifier, duration*20);
+        			AbilityUtils.addPotionDuration(p,target, "Levitate" ,PotionEffectType.LEVITATION, amplifier, duration*20);
         			abilityActive.remove(p);
         			storeTarget.put(p, target);
         			
@@ -427,6 +426,7 @@ public class LevitateAbility implements Ability, Listener{
         		
         	}
         	    	
+	
 	
 
 }

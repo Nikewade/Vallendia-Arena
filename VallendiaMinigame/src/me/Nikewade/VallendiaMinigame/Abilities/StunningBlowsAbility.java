@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,10 +16,11 @@ import org.bukkit.inventory.ItemStack;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class StunningBlowsAbility implements Ability, Listener{
-	
+	//made by Emma
 	int percent = 5;
 	int duration = 2;
 			
@@ -81,6 +84,9 @@ public class StunningBlowsAbility implements Ability, Listener{
 						if(random <= percent)
 						{
 							AbilityUtils.stun(p, (LivingEntity) e.getEntity(), "Stunning Blows", duration);
+							e.getEntity().getWorld().playSound(e.getEntity().getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 0.6F);
+				 	 		e.getEntity().getWorld().spawnParticle(Particle.CRIT, e.getEntity().getLocation().add(0, 1.8, 0), 20);
+				 	 		Language.sendAbilityUseMessage(p, "You stun your target!", "Stunning Blows");
 						}
 					}
 					

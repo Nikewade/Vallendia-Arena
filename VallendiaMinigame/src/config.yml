@@ -1,0 +1,196 @@
+Options:
+  Auto-Close-Upgrade-Menu: true
+  altitude: 160
+  spawn-range: 20
+  food:
+    food-heal: 1
+    steak: 80
+    pork: 60
+    chicken: 50
+    bread: 30
+    fish: 10
+upgrades:
+  health:
+    price: 0
+    multiplier: 1
+    multiplier2: 1
+    max: 999
+    exp: 0
+  regeneration:
+    price: 0
+    multiplier: 1
+    multiplier2: 1
+    max: 999
+    exp: 0
+  speed:
+    price: 0
+    multiplier: 1
+    multiplier2: 1
+    max: 999
+    exp: 0
+  armor:
+    prot:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+    projprot:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999 
+      exp: 0
+    fireprot:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+    thorns:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+    blastprot:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+    featherfall:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+  weapon:
+    sharpness:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+    fireaspect:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+    knockback:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+    smite:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+    power:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+    punch:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+    flame:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+    infinity:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+  tools:
+    efficiency:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+    fortune:
+      price: 0
+      multiplier: 1
+      multiplier2: 1
+      max: 999
+      exp: 0
+Levels:
+  1: 100
+  2: 200
+  3: 300
+  4: 400
+  5: 500
+  6: 600
+  7: 700
+  8: 800
+  9: 900
+  10: 1000
+  11: 1100
+  12: 1200
+  13: 1300
+  14: 1400
+  15: 1500
+  16: 1600
+  17: 1700
+  18: 1800
+  19: 1900
+  m: 3
+  r: 3
+  p: 3
+  l: 3
+  n: 3
+Abilities: 0
+kits:
+  starter:
+    items:
+      '4':
+        type: nether_star
+        amount: 1
+        name: '&b&lKit'
+    armor:
+      helmet: air
+      chestplate: air
+      leggings: air
+      boots: air
+Spawning:
+guiNextButton: ARROW
+guiBackButton: BARRIER
+langChatPrefix: '&6[ItemShop]'
+langNotEnoughMoney: '&4&lYou do not have enough money to complete this transaction.'
+langNotEnoughItems: '&4&lYou do not have enough items to complete this transaction.'
+langShopOpen: '&a&lShop Opened.'
+langNoPerm: '&4&lYou do not have permission to use this command.'
+langReloaded: '&2&lShop reloaded!'
+langGuiName: '&2&lItem Shop'
+langNextPage: '&2&lNext Page'
+langBackPage: '&4&lPrevious Page'
+langAddedItem: '&2&lAdded item to the shop.'
+langRemovedItem: '&2&lRemoved item to the shop.'
+langNoHand: '&4&lThere is no item in your hand.'
+langNoRem: '&4&lCould not remove item from shop.'
+Resources:
+  coal: 1
+  iron: 2
+  gold: 3
+  diamond: 4
+  emerald: 5
+  carrot: 1
+  potato: 2
+  poison_potato: 10
+  wheat: 4
+  nether_wart: 5
+  red_mushroom: 1
+  brown_mushroom: 1

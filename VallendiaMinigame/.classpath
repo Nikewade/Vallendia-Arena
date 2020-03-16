@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/CombatLogX.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/EffectLib-6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/Parties-2.6.14.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/ProtocolLib (3).jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/spigot.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/Vault_1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/worldedit-bukkit-6.1.7.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/worldguard-6.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/BountyHunters-2.2.6.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

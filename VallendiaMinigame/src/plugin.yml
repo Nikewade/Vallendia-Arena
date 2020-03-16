@@ -1,0 +1,16 @@
+name: VallendiaMinigame
+version: 1.0
+main: me.Nikewade.VallendiaMinigame.VallendiaMinigame
+commands:
+  vallendia:
+    aliases: [va, val, vall]
+  shop:
+depend:
+  - EffectLib
+  - CombatLogX
+  - WorldGuard
+  - WorldEdit
+  - Vault
+  - Parties
+    
+

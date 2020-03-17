@@ -91,6 +91,7 @@ public class AbilityManager {
         abilities.add(new QuakeAbility());
         abilities.add(new BearTrapAbility());
         abilities.add(new ExplosiveTrapAbility());
+        abilities.add(new LoneWolfAbility());
 		
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");

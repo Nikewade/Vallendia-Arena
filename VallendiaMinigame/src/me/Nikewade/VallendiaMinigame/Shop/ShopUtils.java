@@ -45,7 +45,7 @@ public class ShopUtils {
 	}
 	
 	public static final String formatPrice(double price) {
-		return "$" + NumberFormat.getInstance().format(price);
+		return NumberFormat.getInstance().format(price) +" Points";
 	}
 	
 	public static final void chat(CommandSender to, String msg) {

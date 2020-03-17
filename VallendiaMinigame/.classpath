@@ -10,6 +10,5 @@
 	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/Vault_1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/worldedit-bukkit-6.1.7.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/worldguard-6.2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/BountyHunters-2.2.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

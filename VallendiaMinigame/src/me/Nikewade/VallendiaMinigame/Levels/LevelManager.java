@@ -20,8 +20,8 @@ public class LevelManager {
 		return Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Level");
 	}
 	
-	public int getParameter (String parameter){
-			return Main.getConfig().getInt("Levels." + parameter.toLowerCase());
+	public double getParameter (String parameter){
+			return Main.getConfig().getDouble("Levels." + parameter.toLowerCase());
 	}
 	
 	public void setLevel (Player p, int amount)

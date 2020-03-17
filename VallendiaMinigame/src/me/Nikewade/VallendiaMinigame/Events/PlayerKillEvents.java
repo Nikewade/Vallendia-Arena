@@ -25,36 +25,32 @@ public class PlayerKillEvents implements Listener {
 	   public void onPlayerKill(PlayerDeathEvent e) {
 	      Player p = e.getEntity();
 	      if (p.getKiller() != null && p.getKiller() instanceof Player && p.getKiller() != p) {
-	         int points = 0;
-	         int M = this.Main.levelmanager.getParameter("m");
-	         int R = this.Main.levelmanager.getParameter("r");
-	         int P = this.Main.levelmanager.getParameter("p");
-	         int L = this.Main.levelmanager.getParameter("l");
+	         double points = 0;
 	         Player killer = p.getKiller();
-	         int levelKilled = this.Main.levelmanager.getLevel(p);
-	         int level = this.Main.levelmanager.getLevel(killer);
+	         int level = this.Main.levelmanager.getLevel(p);
+	         int levelKilledBy = this.Main.levelmanager.getLevel(killer);
 	         UUID uuid = killer.getUniqueId();
 	         this.Main.playerdatamanager.addData(uuid, "Kills", 1);
 	         this.Main.playerdatamanager.addData(uuid, "KillStreak", 1);
-	         if (levelKilled >= level) {
-	            points = -(M - R) * level + M * levelKilled + P - R;
+	         if (levelKilledBy >= level) {
+	            points = (float) 10 * ((Math.pow((level), 2) / levelKilledBy));
 	         }
 
-	         if (levelKilled < level) {
-	            points = -(levelKilled * R + P - 1) * (level - levelKilled) / L + levelKilled * R + P - R;
+	         if (levelKilledBy < level) {
+	            points = (10 * level) + 40 * (level - levelKilledBy);
 	         }
 
-	         if (points < 1) {
-	            points = 1;
+	         if (points <= 0) {
+	            points = 0;
 	         }
 
-	         this.Main.playerdatamanager.addData(uuid, "Points", points);
+	         this.Main.playerdatamanager.addData(uuid, "Points", (int) points);
 	         killer.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
 	         killer.sendMessage("");
 	         Language.sendCentredMessage(killer, Utils.Colorate("&3Player killed: " + p.getName()));
 	         Language.sendCentredMessage(killer, Utils.Colorate("&3Kit: " + this.Main.kitmanager.getKit(p).getName(true)));
 	         Language.sendCentredMessage(killer, Utils.Colorate("&3Level: " + this.Main.levelmanager.getLevel(p)));
-	         Language.sendCentredMessage(killer, Utils.Colorate("&3Points gained: " + points));
+	         Language.sendCentredMessage(killer, Utils.Colorate("&3Points gained: " + (int) points));
 	         killer.sendMessage("");
 	         killer.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
 	      }

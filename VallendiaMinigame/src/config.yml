@@ -147,11 +147,9 @@ Levels:
   17: 1700
   18: 1800
   19: 1900
-  m: 3
-  r: 3
-  p: 3
-  l: 3
-  n: 3
+  b: 1
+  n: 0.916
+  d: 0.8
 Abilities: 0
 kits:
   starter:

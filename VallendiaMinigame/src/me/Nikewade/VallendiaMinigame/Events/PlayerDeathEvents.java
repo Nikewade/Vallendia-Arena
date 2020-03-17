@@ -80,6 +80,9 @@ public class PlayerDeathEvents implements Listener {
 	      int level = this.Main.levelmanager.getLevel(p);
 	      this.Main.upgrademanager.resetUpgradesOnDeath(p);
 	      this.Main.abilitymanager.resetAbilities(p);
+          double b = this.Main.levelmanager.getParameter("b");
+          double n = this.Main.levelmanager.getParameter("n");
+          double d = this.Main.levelmanager.getParameter("d");
 	      for(Ability ability : VallendiaMinigame.getInstance().abilitymanager.getAbilities())
 	      {
 	    	  ability.DisableAbility(p);
@@ -111,41 +114,54 @@ public class PlayerDeathEvents implements Listener {
 	      }
 
 	      if (p.getKiller() != null && p.getKiller() instanceof Player && p.getKiller() != p) {
-	         if (pointsCarried + pointsSpent < 0) {
-	            this.Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", pointsCarried + pointsSpent);
-	            p.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
-	            p.sendMessage("");
-	            Language.sendCentredMessage(p, Utils.Colorate("&c&lYou died"));
-	            Language.sendCentredMessage(p, Utils.Colorate("&3Kit: " + this.Main.kitmanager.getKit(p).getName(true)));
-	            Language.sendCentredMessage(p, Utils.Colorate("&3Level: " + this.Main.levelmanager.getLevel(p)));
-	            Language.sendCentredMessage(p, Utils.Colorate("&3Points lost: " + (pointsCarried - this.Main.shopmanager.getPoints(p))));
-	            p.sendMessage("");
-	            p.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
-	         } else {
-	            int N = this.Main.levelmanager.getParameter("n");
 	            Player killer = p.getKiller();
 	            int levelKilledBy = this.Main.levelmanager.getLevel(killer);
-	            int points = (int)((double)(pointsCarried + pointsSpent) * (1.0D / Math.pow((double)level, 0.35D)) * (-0.45D * (double)(level - levelKilledBy - N) / Math.sqrt(Math.pow((double)(level - levelKilledBy - N), 2.0D) + Math.pow((double)N, 2.0D)) + 0.55D));
-	            this.Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", points);
+	            float sumOfLvls = (float) ((float) level / (float) levelKilledBy);
+	            double points = ((pointsCarried + (b * pointsSpent)) * Math.pow(Math.E, (-n * sumOfLvls)));
+	            /*
+	             * where c is points carried
+					s is points spent
+					b is the decimal multiplier of points spent to consider, should be between 0 and 1
+					n is the exponential multiplier, this determines how quickly points decay as killer level goes down, also determines percentage of points to give back to someone of equal level to their killer
+					default values b = 1, n = 0.916
+	             */
+	            this.Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", (int) points);
 	            this.Main.playerdatamanager.editIntData(p.getUniqueId(), "PointsSpent", 0);
 	            p.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
 	            p.sendMessage("");
 	            Language.sendCentredMessage(p, Utils.Colorate("&c&lYou died"));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Kit: " + this.Main.kitmanager.getKit(p).getName(true)));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Level: " + this.Main.levelmanager.getLevel(p)));
-	            Language.sendCentredMessage(p, Utils.Colorate("&3Points lost: " + (pointsCarried - this.Main.shopmanager.getPoints(p))));
-	            p.sendMessage("");
+		        double pointsLost = pointsCarried * (1- (Math.pow(Math.E, -n* (level / levelKilledBy))));
+		        if(pointsLost <= 0)
+		        {
+		        	pointsLost = pointsLost - 1;
+		        }
+		        double pointsRefunded = (b * pointsSpent) * (Math.pow(Math.E, -n *(level / levelKilledBy)));
+	            Language.sendCentredMessage(p, Utils.Colorate("&3Points lost: " + (int) (pointsLost + 1)));
+	            Language.sendCentredMessage(p, Utils.Colorate("&3Points Refunded: " + (int) pointsRefunded));
 	            p.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
-	         }
-	      } else {
-	         this.Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", (int)((double)(pointsCarried + pointsSpent) * (1.0D / Math.pow((double)level, 0.35D))));
+	         }else 
+	         {
+	         double points = ((pointsCarried + (b * pointsSpent)) * d); 
+	         this.Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", (int) points);
+	         /*
+	          * where d = decimal of points to give back, default d = .8
+	          */
 	         this.Main.playerdatamanager.editIntData(p.getUniqueId(), "PointsSpent", 0);
 	         p.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
 	         p.sendMessage("");
 	         Language.sendCentredMessage(p, Utils.Colorate("&c&lYou died"));
 	         Language.sendCentredMessage(p, Utils.Colorate("&3Kit: " + this.Main.kitmanager.getKit(p).getName(true)));
 	         Language.sendCentredMessage(p, Utils.Colorate("&3Level: " + this.Main.levelmanager.getLevel(p)));
-	         Language.sendCentredMessage(p, Utils.Colorate("&3Points lost: " + (pointsCarried - this.Main.shopmanager.getPoints(p))));
+	         double pointsLost = (pointsCarried * (1-d)) + 1;
+	         if(pointsCarried < 1)
+	         {
+	        	 pointsLost = 0;
+	         }
+	         double pointsRefunded = b * pointsSpent * d;
+	         Language.sendCentredMessage(p, Utils.Colorate("&3Points lost: " + (int) pointsLost));
+	         Language.sendCentredMessage(p, Utils.Colorate("&3Points Refunded: " + (int) pointsRefunded));
 	         p.sendMessage("");
 	         p.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
 	      }

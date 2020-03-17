@@ -430,11 +430,6 @@ public class AbilityUtils implements Listener {
 			{
 				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand))
 				{
-		        	//Can damage
-		        	if(!Utils.canDamage(originplayer, entity))
-		        	{
-			            continue;
-		        	}
 					if(entity instanceof Player)
 					{
 						Player entityplayer = (Player) entity;
@@ -444,6 +439,12 @@ public class AbilityUtils implements Listener {
 			        	if(partyCheck(entityplayer, originplayer))
 			        	{
 			        		continue;
+			        	}
+			        	
+			        	//Can damage
+			        	if(!Utils.canDamage(originplayer, entity))
+			        	{
+				            continue;
 			        	}
 						
 						if(!(entityplayer.getGameMode() == GameMode.SURVIVAL) && !(entityplayer.getGameMode() == GameMode.ADVENTURE))
@@ -468,11 +469,6 @@ public class AbilityUtils implements Listener {
 			{
 				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand) || entity instanceof Projectile)
 				{
-		        	//Can damage
-		        	if(!Utils.canDamage(originplayer, entity) && !(entity instanceof Projectile))
-		        	{
-			            continue;
-		        	}
 		        	
 		        	if(entity instanceof Projectile)
 		        	{
@@ -492,6 +488,11 @@ public class AbilityUtils implements Listener {
 			        	if(partyCheck(entityplayer, originplayer))
 			        	{
 			        		continue;
+			        	}
+			        	//Can damage
+			        	if(!Utils.canDamage(originplayer, entity))
+			        	{
+				            continue;
 			        	}
 						
 						if(!(entityplayer.getGameMode() == GameMode.SURVIVAL) && !(entityplayer.getGameMode() == GameMode.ADVENTURE))

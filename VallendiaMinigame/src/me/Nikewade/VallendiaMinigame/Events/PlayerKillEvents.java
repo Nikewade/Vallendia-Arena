@@ -33,7 +33,7 @@ public class PlayerKillEvents implements Listener {
 	         this.Main.playerdatamanager.addData(uuid, "Kills", 1);
 	         this.Main.playerdatamanager.addData(uuid, "KillStreak", 1);
 	         if (levelKilledBy >= level) {
-	            points = (float) 10 * ((Math.pow((level), 2) / levelKilledBy));
+	            points = (float) 10 * ((Math.pow(level, 2) / levelKilledBy));
 	         }
 
 	         if (levelKilledBy < level) {

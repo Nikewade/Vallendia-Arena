@@ -281,7 +281,10 @@ public class PlayerItemEvents implements Listener {
                 item = e.getCurrentItem();
             }
 			
-			itemtype = item.getType();
+			if(itemtype != null)
+			{
+				itemtype = item.getType();	
+			}
 			
 			
 			if (itemtype == Material.NETHER_STAR && itemname != null) {

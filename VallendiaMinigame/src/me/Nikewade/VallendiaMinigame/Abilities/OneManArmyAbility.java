@@ -18,6 +18,7 @@ import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
  
 public class OneManArmyAbility implements Listener, Ability {
+	//made by emma
     int percent = 5;
     int distance = 10;
     int cappercent = 60;
@@ -88,7 +89,7 @@ public class OneManArmyAbility implements Listener, Ability {
  
             int amount = 0;
            
-            for (Entity ent : AbilityUtils.getAoeTargets(p, p.getLocation(), distance, distance, distance))
+            for (Entity ent : AbilityUtils.getAoeTargetsNonDamage(p, p.getLocation(), distance, distance, distance))
             {
                 if(ent instanceof Player)
                 {
@@ -122,7 +123,7 @@ public class OneManArmyAbility implements Listener, Ability {
         {
             int amount = 0;
            
-            for (Entity ent : AbilityUtils.getAoeTargets((Player) e.getEntity(), e.getEntity().getLocation(),
+            for (Entity ent : AbilityUtils.getAoeTargetsNonDamage((Player) e.getEntity(), e.getEntity().getLocation(),
                     distance, distance, distance))
             {
                 if(ent instanceof Player)
@@ -153,15 +154,6 @@ public class OneManArmyAbility implements Listener, Ability {
         }
        
     }
-   
-   
-   
-   
-   
-   
-   
-   
-   
    
  
 }

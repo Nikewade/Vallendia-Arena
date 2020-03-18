@@ -33,7 +33,7 @@ public class SniperAbility implements Ability, Listener{
 	Map<Projectile, BukkitTask> tasks = new HashMap<>();
 	
 	int lowestRange = 20; 
-	int percentAdded = 20;
+	int percentAdded = 10;
 	int perBlock = 10; 
 
 	@Override

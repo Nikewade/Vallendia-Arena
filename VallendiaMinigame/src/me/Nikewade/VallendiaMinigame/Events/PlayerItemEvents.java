@@ -281,7 +281,7 @@ public class PlayerItemEvents implements Listener {
                 item = e.getCurrentItem();
             }
 			
-			if(itemtype != null)
+			if(itemtype != null && item != null)
 			{
 				itemtype = item.getType();	
 			}

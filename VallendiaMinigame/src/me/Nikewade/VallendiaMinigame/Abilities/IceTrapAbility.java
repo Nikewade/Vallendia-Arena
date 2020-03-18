@@ -57,7 +57,8 @@ public class IceTrapAbility implements Ability, Listener {
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Place an ice trap that when triggered, stuns"
-				, "the target for " + stunTime + " seconds.");
+				, "the target for " + stunTime + " seconds. Damage done",
+				"to the enemy will break the stun.");
 	}
 
 	@Override
@@ -165,7 +166,7 @@ public class IceTrapAbility implements Ability, Listener {
                 		loc.getWorld().playSound(loc, Sound.BLOCK_GLASS_BREAK, 2, 1);
 	                	for(Entity e : AbilityUtils.getAoeTargets(p, loc, 2, 2.8, 2))
 	                	{
-	                		AbilityUtils.stun((LivingEntity)p, (LivingEntity)e, "Ice Trap", stunTime);
+	                		AbilityUtils.stun((LivingEntity)p, (LivingEntity)e, "Ice Trap", stunTime, true);
 	                  		SphereEffect se3 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 	                		se3.particle = Particle.BLOCK_CRACK;
 	                		se3.material = Material.ICE;
@@ -247,7 +248,7 @@ public class IceTrapAbility implements Ability, Listener {
 	                		loc.getWorld().playSound(loc, Sound.BLOCK_GLASS_BREAK, 2, 1);
 		                	for(Entity e : AbilityUtils.getAoeTargets(p, loc, 2, 2.8, 2))
 		                	{
-		                		AbilityUtils.stun((LivingEntity)p, (LivingEntity)e, "Ice Trap", 8);
+		                		AbilityUtils.stun((LivingEntity)p, (LivingEntity)e, "Ice Trap", 8, true);
 		                  		SphereEffect se3 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 		                		se3.particle = Particle.BLOCK_CRACK;
 		                		se3.material = Material.ICE;

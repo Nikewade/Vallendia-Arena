@@ -83,7 +83,7 @@ public class StunningBlowsAbility implements Ability, Listener{
 						
 						if(random <= percent)
 						{
-							AbilityUtils.stun(p, (LivingEntity) e.getEntity(), "Stunning Blows", duration);
+							AbilityUtils.stun(p, (LivingEntity) e.getEntity(), "Stunning Blows", duration, false);
 							e.getEntity().getWorld().playSound(e.getEntity().getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 0.6F);
 				 	 		e.getEntity().getWorld().spawnParticle(Particle.CRIT, e.getEntity().getLocation().add(0, 1.8, 0), 20);
 				 	 		Language.sendAbilityUseMessage(p, "You stun your target!", "Stunning Blows");

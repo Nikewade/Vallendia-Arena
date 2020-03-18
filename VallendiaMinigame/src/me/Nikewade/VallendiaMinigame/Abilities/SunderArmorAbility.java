@@ -15,6 +15,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
@@ -66,11 +67,6 @@ public class SunderArmorAbility implements Ability, Listener{
 	public boolean RunAbility(Player p) {
 		// TODO Auto-generated method stub
 		
-		if(!(AbilityUtils.getTarget(p, 5) instanceof Player))
-		{
-			Language.sendAbilityUseMessage(p, "You can only sunder players!", "Sunder Armor");
-			return false;
-		}
 		
 		Player target = (Player) AbilityUtils.getTarget(p, 5);
 		
@@ -113,10 +109,13 @@ public class SunderArmorAbility implements Ability, Listener{
 				@Override
 				public void run() {
 					
+					if(sundered.contains(target))
+					{
+					
 					target.getInventory().setLeggings(pants);
 					Language.sendAbilityUseMessage(target, "You are no longer Sundered", "Sunder Armor");
-					sundered.remove(target);
-					
+	
+				}
 				}
 				
 			}.runTaskLater(VallendiaMinigame.getInstance(), duration*20);
@@ -136,8 +135,13 @@ public class SunderArmorAbility implements Ability, Listener{
 
 				@Override
 				public void run() {
+					if(sundered.contains(target))
+					{
 					
 					target.getInventory().setBoots(boots);
+					sundered.remove(target);
+					
+					}
 					
 				}
 				
@@ -145,12 +149,8 @@ public class SunderArmorAbility implements Ability, Listener{
 
 			
 		}
-			
-
 		
-	
-		
-		return false;
+		return true;
 	}
 
 	@Override
@@ -159,7 +159,6 @@ public class SunderArmorAbility implements Ability, Listener{
 		
 		if(sundered.contains(p))
 		{
-		
 	
 			if(storePant.containsKey(p))
 			{
@@ -173,6 +172,26 @@ public class SunderArmorAbility implements Ability, Listener{
 		}
 		
 		
+	}
+	
+	@EventHandler
+	public void onDeath (PlayerDeathEvent e)
+	{
+		Player p = e.getEntity();
+		
+		if(sundered.contains(p))
+		{
+	
+			if(storePant.containsKey(p))
+			{
+				storePant.remove(p);
+			}
+			if(storeBoot.containsKey(p))
+			{
+				storeBoot.remove(p);
+			}
+			sundered.remove(p);
+		}
 	}
 	
 	@EventHandler

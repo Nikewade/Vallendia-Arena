@@ -23,8 +23,6 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class CheapShotAbility implements Ability, Listener{
-	List<LivingEntity> stunned = new ArrayList<>();
-	Map<LivingEntity, BukkitTask> tasks = new HashMap<>();
 	int time = 10;
 
 	@Override
@@ -57,37 +55,10 @@ public class CheapShotAbility implements Ability, Listener{
  		LivingEntity target = AbilityUtils.getTarget(p, 5);
  		if(target != null)
  		{
- 			AbilityUtils.stun(p,target, this.getName(), time);
+ 	 		AbilityUtils.damageEntity(target, p, 2);
+ 			AbilityUtils.stun(p,target, this.getName(), time, true);
  	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_BIG_FALL, 1, 0.5F);
  	 		target.getWorld().spawnParticle(Particle.CRIT, target.getLocation().add(0, 1.8, 0), 20);
- 	 		AbilityUtils.damageEntity(target, p, 2);
- 	 		
- 	 		if(!stunned.contains(target))
- 	 		{
- 	 	 		stunned.add(target);
- 	        	BukkitTask task = new BukkitRunnable() {
- 	                @Override
- 	                public void run() {
- 	                	stunned.remove(target);
- 	                }
- 	            }.runTaskLater(VallendiaMinigame.getInstance(), time *20L);	
- 	            tasks.put(target, task);
- 	 		}else
- 	 		{
- 	 			stunned.remove(target);
- 	 			tasks.get(target).cancel();
- 	 			tasks.remove(target);
- 	 			
- 	 	 		stunned.add(target);
- 	        	BukkitTask task = new BukkitRunnable() {
- 	                @Override
- 	                public void run() {
- 	                	stunned.remove(target);
- 	                }
- 	            }.runTaskLater(VallendiaMinigame.getInstance(), time *20L);	
- 	            tasks.put(target, task);
- 	 		}
- 	 		
 
  	 		return true;
  		}
@@ -100,23 +71,5 @@ public class CheapShotAbility implements Ability, Listener{
 		
 	}
 	
-	@EventHandler
-	public void onDamage(EntityDamageEvent e)
-	{
-		if(!(e.getEntity() instanceof LivingEntity))
-		{
-			return;
-		}
-		
-		LivingEntity en = (LivingEntity) e.getEntity();
-		
-		if(stunned.contains(en))
-		{
-	 			stunned.remove(en);
-	 			tasks.get(en).cancel();
-	 			tasks.remove(en);
-	 			AbilityUtils.removeStun(en, this.getName());
-		}
-	}
 
 }

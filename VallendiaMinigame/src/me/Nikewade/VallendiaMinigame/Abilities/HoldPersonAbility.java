@@ -25,8 +25,6 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class HoldPersonAbility implements Ability, Listener {
-	List<LivingEntity> stunned = new ArrayList<>();
-	Map<LivingEntity, BukkitTask> tasks = new HashMap<>();
 	int time = 10;
 	int range = 15;
 
@@ -61,34 +59,8 @@ public class HoldPersonAbility implements Ability, Listener {
  		LivingEntity target = AbilityUtils.getTarget(p, range);
  		if(target != null)
  		{
- 			AbilityUtils.stun(p,target, this.getName(), time);
+ 			AbilityUtils.stun(p,target, this.getName(), time, true);
  	 		p.getWorld().playSound(p.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 1, 0.8F);
- 	 		
- 	 		if(!stunned.contains(target))
- 	 		{
- 	 	 		stunned.add(target);
- 	        	BukkitTask task = new BukkitRunnable() {
- 	                @Override
- 	                public void run() {
- 	                	stunned.remove(target);
- 	                }
- 	            }.runTaskLater(VallendiaMinigame.getInstance(), time *20L);	
- 	            tasks.put(target, task);
- 	 		}else
- 	 		{
- 	 			stunned.remove(target);
- 	 			tasks.get(target).cancel();
- 	 			tasks.remove(target);
- 	 			
- 	 	 		stunned.add(target);
- 	        	BukkitTask task = new BukkitRunnable() {
- 	                @Override
- 	                public void run() {
- 	                	stunned.remove(target);
- 	                }
- 	            }.runTaskLater(VallendiaMinigame.getInstance(), time *20L);	
- 	            tasks.put(target, task);
- 	 		}
  	 		
  			ConeEffect se = new ConeEffect(VallendiaMinigame.getInstance().effectmanager);
  			se.particle = Particle.CRIT_MAGIC;
@@ -111,24 +83,6 @@ public class HoldPersonAbility implements Ability, Listener {
 		
 	}
 	
-	@EventHandler
-	public void onDamage(EntityDamageEvent e)
-	{
-		if(!(e.getEntity() instanceof LivingEntity))
-		{
-			return;
-		}
-		
-		LivingEntity en = (LivingEntity) e.getEntity();
-		
-		if(stunned.contains(en))
-		{
-	 			stunned.remove(en);
-	 			tasks.get(en).cancel();
-	 			tasks.remove(en);
-	 			AbilityUtils.removeStun(en, this.getName());
-		}
-	}
 
 
 }

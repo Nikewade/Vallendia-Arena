@@ -19,6 +19,7 @@ public class AdminCommand implements CommandInterface{
 		sender.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
 		sender.sendMessage("");
 		sender.sendMessage(Utils.Colorate("&3/vallendia points &8- Commands for points."));
+		sender.sendMessage(Utils.Colorate("&3/vallendia level &8- Commands for levels."));
 		sender.sendMessage(Utils.Colorate("&3/vallendia kit  &8- Commands for kits."));
 		sender.sendMessage(Utils.Colorate("&3/vallendia spawn  &8- Commands for spawning."));
 		sender.sendMessage(Utils.Colorate("&3/vallendia stats &9(name)  &8- Commands for kits."));

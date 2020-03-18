@@ -2,6 +2,7 @@ package me.Nikewade.VallendiaMinigame.Events;
 
 import java.util.UUID;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,11 +34,11 @@ public class PlayerKillEvents implements Listener {
 	         this.Main.playerdatamanager.addData(uuid, "Kills", 1);
 	         this.Main.playerdatamanager.addData(uuid, "KillStreak", 1);
 	         if (levelKilledBy >= level) {
-	            points = (float) 10 * ((Math.pow(level, 2) / levelKilledBy));
+	            points = (float) 15 * ((Math.pow(level, 2) / levelKilledBy));
 	         }
 
 	         if (levelKilledBy < level) {
-	            points = (10 * level) + 40 * (level - levelKilledBy);
+	            points = (15 * level) + 40 * (level - levelKilledBy);
 	         }
 
 	         if (points <= 0) {
@@ -53,6 +54,9 @@ public class PlayerKillEvents implements Listener {
 	         Language.sendCentredMessage(killer, Utils.Colorate("&3Points gained: " + (int) points));
 	         killer.sendMessage("");
 	         killer.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
+	         
+	         
+	         killer.playSound(killer.getLocation(), Sound.BLOCK_NOTE_BELL, 1, 1.2F);
 	      }
 
 	   }

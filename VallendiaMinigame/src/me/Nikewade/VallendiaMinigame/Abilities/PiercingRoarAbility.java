@@ -106,7 +106,7 @@ public class PiercingRoarAbility implements Ability {
 			Language.sendAbilityUseMessage(p, "Your abilities are silenced.", "Piercing Roar");
 		}
 		
-		return false;
+		return true;
 	}
 
 	@Override

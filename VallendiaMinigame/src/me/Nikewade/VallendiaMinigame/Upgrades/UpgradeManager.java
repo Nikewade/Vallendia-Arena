@@ -197,7 +197,8 @@ public class UpgradeManager {
 	
 	public int getPrice(Player p, String upgrade, String enchant)
 	{
-		int price = upgrades.get(upgrade.toLowerCase()).getPrice(enchant);
+		//prices are off a bit so every 10 is + 1 remember
+		double price = (upgrades.get(upgrade.toLowerCase()).getPrice(enchant));
 		int numUpgrades = this.getUpgradeAmount(p, upgrade);
 		double multiplier = upgrades.get(upgrade.toLowerCase()).getMultiplier(enchant);
 		double multiplier2 = upgrades.get(upgrade.toLowerCase()).getMultiplier2(enchant); 

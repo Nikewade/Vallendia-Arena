@@ -20,7 +20,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class BashAbility implements Ability {
-	int time = 3;
+	int time = 1;
 
 	@Override
 	public String getName() {
@@ -54,12 +54,12 @@ public class BashAbility implements Ability {
  		LivingEntity target = AbilityUtils.getTarget(p, 5);
  		if(target != null)
  		{
- 			AbilityUtils.stun(p,target, this.getName(), time);
+ 	 		AbilityUtils.damageEntity(target, p, 2);
+ 			AbilityUtils.stun(p,target, this.getName(), time, false);
  	 		AbilityUtils.addPotionDuration(p, target, this.getName(), PotionEffectType.BLINDNESS, 4, 3*20);
  	 		AbilityUtils.addPotionDuration(p, target, this.getName(), PotionEffectType.CONFUSION, 4, 8*20);
  	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 2, 1);
  	 		target.getWorld().spawnParticle(Particle.CRIT, target.getLocation().add(0, 1.8, 0), 20);
- 	 		AbilityUtils.damageEntity(target, p, 2);
  	 		return true;
  		}
 		return false;

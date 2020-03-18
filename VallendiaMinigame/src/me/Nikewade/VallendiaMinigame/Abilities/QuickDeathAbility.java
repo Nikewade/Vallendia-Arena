@@ -4,25 +4,31 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
-import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import net.minecraft.server.v1_12_R1.EntityLiving;
 
-public class LoneWolfAbility implements Listener, Ability {
+public class QuickDeathAbility implements Ability, Listener{
 	//made by emma
-	int percent = 20;
+	int amplifier = 3;
+	int duration = 2;
 
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Lone Wolf";
+		return "Quick Death";
 	}
 
 	@Override
@@ -34,14 +40,14 @@ public class LoneWolfAbility implements Listener, Ability {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("You feel the spirit of freedom. Take ",
-				+ percent + "% less damage if you are not in a party.");
+		return Arrays.asList("You get a burst of energy after killing a player,",
+				"gaining speed " + amplifier + " for " + duration + " seconds.");
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack (397, 1 , (short) 3);
+		return new ItemStack(Material.SUGAR);
 	}
 
 	@Override
@@ -57,30 +63,30 @@ public class LoneWolfAbility implements Listener, Ability {
 	}
 	
 	@EventHandler
-	public void onDamage (EntityDamageByEntityEvent e)
+	public void onDeath (EntityDeathEvent e)
 	{
-
-		if(!(e.getEntity() instanceof Player))
+		
+		LivingEntity ent = e.getEntity();
+		
+		if(!(ent.getKiller() instanceof Player))
 		{
 			return;
 		}
 		
-		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e.getDamager(), "Lone Wolf"))
+		Player p = ent.getKiller();
+		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(p, "Quick Death"))
 		{
-			Player p = (Player) e.getDamager();
-
-			if (AbilityUtils.getPlayerParty(p) == "")
-			{
-				
-        		double lowerPercent =  Utils.getPercentHigherOrLower(percent, false);
-        		double damage = e.getDamage();
-
-        		e.setDamage(damage*lowerPercent);
-
-			}
+			AbilityUtils.addPotionDuration(p, p, "Quick Death", PotionEffectType.SPEED, amplifier, duration*20);
+			
 		}
-		
-	}
-	
+				
 
+	}
+
+
+
+	
+	
+	
+	
 }

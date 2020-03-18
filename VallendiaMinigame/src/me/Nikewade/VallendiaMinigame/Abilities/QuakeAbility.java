@@ -28,6 +28,7 @@ import org.bukkit.util.Vector;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class QuakeAbility implements Ability, Listener{
 	//made by Emma
@@ -36,8 +37,9 @@ public class QuakeAbility implements Ability, Listener{
 	int radius = 8;
 	int damage = 10;
 	int explosionSize = 4;
-	int stunTime = 3;
+	int stunTime = 1;
 	int fallDistance = 10;
+	int percent = 40;
 
 	@Override
 	public String getName() {
@@ -54,13 +56,15 @@ public class QuakeAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("if u fall 10 or more blocks whilst sneaking u do damage in a radius");
+		return Arrays.asList("if u fall 10 or more blocks whilst sneaking u"
+				,"do damage in a radius and stun for short time"
+				, "and take less fall damage");
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack(Material.TNT);
+		return new ItemStack (98, 1 , (short) 2);
 	}
 
 	@Override
@@ -95,11 +99,14 @@ public class QuakeAbility implements Ability, Listener{
 
 				if(p.isSneaking())
 				{
+					double falldamage = e.getDamage();
+					double lowpercent = Utils.getPercentHigherOrLower(percent, false);
 					explosions.add(p);
 					AbilityUtils.explode(p.getLocation(), p, explosionSize, damage, false, true, true);
+					e.setDamage(falldamage * lowpercent);
 					for(Entity en : AbilityUtils.getAoeTargets(p, p.getLocation(), radius, radius, radius))
 					{
-						AbilityUtils.stun(p, (LivingEntity) en, "Quake", stunTime);
+						AbilityUtils.stun(p, (LivingEntity) en, "Quake", stunTime, false);
 					}
 					
 

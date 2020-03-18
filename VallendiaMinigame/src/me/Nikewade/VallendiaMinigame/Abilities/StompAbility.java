@@ -45,7 +45,8 @@ public class StompAbility implements Ability {
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("You stomp stunning enemies in a" + radius + " block radius",
-				"for " + duration + " seconds.");
+				"for " + duration + " seconds. Any damage done to the",
+				"target will break the stun.");
 	}
 
 	@Override
@@ -129,8 +130,8 @@ public class StompAbility implements Ability {
 		for(Entity e : AbilityUtils.getAoeTargets(p, p.getLocation(), radius, radius, radius))
 		{
 			
-			AbilityUtils.stun(p, (LivingEntity) e, "Stomp", duration);
 			AbilityUtils.damageEntity((LivingEntity) e, p, damage);
+			AbilityUtils.stun(p, (LivingEntity) e, "Stomp", duration, true);
 		}
 		
 		return true;

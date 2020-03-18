@@ -3,14 +3,22 @@ package me.Nikewade.VallendiaMinigame.Events;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.inventory.ItemStack;
 
+import com.sk89q.worldguard.LocalPlayer;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+
+import de.slikey.effectlib.effect.AtomEffect;
+import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.BandageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
@@ -101,16 +109,79 @@ public class PlayerDeathEvents implements Listener {
 	      SurvivalistAbility.removeEnabled(p);
 	      this.Main.playerdatamanager.addData(p.getUniqueId(), "Deaths", 1);
 	      AbilityUtils.removeCast(p);
+	      
+	      	double radius = 1.5;
+	      	int particles = 15;
+	      	if(this.Main.levelmanager.getLevel(p) >= 10)
+	      	{
+		      	if(this.Main.levelmanager.getLevel(p) >= 15)
+		      	{
+		      		radius = 5;
+		      	}else
+		      	{
+		      		radius = 4;
+		      	}
+	      	}
+	      	
+	        SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+	        se.particle = Particle.REDSTONE;
+	        se.color = Color.BLUE;
+	        se.radius = radius;
+	        se.particles = (int) (15 * radius);
+	        se.speed = (float) 0;  
+	        se.iterations = 1;
+	        se.visibleRange = 50;
+	        
+	         
+	        se.setLocation(p.getLocation().add(0, 1, 0));
+	        
+	        se.start();
+	        
+	        
+	        SphereEffect se2 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+	        se2.particle = Particle.REDSTONE;
+	        se2.color = Color.TEAL;
+	        se2.radius = radius;
+	        se2.particles = (int) (15 * radius);
+	        se2.speed = (float) 0;  
+	        se2.iterations = 1;
+	        se2.visibleRange = 50;
+	        
+	         
+	        se2.setLocation(p.getLocation().add(0, 1, 0));
+	        
+	        se2.start();
+	      
 	      if (this.Main.levelmanager.getLevel(p) >= 10) {
-	         AbilityUtils.explode(p.getLocation(), p, 3, 0, true, true, true);
+  		   	RegionManager regionManager = Main.worldguard.getRegionManager(p.getWorld());
+  		   	ApplicableRegionSet arset = regionManager.getApplicableRegions(p.getLocation());
+  		   	LocalPlayer localPlayer = Main.worldguard.wrapPlayer(p);
+  		   	if(arset.allows((StateFlag) VallendiaMinigame.blockAbilities, localPlayer))
+  		   	{
+  		         AbilityUtils.explode(p.getLocation(), p, 3, 0, true, true, true);
+  		   	}
 	      }
 
 	      if (this.Main.levelmanager.getLevel(p) >= 15) {
+	        	 for(Player player : p.getWorld().getPlayers())
+	        	 {
+	        		 Language.sendVallendiaMessage(player, Utils.Colorate("&c&l"+ p.getName() + " just died at level " + 
+	        	 VallendiaMinigame.getInstance().levelmanager.getLevel(p) + "!"));
+	        	 }
 	         p.getWorld().strikeLightningEffect(p.getLocation());
 	         p.getWorld().setStorm(true);
-	         p.getWorld().setWeatherDuration(400);
+	         p.getWorld().setWeatherDuration(1000);
 	         p.getWorld().setThundering(true);
-	         p.getWorld().setThunderDuration(400);
+	         p.getWorld().setThunderDuration(1000);
+	         
+	         
+	         if(this.Main.levelmanager.getLevel(p) == 20)
+	         {
+	        	 for(Player player : p.getWorld().getPlayers())
+	        	 {
+     		        player.sendTitle(Utils.Colorate("&c&l"+ p.getName() + " died!"), null, 20, 100, 20);
+	        	 }
+	         }
 	      }
 
 	      if (p.getKiller() != null && p.getKiller() instanceof Player && p.getKiller() != p) {

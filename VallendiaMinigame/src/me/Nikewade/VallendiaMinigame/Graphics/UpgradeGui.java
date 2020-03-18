@@ -143,9 +143,12 @@ public class UpgradeGui {
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
 			    	um.buyUpgrade(ep, upgrade, enchant, 1);
-			    	if(Main.getConfig().getBoolean("Options.Auto-Close-Upgrade-Menu"))
+			    	if(enchant != null)
 			    	{
-				    	ep.closeInventory();	
+						   openUpgradeYesNoMenu(ep, upgrade, enchant);	
+			    	}else
+			    	{
+						   openUpgradeYesNoMenu(ep, upgrade, null);
 			    	}
 			    }
 			}, description1 , description2);

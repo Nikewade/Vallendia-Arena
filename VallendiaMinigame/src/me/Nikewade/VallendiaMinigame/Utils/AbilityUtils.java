@@ -78,6 +78,7 @@ public class AbilityUtils implements Listener {
 	private static HashMap<LivingEntity, Integer> handleDamage = new HashMap<>();
 	private static HashMap<Player, SphereEffect> castingParticles = new HashMap<>();
 	private static List<LivingEntity> stunned = new ArrayList<>();
+	private static List<LivingEntity> stunnedOnDamage = new ArrayList<>();
 	private static HashMap<LivingEntity ,String> stunName = new HashMap<>();
 	private static HashMap<LivingEntity, BukkitTask> stunTimer = new HashMap<>();
 	private static HashMap<LivingEntity, BukkitTask> stunCountdown = new HashMap<>();
@@ -461,6 +462,38 @@ public class AbilityUtils implements Listener {
 		}
 		
 		
+		
+		public static Collection<Entity> getAoeTargetsNonDamage(Player originplayer, Location loc, double Radiusx, double Radiusy, double Radiusz)
+		{
+			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
+			for(Entity entity : loc.getWorld().getNearbyEntities(loc, Radiusx, Radiusy, Radiusz))
+			{
+				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand))
+				{
+					if(entity instanceof Player)
+					{
+						Player entityplayer = (Player) entity;
+						
+						
+			        	//In party
+			        	if(partyCheck(entityplayer, originplayer))
+			        	{
+			        		continue;
+			        	}
+						
+						if(!(entityplayer.getGameMode() == GameMode.SURVIVAL) && !(entityplayer.getGameMode() == GameMode.ADVENTURE))
+			        	{
+							continue;
+						}
+					}
+					nearbyEntities.add(entity);
+					continue;
+				}
+			}
+			return nearbyEntities;
+			
+		}
+		
 		//Gets even arrows
 		public static Collection<Entity> getAoeTargetsAndArrows(Player originplayer, Location loc, double Radiusx, double Radiusy, double Radiusz)
 		{
@@ -762,7 +795,7 @@ public class AbilityUtils implements Listener {
     
     
     
-    public static void stun(LivingEntity caster, LivingEntity e, String abilityname, int time)
+    public static void stun(LivingEntity caster, LivingEntity e, String abilityname, int time, boolean cancelOnDamage)
     {
     	if(e instanceof Player)
     	{
@@ -826,6 +859,12 @@ public class AbilityUtils implements Listener {
 			se.start();
 			
 			stunParticle.put(e, se);
+			
+			
+			if(cancelOnDamage)
+			{
+				stunnedOnDamage.add(e);
+			}
             
     	}
     
@@ -852,6 +891,10 @@ public class AbilityUtils implements Listener {
         		stunName.remove(e);
         		stunParticle.get(e).cancel();
         		stunParticle.remove(e);
+        		if(stunnedOnDamage.contains(e))
+        		{
+        			stunnedOnDamage.remove(e);
+        		}
     		}
     	}
     }
@@ -876,6 +919,10 @@ public class AbilityUtils implements Listener {
         		stunName.remove(e);
         		stunParticle.get(e).cancel();
         		stunParticle.remove(e);
+        		if(stunnedOnDamage.contains(e))
+        		{
+        			stunnedOnDamage.remove(e);
+        		}
     		}
     }
     
@@ -1025,6 +1072,7 @@ public class AbilityUtils implements Listener {
 		                		{
 		                    		run.run();
 		                    		removeTrap(p, abilityname);
+		                    		e.getWorld().playSound(loc, Sound.BLOCK_TRIPWIRE_CLICK_ON, 1, 1);
 		                    		this.cancel();
 		                		}
 		                	}
@@ -1180,11 +1228,10 @@ public class AbilityUtils implements Listener {
         	@EventHandler
         	public void onDamage(EntityDamageEvent e)
         	{
-        		if(!(e.getEntity() instanceof Player))
+        		if(stunnedOnDamage.contains(e.getEntity()))
         		{
-        			return;	
+        			AbilityUtils.removeAllStuns((LivingEntity) e.getEntity());
         		}
-        		
         	}
         	
         	@EventHandler

@@ -65,22 +65,54 @@ public class LoneWolfAbility implements Listener, Ability {
 			return;
 		}
 		
-		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e.getDamager(), "Lone Wolf"))
+		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e.getEntity(), "Lone Wolf"))
 		{
-			Player p = (Player) e.getDamager();
+			Player p = (Player) e.getEntity();
 
 			if (AbilityUtils.getPlayerParty(p) == "")
 			{
 				
         		double lowerPercent =  Utils.getPercentHigherOrLower(percent, false);
-        		double damage = e.getDamage();
+        		double damage = e.getDamage()*lowerPercent;
+        		
 
-        		e.setDamage(damage*lowerPercent);
+        		e.setDamage(damage);
 
 			}
 		}
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

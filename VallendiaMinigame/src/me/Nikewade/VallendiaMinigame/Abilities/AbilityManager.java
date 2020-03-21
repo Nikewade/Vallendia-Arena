@@ -93,8 +93,12 @@ public class AbilityManager {
         abilities.add(new ExplosiveTrapAbility());
         abilities.add(new LoneWolfAbility());
         abilities.add(new QuickDeathAbility());
-        abilities.add(new TrueStrikeAbility());
         abilities.add(new OneManArmyAbility());
+        abilities.add(new YeetAbility());
+        abilities.add(new MartyrdomAbility());
+        abilities.add(new SonarArrowAbility());
+        abilities.add(new PhoenixAbility());
+        abilities.add(new HealingArrowAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);

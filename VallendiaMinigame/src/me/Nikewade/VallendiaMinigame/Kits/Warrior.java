@@ -39,8 +39,9 @@ public class Warrior implements Kit {
         abilities.add(Main.abilitymanager.getAbility("Quake"));
         abilities.add(Main.abilitymanager.getAbility("One Man Army"));
         abilities.add(Main.abilitymanager.getAbility("Lone Wolf"));
-        abilities.add(Main.abilitymanager.getAbility("True Strike"));
         abilities.add(Main.abilitymanager.getAbility("Quick Death"));
+        abilities.add(Main.abilitymanager.getAbility("Yeet"));
+		abilities.add(Main.abilitymanager.getAbility("Martyrdom"));
 	}
 	
 	@Override

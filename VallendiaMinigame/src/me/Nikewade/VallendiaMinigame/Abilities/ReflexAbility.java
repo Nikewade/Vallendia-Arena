@@ -10,6 +10,7 @@ import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -104,7 +105,7 @@ public class ReflexAbility implements Ability, Listener{
 	
 	
         	
-        	@EventHandler
+        	@EventHandler(priority = EventPriority.LOWEST)
         	public void onDamage(EntityDamageEvent e)
         	{
         		if(e.getEntity() instanceof Player && enabled.contains(e.getEntity()))

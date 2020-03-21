@@ -51,27 +51,27 @@ public class AltitudeChecker {
                 		        p.sendTitle(Utils.Colorate("&4&lToo high!"), null, 20, 1, 1);
                 		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 5)
                 		        {
-                		 	 		AbilityUtils.damageEntity(p, p, 2);
+                		        	p.damage(2);
                 		        }
                 		        
                 		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 15)
                 		        {
-                		 	 		AbilityUtils.damageEntity(p, p, 4);
+                		        	p.damage(4);
                 		        }
                 		        
-                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 20)
+                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 25)
                 		        {
-                		 	 		AbilityUtils.damageEntity(p, p, 4);
+                		        	p.damage(10);
                 		        }
                 		        
                 		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 30)
                 		        {
-                		 	 		AbilityUtils.damageEntity(p, p, 10);
+                		        	p.damage(15);
                 		        }
                 		        
-                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 35)
+                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 40)
                 		        {
-                		 	 		AbilityUtils.damageEntity(p, p, 20);
+                		        	p.damage(30);
                 		        }	
             				}
             			}else

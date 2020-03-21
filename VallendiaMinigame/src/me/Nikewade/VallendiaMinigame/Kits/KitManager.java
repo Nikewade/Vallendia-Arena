@@ -398,6 +398,10 @@ public class KitManager {
         
         p.updateInventory();
         p.setGameMode(GameMode.SURVIVAL);
+        
+        
+        p.sendTitle(Main.kitmanager.getKit(p).getName(true), "", 20, 40, 40);
+        p.playSound(p.getLocation(), Main.kitmanager.getKit(p).getSound(), 2, (float) 0.5);
 
         
         

@@ -21,6 +21,7 @@ import com.mojang.authlib.GameProfile;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.CScoreboard;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import net.citizensnpcs.api.CitizensAPI;
 import net.minecraft.server.v1_12_R1.EntityPlayer;
 
 public class ScoreboardHandler{

@@ -92,7 +92,7 @@ public class PlayerJoinEvents implements Listener{
 	{
 		Player p = e.getPlayer();
 		e.setFormat (Utils.Colorate("&8&l[" + Language.getPlayerPrefix(p) + "&lLevel " + Main.levelmanager.getLevel(p) + "&8&l] "
-					+ "&8&l[" + Main.chat.getPlayerPrefix(p) + "&8&l] " + "&7" + p.getName() + " > ") + e.getMessage());
+					+ "&8&l" + Main.chat.getPlayerPrefix(p) + p.getName() + " > ") + e.getMessage());
 	}
 
 }

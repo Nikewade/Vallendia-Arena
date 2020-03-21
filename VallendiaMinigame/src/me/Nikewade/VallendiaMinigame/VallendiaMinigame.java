@@ -191,6 +191,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(AdvInventory.getListener(), this);
 		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
 		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(new SpawnCommand(), this);
 		   
 		   //Ability Listeners
 		   

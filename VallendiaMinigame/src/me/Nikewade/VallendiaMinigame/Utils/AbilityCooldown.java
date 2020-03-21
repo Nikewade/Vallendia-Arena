@@ -83,53 +83,56 @@ public class AbilityCooldown {
     		return;
     	}
         
-		ItemStack abilityItem = null;
-		for(ItemStack item : p.getInventory().getContents())
-		{
-			x++;
-			if(item != null)
-			{
-				if(item.getType() == Material.INK_SACK && item.getDurability() == 10 && item.getItemMeta().getDisplayName() == i.getItemMeta().getDisplayName())
-				{
-					abilityItem = item;
-					break;
-				}
-			}
-		}
-        
-        //item display
-		new BukkitRunnable() {
-        	ItemStack xitem = p.getInventory().getItem(x);
-            @Override
-            public void run() {
-            	if(xitem != null && !p.isDead())
-            	{
-                	if(xitem.getType() != Material.INK_SACK || xitem.getDurability() != 10)
+    	if(i != null)
+    	{
+    		ItemStack abilityItem = null;
+    		for(ItemStack item : p.getInventory().getContents())
+    		{
+    			x++;
+    			if(item != null)
+    			{
+    				if(item.getType() == Material.INK_SACK && item.getDurability() == 10 && item.getItemMeta().getDisplayName() == i.getItemMeta().getDisplayName())
+    				{
+    					abilityItem = item;
+    					break;
+    				}
+    			}
+    		}
+            
+            //item display
+    		new BukkitRunnable() {
+            	ItemStack xitem = p.getInventory().getItem(x);
+                @Override
+                public void run() {
+                	if(xitem != null && !p.isDead())
                 	{
-            			p.getInventory().getItem(x).setAmount(1);
-            			this.cancel(); 
-                	}
-                	if(getTimeLeft(p.getUniqueId(), cooldownName) > 120)
-                	{
-            			p.getInventory().getItem(x).setAmount(120);
+                    	if(xitem.getType() != Material.INK_SACK || xitem.getDurability() != 10)
+                    	{
+                			p.getInventory().getItem(x).setAmount(1);
+                			this.cancel(); 
+                    	}
+                    	if(getTimeLeft(p.getUniqueId(), cooldownName) > 120)
+                    	{
+                			p.getInventory().getItem(x).setAmount(120);
+                    	}else
+                    	{
+                        	if(getTimeLeft(p.getUniqueId(), cooldownName) > 1)
+                        	{
+                    			p.getInventory().getItem(x).setAmount(getTimeLeft(p.getUniqueId(), cooldownName));
+                        	}else
+                        			{
+                        			p.getInventory().getItem(x).setAmount(1);
+                        			this.cancel(); 
+                        			}
+                    	}	
                 	}else
                 	{
-                    	if(getTimeLeft(p.getUniqueId(), cooldownName) > 1)
-                    	{
-                			p.getInventory().getItem(x).setAmount(getTimeLeft(p.getUniqueId(), cooldownName));
-                    	}else
-                    			{
-                    			p.getInventory().getItem(x).setAmount(1);
-                    			this.cancel(); 
-                    			}
-                	}	
-            	}else
-            	{
-            		this.cancel();
-            	}
-            }
-        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L); 
-    }
+                		this.cancel();
+                	}
+                }
+            }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L); 
+        }	
+    	}
     
 	
 	

@@ -28,7 +28,7 @@ public class VanishAbility implements Ability, Listener{
 	private static ArrayList<Player> enabled = new ArrayList<>();
 	private static HashMap<Player, BukkitTask> tasks = new HashMap<>();
 	private static HashMap<Player, BukkitTask> countDown = new HashMap<>();
-	int enabledTime = 20;
+	int enabledTime = 30;
 
 	@Override
 	public String getName() {
@@ -140,6 +140,10 @@ public class VanishAbility implements Ability, Listener{
 	@EventHandler
 	public void onEntityDamage(EntityDamageByEntityEvent e)
 	{
+		if(e.isCancelled() || e.getDamage() == 0)
+		{
+			return;
+		}
 		
 		if(e.getDamager() instanceof Player && enabled.contains(e.getDamager()))
 		{
@@ -160,6 +164,10 @@ public class VanishAbility implements Ability, Listener{
 	@EventHandler
 	public void onDamage(EntityDamageEvent e)
 	{
+		if(e.isCancelled() || e.getDamage() == 0)
+		{
+			return;
+		}
 		if(!(e.getEntity() instanceof Player))
 		{
 			return;	

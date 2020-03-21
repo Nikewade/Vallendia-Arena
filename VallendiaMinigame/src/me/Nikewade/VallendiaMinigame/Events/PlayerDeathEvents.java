@@ -203,12 +203,12 @@ public class PlayerDeathEvents implements Listener {
 	            Language.sendCentredMessage(p, Utils.Colorate("&c&lYou died"));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Kit: " + this.Main.kitmanager.getKit(p).getName(true)));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Level: " + this.Main.levelmanager.getLevel(p)));
-		        double pointsLost = pointsCarried * (1- (Math.pow(Math.E, -n* (level / levelKilledBy))));
+		        double pointsLost = pointsCarried * (1- (Math.pow(Math.E, -n* (sumOfLvls))));
 		        if(pointsLost <= 0)
 		        {
 		        	pointsLost = pointsLost - 1;
 		        }
-		        double pointsRefunded = (b * pointsSpent) * (Math.pow(Math.E, -n *(level / levelKilledBy)));
+		        double pointsRefunded = (b * pointsSpent) * (Math.pow(Math.E, -n *(sumOfLvls)));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Points lost: " + (int) (pointsLost + 1)));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Points Refunded: " + (int) pointsRefunded));
 	            p.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));

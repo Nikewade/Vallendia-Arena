@@ -43,14 +43,12 @@ import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerAnimationType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Step;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.util.Vector;
 
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
@@ -1397,8 +1395,9 @@ public class AbilityUtils implements Listener {
     public static void damageEntity(LivingEntity target, LivingEntity damager, int amount)
     {
 		handleDamage.put(target, amount);
+		Vector vel = target.getVelocity();
 		target.damage(amount, damager);
-		target.setVelocity(target.getVelocity().multiply(0));
+		target.setVelocity(vel);
     }
     
     

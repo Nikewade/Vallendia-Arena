@@ -7,6 +7,7 @@ import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -19,7 +20,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
  
 public class OneManArmyAbility implements Listener, Ability {
 	//made by emma
-    int percent = 5;
+    int percent;
     int distance = 10;
     int cappercent = 60;
     HashMap<Player, Integer> attackerEnemies = new HashMap<>();
@@ -42,8 +43,9 @@ public class OneManArmyAbility implements Listener, Ability {
         // TODO Auto-generated method stub
         return Arrays.asList
                 ("You feel like the protagonist of an old spice commercial.",
-                "For every enemy within " + distance + " blocks, you deal " + percent + "% more damage",
-                "and take" + percent + "% less damage. This caps at 60%.");
+                "For every enemy within " + distance + " blocks, you deal 5% more damage",
+                "and take 5% less damage. This doubles to 10% when you are ",
+                "not in a party and caps at 60%.");
     }
  
     @Override
@@ -76,16 +78,45 @@ public class OneManArmyAbility implements Listener, Ability {
     @EventHandler
     public void onDamage (EntityDamageByEntityEvent e)
     {
-        if(!(e.getEntity() instanceof Player))
+    	Player p = null;
+    	
+    	if(!(e.getDamager() instanceof Player) && !(e.getDamager() instanceof Projectile))
+    	{
+    		return;
+    	}
+    		
+        if(!(e.getDamager() instanceof Player || !(e.getDamager() instanceof Projectile)))
         {
             return;
         }
-       
-        Player p = (Player) e.getDamager();
+        if(e.getDamager() instanceof Projectile)
+        {
+        	Projectile proj = (Projectile) e.getDamager();
+        	
+        	if(proj.getShooter() instanceof Player)
+        	{
+        		
+        	p = (Player) proj.getShooter();
+        	
+        	}
+        }else
+        {
+        	p = (Player) e.getDamager();
+        }
+        
+        if(AbilityUtils.getPlayerParty(p) == "")
+        {
+        	percent = 10;
+        }else
+        {
+        	percent = 5;
+        }
        
         //IF PLAYER IS ATTACKER
         if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(p, "One Man Army"))
         {
+        	
+        	
  
             int amount = 0;
            
@@ -117,8 +148,11 @@ public class OneManArmyAbility implements Listener, Ability {
             attackerEnemies.remove(p);
  
         }
-       
+        
         //IF PLAYER IS ATTACKED
+        if(e.getEntity() instanceof Player)
+        {
+       
         if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e.getEntity(), "One Man Army"))
         {
             int amount = 0;
@@ -151,6 +185,8 @@ public class OneManArmyAbility implements Listener, Ability {
            
             damageeEnemies.remove(e.getEntity());          
                    
+        }
+        
         }
        
     }

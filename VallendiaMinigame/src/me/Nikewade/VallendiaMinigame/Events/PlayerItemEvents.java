@@ -103,19 +103,55 @@ public class PlayerItemEvents implements Listener {
 			    		   if(!wandCooldown.contains(p))
 			    		   {
 			    			   
+			    		        RegionManager regionManager = Main.worldguard.getRegionManager(p.getWorld());
+			    		        ApplicableRegionSet set = regionManager.getApplicableRegions(p.getLocation());
+
+			    		        for (ProtectedRegion region : set) {
+
+			    		            if (region != null){
+
+			    		            	if(region.getId().equalsIgnoreCase("minigamespawn"))
+			    		            	{
+			    		            		Language.sendDefaultMessage(p, "You can't use that here!");
+			    		            		return;
+			    		            	}
+
+			    		            }
+
+			    		        }
+			    			   
+			    			   
 				    		   new BukkitRunnable(){
 				    		         
 				    	            double t = 1;
 				    	            Location loc = p.getLocation();
 				    	            Vector dir = loc.getDirection().normalize();
+				    	            
+				    	            double t2 = 1;
+				    	            Location loc2 = p.getLocation();
+				    	            Vector dir2 = loc2.getDirection().normalize();
 				    	         
 				    	            @Override
 				    	            public void run() {
+		    	            			
 				    	            	t = t + 0.7;
 				    	                double x = dir.getX() * t;
 				    	                double y = dir.getY() * t + 1.5D;
 				    	                double z = dir.getZ() * t;
 				    	                loc.add(x,y,z);
+				    	                
+				    	            	t2 = t2 + 0.7;
+				    	                double x2 = dir.getX() * t2;
+				    	                double y2 = dir.getY() * t2 + 1.5D;
+				    	                double z2 = dir.getZ() * t2;
+				    	                loc2.add(x2,y2,z2);
+				    	                
+				    	                
+				    	               if (loc2.getBlock().getType().isSolid())
+				    	                {
+				    	                	this.cancel();
+				    	                	return;
+				    	                }
 				    	                
 
 			    	              		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
@@ -127,6 +163,7 @@ public class PlayerItemEvents implements Listener {
 			    	            		se.visibleRange = 50;
 			    	            			se.setLocation(loc);
 			    	            			se.start();
+			    	            			
 			    	            			//block behind the particle incase the particle passes thru a block
 					    	                Location locBehind = se.getLocation();
 					    	                Vector dir2 = locBehind.getDirection().normalize().multiply(-1);
@@ -135,6 +172,7 @@ public class PlayerItemEvents implements Listener {
 				    	                    		 locBehind.getBlock().getType().isSolid())
 				    	                     {
 				    	                    	 this.cancel();
+				    	                    	 return;
 				    	                     }
 			    	            			for(Entity e : loc.getWorld().getNearbyEntities(loc, 0.5, 0.5, 0.5))
 			    	            			{
@@ -142,20 +180,23 @@ public class PlayerItemEvents implements Listener {
 			    	            				{
 			    	            					AbilityUtils.damageEntity((LivingEntity)e, p, 1);
 			    	            					this.cancel();
+			    	            					return;
 			    	            				}
 			    	            			}
 				    	             
 				    	                loc.subtract(x,y,z);
+				    	                loc2.subtract(x2,y2,z2);
 				    	             
 				    	                if(t >= 30){
 				    	                    this.cancel();
 				    	                }
 				    	             
 				    	                t++;
+				    	                t2++;
 				    	             
 				    	            }
 				    	         
-				    	        }.runTaskTimer(VallendiaMinigame.getInstance(), 0l, 1l);
+				    	        }.runTaskTimer(VallendiaMinigame.getInstance(), 0l, 0l);
 			    			   
 				    	 	 	  
 				    		 	  new BukkitRunnable(){

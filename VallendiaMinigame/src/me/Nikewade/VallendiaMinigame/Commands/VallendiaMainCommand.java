@@ -15,6 +15,7 @@ public class VallendiaMainCommand implements CommandInterface{
 		sender.sendMessage("");
 		sender.sendMessage(Utils.Colorate("&3/vallendia stats &8- Displays your player stats."));
 		sender.sendMessage(Utils.Colorate("&3/vallendia admin  &8- Commands for admins."));
+		sender.sendMessage(Utils.Colorate("&3/spawn  &8- Teleports you to spawn. 2 minute cooldown."));
 		sender.sendMessage("");
 		sender.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
         

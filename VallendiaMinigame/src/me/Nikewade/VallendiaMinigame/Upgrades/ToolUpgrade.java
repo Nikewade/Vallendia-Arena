@@ -49,7 +49,7 @@ public class ToolUpgrade implements Upgrade{
 		{
 		if(item != null)
 		{
-				if( item.getType() == Material.DIAMOND_PICKAXE)
+				if( item.getType() == Material.IRON_PICKAXE || item.getType() == Material.DIAMOND_PICKAXE)
 				{
 					item.addUnsafeEnchantment(enchantment, enchantAmount + 1);	
 				}

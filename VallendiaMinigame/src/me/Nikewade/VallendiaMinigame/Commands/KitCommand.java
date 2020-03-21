@@ -39,6 +39,21 @@ public class KitCommand implements  CommandInterface{
 	    }
 	    
 	    
+	    if(args.length == 4)
+	    {
+    		if(args[1].equalsIgnoreCase("give"))
+    		{
+				String kitname = args[2].toLowerCase();
+				   if(Bukkit.getPlayer(args[3]) != null)
+				   {
+					   Player targetp = Bukkit.getPlayer(args[3]);  
+						main.kitmanager.giveKit(targetp, kitname);
+						targetp.sendMessage(Utils.Colorate("&8You have been given the " + main.kitmanager.getKit(targetp).getName(true) + " &8kit!"));
+						sender.sendMessage(Utils.Colorate("&8Kit " +  main.kitmanager.getKit(targetp).getName(true)+ " &8given to " +  targetp.getName() + "."));
+				   }else sender.sendMessage(Utils.Colorate("&8Player does not exist!"));
+    		}
+	    }
+	    
 	    if(sender instanceof Player)
 	    {
 	    	Player p = (Player) sender;
@@ -76,20 +91,6 @@ public class KitCommand implements  CommandInterface{
 		    		}
 		    }
 		    
-		    if(args.length == 4)
-		    {
-	    		if(args[1].equalsIgnoreCase("give"))
-	    		{
-					String kitname = args[2].toLowerCase();
-					   if(Bukkit.getPlayer(args[3]) != null)
-					   {
-						   Player targetp = Bukkit.getPlayer(args[3]);  
-							main.kitmanager.giveKit(targetp, kitname);
-							targetp.sendMessage(Utils.Colorate("&8You have been given the " + main.kitmanager.getKit(p).getName(true) + " &8kit!"));
-							p.sendMessage(Utils.Colorate("&8Kit " +  main.kitmanager.getKit(p).getName(true)+ " &8given to " +  targetp.getName() + "."));
-					   }else sender.sendMessage(Utils.Colorate("&8Player does not exist!"));
-	    		}
-		    }
 	    }
 		return false;
 

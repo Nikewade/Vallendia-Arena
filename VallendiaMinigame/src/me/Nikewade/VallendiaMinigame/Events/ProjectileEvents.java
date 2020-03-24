@@ -40,7 +40,7 @@ import org.bukkit.entity.Player;
 /*    */       if(VallendiaMinigame.getInstance().worldguard.canBuild(p
 				, block))
 				{
-					Utils.regenBlock(block, 15);
+					Utils.regenBlock(block, 60);
 					block.setType(Material.AIR);
 					block.getDrops().remove(Boolean.valueOf(true));
 					block.getWorld().playSound(block.getLocation(), Sound.BLOCK_GLASS_BREAK, 1.0F, 1.0F); e.getEntity().remove();

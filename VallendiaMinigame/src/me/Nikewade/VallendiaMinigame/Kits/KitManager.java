@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -22,6 +23,7 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
+import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
@@ -399,9 +401,13 @@ public class KitManager {
         p.updateInventory();
         p.setGameMode(GameMode.SURVIVAL);
         
+        if(!Main.kitmanager.getKit(p).getName(false).equalsIgnoreCase("starter"))
+        {
+            p.sendTitle(Main.kitmanager.getKit(p).getName(true), "", 20, 40, 40);
+            p.playSound(p.getLocation(), Main.kitmanager.getKit(p).getSound(), 2, (float) 0.5);	
+        }
         
-        p.sendTitle(Main.kitmanager.getKit(p).getName(true), "", 20, 40, 40);
-        p.playSound(p.getLocation(), Main.kitmanager.getKit(p).getSound(), 2, (float) 0.5);
+		//PlayerDataManager.saveInventory(p);
 
         
         

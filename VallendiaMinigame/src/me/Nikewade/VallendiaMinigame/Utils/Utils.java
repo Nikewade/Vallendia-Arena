@@ -172,7 +172,7 @@ public class Utils {
 		            					e.getLocation().add(0, 2, 0).getBlock().getType().isSolid())
 		            			{
 		            				
-		            				if(x >= 50)
+		            				if(x >= 100)
 		            				{
 			                			e.teleport(e.getLocation().add(0, 1, 0));
 		            				}

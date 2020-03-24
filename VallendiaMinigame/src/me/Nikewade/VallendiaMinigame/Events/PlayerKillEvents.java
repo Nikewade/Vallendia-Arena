@@ -2,13 +2,19 @@ package me.Nikewade.VallendiaMinigame.Events;
 
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Effect;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
@@ -31,8 +37,9 @@ public class PlayerKillEvents implements Listener {
 	         int level = this.Main.levelmanager.getLevel(p);
 	         int levelKilledBy = this.Main.levelmanager.getLevel(killer);
 	         UUID uuid = killer.getUniqueId();
-	         this.Main.playerdatamanager.addData(uuid, "Kills", 1);
 	         this.Main.playerdatamanager.addData(uuid, "KillStreak", 1);
+	         int kills = Main.playerdatamanager.getPlayerIntData(uuid, "KillStreak");
+	         this.Main.playerdatamanager.addData(uuid, "Kills", 1);
 	         if (levelKilledBy >= level) {
 	            points = (float) 15 * ((Math.pow(level, 2) / levelKilledBy));
 	         }
@@ -44,6 +51,11 @@ public class PlayerKillEvents implements Listener {
 	         if (points <= 0) {
 	            points = 0;
 	         }
+	         
+        	 if(kills >= 5)
+        	 {
+        		points =  points  * ( 1 + (0.01 * (kills - 4)));
+        	 }
 
 	         this.Main.playerdatamanager.addData(uuid, "Points", (int) points);
 	         killer.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
@@ -57,6 +69,42 @@ public class PlayerKillEvents implements Listener {
 	         
 	         
 	         killer.playSound(killer.getLocation(), Sound.BLOCK_NOTE_BELL, 1, 1.2F);
+	         
+	         
+	         
+	         //KILL STREAK MESSAGES
+	         
+		        new BukkitRunnable()
+		         {
+
+					@Override
+					public void run() {
+				        	 
+						
+			        	 if(kills == 5)
+			        	 {
+				        	 Language.sendVallendiaBroadcast(ChatColor.RED + killer.getName() + ChatColor.RED + " is on a streak of 5 kills!");
+				        	 return;
+			        	 }
+				        	 
+				        	 if(kills == 15)
+				        	 {
+					        	 Language.sendVallendiaBroadcast(ChatColor.RED + killer.getName() + ChatColor.RED + " is on a streak of 15 kills!");
+					        	 return;
+				        	 }
+				        	 
+				        	 if(kills % 10 == 0)
+				        	 {
+					        	 Language.sendVallendiaBroadcast(ChatColor.RED + killer.getName() + ChatColor.RED + " is on a streak of " + kills+  " kills!");
+					        	 return;
+				        	 }
+
+				        	 
+				        	 
+						
+					}
+		        	 
+		         }.runTaskLater(VallendiaMinigame.getInstance(), 10);
 	      }
 
 	   }
@@ -70,4 +118,8 @@ public class PlayerKillEvents implements Listener {
 			   e.setDroppedExp(0);
 		   }
 	   }
+	   
+	   
+	   
+	   
 	}

@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
@@ -43,6 +44,8 @@ import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerAnimationType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -1473,5 +1476,58 @@ public class AbilityUtils implements Listener {
 	        }.runTaskLater(VallendiaMinigame.getInstance(), 20 * 5); 
     }
     
+    
+    
+    
+    
+    public static boolean hasReagents(Player p, ItemStack i,int amount, String abilityName, boolean sendFalseMessage)
+    {
+    	Inventory inv = p.getInventory();
+    	
+		if(inv.containsAtLeast(i, i.getAmount()))
+		{
+			inv.removeItem(new ItemStack(i.getType(), i.getAmount()));
+			return true;
+		}
+    	
+        if(sendFalseMessage)
+        {
+            Language.sendAbilityUseMessage(p, "You don't have enough reagents for this ability!", abilityName);	
+        }
+		return false;
+        }
+    
+    
+    
+    
+    
+    public static boolean hasReagentsMultiple(Player p, ArrayList<ItemStack> items, String abilityName, boolean sendFalseMessage)
+    {
+    	Inventory inv = p.getInventory();
+    	int trues = 0;
+    	for(ItemStack i: items)
+    	{
+    		if(!inv.containsAtLeast(i, i.getAmount()))
+    		{
+    	        if(sendFalseMessage)
+    	        {
+    	            Language.sendAbilityUseMessage(p, "You don't have enough reagents for this ability!", abilityName);	
+    	        }
+    			return false;
+    		}
+    		trues ++;
+    	}
+    	for(ItemStack i: items)
+    	{
+        	if(trues == items.size())
+        	{
+    			inv.removeItem(new ItemStack(i.getType(), i.getAmount()));
+        	}	
+    	}
+    	
+        return true;
+    }
+    	
+    }
 
-}
+

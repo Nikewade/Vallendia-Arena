@@ -221,18 +221,21 @@ public class RootAbility implements Ability, Listener{
 	            public void onMove(PlayerMoveEvent e)
 	            {
 	            	
-            		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(e.getPlayer(), "Root") && e.getPlayer().isSneaking() && !e.getPlayer().isOnGround())
+            		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(e.getPlayer(), "Root"))
             		{
-                		if(!enabled.contains(e.getPlayer()))
-                		{
-                			return;
-                		}
-            			if(e.getTo().getY() > e.getFrom().getY())
+            			if(e.getPlayer().isSneaking() && !e.getPlayer().isOnGround())
             			{
-        	            	Location to = e.getFrom();
-        	            	to.setPitch(e.getTo().getPitch());
-        	            	to.setYaw(e.getTo().getYaw());
-        	            	e.setTo(to);
+                    		if(!enabled.contains(e.getPlayer()))
+                    		{
+                    			return;
+                    		}
+                			if(e.getTo().getY() > e.getFrom().getY())
+                			{
+            	            	Location to = e.getFrom();
+            	            	to.setPitch(e.getTo().getPitch());
+            	            	to.setYaw(e.getTo().getYaw());
+            	            	e.setTo(to);
+                			}	
             			}
             		
             		}

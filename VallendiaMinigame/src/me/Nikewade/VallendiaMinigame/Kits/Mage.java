@@ -30,7 +30,6 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Hold Person"));
 		abilities.add(Main.abilitymanager.getAbility("Siphon"));
 		abilities.add(Main.abilitymanager.getAbility("Martyrdom"));
-		abilities.add(Main.abilitymanager.getAbility("Phoenix"));
 	}
 
 	@Override

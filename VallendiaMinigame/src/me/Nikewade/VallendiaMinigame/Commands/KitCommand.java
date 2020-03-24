@@ -65,7 +65,8 @@ public class KitCommand implements  CommandInterface{
 	        		p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
 	    		}
 		    }
-	    	
+
+		    
 		    if(args.length == 3)
 		    {
 		    		if(args[1].equalsIgnoreCase("get"))

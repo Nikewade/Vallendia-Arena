@@ -99,6 +99,7 @@ public class PlayerDeathEvents implements Listener {
 	      RageAbility.onDie(p);
 	      EquipBowAbility.onDie(p);
 	      e.getDrops().removeIf(is -> drops.contains(is.getType()));
+	      e.getDrops().removeIf(is -> is.getItemMeta().hasDisplayName());
 	      e.setDroppedExp(0);
 	      p.setLevel(0);
 	      p.setExp(0.0F);

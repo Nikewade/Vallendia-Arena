@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -21,6 +22,7 @@ public class AbilityManager {
 	VallendiaMinigame Main;
 	private ArrayList<Ability> abilities = new ArrayList<Ability>();
 	private HashMap<UUID, Long> cooldown = new HashMap<>();
+	private static HashMap<Player, ArrayList<String>> playerAbilities = new HashMap<>();
 	
 	
 	public AbilityManager(VallendiaMinigame Main)
@@ -91,19 +93,22 @@ public class AbilityManager {
         abilities.add(new QuakeAbility());
         abilities.add(new BearTrapAbility());
         abilities.add(new ExplosiveTrapAbility());
-        abilities.add(new LoneWolfAbility());
         abilities.add(new QuickDeathAbility());
-        abilities.add(new OneManArmyAbility());
         abilities.add(new YeetAbility());
         abilities.add(new MartyrdomAbility());
         abilities.add(new SonarArrowAbility());
-        abilities.add(new PhoenixAbility());
-        abilities.add(new HealingArrowAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);
 		
 		this.generateAbilityPrices();
+		
+		for(Player p : Bukkit.getOnlinePlayers())
+		{
+			AbilityManager.saveAbilities(p);
+			
+		}
+		
 	}
 	
 	
@@ -112,6 +117,49 @@ public class AbilityManager {
 	}
 	
 		
+	
+	public static void saveAbilities(Player p)
+	{
+		String slot1 = AbilityManager.getAbilitySlot("1", p);
+		String slot2 = AbilityManager.getAbilitySlot("2", p);
+		String slot3 = AbilityManager.getAbilitySlot("3", p);
+		String slot4 = AbilityManager.getAbilitySlot("4", p);
+		String slot5 = AbilityManager.getAbilitySlot("5", p);
+		String slot6 = AbilityManager.getAbilitySlot("6", p);
+		ArrayList<String> playerAbilitiesList = new ArrayList<String>();
+		if(slot1 != "empty")
+		{
+			playerAbilitiesList.add(slot1);	
+		}
+		if(slot2 != "empty")
+		{
+			playerAbilitiesList.add(slot2);	
+		}
+		if(slot3 != "empty")
+		{
+			playerAbilitiesList.add(slot3);	
+		}
+		if(slot4 != "empty")
+		{
+			playerAbilitiesList.add(slot4);	
+		}
+		if(slot5 != "empty")
+		{
+			playerAbilitiesList.add(slot5);	
+		}
+		if(slot6 != "empty")
+		{
+			playerAbilitiesList.add(slot6);	
+		}
+		
+		playerAbilities.put(p, playerAbilitiesList);
+	}
+	
+	public static void unsaveAbilities(Player p)
+	{
+		playerAbilities.get(p).clear();
+	}
+	
 	
 	public Ability getAbility(String name) 
 		{
@@ -125,9 +173,9 @@ public class AbilityManager {
 			return null;
 		}
 	
-	public String getAbilitySlot(int slot, Player p)
+	public static String getAbilitySlot(String slot, Player p)
 	{
-		return Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities.slot" + slot);
+		return VallendiaMinigame.getInstance().playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities.slot " + slot);
 	}
 	
 	public int getPrice(String ability, Player p)
@@ -150,13 +198,12 @@ public class AbilityManager {
 	
 	public boolean playerHasAbility(Player p, String ability)
 	{
-		String slot1 = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities.slot 1");
-		String slot2 = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities.slot 2");
-		String slot3 = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities.slot 3");
-		String slot4 = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities.slot 4");
-		String slot5 = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities.slot 5");
-		String slot6 = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities.slot 6");
-		if(slot1.equalsIgnoreCase(ability) || slot2.equalsIgnoreCase(ability) || slot3.equalsIgnoreCase(ability) || slot4.equalsIgnoreCase(ability) || slot5.equalsIgnoreCase(ability) || slot6.equalsIgnoreCase(ability))
+		
+		if(playerAbilities.get(p) == null)
+		{
+			return false;
+		}
+		if(playerAbilities.get(p).contains(ability))
 		{
 			return true;
 		}
@@ -184,6 +231,7 @@ public class AbilityManager {
 		{
 			String slot = "Abilities.slot " + abilityslot;
 			Ability ability = this.getAbility(abilityname);
+			String previousAbility = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), slot);
 			ItemStack abilityItem = new ItemStack(Material.INK_SACK, 1 , (short)10);
 			ItemMeta abilityim = abilityItem.getItemMeta();
 			abilityim.setDisplayName(Utils.Colorate("&8&l" + abilityname +  " &7(" + ability.getAbilityType() + ")"));
@@ -229,6 +277,11 @@ public class AbilityManager {
 				}
 				}
 				Main.playerdatamanager.editData(p.getUniqueId(), slot, abilityname);	
+				if(previousAbility != null)
+				{
+					playerAbilities.get(p).remove(previousAbility);	
+				}
+				playerAbilities.get(p).add(abilityname);
 			}else
 			{
 				int x = -1;
@@ -245,7 +298,23 @@ public class AbilityManager {
 				}
 				}
 				Main.playerdatamanager.editData(p.getUniqueId(), slot, abilityname);
+				
+				if(previousAbility != null)
+				{
+					playerAbilities.get(p).remove(previousAbility);	
+				}
+				playerAbilities.get(p).add(abilityname);
+				
+				
+				for(Player pla : Bukkit.getOnlinePlayers())
+				{
+					for(String s: playerAbilities.get(pla))
+					{
+						pla.sendMessage(s);
+					}
+				}
 			}
+			
 			
 			
 			
@@ -291,6 +360,8 @@ public class AbilityManager {
 		Main.playerdatamanager.editData(p.getUniqueId(), "Abilities.slot 4", "empty");
 		Main.playerdatamanager.editData(p.getUniqueId(), "Abilities.slot 5", "empty");
 		Main.playerdatamanager.editData(p.getUniqueId(), "Abilities.slot 6", "empty");
+
+		playerAbilities.get(p).clear();
 	}
 	
 	

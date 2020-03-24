@@ -2,6 +2,7 @@ package me.Nikewade.VallendiaMinigame.Events;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -32,6 +33,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class PlayerBlockEvents implements Listener {
 HashMap<Location, BlockState> blocks = new HashMap<>();
+public static double regenTime = 1200;
 VallendiaMinigame Main;
 
 //Saving fire in in ability utils
@@ -40,6 +42,7 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 {
 	this.Main = Main;
 	Main.getServer().getPluginManager().registerEvents(this, Main);
+	PlayerBlockEvents.regenTime = (20* Math.pow(Math.E, -0.17328 * (Bukkit.getOnlinePlayers().size() - 1)) * 60);
 }
 	//END GATE TELEPORT
 	@EventHandler
@@ -76,6 +79,7 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 		}
 		
 		
+		
 		Block block = e.getBlock();
 		
 		
@@ -84,7 +88,7 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 				{
 					if(block.getType() == Material.COAL_ORE || block.getType() == Material.IRON_ORE || block.getType() == Material.GOLD_ORE || block.getType() == Material.DIAMOND_ORE || block.getType() == Material.EMERALD_ORE)
 					{
-						Utils.regenBlock(block, 300);
+						Utils.regenBlock(block, (int) regenTime);
 						e.setExpToDrop(0);
 						return;
 					}
@@ -98,13 +102,13 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 							e.setDropItems(false);
 							block.getWorld().dropItemNaturally(block.getLocation(), 
 									new ItemStack(Material.WHEAT));
-							Utils.regenBlock(block, 300);
+							Utils.regenBlock(block, (int) regenTime);
 							block.setType(Material.CROPS);
 							e.setExpToDrop(0);
 							e.setCancelled(true);
 							return;
 						}
-						Utils.regenBlock(block, 300);
+						Utils.regenBlock(block, (int) regenTime);
 						Material tempData = block.getState().getType();
 						block.breakNaturally();
 						if(tempData == Material.NETHER_WARTS)
@@ -119,14 +123,25 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 						return;
 					}
 					
-					if(block.getType() == Material.LEAVES || block.getTypeId() == 95 || block.getTypeId() == 20 || block.getTypeId() == 160 || block.getTypeId() == 102)
+					if(block.getType() == Material.LEAVES)
 					{
 						Utils.regenBlock(block, 15);
 						block.setType(Material.AIR);
+						block.getWorld().playSound(block.getLocation(), Sound.BLOCK_GRASS_BREAK, 1.0F, 1.0F);
 						e.setDropItems(false);
 						e.setCancelled(true);
 						return;
 
+					}
+					
+					if(block.getTypeId() == 95 || block.getTypeId() == 20 || block.getTypeId() == 160 || block.getTypeId() == 102)
+					{
+						Utils.regenBlock(block, 60);
+						block.breakNaturally();
+						e.setDropItems(false);
+						e.setCancelled(true);
+						block.getWorld().playSound(block.getLocation(), Sound.BLOCK_GLASS_BREAK, 1.0F, 1.0F);
+						return;
 					}
 				}
 		

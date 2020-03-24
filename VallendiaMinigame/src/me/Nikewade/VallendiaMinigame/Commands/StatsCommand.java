@@ -32,12 +32,12 @@ public class StatsCommand implements  CommandInterface {
 			sender.sendMessage("");
 			sender.sendMessage(Utils.Colorate("&8&l" + p.getName()));			
 			sender.sendMessage(Utils.Colorate("&3Level: " + main.levelmanager.getLevel(p)));			
-			sender.sendMessage(Utils.Colorate("&3TotalKills: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Kills")));
-			sender.sendMessage(Utils.Colorate("&3TotalDeaths: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Deaths")));
+			sender.sendMessage(Utils.Colorate("&3Total Kills: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Kills")));
+			sender.sendMessage(Utils.Colorate("&3Total Deaths: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Deaths")));
 			sender.sendMessage(Utils.Colorate("&3KDR: " + kdr));
-			sender.sendMessage(Utils.Colorate("&3CurrentKills: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "KillStreak")));
+			sender.sendMessage(Utils.Colorate("&3Current Kills: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "KillStreak")));
 			sender.sendMessage(Utils.Colorate("&3Upgrades: " +main.upgrademanager.getUpgradeTotal(p)));
-			sender.sendMessage(Utils.Colorate("&3PointsSpent: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "PointsSpent")));
+			sender.sendMessage(Utils.Colorate("&3Points Spent: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "PointsSpent")));
 			sender.sendMessage(Utils.Colorate("&3Points: " + main.shopmanager.getPoints(p)));
 			sender.sendMessage("");
 			sender.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));	

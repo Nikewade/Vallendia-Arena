@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -154,6 +155,10 @@ public class FlyAbility implements Ability, Listener{
         	               if (!p.isOnGround()) {
         	            	   p.setFallDistance(0);
         	                   p.setVelocity(p.getLocation().getDirection().multiply(0.8));
+        	                   if(p.getGameMode() != GameMode.SURVIVAL)
+        	                   {
+        	                	   DisableAbility(p);
+        	                   }
         	                }
         			}
                 }

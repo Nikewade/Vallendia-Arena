@@ -22,7 +22,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 public class StunningBlowsAbility implements Ability, Listener{
 	//made by Emma
 	int percent = 5;
-	int duration = 2;
+	int duration = 1;
 			
 
 	@Override

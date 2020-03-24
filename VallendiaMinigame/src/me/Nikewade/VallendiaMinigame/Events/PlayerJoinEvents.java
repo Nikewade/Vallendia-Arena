@@ -1,5 +1,6 @@
 package me.Nikewade.VallendiaMinigame.Events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,12 +11,15 @@ import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Abilities.BandageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.LastStandAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
+import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Upgrades.RegenUpgrade;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
@@ -34,26 +38,43 @@ public class PlayerJoinEvents implements Listener{
 		Main.getServer().getPluginManager().registerEvents(this, Main);
 	}
 	
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onJoin(PlayerJoinEvent e)
 	{
 		Player p = e.getPlayer();
-		RegenUpgrade.addTimer(p);
-		if(!p.hasPlayedBefore())
-		{
-			Main.kitmanager.giveKit(p, "starter");
-			p.setExp(0);
-			p.setLevel(1);
-		}
         Main.playerdatamanager.createFile(p);
+		RegenUpgrade.addTimer(p);
+        
+        new BukkitRunnable()
+        {
+
+			@Override
+			public void run() {
+				if(!p.hasPlayedBefore())
+				{
+					Main.kitmanager.giveKit(p, "starter");
+					p.setExp(0);
+					p.setLevel(1);
+				}
+		        Main.sb.setupPlayerScoreboard(p);
+			}
+        	
+        }.runTaskLater(Main, 40);
        // Main.sb.runScoreboard(p);
-        Main.sb.setupPlayerScoreboard(p);
 		e.getPlayer().setGravity(true);
+		
+		
+		AbilityManager.saveAbilities(p);
+		
+		
+		//PlayerDataManager.giveInventory(p);
+		
+		PlayerBlockEvents.regenTime = (20* Math.pow(Math.E, -0.17328 * (Bukkit.getOnlinePlayers().size() - 1)) * 60);
 	}
 	
 	
 	
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onLeave(PlayerQuitEvent e)
 	{
 	      for(Ability ability : VallendiaMinigame.getInstance().abilitymanager.getAbilities())
@@ -83,6 +104,11 @@ public class PlayerJoinEvents implements Listener{
 				}
 			}
 		}
+		AbilityManager.unsaveAbilities(p);
+		//PlayerDataManager.saveInventory(p);
+		PlayerBlockEvents.regenTime = (20* Math.pow(Math.E, -0.17328 * (Bukkit.getOnlinePlayers().size() - 1)) * 60);
+		
+		
 		}
 		
 	

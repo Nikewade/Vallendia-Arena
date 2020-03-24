@@ -240,6 +240,10 @@ public class UpgradeManager {
 		int points = Main.shopmanager.getPoints(p);
 		int price = this.getPrice(p, upgrade, enchant) * amount;
 		int upgradeamount = this.getUpgradeAmount(p, upgrade);
+		if(enchant != null)
+		{
+			upgradeamount = this.getUpgradeEnchantAmount(p, upgrade, enchant);
+		}
 		
 		
 		if(EquipBowAbility.enabled.contains(p) && upgrade.equalsIgnoreCase("weapon"))

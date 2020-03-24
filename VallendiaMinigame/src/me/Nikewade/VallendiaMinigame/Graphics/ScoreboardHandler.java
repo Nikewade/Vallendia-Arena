@@ -78,6 +78,10 @@ public class ScoreboardHandler{
 	        {
 	      		Scoreboard sb = all.getScoreboard();
 				Objective obj = sb.getObjective(DisplaySlot.BELOW_NAME);
+				if(obj== null)
+				{
+					return;
+				}
 	   			Score score = obj.getScore(p.getName());
 	   			float health = Math.round(((float) (p.getHealth()) / (float) p.getMaxHealth()) * 100.0F);
 	   			if(health <= 0)
@@ -98,6 +102,10 @@ public class ScoreboardHandler{
 	        {
 	      		Scoreboard sb = all.getScoreboard();
 				Objective obj = sb.getObjective(DisplaySlot.BELOW_NAME);
+				if(obj == null)
+				{
+					return;
+				}
 	   			Score score = obj.getScore(p.getName());
 	   			float health = Math.round(((float) ((p.getHealth() - d) + add) / (float) p.getMaxHealth()) * 100.0F);
 	   			if(health <= 0)
@@ -132,6 +140,10 @@ public class ScoreboardHandler{
 
 		               while(var10.hasNext()) {
 		                  Player p = (Player)var10.next();
+		                  if(gray == null)
+		                  {
+		                	  return;
+		                  }
 		                  if (!gray.hasPlayer(p) && ScoreboardHandler.this.Main.levelmanager.getLevel(p) >= 1 && ScoreboardHandler.this.Main.levelmanager.getLevel(p) <= 4) {
 		                     gray.addPlayer(p);
 		                  }

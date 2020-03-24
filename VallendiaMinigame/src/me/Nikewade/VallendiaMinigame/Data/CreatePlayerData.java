@@ -133,6 +133,11 @@ public class CreatePlayerData {
 			          if(!this.Config.contains("Abilities.slot6")) {
 				             this.Config.set("Abilities.slot 6", "empty");
 				          }
+			          
+			          
+			          if(!this.Config.contains("Inventory")) {
+				             this.Config.set("Inventory", "");
+				          }
 
 				      this.Config.save(f);
 			       } catch (Exception var4) {

@@ -1,5 +1,6 @@
 package me.Nikewade.VallendiaMinigame.Utils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -22,7 +23,12 @@ public class Language {
 	
 	public static void sendVallendiaMessage(Player p, String msg)
 	{
-		p.sendMessage(Utils.Colorate("&3&l[Vallendia] &8" + msg));
+		p.sendMessage(Utils.Colorate("&8&l[&3&lVallendia&8&l] &8" + msg));
+	}
+	
+	public static void sendVallendiaBroadcast(String msg)
+	{
+		Bukkit.broadcastMessage(Utils.Colorate("&8&l[&3&lVallendia&8&l] &8" + msg));
 	}
 	
 	public static String getPlayerPrefix(Player p)

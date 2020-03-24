@@ -108,6 +108,8 @@ public class AdvInventory {
 		for (String s : ability.getDescription()) {
 			lore.add(ChatColor.GRAY + s);
 		}
+		
+		lore.add(ChatColor.DARK_GRAY + "Price: " + VallendiaMinigame.getInstance().getConfig().getInt( "Abilities." + ability.getName() + "." + kit.toLowerCase() + ".price"));
 		if(!(ability.getAbilityType() == AbilityType.PASSIVE) && 
 				VallendiaMinigame.getInstance().getConfig().getInt( "Abilities." + ability.getName() + "." + kit.toLowerCase() + ".cooldown") > 0)
 		{

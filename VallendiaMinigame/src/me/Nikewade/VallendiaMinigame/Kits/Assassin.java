@@ -38,6 +38,7 @@ public class Assassin implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Escape Artist"));
 		abilities.add(Main.abilitymanager.getAbility("Fan Of Knives"));
 		abilities.add(Main.abilitymanager.getAbility("Martyrdom"));
+		abilities.add(Main.abilitymanager.getAbility("Cat Fall"));
 	}
 	
 	@Override

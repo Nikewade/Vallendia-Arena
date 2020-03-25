@@ -96,7 +96,9 @@ public class AbilityManager {
         abilities.add(new QuickDeathAbility());
         abilities.add(new YeetAbility());
         abilities.add(new MartyrdomAbility());
-        abilities.add(new SonarArrowAbility());
+        abilities.add(new CatFallAbility());
+        abilities.add(new PhoenixAbility());
+        abilities.add(new HealingArrowAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);
@@ -305,14 +307,6 @@ public class AbilityManager {
 				}
 				playerAbilities.get(p).add(abilityname);
 				
-				
-				for(Player pla : Bukkit.getOnlinePlayers())
-				{
-					for(String s: playerAbilities.get(pla))
-					{
-						pla.sendMessage(s);
-					}
-				}
 			}
 			
 			

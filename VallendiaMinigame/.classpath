@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/worldedit-bukkit-6.1.7.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/worldguard-6.2.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/Citizens-2.0.26-b1845 (2).jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/ServerTutorialPlus-1.21.3-SNAPSHOT (2).jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

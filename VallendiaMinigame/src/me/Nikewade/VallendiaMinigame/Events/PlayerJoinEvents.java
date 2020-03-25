@@ -70,6 +70,11 @@ public class PlayerJoinEvents implements Listener{
 		//PlayerDataManager.giveInventory(p);
 		
 		PlayerBlockEvents.regenTime = (20* Math.pow(Math.E, -0.17328 * (Bukkit.getOnlinePlayers().size() - 1)) * 60);
+		if(PlayerBlockEvents.regenTime < 120)
+		{
+			PlayerBlockEvents.regenTime = 120;
+		}
+		
 	}
 	
 	
@@ -107,6 +112,10 @@ public class PlayerJoinEvents implements Listener{
 		AbilityManager.unsaveAbilities(p);
 		//PlayerDataManager.saveInventory(p);
 		PlayerBlockEvents.regenTime = (20* Math.pow(Math.E, -0.17328 * (Bukkit.getOnlinePlayers().size() - 1)) * 60);
+		if(PlayerBlockEvents.regenTime < 120)
+		{
+			PlayerBlockEvents.regenTime = 120;
+		}
 		
 		
 		}

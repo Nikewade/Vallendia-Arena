@@ -40,6 +40,7 @@ public class Warrior implements Kit {
         abilities.add(Main.abilitymanager.getAbility("Quick Death"));
         abilities.add(Main.abilitymanager.getAbility("Yeet"));
 		abilities.add(Main.abilitymanager.getAbility("Martyrdom"));
+		abilities.add(Main.abilitymanager.getAbility("Cat Fall"));
 	}
 	
 	@Override

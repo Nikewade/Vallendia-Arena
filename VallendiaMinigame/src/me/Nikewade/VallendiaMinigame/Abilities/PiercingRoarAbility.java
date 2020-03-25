@@ -98,12 +98,16 @@ public class PiercingRoarAbility implements Ability {
 		
 		for(Entity e : AbilityUtils.getAoeTargets(p, p.getLocation(), radius, radius, radius))
 		{
+			if(e instanceof LivingEntity)
+			{
 			
 			AbilityUtils.addPotionDuration(p, (LivingEntity)e, "Piercing Roar", PotionEffectType.CONFUSION, 0, duration*20);
 			AbilityUtils.addPotionDuration(p, (LivingEntity)e, "Piercing Roar", PotionEffectType.BLINDNESS, 0, duration*20);
 			AbilityUtils.addPotionDuration(p, (LivingEntity)e, "Piercing Roar", PotionEffectType.SLOW, 0, duration*20);
 			AbilityUtils.silenceAbilities((LivingEntity) e, duration, "Piercing Roar");
-			Language.sendAbilityUseMessage(p, "Your abilities are silenced.", "Piercing Roar");
+			Language.sendAbilityUseMessage((LivingEntity) e, "Your abilities are silenced.", "Piercing Roar");
+			
+			}
 		}
 		
 		return true;

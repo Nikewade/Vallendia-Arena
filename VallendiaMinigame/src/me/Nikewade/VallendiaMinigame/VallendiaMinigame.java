@@ -33,6 +33,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.PillageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
 import me.Nikewade.VallendiaMinigame.Commands.AdminCommand;
 import me.Nikewade.VallendiaMinigame.Commands.CommandHandler;
+import me.Nikewade.VallendiaMinigame.Commands.CooldownCommand;
 import me.Nikewade.VallendiaMinigame.Commands.KitCommand;
 import me.Nikewade.VallendiaMinigame.Commands.LevelCommand;
 import me.Nikewade.VallendiaMinigame.Commands.PointsCommand;
@@ -289,6 +290,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	        handler.register("kit", new KitCommand());
 	        handler.register("spawn", new SpawnCommand());
 	        handler.register("level", new LevelCommand());
+	        handler.register("cooldown", new CooldownCommand());
 	        getCommand("vallendia").setExecutor(handler);
 	    }
 	    

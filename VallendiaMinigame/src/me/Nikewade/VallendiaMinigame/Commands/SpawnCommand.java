@@ -31,6 +31,7 @@ import me.Nikewade.VallendiaMinigame.Interface.CommandInterface;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import nl.martenm.servertutorialplus.api.ServerTutorialApi;
 
 public class SpawnCommand implements CommandInterface, Listener{
 	VallendiaMinigame  main = VallendiaMinigame.getInstance();
@@ -67,13 +68,6 @@ public class SpawnCommand implements CommandInterface, Listener{
 	    if(sender instanceof Player)
 	    {
 	    	Player p = (Player) sender;
-	    	
-	    	if(cmd.getName().equalsIgnoreCase("tt"))
-	    	{
-	    		p.sendMessage("WHOOOOSHWHOOOOSHW HWOSOOOOOOSH 15 secs... WHOOOOSHSHHSHS yay you are there!");
-	    	}
-	    	
-	    	
 		    if(args.length == 3)
 		    {
 		    		if(args[1].equalsIgnoreCase("add"))
@@ -126,6 +120,11 @@ public class SpawnCommand implements CommandInterface, Listener{
 		if(e.getMessage().equalsIgnoreCase("/spawn"))
 		{
 			Player p = e.getPlayer();
+			if(ServerTutorialApi.getApi().isInTutorial(p.getUniqueId()))
+			{
+				e.setCancelled(true);
+				return;
+			}
 			if(CombatUtil.isInCombat(p))
 			{
 				Language.sendVallendiaMessage(p, "You can't perform this command in combat!");

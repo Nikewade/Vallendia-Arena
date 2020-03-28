@@ -161,12 +161,15 @@ public class AbilityUtils implements Listener {
 	
 	public static boolean partyCheck(Player p1, Player p2)
 	{
-		if(!getPlayerParty(p1).isEmpty() && !getPlayerParty(p2).isEmpty())
+		if(p1 instanceof Player && p2 instanceof Player)
 		{
-			if(getPlayerParty(p1).equalsIgnoreCase(getPlayerParty(p2)))
+			if(!getPlayerParty(p1).isEmpty() && !getPlayerParty(p2).isEmpty())
 			{
-				return true;
-			}
+				if(getPlayerParty(p1).equalsIgnoreCase(getPlayerParty(p2)))
+				{
+					return true;
+				}
+			}	
 		}
 		return false;
 
@@ -189,7 +192,10 @@ public class AbilityUtils implements Listener {
 				return false;
 			}	
 		}
-		
+		if(!(p instanceof Player))
+		{
+			return false;
+		}
         RegionManager regionManager = VallendiaMinigame.getInstance().worldguard.getRegionManager(p.getWorld());
         ApplicableRegionSet set = regionManager.getApplicableRegions(p.getLocation());
 
@@ -1061,7 +1067,7 @@ public class AbilityUtils implements Listener {
 		    	    BukkitTask task = new BukkitRunnable() {
 		                @Override
 		                public void run() {	
-		                	if(!loc.getBlock().getRelative(BlockFace.DOWN).getType().isSolid())
+		                	if(!loc.getBlock().getType().isSolid())
 		                	{
 	                    		run.run();
 	                    		removeTrap(p, abilityname);

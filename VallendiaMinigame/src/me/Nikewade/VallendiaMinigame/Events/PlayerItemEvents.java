@@ -57,7 +57,7 @@ public class PlayerItemEvents implements Listener {
 	{
 		this.Main = Main;
 		Main.getServer().getPluginManager().registerEvents(this, Main);
-		noStunAbilities.add("Adaptation");
+		noStunAbilities.add("Break Free");
 		
 
 	}

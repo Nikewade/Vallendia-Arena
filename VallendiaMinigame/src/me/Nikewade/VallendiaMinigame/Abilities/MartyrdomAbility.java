@@ -3,6 +3,7 @@ package me.Nikewade.VallendiaMinigame.Abilities;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -73,7 +74,7 @@ public class MartyrdomAbility implements Listener, Ability {
 		
 		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(p, "Martyrdom"))
 		{
-
+		Location ploc = p.getLocation();
 		p.getLocation().getWorld().playSound(p.getLocation(), Sound.ENTITY_CREEPER_PRIMED, 1, 1);
 		
 		BukkitTask timer = new BukkitRunnable()
@@ -82,7 +83,7 @@ public class MartyrdomAbility implements Listener, Ability {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				AbilityUtils.explode(p.getLocation(), p, power, damage, false, true, true);		
+				AbilityUtils.explode(ploc, p, power, damage, false, true, true);		
 				
 			}
 			

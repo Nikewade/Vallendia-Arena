@@ -20,7 +20,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class BackstabAbility implements Ability , Listener {
-	static int percent = 20;
+	static int percent = 10;
 
 	@Override
 	public String getName() {

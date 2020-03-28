@@ -20,6 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
@@ -31,9 +32,10 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 public class HealingArrowAbility implements Ability, Listener {
 
 	Map<Projectile,SphereEffect> arrow = new HashMap<>();
+	ArrayList<Player> abilityActive = new ArrayList<>();
+	Map<Player, BukkitTask> timers = new HashMap<>();
     int heal = 10;
     int delay = 15;
-	ArrayList<Player> abilityActive = new ArrayList<>();
     
 
 	@Override
@@ -72,7 +74,7 @@ public class HealingArrowAbility implements Ability, Listener {
 			abilityActive.add(p);
 			Language.sendAbilityUseMessage(p, "Healing Arrow is now Active", "Healing Arrow");
 			
-			new BukkitRunnable()
+			BukkitTask timer = new BukkitRunnable()
 			{
 
 				@Override
@@ -88,6 +90,8 @@ public class HealingArrowAbility implements Ability, Listener {
 				}
 				
 			}.runTaskLater(VallendiaMinigame.getInstance(), delay*20);
+			
+			timers.put(p, timer);
 			return true;
 		}
 
@@ -121,6 +125,10 @@ public class HealingArrowAbility implements Ability, Listener {
             		se.particles = 1;
             		se.start();	
             		arrow.put((Projectile)e.getProjectile(), se);	
+        		}
+        		if(timers.containsKey(p))
+        		{
+        			timers.get(p).cancel();
         		}
         		abilityActive.remove(p);
             }

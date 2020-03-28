@@ -74,7 +74,6 @@ import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
 import me.Nikewade.VallendiaMinigame.Utils.FallingBlocksManager;
 import me.Nikewade.VallendiaMinigame.Utils.FileManager;
-import me.Nikewade.VallendiaMinigame.Utils.GhostManager;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
@@ -103,7 +102,6 @@ public class VallendiaMinigame extends JavaPlugin{
 	   public FallingBlocksManager fallingblocks;
 	   public Permission perms;
 	   public Chat chat;
-	   public GhostManager ghost;
 	   public PartiesAPI parties;
 	   //Custom flags
 	   @SuppressWarnings("rawtypes")
@@ -159,7 +157,6 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.protocolManager = ProtocolLibrary.getProtocolManager();
 		   this.worldguard = getWorldGuard();
 	       this.fallingblocks = new FallingBlocksManager(this);
-	       this.ghost = new GhostManager(this);
 	      
 	       
 	       
@@ -217,13 +214,12 @@ public class VallendiaMinigame extends JavaPlugin{
 	            this.levelmanager.updateExpBar(p);
 	            this.levelmanager.updateLevelBar(p);
 	            p.setGravity(true);
-	            this.ghost.removeGhost(p);
 	            if (this.upgrademanager.getUpgradeAmount(p, "regeneration") > 0) {
 	               RegenUpgrade.addTimer(p);
 	            }
 	         }
 
-	         this.sb.runNameTagUpdater();
+	      this.sb.runNameTagUpdater();
 	         this.sb.runSidebarUpdater();
 	         ShopHandler.loadShop();   
 	   }

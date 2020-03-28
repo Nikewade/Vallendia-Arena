@@ -38,7 +38,7 @@ public class PillageAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Each time you melee hit a player, steal 1 point.", 
+		return Arrays.asList("Each time you melee hit a player, steal 2 points.", 
 				"Sending a player into negative points will damage them.");
 	}
 
@@ -79,12 +79,12 @@ public class PillageAbility implements Ability, Listener{
         		{
         			return;
         		}
-        		main.shopmanager.subtractPoints(target, 1);
+        		main.shopmanager.subtractPoints(target, 2);
         		if(main.shopmanager.getPoints(target) <= 0)
         		{
         			return;
         		}
-        		main.shopmanager.addPoints(damager, 1);
+        		main.shopmanager.addPoints(damager, 2);
         		
         		
         		ItemStack itemstack = null;

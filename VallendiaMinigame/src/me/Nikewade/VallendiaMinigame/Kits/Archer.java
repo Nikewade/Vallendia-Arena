@@ -41,6 +41,9 @@ public class Archer implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Martyrdom"));
 		abilities.add(Main.abilitymanager.getAbility("Healing Arrow"));
 		abilities.add(Main.abilitymanager.getAbility("Cat Fall"));
+		abilities.add(Main.abilitymanager.getAbility("Healing Arrow"));
+		abilities.add(Main.abilitymanager.getAbility("Sonar Arrow"));
+		abilities.add(Main.abilitymanager.getAbility("Lone Wolf"));
 	}
 	
 	@Override

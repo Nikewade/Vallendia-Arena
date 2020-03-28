@@ -38,7 +38,7 @@ public class IceTrapAbility implements Ability, Listener {
 	Map<Player, Location> clickedBlock = new HashMap<>();
 	List<Player> trapMode = new ArrayList<>();
 	Map<Player, BukkitTask> trapModeTask = new HashMap<>();
-	int stunTime = 5;
+	int stunTime = 10;
 	int trapModeTime = 15;
 
 	@Override

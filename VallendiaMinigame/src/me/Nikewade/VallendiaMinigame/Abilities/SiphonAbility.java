@@ -75,12 +75,12 @@ public class SiphonAbility implements Ability, Listener {
         		{
         			return;
         		}
-        		main.shopmanager.subtractPoints(target, 1);
+        		main.shopmanager.subtractPoints(target, 2);
         		if(main.shopmanager.getPoints(target) <= 0)
         		{
         			return;
         		}
-        		main.shopmanager.addPoints(damager, 1);
+        		main.shopmanager.addPoints(damager, 2);
         		
         		ItemStack itemstack = null;
         		int random = Utils.randomNumber(1, 3);

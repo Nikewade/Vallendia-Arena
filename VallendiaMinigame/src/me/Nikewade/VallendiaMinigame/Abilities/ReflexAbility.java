@@ -63,7 +63,7 @@ public class ReflexAbility implements Ability, Listener{
 		}
 		VallendiaMinigame main = VallendiaMinigame.getInstance();
 		enabled.add(p);
-		main.ghost.addGhost(p);
+		//main.ghost.addGhost(p);
 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.6);
 		
         
@@ -83,7 +83,7 @@ public class ReflexAbility implements Ability, Listener{
         		if(enabled.contains(p))
         		{
         			enabled.remove(p);
-        			main.ghost.removeGhost(p);
+        			//main.ghost.removeGhost(p);
         			Language.sendAbilityUseMessage(p, "Disabled", "Reflex");
         			Utils.showArmor(p);
         			
@@ -122,7 +122,7 @@ public class ReflexAbility implements Ability, Listener{
         		{
         			Player p = e.getPlayer();
         			enabled.remove(p);
-        			VallendiaMinigame.getInstance().ghost.removeGhost(p);
+        			//VallendiaMinigame.getInstance().ghost.removeGhost(p);
         		}
         	}
         	

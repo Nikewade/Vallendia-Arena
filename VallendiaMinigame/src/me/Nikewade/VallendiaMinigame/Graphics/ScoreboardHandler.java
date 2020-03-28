@@ -61,9 +61,9 @@ public class ScoreboardHandler{
 	      sb.registerNewTeam("darkblue");
 	      sb.registerNewTeam("yellow");
 	      sb.registerNewTeam("red");
-	        Objective objective = sb.registerNewObjective("health", "dummy");
-	        objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
-	        objective.setDisplayName("%");
+	      Objective objective = sb.registerNewObjective("health", "dummy");
+	      objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+	      objective.setDisplayName("%");
 	        for(Player all : VallendiaMinigame.getInstance().getServer().getOnlinePlayers())
 	        {
 	        	ScoreboardHandler.updateHealth(all, 0, 0);
@@ -78,10 +78,6 @@ public class ScoreboardHandler{
 	        {
 	      		Scoreboard sb = all.getScoreboard();
 				Objective obj = sb.getObjective(DisplaySlot.BELOW_NAME);
-				if(obj== null)
-				{
-					return;
-				}
 	   			Score score = obj.getScore(p.getName());
 	   			float health = Math.round(((float) (p.getHealth()) / (float) p.getMaxHealth()) * 100.0F);
 	   			if(health <= 0)

@@ -41,11 +41,11 @@ public class PlayerKillEvents implements Listener {
 	         int kills = Main.playerdatamanager.getPlayerIntData(uuid, "KillStreak");
 	         this.Main.playerdatamanager.addData(uuid, "Kills", 1);
 	         if (levelKilledBy >= level) {
-	            points = (float) 15 * ((Math.pow(level, 2) / levelKilledBy));
+	            points = (float) (15 * ((Math.pow(level, 2) / levelKilledBy))) * 1.4;
 	         }
 
 	         if (levelKilledBy < level) {
-	            points = (15 * level) + 40 * (level - levelKilledBy);
+	            points = ((15 * level) + 40 * (level - levelKilledBy)) * 1.4;
 	         }
 
 	         if (points <= 0) {
@@ -84,18 +84,21 @@ public class PlayerKillEvents implements Listener {
 			        	 if(kills == 5)
 			        	 {
 				        	 Language.sendVallendiaBroadcast(ChatColor.RED + killer.getName() + ChatColor.RED + " is on a streak of 5 kills!");
+					         killer.playSound(killer.getLocation(), Sound.ENTITY_FIREWORK_BLAST, 1, 0.8F);
 				        	 return;
 			        	 }
 				        	 
 				        	 if(kills == 15)
 				        	 {
 					        	 Language.sendVallendiaBroadcast(ChatColor.RED + killer.getName() + ChatColor.RED + " is on a streak of 15 kills!");
+						         killer.playSound(killer.getLocation(), Sound.ENTITY_FIREWORK_BLAST, 1, 0.8F);
 					        	 return;
 				        	 }
 				        	 
 				        	 if(kills % 10 == 0)
 				        	 {
 					        	 Language.sendVallendiaBroadcast(ChatColor.RED + killer.getName() + ChatColor.RED + " is on a streak of " + kills+  " kills!");
+						         killer.playSound(killer.getLocation(), Sound.ENTITY_FIREWORK_BLAST, 1, 0.8F);
 					        	 return;
 				        	 }
 

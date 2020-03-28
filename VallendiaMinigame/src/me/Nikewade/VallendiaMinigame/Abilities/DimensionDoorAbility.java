@@ -22,12 +22,12 @@ import me.Nikewade.VallendiaMinigame.Utils.Language;
 import net.minecraft.server.v1_12_R1.EnumItemSlot;
 import net.minecraft.server.v1_12_R1.PacketPlayOutEntityEquipment;
 
-public class BlinkAbility implements Ability{
+public class DimensionDoorAbility implements Ability{
 
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Blink";
+		return "Dimension Door";
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class BlinkAbility implements Ability{
 	 	 		p.getWorld().spawnParticle(Particle.PORTAL, p.getLocation().add(0, 1, 0), 20);
 	 	 		p.getWorld().spawnParticle(Particle.PORTAL, p.getLocation().add(0, 1, 0), 20);
 		        return true;	
-		}else Language.sendAbilityUseMessage(p, "Could not teleport.", "Blink");
+		}else Language.sendAbilityUseMessage(p, "Could not teleport.", "Dimension Door");
 		return false;
 	}
 

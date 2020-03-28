@@ -40,7 +40,7 @@ public class AbilityManager {
 		abilities.add(new SneakAbility());
 		abilities.add(new BackstabAbility());
 		abilities.add(new GrapplingHookAbility());
-		abilities.add(new BlinkAbility());
+		abilities.add(new DimensionDoorAbility());
 		abilities.add(new ShadowstepAbility());
 		abilities.add(new TheHighGroundAbility());
 		abilities.add(new BlindingArrowsAbility());
@@ -99,6 +99,13 @@ public class AbilityManager {
         abilities.add(new CatFallAbility());
         abilities.add(new PhoenixAbility());
         abilities.add(new HealingArrowAbility());
+        abilities.add(new SonarArrowAbility());
+        abilities.add(new InitiateAbility());
+        abilities.add(new VampiricAuraAbility());
+        abilities.add(new LoneWolfAbility());
+        abilities.add(new OneManArmyAbility());
+        abilities.add(new UndyingRageAbility());
+        abilities.add(new BreakFreeAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);

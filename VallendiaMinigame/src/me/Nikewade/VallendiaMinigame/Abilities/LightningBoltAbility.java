@@ -22,7 +22,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 public class LightningBoltAbility implements Ability {
 	int range = 25;
 	int damage = 15;
-	int castTime = 3;
+	int castTime = 1;
 
 	@Override
 	public String getName() {

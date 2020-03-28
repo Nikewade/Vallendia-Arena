@@ -2,10 +2,12 @@ package me.Nikewade.VallendiaMinigame.Abilities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
@@ -19,6 +21,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
@@ -28,6 +31,7 @@ import net.minecraft.server.v1_12_R1.PacketPlayOutEntityEquipment;
 
 public class BlurAbility implements Ability, Listener{
 	private static ArrayList<Player> enabled = new ArrayList<>();
+	private static HashMap<Player,SphereEffect> effect1 = new HashMap<>();
 	int enabledTime = 10;
 
 	@Override
@@ -64,19 +68,21 @@ public class BlurAbility implements Ability, Listener{
 		}
 		VallendiaMinigame main = VallendiaMinigame.getInstance();
 		enabled.add(p);
-		main.ghost.addGhost(p);
+		//main.ghost.addGhost(p);
 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 2, (float) 1.6);
 		
-        
-		new BukkitRunnable() {
-            @Override
-            public void run() {
-        		if(enabled.contains(p))
-        		{
-        			Utils.hideArmor(p);
-        		}else this.cancel();
-            }
-        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1L);
+		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+		se.setEntity(p);
+		se.disappearWithOriginEntity = true;
+		se.infinite();
+		se.particle = Particle.SUSPENDED;
+		se.radius = 0.8;
+		se.particleOffsetY = (float) 0.5;
+		se.particles = 15;
+		se.yOffset = -0.8;
+		se.speed = (float) 0;
+		se.start();
+		effect1.put(p, se);
 		
 		new BukkitRunnable() {
             @Override
@@ -84,19 +90,12 @@ public class BlurAbility implements Ability, Listener{
         		if(enabled.contains(p))
         		{
         			enabled.remove(p);
-        			main.ghost.removeGhost(p);
+        			effect1.get(p).cancel();
+        			effect1.remove(p);
+        			//main.ghost.removeGhost(p);
         			Language.sendAbilityUseMessage(p, "Disabled", "Blur");
         			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 2, (float) 0.6);
-        			Utils.showArmor(p);
-        			
-        	        PacketPlayOutEntityEquipment helmetPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.HEAD, CraftItemStack.asNMSCopy(p.getInventory().getHelmet()));
-        	        PacketPlayOutEntityEquipment chestPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.CHEST, CraftItemStack.asNMSCopy(p.getInventory().getChestplate()));
-        	        PacketPlayOutEntityEquipment legPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.LEGS, CraftItemStack.asNMSCopy(p.getInventory().getLeggings()));
-        	        PacketPlayOutEntityEquipment bootsPacket = new PacketPlayOutEntityEquipment(p.getEntityId(), EnumItemSlot.FEET, CraftItemStack.asNMSCopy(p.getInventory().getBoots()));
-    	            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(helmetPacket);
-    	            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(chestPacket);
-    	            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(legPacket);
-    	            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(bootsPacket);
+
         			
         		}
             }
@@ -130,7 +129,9 @@ public class BlurAbility implements Ability, Listener{
         		{
         			Player p = e.getPlayer();
         			enabled.remove(p);
-        			VallendiaMinigame.getInstance().ghost.removeGhost(p);
+        			effect1.get(p).cancel();
+        			effect1.remove(p);
+        			//VallendiaMinigame.getInstance().ghost.removeGhost(p);
         		}
         	}
 

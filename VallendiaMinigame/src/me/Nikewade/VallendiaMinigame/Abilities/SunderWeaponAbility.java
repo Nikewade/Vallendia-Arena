@@ -69,7 +69,6 @@ public class SunderWeaponAbility implements Ability, Listener{
 		
 		if(!(AbilityUtils.getTarget(p, 5) instanceof Player))
 		{
-			Language.sendAbilityUseMessage(p, "You can only sunder players!", "Sunder Weapon");
 			return false;
 		}
 		

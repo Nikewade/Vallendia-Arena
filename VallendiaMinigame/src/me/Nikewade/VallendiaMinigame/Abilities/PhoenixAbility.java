@@ -62,7 +62,8 @@ public class PhoenixAbility implements Listener, Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("blah blah ");
+		return Arrays.asList("blah blah ",
+				"Reagents: 5 Netherwart, 4 Diamonds");
 	}
 
 	@Override
@@ -272,6 +273,8 @@ public class PhoenixAbility implements Listener, Ability{
 								dead.remove(p);
 								Vector v2 = p.getVelocity().multiply(0);
 								p.setVelocity(v2);
+								tploc.setPitch(p.getLocation().getPitch());
+								tploc.setYaw(p.getLocation().getYaw());
 								p.teleport(tploc);
 								p.setGameMode(GameMode.SURVIVAL);
 					 	 		p.getWorld().spawnParticle(Particle.FLAME, p.getLocation().add(0, 1, 0), 20);

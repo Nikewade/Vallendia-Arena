@@ -17,7 +17,7 @@ public class Mage implements Kit {
 	{
 		this.Main = Main;
 		abilities.add(Main.abilitymanager.getAbility("Mage Armor"));
-		abilities.add(Main.abilitymanager.getAbility("Blink"));
+		abilities.add(Main.abilitymanager.getAbility("Dimension Door"));
 		abilities.add(Main.abilitymanager.getAbility("Kick"));
 		abilities.add(Main.abilitymanager.getAbility("Blur"));
 		abilities.add(Main.abilitymanager.getAbility("Particle Test"));
@@ -31,6 +31,8 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Siphon"));
 		abilities.add(Main.abilitymanager.getAbility("Martyrdom"));
 		abilities.add(Main.abilitymanager.getAbility("Phoenix"));
+		abilities.add(Main.abilitymanager.getAbility("Vampiric Aura"));
+		abilities.add(Main.abilitymanager.getAbility("Lone Wolf"));
 	}
 
 	@Override

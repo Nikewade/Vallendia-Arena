@@ -70,6 +70,11 @@ public class SunderArmorAbility implements Ability, Listener{
 		
 		Player target = (Player) AbilityUtils.getTarget(p, 5);
 		
+		if(target == null)
+		{
+			return false;
+		}
+		
 		if(sundered.contains(target))
 		{
 			Language.sendAbilityUseMessage(p, "This Player has already been sundered!", "Sunder Armor");
@@ -103,7 +108,7 @@ public class SunderArmorAbility implements Ability, Listener{
 			
 			se.start();
 			
-			BukkitTask timer = new BukkitRunnable() 
+				new BukkitRunnable() 
 			{
 
 				@Override
@@ -130,7 +135,7 @@ public class SunderArmorAbility implements Ability, Listener{
 			target.getInventory().setBoots(new ItemStack(Material.AIR));
 
 			
-			BukkitTask timer = new BukkitRunnable() 
+			new BukkitRunnable() 
 			{
 
 				@Override

@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -90,7 +91,7 @@ public class SneakAbility implements Ability , Listener {
             
            
             
-            @EventHandler
+            @EventHandler(priority = EventPriority.HIGHEST)
             public void onDamage(EntityDamageEvent e)
             {
             	if(e.getEntity() instanceof Player)

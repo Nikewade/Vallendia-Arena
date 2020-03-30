@@ -17,16 +17,14 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-
-import com.comphenix.protocol.wrappers.EnumWrappers.Hand;
 
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
@@ -34,17 +32,18 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 
-public class IceTrapAbility implements Ability, Listener {
+public class NoxiousGasTrapAbility implements Ability, Listener{
 	Map<Player, Location> clickedBlock = new HashMap<>();
 	List<Player> trapMode = new ArrayList<>();
 	Map<Player, BukkitTask> trapModeTask = new HashMap<>();
-	int stunTime = 10;
 	int trapModeTime = 15;
+	int duration = 15;
+	int amplifier = 3;
 
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Ice Trap";
+		return "Noxious Gas Trap";
 	}
 
 	@Override
@@ -56,15 +55,14 @@ public class IceTrapAbility implements Ability, Listener {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Place an ice trap that when triggered, stuns"
-				, "the target for " + stunTime + " seconds. Damage done",
-				"to the enemy will break the stun.");
+		return Arrays.asList("Place a trap that when triggered, releases" , 
+				"a cloud of noxious gas that poisons and",
+				"blinds the targets within for " + duration + " seconds.");
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
-		// TODO Auto-generated method stub
-		return new ItemStack(Material.ICE);
+		return new ItemStack(160, 1, (short) 5);
 	}
 
 	@Override
@@ -91,7 +89,7 @@ public class IceTrapAbility implements Ability, Listener {
 					if(trapMode.contains(p))
 					{
 						trapMode.remove(p);
-						Language.sendAbilityUseMessage(p, "Trap Mode: Disabled", "Ice Trap");
+						Language.sendAbilityUseMessage(p, "Trap Mode: Disabled", "explosive trap");
 						trapModeTask.remove(p);
 					}
 				}
@@ -147,38 +145,31 @@ public class IceTrapAbility implements Ability, Listener {
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
+	                	for(Entity e : AbilityUtils.getAoeTargets(p, loc, 5, 5, 5))
+	                	{
+	            			AbilityUtils.addPotionDuration(p , (LivingEntity)e, "Noxious Gas Trap", PotionEffectType.POISON, amplifier, duration*20);
+	            			AbilityUtils.addPotionDuration(p , (LivingEntity)e, "Noxious Gas Trap", PotionEffectType.BLINDNESS, amplifier, duration*20);
+	            			AbilityUtils.addPotionDuration(p , (LivingEntity)e, "Noxious Gas Trap", PotionEffectType.CONFUSION, amplifier, 10 * 20);
+							Language.sendAbilityUseMessage((LivingEntity) e, "You triggered a trap!", "explosive trap");
+	                	}
                   		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
                 		se.particle = Particle.REDSTONE;
-                		se.color = Color.AQUA;
-                		se.iterations = 2;
-                		se.particles = 30;
-                		se.radius = 2.2;
+                		se.color = Color.LIME;
+                		se.iterations = 10;
+                		se.particles = 18;
+                		se.radius = 5;
                 		se.setLocation(loc);
                 		se.start();
                   		SphereEffect se2 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
                 		se2.particle = Particle.BLOCK_CRACK;
-                		se2.material = Material.ICE;
-                		se2.iterations = 2;
-                		se2.particles = 30;
-                		se2.radius = 2.2;
+                		se2.material = Material.SLIME_BLOCK;
+                		se2.iterations = 10;
+                		se2.particles = 9;
+                		se2.radius = 4;
                 		se2.setLocation(loc);
                 		se2.start();
-                		loc.getWorld().playSound(loc, Sound.BLOCK_GLASS_BREAK, 2, 1);
-	                	for(Entity e : AbilityUtils.getAoeTargets(p, loc, 2, 2.8, 2))
-	                	{
-	                		AbilityUtils.stun((LivingEntity)p, (LivingEntity)e, "Ice Trap", stunTime, true);
-	                  		SphereEffect se3 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
-	                		se3.particle = Particle.BLOCK_CRACK;
-	                		se3.material = Material.ICE;
-	                		se3.iterations = 2;
-	                		se3.particles = 5;
-	                		se3.radius = 1;
-	                		se3.yOffset = 0.5;
-	                		se3.setLocation(e.getLocation());
-	                		se3.start();
-							Language.sendAbilityUseMessage((LivingEntity) e, "You triggered a trap!", "Ice Trap");
-	                	}
-						Language.sendAbilityUseMessage(p, "Your trap was triggered!", "Ice Trap");
+                		loc.getWorld().playSound(loc, Sound.BLOCK_REDSTONE_TORCH_BURNOUT, 2, 0.6F);
+						Language.sendAbilityUseMessage(p, "Your trap was triggered!", "explosive trap");
 					}
 					
 				};
@@ -229,37 +220,12 @@ public class IceTrapAbility implements Ability, Listener {
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-	                  		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
-	                		se.particle = Particle.REDSTONE;
-	                		se.color = Color.AQUA;
-	                		se.iterations = 2;
-	                		se.particles = 30;
-	                		se.radius = 2.2;
-	                		se.setLocation(loc);
-	                		se.start();
-	                  		SphereEffect se2 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
-	                		se2.particle = Particle.BLOCK_CRACK;
-	                		se2.material = Material.ICE;
-	                		se2.iterations = 2;
-	                		se2.particles = 30;
-	                		se2.radius = 2.2;
-	                		se2.setLocation(loc);
-	                		se2.start();
-	                		loc.getWorld().playSound(loc, Sound.BLOCK_GLASS_BREAK, 2, 1);
 		                	for(Entity e : AbilityUtils.getAoeTargets(p, loc, 2, 2.8, 2))
 		                	{
-		                		AbilityUtils.stun((LivingEntity)p, (LivingEntity)e, "Ice Trap", 8, true);
-		                  		SphereEffect se3 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
-		                		se3.particle = Particle.BLOCK_CRACK;
-		                		se3.material = Material.ICE;
-		                		se3.iterations = 2;
-		                		se3.particles = 5;
-		                		se3.radius = 1;
-		                		se3.yOffset = 0.5;
-		                		se3.setLocation(e.getLocation());
-		                		se3.start();
+		            			AbilityUtils.addPotionDuration(p , (LivingEntity)e, "Noxious Gas Trap", PotionEffectType.POISON, amplifier, duration*20);
+								Language.sendAbilityUseMessage((LivingEntity) e, "You tiggered a trap!", "explosive trap");
 		                	}
-							Language.sendAbilityUseMessage(p, "Your trap was triggered!", "Ice Trap");
+							Language.sendAbilityUseMessage(p, "Your trap was triggered!", "explosive trap");
 						}
 						
 					};

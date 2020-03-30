@@ -163,7 +163,7 @@ public class BearTrapAbility implements Ability, Listener{
 								AbilityUtils.damageEntity((LivingEntity) e, p, damage);	
 							}
 							AbilityUtils.addPotionDuration(p, (LivingEntity) e, "Bear Trap", PotionEffectType.SLOW, 4, (slowTime * 20));
-							Language.sendAbilityUseMessage((LivingEntity) e, "You tiggered a trap!", "bear trap");
+							Language.sendAbilityUseMessage((LivingEntity) e, "You triggered a trap!", "bear trap");
 	                	}
 						Language.sendAbilityUseMessage(p, "Your trap was triggered!", "bear trap");
 					}

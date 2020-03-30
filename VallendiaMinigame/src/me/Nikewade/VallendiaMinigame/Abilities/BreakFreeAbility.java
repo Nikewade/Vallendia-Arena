@@ -32,14 +32,14 @@ public class BreakFreeAbility implements Ability{
 	@Override
 	public AbilityType getAbilityType() {
 		// TODO Auto-generated method stub
-		return AbilityType.UTILITY;
+		return AbilityType.DEFENSIVE;
 	}
 
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Use this ability while slowed or stunned to break",
-							"yourself and allies within " + radius + " blocks.");
+							"yourself and allies free from stuns" , "within " + radius + " blocks.");
 	}
 
 	@Override

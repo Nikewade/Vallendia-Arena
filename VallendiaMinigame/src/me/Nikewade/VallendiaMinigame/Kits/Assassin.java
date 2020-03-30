@@ -41,6 +41,7 @@ public class Assassin implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Cat Fall"));
 		abilities.add(Main.abilitymanager.getAbility("Vampiric Aura"));
 		abilities.add(Main.abilitymanager.getAbility("Lone Wolf"));
+		abilities.add(Main.abilitymanager.getAbility("Noxious Gas Trap"));
 	}
 	
 	@Override

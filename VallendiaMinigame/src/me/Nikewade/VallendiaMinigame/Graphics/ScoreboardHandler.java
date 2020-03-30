@@ -78,6 +78,10 @@ public class ScoreboardHandler{
 	        {
 	      		Scoreboard sb = all.getScoreboard();
 				Objective obj = sb.getObjective(DisplaySlot.BELOW_NAME);
+				if(obj == null)
+				{
+					return;
+				}
 	   			Score score = obj.getScore(p.getName());
 	   			float health = Math.round(((float) (p.getHealth()) / (float) p.getMaxHealth()) * 100.0F);
 	   			if(health <= 0)

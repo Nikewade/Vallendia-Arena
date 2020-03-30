@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
@@ -90,6 +89,7 @@ public class AbilityUtils implements Listener {
 	private static List<LivingEntity> invisible = new ArrayList<>();
 	private static HashMap<Entity, Player> evokerFangs = new HashMap<>();
 	private static HashMap<Entity, Integer> evokerFangsDamage = new HashMap<>();
+	private static ArrayList<Player> noTargetCooldown = new ArrayList<>();
 	static int castingHealthPercent = 70;
 	
 	
@@ -251,7 +251,7 @@ public class AbilityUtils implements Listener {
 	        	//Can damage
 	        	if(!Utils.canDamage(p, entity))
 	        	{
-	      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
+	      	      	sendNoTargetMessage(p);
 		            return null;
 	        	}
 	  	        if(entity instanceof Player)
@@ -262,13 +262,13 @@ public class AbilityUtils implements Listener {
 		        	//In party
 		        	if(partyCheck(player, p) == true)
 		        	{
-		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
+		      	      	sendNoTargetMessage(p);
 			            return null;
 		        	}
 
 					if(!(player.getGameMode() == GameMode.SURVIVAL) && !(player.getGameMode() == GameMode.ADVENTURE))
 		        	{
-		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
+		      	      	sendNoTargetMessage(p);
 			            return null;
 		        	}
 		        }
@@ -278,7 +278,7 @@ public class AbilityUtils implements Listener {
 	          }
 	        }
 	      }
-	      p.sendMessage(Utils.Colorate("&8&l Target not found."));
+	      sendNoTargetMessage(p);
 	      return null;
 	    }
 	
@@ -324,13 +324,13 @@ public class AbilityUtils implements Listener {
 		        	//Not in party
 		        	if(!partyCheck((Player)entity, p))
 		        	{
-		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
+		      	      	sendNoTargetMessage(p);
 			            return null;
 		        	}
 		        	
 					if(!(player.getGameMode() == GameMode.SURVIVAL) && !(player.getGameMode() == GameMode.ADVENTURE))
 		        	{
-		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
+		      	      	sendNoTargetMessage(p);
 			            return null;
 		        	}
 		        }
@@ -340,7 +340,7 @@ public class AbilityUtils implements Listener {
 	          }
 	        }
 	      }
-	      p.sendMessage(Utils.Colorate("&8&l Target not found."));
+	      sendNoTargetMessage(p);
 	      return null;
 	    }
 	
@@ -383,7 +383,7 @@ public class AbilityUtils implements Listener {
 		        	
 					if(!(player.getGameMode() == GameMode.SURVIVAL) && !(player.getGameMode() == GameMode.ADVENTURE))
 		        	{
-		      	      	p.sendMessage(Utils.Colorate("&8&l Target not found."));
+		      	      	sendNoTargetMessage(p);
 			            return null;
 		        	}
 		        }
@@ -393,11 +393,36 @@ public class AbilityUtils implements Listener {
 	          }
 	        }
 	      }
-	      p.sendMessage(Utils.Colorate("&8&l Target not found."));
+	      sendNoTargetMessage(p);
 	      return null;
 	    }
 	
 	
+	
+	
+	public static void sendNoTargetMessage(Player p)
+	{
+		if(noTargetCooldown.contains(p))
+		{
+			return;
+		}
+		noTargetCooldown.add(p);
+		
+		new BukkitRunnable()
+		{
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if(noTargetCooldown.contains(p))
+				{
+					noTargetCooldown.remove(p);
+				}
+			}
+			
+		}.runTaskLater(VallendiaMinigame.getInstance(), 3 * 20);
+		
+	    p.sendMessage(Utils.Colorate("&8&l Target not found."));
+	}
 	
 	
 	public static List<Block> getLine(Player p, int range)
@@ -1056,7 +1081,8 @@ public class AbilityUtils implements Listener {
 		    		
 		    		if(loc.getBlock().getRelative(BlockFace.DOWN).getType() == Material.STEP || loc.getBlock().getRelative(BlockFace.DOWN).getType() == Material.WOOD_STEP)
 		    		{
-		    			se.setLocation(loc.subtract(0,0.4,0));
+		    			Location newloc = loc.clone();
+		    			se.setLocation(newloc.subtract(0, 0.4, 0));
 		    		}else
 		    		{
 			        	se.setLocation(loc);	
@@ -1067,7 +1093,7 @@ public class AbilityUtils implements Listener {
 		    	    BukkitTask task = new BukkitRunnable() {
 		                @Override
 		                public void run() {	
-		                	if(!loc.getBlock().getType().isSolid())
+		                	if(!loc.getBlock().getRelative(BlockFace.DOWN).getType().isSolid())
 		                	{
 	                    		run.run();
 	                    		removeTrap(p, abilityname);
@@ -1447,40 +1473,6 @@ public class AbilityUtils implements Listener {
     
     
     
-    public static void arcParticle(LivingEntity e, de.slikey.effectlib.Effect effect, double velocity, Runnable run)
-    {
-		Snowball ball = e.launchProjectile(Snowball.class);
-		ball.setSilent(true);
-		ball.setVelocity(ball.getVelocity().multiply(velocity));
-		arcProjectiles.put(ball, run);
-		 
-		for(Player p : Bukkit.getServer().getOnlinePlayers()) {
-		    PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(ball.getEntityId());
-		    ((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
-		}
-			effect.setEntity(ball);
-			effect.start();
-    }
-    
-    
-    
-    public static void spawnEvokerFang(Player p, Location l, int damage)
-    {
-	  		Entity e = l.getWorld().spawnEntity(l, EntityType.EVOKER_FANGS);
-	  		evokerFangs.put(e, p);
-	  		evokerFangsDamage.put(e, damage);
-	  		
-			new BukkitRunnable() {
-	            @Override
-	            public void run() {
-	            	if(evokerFangs.containsKey(e))
-	            	{
-	            		evokerFangs.remove(e);
-	            		evokerFangsDamage.remove(e);
-	            	}
-	            }
-	        }.runTaskLater(VallendiaMinigame.getInstance(), 20 * 5); 
-    }
     
     
     
@@ -1533,6 +1525,95 @@ public class AbilityUtils implements Listener {
     	
         return true;
     }
+    
+    
+    
+    public static void arcParticle(LivingEntity e, de.slikey.effectlib.Effect effect, double velocity, Runnable run)
+    {
+		Snowball ball = e.launchProjectile(Snowball.class);
+		ball.setSilent(true);
+		ball.setVelocity(ball.getVelocity().multiply(velocity));
+		arcProjectiles.put(ball, run);
+		 
+		for(Player p : Bukkit.getServer().getOnlinePlayers()) {
+		    PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(ball.getEntityId());
+		    ((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
+		}
+			effect.setEntity(ball);
+			effect.start();
+    }
+    
+    
+    
+    public static void spawnEvokerFang(Player p, Location l, int damage)
+    {
+	  		Entity e = l.getWorld().spawnEntity(l, EntityType.EVOKER_FANGS);
+	  		evokerFangs.put(e, p);
+	  		evokerFangsDamage.put(e, damage);
+	  		
+			new BukkitRunnable() {
+	            @Override
+	            public void run() {
+	            	if(evokerFangs.containsKey(e))
+	            	{
+	            		evokerFangs.remove(e);
+	            		evokerFangsDamage.remove(e);
+	            	}
+	            }
+	        }.runTaskLater(VallendiaMinigame.getInstance(), 20 * 5); 
+    }
+    
+    
+    public static void followTargetParticle(Player caster, LivingEntity target, de.slikey.effectlib.Effect particleEffect, 
+    		boolean hitWalls, boolean hitEntity, Runnable entityHit, Runnable wallHit, double particleSpeed, 
+    		int maxDistance)
+    {
+	 	  new BukkitRunnable(){      
+              Location loc = caster.getLocation();
+              double t = 0;
+              public void run(){
+            	  //t effects speed of article
+                      t = t + particleSpeed;
+                      Location tloc = target.getLocation();
+                      Vector direction = tloc.toVector().subtract(loc.toVector()).normalize();
+                      double x = direction.getX() * t;
+                      double y = direction.getY() * t + 1.5;
+                      double z = direction.getZ() * t;
+                      loc.add(x,y,z);
+                      particleEffect.setLocation(loc);
+
+            			if(hitWalls && loc.getBlock().getType().isSolid())
+            			{
+            				if(wallHit != null)
+            				{
+            					wallHit.run();
+            				}
+            				this.cancel();
+            				particleEffect.cancel();
+            			}
+            			if(hitEntity && loc.distance(tloc) <=2)
+            			{
+            				if(entityHit != null)
+            				{
+            					entityHit.run();
+            				}
+                            this.cancel();
+            				particleEffect.cancel();
+            			}
+                      loc.subtract(x,y,z);   
+                      if (t > maxDistance){
+                          this.cancel();
+          				particleEffect.cancel();
+                  }
+                    
+              }
+ 	 	  }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
+ 			particleEffect.start();
+    }
+    
+    
+    
+    
     	
     }
 

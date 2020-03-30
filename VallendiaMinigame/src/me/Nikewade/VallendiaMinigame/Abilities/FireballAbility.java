@@ -6,6 +6,8 @@ import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -86,6 +88,12 @@ public class FireballAbility implements Ability{
 					public void run() {
 						// TODO Auto-generated method stub
 						AbilityUtils.explode(se.getLocation(), p, 5, damage, true, true, false);
+						for(Entity e : AbilityUtils.getAoeTargets(p, se.getLocation(), 5, 5, 5) )
+						{
+							LivingEntity le = (LivingEntity) e;
+							e.setFireTicks(100);
+						}
+						
 						se2.setLocation(se.getLocation());
 						se2.start();
 						se3.setLocation(se.getLocation());

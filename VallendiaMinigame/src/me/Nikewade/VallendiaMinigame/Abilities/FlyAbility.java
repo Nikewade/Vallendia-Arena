@@ -54,9 +54,11 @@ public class FlyAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("You become as light as a feather and gain the ability" ,
-				"to fly for " + time + " seconds. Landing will cancel this ability and",
-				"after the flight time has ended, you will fall back to the ground slowly.");
+		return Arrays.asList("You become as light as a feather and gain"
+				, "the ability to fly for " + time + " seconds." ,
+				"Landing will cancel this ability and after",
+				"the flight time has ended, you will"
+				, "fall back to the ground slowly.");
 	}
 
 	@Override

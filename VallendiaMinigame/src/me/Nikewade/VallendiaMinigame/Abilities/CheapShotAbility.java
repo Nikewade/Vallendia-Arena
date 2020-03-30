@@ -23,7 +23,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class CheapShotAbility implements Ability, Listener{
-	int time = 10;
+	int time = 200;
 
 	@Override
 	public String getName() {
@@ -40,7 +40,7 @@ public class CheapShotAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Stun your target for " + time + " seconds. Any damage done",
+		return Arrays.asList("Stun your target for " + time / 20 + " seconds. Any damage done",
 				"to the target will cancel this ability.");
 	}
 

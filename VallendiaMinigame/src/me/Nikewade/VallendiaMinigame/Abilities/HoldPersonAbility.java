@@ -25,7 +25,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class HoldPersonAbility implements Ability, Listener {
-	int time = 10;
+	int time = 200;
 	int range = 15;
 
 	@Override
@@ -44,7 +44,7 @@ public class HoldPersonAbility implements Ability, Listener {
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Stun your target from up to " + range + " blocks away", 
-				"for " + time + " seconds. Any damage done to the",
+				"for " + time / 20 + " seconds. Any damage done to the",
 				"target will cancel this ability.");
 	}
 

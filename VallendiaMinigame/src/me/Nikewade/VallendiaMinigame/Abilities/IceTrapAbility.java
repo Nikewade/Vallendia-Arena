@@ -38,7 +38,7 @@ public class IceTrapAbility implements Ability, Listener {
 	Map<Player, Location> clickedBlock = new HashMap<>();
 	List<Player> trapMode = new ArrayList<>();
 	Map<Player, BukkitTask> trapModeTask = new HashMap<>();
-	int stunTime = 10;
+	int stunTime = 200;
 	int trapModeTime = 15;
 
 	@Override
@@ -57,7 +57,7 @@ public class IceTrapAbility implements Ability, Listener {
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Place an ice trap that when triggered, stuns"
-				, "the target for " + stunTime + " seconds. Damage done",
+				, "the target for " + stunTime / 20 + " seconds. Damage done",
 				"to the enemy will break the stun.");
 	}
 

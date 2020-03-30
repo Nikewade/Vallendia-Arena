@@ -827,7 +827,7 @@ public class AbilityUtils implements Listener {
     
     
     
-    public static void stun(LivingEntity caster, LivingEntity e, String abilityname, int time, boolean cancelOnDamage)
+    public static void stun(LivingEntity caster, LivingEntity e, String abilityname, int tickTime, boolean cancelOnDamage)
     {
     	if(e instanceof Player)
     	{
@@ -847,7 +847,7 @@ public class AbilityUtils implements Listener {
     		}
     		if(e instanceof Creature)
     		{
-    			AbilityUtils.addPotionDuration(caster, e, abilityname, PotionEffectType.SLOW, 10, time*20);
+    			AbilityUtils.addPotionDuration(caster, e, abilityname, PotionEffectType.SLOW, 10, tickTime);
     			Creature mob = (Creature) e;
     			if(mob.getTarget() != null)
     			{
@@ -856,14 +856,21 @@ public class AbilityUtils implements Listener {
     		}
     		
         		BukkitTask countdown = new BukkitRunnable() {
-        			int x = time + 1;
+        			int x = (tickTime / 20) + 1;
                     @Override
                     public void run() {
                     	x--;
                 		if(e instanceof Player)
                 		{
                 			Player p = (Player) e;
-            		        p.sendTitle(Utils.Colorate("&3&lStunned " + x), null, 0, 26, 0);	
+                        	if(x <= 0)
+                        	{
+                        		x = 1;
+                		        p.sendTitle(Utils.Colorate("&3&lStunned < " + x), null, 0, 26, 0);	
+                        	}else
+                        	{
+                		        p.sendTitle(Utils.Colorate("&3&lStunned " + x), null, 0, 26, 0);	
+                        	}	
                 		}
                     }
                 }.runTaskTimer(VallendiaMinigame.getInstance(),0, 20L);	
@@ -873,7 +880,7 @@ public class AbilityUtils implements Listener {
                 public void run() {
                 	removeStun(e, abilityname);
                 }
-            }.runTaskLater(VallendiaMinigame.getInstance(), time*20L);
+            }.runTaskLater(VallendiaMinigame.getInstance(), tickTime);
             
             stunTimer.put(e, timer);
             stunCountdown.put(e, countdown);

@@ -49,7 +49,10 @@ public class KitCommand implements  CommandInterface{
 					   Player targetp = Bukkit.getPlayer(args[3]);  
 						main.kitmanager.giveKit(targetp, kitname);
 						targetp.sendMessage(Utils.Colorate("&8You have been given the " + main.kitmanager.getKit(targetp).getName(true) + " &8kit!"));
-						sender.sendMessage(Utils.Colorate("&8Kit " +  main.kitmanager.getKit(targetp).getName(true)+ " &8given to " +  targetp.getName() + "."));
+						if(sender instanceof Player)
+						{
+							sender.sendMessage(Utils.Colorate("&8Kit " +  main.kitmanager.getKit(targetp).getName(true)+ " &8given to " +  targetp.getName() + "."));	
+						}
 				   }else sender.sendMessage(Utils.Colorate("&8Player does not exist!"));
     		}
 	    }

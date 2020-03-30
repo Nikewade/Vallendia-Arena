@@ -22,7 +22,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 public class StunningBlowsAbility implements Ability, Listener{
 	//made by Emma
 	int percent = 5;
-	int duration = 1;
+	int duration = 10;
 			
 
 	@Override
@@ -41,7 +41,7 @@ public class StunningBlowsAbility implements Ability, Listener{
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Your hits have a " + percent + "% chance",
-				"to stun your target for " + duration + " seconds");
+				"to stun your target for " + (float) (duration) / 20 + " seconds");
 	}
 
 	@Override

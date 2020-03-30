@@ -90,11 +90,9 @@ public class AbilityManager {
         abilities.add(new PiercingRoarAbility());
         abilities.add(new SunderArmorAbility());
         abilities.add(new PummelAbility());
-        abilities.add(new QuakeAbility());
         abilities.add(new BearTrapAbility());
         abilities.add(new ExplosiveTrapAbility());
         abilities.add(new QuickDeathAbility());
-        abilities.add(new YeetAbility());
         abilities.add(new MartyrdomAbility());
         abilities.add(new CatFallAbility());
         abilities.add(new PhoenixAbility());

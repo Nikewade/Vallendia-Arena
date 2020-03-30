@@ -26,7 +26,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Language;
 public class StompAbility implements Ability {
 //made by Emma
 	int radius = 5;
-	int duration = 5;
+	int duration = 100;
 	int damage = 6;
 
 	@Override
@@ -45,7 +45,7 @@ public class StompAbility implements Ability {
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("You stomp stunning enemies in a" + radius + " block radius",
-				"for " + duration + " seconds. Any damage done to the",
+				"for " + duration / 20 + " seconds. Any damage done to the",
 				"target will break the stun.");
 	}
 

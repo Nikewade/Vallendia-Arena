@@ -200,6 +200,26 @@ public class UpgradeManager {
 		//prices are off a bit so every 10 is + 1 remember
 		double price = (upgrades.get(upgrade.toLowerCase()).getPrice(enchant));
 		int numUpgrades = this.getUpgradeAmount(p, upgrade);
+		if(enchant != null)
+		{
+			if(enchant.equalsIgnoreCase("sharpness") || enchant.equalsIgnoreCase("fireaspect") 
+					|| enchant.equalsIgnoreCase("knockback") || enchant.equalsIgnoreCase("smite") )
+			{
+				numUpgrades = 0 + this.getUpgradeEnchantAmount(p, upgrade, "sharpness");
+				numUpgrades = numUpgrades + this.getUpgradeEnchantAmount(p, upgrade, "fireaspect");
+				numUpgrades = numUpgrades + this.getUpgradeEnchantAmount(p, upgrade, "knockback");
+				numUpgrades = numUpgrades + this.getUpgradeEnchantAmount(p, upgrade, "smite");
+			}
+			
+			if(enchant.equalsIgnoreCase("power") || enchant.equalsIgnoreCase("punch") 
+					|| enchant.equalsIgnoreCase("flame") || enchant.equalsIgnoreCase("infinity") )
+			{
+				numUpgrades = 0 + this.getUpgradeEnchantAmount(p, upgrade, "power");
+				numUpgrades = numUpgrades + this.getUpgradeEnchantAmount(p, upgrade, "punch");
+				numUpgrades = numUpgrades + this.getUpgradeEnchantAmount(p, upgrade, "flame");
+				numUpgrades = numUpgrades + this.getUpgradeEnchantAmount(p, upgrade, "infinity");
+			}	
+		}
 		double multiplier = upgrades.get(upgrade.toLowerCase()).getMultiplier(enchant);
 		double multiplier2 = upgrades.get(upgrade.toLowerCase()).getMultiplier2(enchant); 
 		double discount = (this.getDiscount(p, upgrade, enchant) * 0.01);

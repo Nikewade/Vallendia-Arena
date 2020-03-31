@@ -105,6 +105,8 @@ public class AbilityManager {
         abilities.add(new UndyingRageAbility());
         abilities.add(new BreakFreeAbility());
         abilities.add(new NoxiousGasTrapAbility());
+        abilities.add(new ZapAbility());
+        abilities.add(new MindThrustAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);

@@ -23,7 +23,7 @@ import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class DisintegrateAbility implements Ability{
-	int percent = 80;
+	int percent = 60;
 	int castTime = 3;
 	double speed = 0.2;
 

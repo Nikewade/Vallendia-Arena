@@ -609,7 +609,7 @@ public class AbilityUtils implements Listener {
 		
 		
 		
-		public static Collection<Entity> getgAoeTargetsBoth(Player originplayer, Location loc, double Radiusx, double Radiusy, double Radiusz)
+		public static Collection<Entity> getAoeTargetsBoth(Player originplayer, Location loc, double Radiusx, double Radiusy, double Radiusz)
 		{
 			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
 			for(Entity entity : loc.getWorld().getNearbyEntities(loc, Radiusx, Radiusy, Radiusz))
@@ -1571,7 +1571,7 @@ public class AbilityUtils implements Listener {
     }
     
     
-    public static void followTargetParticle(Player caster, LivingEntity target, de.slikey.effectlib.Effect particleEffect, 
+    public static void followTargetParticle(LivingEntity caster, LivingEntity target, de.slikey.effectlib.Effect particleEffect, 
     		boolean hitWalls, boolean hitEntity, Runnable entityHit, Runnable wallHit, double particleSpeed, 
     		int maxDistance)
     {

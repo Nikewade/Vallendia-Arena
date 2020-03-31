@@ -59,7 +59,7 @@ public class PlayerFoodEvents implements Listener {
 		
  		if(e.getItem().getType() == Material.COOKED_BEEF || e.getItem().getType() == Material.GRILLED_PORK || 
  				e.getItem().getType() == Material.COOKED_CHICKEN || e.getItem().getType() == Material.BREAD || 
- 				e.getItem().getType() == Material.COOKED_FISH)
+ 				e.getItem().getType() == Material.COOKED_FISH || e.getItem().getType() == Material.COOKED_RABBIT)
 		{
 			Player p = e.getPlayer();
 			
@@ -96,6 +96,8 @@ public class PlayerFoodEvents implements Listener {
 				                     break;
 				            case COOKED_FISH:  healPercent = Main.getConfig().getInt("Options.food.fish");
 				                     break;
+				            case COOKED_RABBIT:  healPercent = Main.getConfig().getInt("Options.food.rabbit");
+		                     break;
 							default:
 								healPercent = 0;
 								break;

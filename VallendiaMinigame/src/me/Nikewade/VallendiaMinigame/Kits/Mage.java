@@ -33,6 +33,8 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Phoenix"));
 		abilities.add(Main.abilitymanager.getAbility("Vampiric Aura"));
 		abilities.add(Main.abilitymanager.getAbility("Lone Wolf"));
+		abilities.add(Main.abilitymanager.getAbility("Zap"));
+		abilities.add(Main.abilitymanager.getAbility("Mind Thrust"));
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -144,8 +145,9 @@ public class SniperAbility implements Ability, Listener{
 			}
 			int amountAdd = distance / perBlock;
     		double higherPercent =  Utils.getPercentHigherOrLower((percentAdded * amountAdd), true);
-    		double higherDamage = e.getDamage() * higherPercent;
-    		e.setDamage(higherDamage);
+    		double damage = e.getFinalDamage()*higherPercent;
+			e.setDamage(0);
+			e.setDamage(DamageModifier.ARMOR, damage);
 
 			SphereEffect se2 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 	        se2.particle = Particle.CRIT;

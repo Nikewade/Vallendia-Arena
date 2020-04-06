@@ -64,6 +64,11 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
     		   Player p = (Player) e.getEntity().getShooter();
     		   for(Block b : p.getLineOfSight(AbilityUtils.transparentBlocks, 10))
     		   {
+    			   if(b.getType() == Material.WATER || b.getType() == Material.STATIONARY_WATER ||
+    					   b.getType() == Material.LAVA || b.getType() == Material.STATIONARY_LAVA)
+    			   {
+    				   return;
+    			   }
     			   if(AbilityUtils.transparentBlocks.contains(b.getType()))
     			   {
         			   Utils.regenBlock(b, 10);

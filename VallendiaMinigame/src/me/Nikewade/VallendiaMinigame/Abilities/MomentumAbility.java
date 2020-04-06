@@ -1,4 +1,4 @@
-package me.Nikewade.VallendiaMinigame.Abilities;
+ package me.Nikewade.VallendiaMinigame.Abilities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.player.PlayerToggleSprintEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -20,6 +21,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 
 public class MomentumAbility implements Ability, Listener{
 	private static ArrayList<Player> running = new ArrayList<>();
@@ -142,9 +144,10 @@ public class MomentumAbility implements Ability, Listener{
         		}
         		Player p = (Player) e.getDamager();
         		double higherPercent =  ((currentDamage.get(p)* 0.1) * 0.1) + 1;
-        		double damage = e.getDamage();
+        		double damage = e.getFinalDamage();
         		double higherDamage = damage * higherPercent;
-        		e.setDamage(higherDamage);
+    			e.setDamage(0);
+    			e.setDamage(DamageModifier.ARMOR, higherDamage);
   	 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 2, (float) 0.8);
   	 	 		e.getEntity().getWorld().spawnParticle(Particle.CRIT, e.getEntity().getLocation().add(0, 1, 0), 20);
         		

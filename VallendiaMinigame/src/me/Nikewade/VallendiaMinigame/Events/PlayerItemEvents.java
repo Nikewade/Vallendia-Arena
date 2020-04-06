@@ -14,9 +14,12 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -295,13 +298,33 @@ public class PlayerItemEvents implements Listener {
 	
 	
 	//stop from moving item
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onClick(InventoryClickEvent e) {
 		if (e.getWhoClicked() instanceof Player && e.getWhoClicked().getGameMode() != GameMode.CREATIVE) {	
 		    ItemStack item = e.getCurrentItem();
 		    Material itemtype = null;
+		    ItemStack item2 = e.getClickedInventory().getItem(e.getSlot());
 		    String itemname = "Air";
-		    e.getClick();
+
+			if(e.getSlot() == 8 )
+			{
+				e.setCancelled(true);
+			}
+			
+			if(e.getSlot() == 4 && VallendiaMinigame.getInstance().kitmanager.getKit((Player) e.getWhoClicked()).getName(false).equalsIgnoreCase("Starter"))
+			{
+				e.setCancelled(true);
+			}
+			
+	    	   if(item.getType() == Material.INK_SACK && item2.getDurability() == 10 && item2.getItemMeta().getLore() != null)
+	    	   {
+	    		   Player p = (Player) e.getWhoClicked();
+	    		   	String ability = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities." + ChatColor.stripColor(Utils.Colorate(item2.getItemMeta().getLore().get(0).toLowerCase())));
+	    		   if(ability != null && AbilityCooldown.isInCooldown(p.getUniqueId(), ability))
+	    		   {
+	    			   e.setCancelled(true);
+	    		   }
+	    	   }
 		    
 			if (!(e.getCurrentItem() == null) && !(e.getCurrentItem().getType() == Material.AIR)) {
 				itemtype = item.getType();
@@ -316,6 +339,8 @@ public class PlayerItemEvents implements Listener {
 			
 			
 			//Stops moving stuff with number keys
+			
+			
 			if (e.getAction().name().contains("HOTBAR")) {
                 item = e.getView().getBottomInventory().getItem(e.getHotbarButton());
             } else {
@@ -329,8 +354,10 @@ public class PlayerItemEvents implements Listener {
 			{
 				return;
 			}
-			
-			
+			if(e.getClick() == ClickType.NUMBER_KEY && itemtype == Material.NETHER_STAR)
+			{	
+			e.setCancelled(true);	
+			}
 			if (itemtype == Material.NETHER_STAR && itemname != null) {
 				if(itemname.equals(Utils.Colorate("&b&lKit")) || itemname.equals(Utils.Colorate("&b&lShop")))
 				{
@@ -347,6 +374,7 @@ public class PlayerItemEvents implements Listener {
 	    			   e.setCancelled(true);
 	    		   }
 	    	   }
+	    	   
 			
 			
 		}
@@ -385,16 +413,46 @@ public class PlayerItemEvents implements Listener {
 	}
 	
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void dropItem(PlayerDropItemEvent e)
 	{
 		Player p = e.getPlayer();
 		if (p.getGameMode() != GameMode.CREATIVE) {
 			if(PlayerDeathEvents.drops.contains(e.getItemDrop().getItemStack().getType()))
 			{
-				e.setCancelled(true);
-				Language.sendDefaultMessage(p, "You can't drop that!");
+			    ItemStack item = e.getItemDrop().getItemStack();
+			    Material itemtype = item.getType();
+			 	   if(itemtype == Material.INK_SACK && item.getDurability() == 10 && item.getItemMeta().getLore() != null)
+			 	   {
+			 		   	String ability = Main.playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities." + ChatColor.stripColor(Utils.Colorate(item.getItemMeta().getLore().get(0).toLowerCase())));
+				 		   if(ability != null && AbilityCooldown.isInCooldown(p.getUniqueId(), ability))
+				 		   {
+				 			   if(item.getAmount() > 30)
+				 			   {
+				 				 item.setAmount(AbilityCooldown.getTimeLeft(p.getUniqueId(), ability));
+				 				 e.getItemDrop().remove();
+				 				 p.getInventory().setItem(p.getInventory().getHeldItemSlot(), item);
+									Language.sendDefaultMessage(p, "You can't drop that!");
+				 				 return;
+				 			   }
+				 			   if(AbilityCooldown.getTimeLeft(p.getUniqueId(), ability) > 64)
+				 			   {
+				 				   item.setAmount(0);
+									Language.sendDefaultMessage(p, "You can't drop that!");
+				 				   return;
+				 			   }else
+				 			   {
+					 			   e.setCancelled(true);
+									Language.sendDefaultMessage(p, "You can't drop that!");
+					 			   return;
+				 			   }
+				 		   }
+			 	   }
+
+			 	   e.setCancelled(true);
+					Language.sendDefaultMessage(p, "You can't drop that!");
 			}
+			
 		}
 		
 	}

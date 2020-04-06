@@ -12,5 +12,8 @@ depend:
   - WorldEdit
   - Vault
   - Parties
+  - Citizens
+  - ProtocolLib
+  - ServerTutorialPlus
     
 

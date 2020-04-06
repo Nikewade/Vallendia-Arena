@@ -44,6 +44,7 @@ public class Warrior implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("One Man Army"));
 		abilities.add(Main.abilitymanager.getAbility("Undying Rage"));
 		abilities.add(Main.abilitymanager.getAbility("Break Free"));
+		abilities.add(Main.abilitymanager.getAbility("Quake"));
 	}
 	
 	@Override

@@ -12,6 +12,7 @@ import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityToggleGlideEvent;
@@ -37,7 +38,7 @@ public class FlyAbility implements Ability, Listener{
 	private static HashMap<Player, BukkitTask> timer = new HashMap<>();
 	private static HashMap<Player,SphereEffect> effect = new HashMap<>();
 	int time = 30;
-	double upwardVelocity = 20 / 10D;
+	double upwardVelocity = 25 / 10D;
 
 	@Override
 	public String getName() {
@@ -71,6 +72,11 @@ public class FlyAbility implements Ability, Listener{
 	public boolean RunAbility(Player p) {
 		if(!enabled.contains(p) && !falling.contains(p))
 		{
+			if(!(p.getLocation().getPitch() <= -20))
+			{
+				Language.sendAbilityUseMessage(p, "You are not looking high enough.", "Fly");
+				return false;
+			}
 			enabled.add(p);
             CraftEntity ep = (CraftEntity)p;
             
@@ -152,6 +158,7 @@ public class FlyAbility implements Ability, Listener{
             		         effect.remove(p);
             			      countDown.get(p).cancel();
             		         countDown.remove(p);
+            		         DisableAbility(p);
         	                }
         				
         	               if (!p.isOnGround()) {
@@ -218,6 +225,19 @@ public class FlyAbility implements Ability, Listener{
         	//Slow fall
         	@EventHandler
         	public void onMove(PlayerMoveEvent e) {
+        		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(e.getPlayer(), "Fly"))
+        		{
+        			if(e.getPlayer().isGliding() && !enabled.contains(e.getPlayer()))
+        			{
+                		if(!(e.getPlayer().getInventory().getChestplate().getType() == Material.ELYTRA))
+                		{
+                			CraftEntity ep = (CraftEntity)e.getPlayer();
+                			ep.getHandle().setFlag(7, false);	
+                		}		
+        			}
+        		}
+        		
+        		
         		if(!falling.contains(e.getPlayer()))
         		{
         			return;
@@ -232,7 +252,7 @@ public class FlyAbility implements Ability, Listener{
         	    }
         	}
         	
-        	@EventHandler
+        	@EventHandler(priority = EventPriority.LOWEST)
         	public void onGlide(EntityToggleGlideEvent e)
         	{
         		if(!(e.getEntity() instanceof Player))

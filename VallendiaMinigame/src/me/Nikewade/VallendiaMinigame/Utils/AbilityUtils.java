@@ -29,6 +29,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockIgniteEvent;
@@ -220,11 +221,6 @@ public class AbilityUtils implements Listener {
 	public static LivingEntity getTarget(Player p, int range)
 	{
 		
-		if(p.hasPotionEffect(PotionEffectType.BLINDNESS))
-		{
-			p.sendMessage(Utils.Colorate("&8&l You have to be able to see to do that!"));
-			return null;
-		}
 	    if (p.getLocation().getBlockY() > p.getLocation().getWorld().getMaxHeight()) {
 	        return null;
 	      }
@@ -287,12 +283,6 @@ public class AbilityUtils implements Listener {
 	
 	public static LivingEntity getHealingTarget(Player p, int range)
 	{
-		
-		if(p.hasPotionEffect(PotionEffectType.BLINDNESS))
-		{
-			p.sendMessage(Utils.Colorate("&8&l You have to be able to see to do that!"));
-			return null;
-		}
 	    if (p.getLocation().getBlockY() > p.getLocation().getWorld().getMaxHeight()) {
 	        return null;
 	      }
@@ -347,12 +337,6 @@ public class AbilityUtils implements Listener {
 	
 	public static LivingEntity getTargetBoth(Player p, int range)
 	{
-		
-		if(p.hasPotionEffect(PotionEffectType.BLINDNESS))
-		{
-			p.sendMessage(Utils.Colorate("&8&l You have to be able to see to do that!"));
-			return null;
-		}
 	    if (p.getLocation().getBlockY() > p.getLocation().getWorld().getMaxHeight()) {
 	        return null;
 	      }
@@ -1436,6 +1420,14 @@ public class AbilityUtils implements Listener {
     
     public static void damageEntity(LivingEntity target, LivingEntity damager, int amount)
     {
+    	if(target instanceof Player)
+    	{
+    		Player p = (Player) target;
+    		if(((Player) target).getGameMode() == GameMode.CREATIVE)
+    		{
+    			return;
+    		}
+    	}
 		handleDamage.put(target, amount);
 		Vector vel = target.getVelocity();
 		target.damage(amount, damager);

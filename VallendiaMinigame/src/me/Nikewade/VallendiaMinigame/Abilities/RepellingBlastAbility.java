@@ -9,22 +9,23 @@ import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
-public class ZapAbility implements Ability {
-	// stun is in ticks (*20)
-	int stun = 10;
+public class RepellingBlastAbility implements Ability{
 	int damage = 4;
 	int range = 30;
-
+	double forwardVelocity = 13 / 10D;;
+	double upwardVelocity = 7 / 10D;
+	
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Zap";
+		return "Repelling Blast";
 	}
 
 	@Override
@@ -36,15 +37,14 @@ public class ZapAbility implements Ability {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Target an enemy up to " + range + " blocks away.",
-				"Deal " + damage + " damage to them and stun ",
-						"them for " + (float) (stun) / 20 + " seconds.");
+		return Arrays.asList("Target an enemy up to " + range + " blocks away." ,
+				"Push them back and deal " + damage + " damage to them.");
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack(Material.CHORUS_FLOWER);
+		return new ItemStack(Material.MAGENTA_GLAZED_TERRACOTTA);
 	}
 
 	@Override
@@ -54,15 +54,17 @@ public class ZapAbility implements Ability {
  		LivingEntity target = AbilityUtils.getTarget(p, range);
  		if(target != null)
  		{
+            Vector direction = target.getLocation().toVector().subtract(p.getLocation().toVector()).normalize();
  	  		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
- 			se.particle = Particle.CRIT_MAGIC;
- 			se.radius = 0.2;
+ 			se.particle = Particle.CLOUD;
+ 			se.radius = 0.5;
  			se.iterations = 10;
- 			se.particles = 5;
+ 			se.particles = 2;
  			se.speed = (float) 0;
  			se.visibleRange = 200;
  			se.infinite();
- 			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_FIREWORK_BLAST, 2F, 0.5F);
+ 			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 2F, 1.5F);
+ 			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_GENERIC_EXTINGUISH_FIRE, 2F, 1.5F);
  			
  			Runnable run = new Runnable()
  			{
@@ -71,35 +73,27 @@ public class ZapAbility implements Ability {
  				public void run() {
  					// TODO Auto-generated method stub
  					AbilityUtils.damageEntity(target, p, damage);
- 					AbilityUtils.stun(p, target, "Zap", stun, true);
- 		 			target.getWorld().playSound(target.getLocation(), Sound.ENTITY_FIREWORK_BLAST, 2F, 0.6F);
- 		 			
-					SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
-					se.setEntity(target);
-					se.disappearWithOriginEntity = true;
-					se.iterations = 5;
-					se.particle = Particle.CRIT_MAGIC;
-					se.radius = 1;
-					se.particles = 5;
-					se.yOffset = -0.8;
-					se.start();
+ 					direction.multiply(forwardVelocity).setY(upwardVelocity);
+ 		 			p.getWorld().playSound(target.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 2F, 1.5F);
+ 		 			target.getWorld().playSound(target.getLocation(), Sound.ENTITY_GENERIC_EXTINGUISH_FIRE, 2F, 1.5F);
+ 		 			target.getWorld().spawnParticle(Particle.CLOUD, target.getLocation().add(0, 1.3, 0), 10);
+ 		 			target.setVelocity(direction);
  					
  				}
  		
  			};
  			
- 			AbilityUtils.followTargetParticle(p, target, se, false, true, run, null, 1.7, 200);
+ 			AbilityUtils.followTargetParticle(p, target, se, false, true, run, null, 2, 200);
  			
  			return true;
- 		}
+ 		}	
  		return false;
-		
 	}
+		
 
 	@Override
 	public void DisableAbility(Player p) {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

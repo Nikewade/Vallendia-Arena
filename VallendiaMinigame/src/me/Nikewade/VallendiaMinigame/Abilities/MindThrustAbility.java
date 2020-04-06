@@ -16,7 +16,6 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class MindThrustAbility implements Ability {
-	// stun is in ticks (*20)
 	int damage = 6;
 	int range = 50;
 
@@ -54,7 +53,7 @@ public class MindThrustAbility implements Ability {
  		{
  	  		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
  			se.particle = Particle.FOOTSTEP;
- 			se.radius = 0.5;
+ 			se.radius = 0.2;
  			se.iterations = 10;
  			se.particles = 2;
  			se.speed = (float) 0;

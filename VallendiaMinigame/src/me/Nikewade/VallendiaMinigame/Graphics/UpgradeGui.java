@@ -131,7 +131,7 @@ public class UpgradeGui {
 			AdvInventory upgradeInvYesNo = new AdvInventory(Utils.Colorate("&8&lAre you sure?"), 27, Utils.placeholder((byte) 7, " "));
 			String itemTitle = "";
 			
-			if(enchant == null)
+			if(enchant == null || enchant == "prot")
 			{
 				itemTitle = Utils.Colorate("&2&lUpgrade " + upgrade);
 			}else {itemTitle = Utils.Colorate("&2&lUpgrade " + upgrade + " (" + enchant + ")");}

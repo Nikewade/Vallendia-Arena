@@ -104,13 +104,8 @@ public class AbilityCooldown {
             	ItemStack xitem = p.getInventory().getItem(x);
                 @Override
                 public void run() {
-                	if(xitem != null && !p.isDead())
+                	if(!p.isDead())
                 	{
-                    	if(xitem.getType() != Material.INK_SACK || xitem.getDurability() != 10)
-                    	{
-                			p.getInventory().getItem(x).setAmount(1);
-                			this.cancel(); 
-                    	}
                     	if(getTimeLeft(p.getUniqueId(), cooldownName) > 120)
                     	{
                 			p.getInventory().getItem(x).setAmount(120);

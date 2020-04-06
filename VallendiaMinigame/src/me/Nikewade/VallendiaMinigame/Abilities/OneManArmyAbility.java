@@ -11,11 +11,13 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
  
 public class OneManArmyAbility implements Listener, Ability {
@@ -136,14 +138,12 @@ public class OneManArmyAbility implements Listener, Ability {
             }
             attackerEnemies.put(p, amount);
            
-            double damage = e.getDamage();
+            double damage = e.getFinalDamage();
             int multiplier = attackerEnemies.get(p);
             double highpercent = Utils.getPercentHigherOrLower(percent*multiplier, true);
             double newdamage = damage*highpercent;
-            p.sendMessage("enemies = " + multiplier);
-            p.sendMessage("initial attack damage = " + damage);
-            p.sendMessage("new attack damage = " + newdamage);
-            e.setDamage(newdamage);
+			e.setDamage(0);
+			e.setDamage(DamageModifier.ARMOR, newdamage);
            
             attackerEnemies.remove(p);
  
@@ -174,14 +174,12 @@ public class OneManArmyAbility implements Listener, Ability {
             }
             damageeEnemies.put((Player) e.getEntity(), amount);
            
-            double damage = e.getDamage();
+            double damage = e.getFinalDamage();
             int multiplier = damageeEnemies.get(e.getEntity());
             double lowpercent = Utils.getPercentHigherOrLower(percent*multiplier, false);
             double newdamage = damage*lowpercent;
-            p.sendMessage("enemies = " + multiplier);
-            p.sendMessage("initial damage = " + damage);
-            p.sendMessage("new damage = " + newdamage);
-            e.setDamage(newdamage);
+			e.setDamage(0);
+			e.setDamage(DamageModifier.ARMOR, newdamage);
            
             damageeEnemies.remove(e.getEntity());          
                    

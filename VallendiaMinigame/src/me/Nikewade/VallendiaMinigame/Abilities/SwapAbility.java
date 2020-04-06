@@ -27,7 +27,7 @@ public class SwapAbility implements Ability{
 	@Override
 	public AbilityType getAbilityType() {
 		// TODO Auto-generated method stub
-		return AbilityType.OFFENSIVE;
+		return AbilityType.UTILITY;
 	}
 
 	@Override

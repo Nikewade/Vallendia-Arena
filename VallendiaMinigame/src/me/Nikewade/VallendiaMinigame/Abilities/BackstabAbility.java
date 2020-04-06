@@ -7,20 +7,24 @@ import java.util.Random;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class BackstabAbility implements Ability , Listener {
-	static int percent = 10;
+	static int percent = 20;
 
 	@Override
 	public String getName() {
@@ -65,13 +69,15 @@ public class BackstabAbility implements Ability , Listener {
                 			return;
                 		}
                 		double higherPercent =  Utils.getPercentHigherOrLower(percent, true);
-                		double damage = e.getDamage();
+                		double damage = e.getFinalDamage();
                 		double higherDamage = damage * higherPercent;
+               			
             	        if (e.getEntity().getLocation().getDirection().dot(p.getLocation().getDirection()) <= 0.0D) 
             	          {
             	            return;
             	          }
-            			e.setDamage(higherDamage);
+            			e.setDamage(0);
+        				e.setDamage(DamageModifier.ARMOR, higherDamage);
             			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_HURT, 22, (float) 1.5);
             			p.getWorld().playEffect(e.getEntity().getLocation().add(0,1,0), Effect.STEP_SOUND, Material.REDSTONE_WIRE.getId());
             		}

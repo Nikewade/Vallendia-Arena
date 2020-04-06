@@ -42,8 +42,8 @@ public class DisintegrateAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Shoot a very slow green orb that deals",
-				percent +"% of the targets max health.",
+		return Arrays.asList("Shoot a very slow green orb that deals damage",
+				"equal to " + percent +"% of the targets max health.",
 				Utils.Colorate("&8Cast: " + castTime + " seconds."));
 	}
 

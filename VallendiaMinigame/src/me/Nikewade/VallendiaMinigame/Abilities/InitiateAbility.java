@@ -8,10 +8,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class InitiateAbility implements Listener, Ability{
@@ -66,8 +69,10 @@ public class InitiateAbility implements Listener, Ability{
 			
 			if(p.getHealth() >= p.getMaxHealth())
 			{
-				double highpercent = Utils.getPercentHigherOrLower(percent, true);
-				e.setDamage(e.getDamage()*highpercent);
+				double higherpercent = Utils.getPercentHigherOrLower(percent, true);
+				double higherDamage = e.getFinalDamage() * higherpercent;
+    			e.setDamage(0);
+    			e.setDamage(DamageModifier.ARMOR, higherDamage);
 				
 			}
 			

@@ -8,11 +8,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class LoneWolfAbility implements Listener, Ability {
@@ -67,16 +70,15 @@ public class LoneWolfAbility implements Listener, Ability {
 		
 		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e.getEntity(), "Lone Wolf"))
 		{
-			Player p = (Player) e.getDamager();
+			Player p = (Player) e.getEntity();
 
 			if (AbilityUtils.getPlayerParty(p) == "")
 			{
 				
         		double lowerPercent =  Utils.getPercentHigherOrLower(percent, false);
-        		double damage = e.getDamage()*lowerPercent;
-        		
-
-        		e.setDamage(damage);
+        		double damage = e.getFinalDamage()*lowerPercent;
+    			e.setDamage(0);
+				e.setDamage(DamageModifier.ARMOR, damage);
 
 			}
 		}

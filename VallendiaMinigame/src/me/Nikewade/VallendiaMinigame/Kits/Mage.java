@@ -35,6 +35,12 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Lone Wolf"));
 		abilities.add(Main.abilitymanager.getAbility("Zap"));
 		abilities.add(Main.abilitymanager.getAbility("Mind Thrust"));
+		abilities.add(Main.abilitymanager.getAbility("Repelling Blast"));
+		abilities.add(Main.abilitymanager.getAbility("Delayed Blast Fireball"));
+		abilities.add(Main.abilitymanager.getAbility("Water Mastery"));
+		abilities.add(Main.abilitymanager.getAbility("Blindness"));
+		abilities.add(Main.abilitymanager.getAbility("Hammer"));
+		abilities.add(Main.abilitymanager.getAbility("Repulsion"));
 	}
 
 	@Override

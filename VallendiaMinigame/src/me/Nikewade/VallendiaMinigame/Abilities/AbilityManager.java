@@ -107,6 +107,14 @@ public class AbilityManager {
         abilities.add(new NoxiousGasTrapAbility());
         abilities.add(new ZapAbility());
         abilities.add(new MindThrustAbility());
+        abilities.add(new RepellingBlastAbility());
+        abilities.add(new DelayedBlastFireballAbility());
+        abilities.add(new WaterMasteryAbility());
+        abilities.add(new QuakeAbility());
+        abilities.add(new BlindnessAbility());
+        abilities.add(new HamstringAbility());
+        abilities.add(new HammerAbility());
+        abilities.add(new RepulsionAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);
@@ -168,6 +176,18 @@ public class AbilityManager {
 	public static void unsaveAbilities(Player p)
 	{
 		playerAbilities.get(p).clear();
+	}
+	
+	//Disables all abilities except the one that is specified 
+	public void disableAllExceptAbility(Player p, String abilityName)
+	{
+		for(String s : AbilityManager.playerAbilities.get(p))
+		{
+			if(!s.equalsIgnoreCase(abilityName))
+			{
+				this.getAbility(s).DisableAbility(p);
+			}
+		}
 	}
 	
 	

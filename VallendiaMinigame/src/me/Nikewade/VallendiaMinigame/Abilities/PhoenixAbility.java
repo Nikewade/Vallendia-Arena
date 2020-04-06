@@ -40,7 +40,7 @@ public class PhoenixAbility implements Listener, Ability{
 	int delay = 8;
 	int amplifier = 3;
 	int duration = 5;
-	int radius = 5;
+	int radius = 10;
 	int force = 20;
 	int yForce = 8;
 	int maxYForce = 10;
@@ -258,6 +258,7 @@ public class PhoenixAbility implements Listener, Ability{
 
 				e.setCancelled(true);
 				p.setGameMode(GameMode.SPECTATOR);
+				VallendiaMinigame.getInstance().abilitymanager.disableAllExceptAbility(p, "Phoenix");
 	 	 		p.getWorld().spawnParticle(Particle.FLAME, p.getLocation().add(0, 1, 0), 20);
 	 	 		p.getWorld().spawnParticle(Particle.FLAME, p.getLocation().add(0, 1, 0), 20);
 	 	 		p.getWorld().spawnParticle(Particle.FLAME, p.getLocation().add(0, 1.8, 0), 20);

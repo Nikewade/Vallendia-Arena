@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -14,6 +15,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -81,7 +83,7 @@ public class VampiricTouchAbility implements Ability, Listener{
 	}
 	
 	
-        	@EventHandler
+        	@EventHandler(priority = EventPriority.HIGHEST)
         	public void onDamage(EntityDamageByEntityEvent e)
         	{
     			if(!(e.getDamager() instanceof Player))
@@ -92,12 +94,9 @@ public class VampiricTouchAbility implements Ability, Listener{
     			{
     				return;
     			}
-        		
         		double lowerPercent =  Utils.getPercentHigherOrLower(Percent, false);
-        		double damage = e.getDamage();
         		double finalDamage = e.getFinalDamage();
-        		double lowerDamage = damage * lowerPercent;
-
+        		double lowerDamage = finalDamage * lowerPercent;
         		if(e.getEntity() instanceof LivingEntity && e.getCause() == DamageCause.ENTITY_ATTACK)
         		{
         			Player damager =  (Player) e.getDamager();
@@ -105,7 +104,8 @@ public class VampiricTouchAbility implements Ability, Listener{
         			
                 		if(enabled.contains(damager))
                 		{
-                				e.setDamage(lowerDamage);
+                			e.setDamage(0);
+                				e.setDamage(DamageModifier.ARMOR, lowerDamage);
                 				AbilityUtils.healEntity(damager, (finalDamage - e.getFinalDamage()));
                 				damager.getWorld().playSound(damager.getLocation(), Sound.ENTITY_GENERIC_DRINK, 2, (float) 1.6);
                 				

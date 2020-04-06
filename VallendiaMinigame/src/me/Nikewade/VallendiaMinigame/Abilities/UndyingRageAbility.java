@@ -14,6 +14,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -89,7 +90,7 @@ public class UndyingRageAbility implements Listener, Ability {
 		
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onDeath (EntityDamageEvent e)
 	{
 		if(e.getEntity() instanceof Player)
@@ -110,7 +111,7 @@ public class UndyingRageAbility implements Listener, Ability {
 
 		        items.add(new ItemStack(372, 20));
 		        
-		        if(!AbilityUtils.hasReagentsMultiple(p, items,  "Undying Rage", true))
+		        if(!AbilityUtils.hasReagentsMultiple(p, items,  "Undying Rage", false))
 		        {
 		            return;
 		        }
@@ -118,7 +119,7 @@ public class UndyingRageAbility implements Listener, Ability {
 				e.setCancelled(true);
 				abilityActive.add(p);
 				raging.add(p);
-				p.sendTitle(Utils.Colorate("&4&l Undying Rage!") , Utils.Colorate("&4 You have 15 seconds"));
+				p.sendTitle(Utils.Colorate("&4&l Undying Rage!") ,(""));
 				
 				  BukkitTask task = new BukkitRunnable() {
 
@@ -174,7 +175,7 @@ public class UndyingRageAbility implements Listener, Ability {
 
 				
 				            }
-					    }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 40);
+					    }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 3);
 
 				particles.put(p, particle);
 				
@@ -240,6 +241,9 @@ public class UndyingRageAbility implements Listener, Ability {
 				Player attacker = p.getKiller();
 				if(abilityActive.contains(attacker))
 				{
+	            	p.getWorld().playSound(p.getLocation(), Sound.ENTITY_WOLF_GROWL, 2, 0.6F);
+	    			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 0.5F, (float) 0.4);
+					
 					abilityActive.remove(attacker);
 					timers.get(attacker).cancel();
 					tasks.get(attacker).cancel();

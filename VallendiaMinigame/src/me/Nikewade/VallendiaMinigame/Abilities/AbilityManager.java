@@ -93,6 +93,7 @@ public class AbilityManager {
         abilities.add(new BearTrapAbility());
         abilities.add(new ExplosiveTrapAbility());
         abilities.add(new QuickDeathAbility());
+        abilities.add(new HealingBlastAbility());
         abilities.add(new MartyrdomAbility());
         abilities.add(new CatFallAbility());
         abilities.add(new PhoenixAbility());
@@ -100,11 +101,13 @@ public class AbilityManager {
         abilities.add(new SonarArrowAbility());
         abilities.add(new InitiateAbility());
         abilities.add(new VampiricAuraAbility());
+        abilities.add(new HealAbility());
         abilities.add(new LoneWolfAbility());
         abilities.add(new OneManArmyAbility());
         abilities.add(new UndyingRageAbility());
         abilities.add(new BreakFreeAbility());
         abilities.add(new NoxiousGasTrapAbility());
+        abilities.add(new HealingBurstAbility());
         abilities.add(new ZapAbility());
         abilities.add(new MindThrustAbility());
         abilities.add(new RepellingBlastAbility());
@@ -113,8 +116,11 @@ public class AbilityManager {
         abilities.add(new QuakeAbility());
         abilities.add(new BlindnessAbility());
         abilities.add(new HamstringAbility());
-        abilities.add(new HammerAbility());
         abilities.add(new RepulsionAbility());
+        abilities.add(new HealingAuraAbility());
+        abilities.add(new GlitterdustAbility());
+        abilities.add(new InvisibilityAbility());
+        abilities.add(new AllureAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);

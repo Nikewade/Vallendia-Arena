@@ -303,7 +303,18 @@ public class PlayerItemEvents implements Listener {
 		if (e.getWhoClicked() instanceof Player && e.getWhoClicked().getGameMode() != GameMode.CREATIVE) {	
 		    ItemStack item = e.getCurrentItem();
 		    Material itemtype = null;
-		    ItemStack item2 = e.getClickedInventory().getItem(e.getSlot());
+		    ItemStack item2 = null;
+		    if(e.getClickedInventory() == null)
+		    {
+		    	return;
+		    }
+		    if(e.getClickedInventory().getItem(e.getSlot()) == null)
+		    {
+		    	return;
+		    }else
+		    {
+			    item2 = e.getClickedInventory().getItem(e.getSlot());	
+		    }
 		    String itemname = "Air";
 
 			if(e.getSlot() == 8 )

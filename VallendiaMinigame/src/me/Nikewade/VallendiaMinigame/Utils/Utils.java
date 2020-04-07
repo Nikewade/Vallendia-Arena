@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
@@ -48,12 +51,15 @@ import de.slikey.effectlib.Effect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import net.minecraft.server.v1_12_R1.EnumItemSlot;
 import net.minecraft.server.v1_12_R1.PacketPlayOutEntityEquipment;
+import net.minecraft.server.v1_12_R1.PacketPlayOutPosition;
+import net.minecraft.server.v1_12_R1.PacketPlayOutPosition.EnumPlayerTeleportFlags;
 
 public class Utils {
 	public static HashMap<Location, BlockState> blocks = new HashMap<>();
     private static List<String> changes = new LinkedList<String>();
     public static Map<Entity,Effect> particle = new HashMap<>();
 	private static Random random = new Random();
+	private static Set<EnumPlayerTeleportFlags> teleportFlags = new HashSet<>(Arrays.asList(EnumPlayerTeleportFlags.X, EnumPlayerTeleportFlags.Y, EnumPlayerTeleportFlags.Z));
 	
 	  public static String Colorate(String msg) // Allows the use of & color codes.
 	  {
@@ -464,6 +470,11 @@ public class Utils {
 	        }
 
 	        return classes;
+	    }
+	    
+	    public static void sendPacketPlayOutPosition(Player player, float yaw, float pitch) {
+	        PacketPlayOutPosition packet = new PacketPlayOutPosition(0.0, 0.0, 0.0, yaw, pitch, teleportFlags, 0);
+	        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
 	    }
 
 	    

@@ -44,6 +44,7 @@ public class Assassin implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Noxious Gas Trap"));
 		abilities.add(Main.abilitymanager.getAbility("One Man Army"));
 		abilities.add(Main.abilitymanager.getAbility("Hamstring"));
+		abilities.add(Main.abilitymanager.getAbility("Allure"));
 	}
 	
 	@Override

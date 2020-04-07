@@ -1,24 +1,27 @@
 package me.Nikewade.VallendiaMinigame.Abilities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class ParticleTestAbility implements Ability, Listener{
+	ArrayList<Player> enabled = new ArrayList<>();
 
 	@Override
 	public String getName() {
@@ -52,30 +55,9 @@ public class ParticleTestAbility implements Ability, Listener{
 			return false;
 		}
 		
-		Runnable run = new Runnable()
-				{
+		AbilityUtils.root(p, target, "test", 500, true);
+		
 
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						AbilityUtils.damageEntity(target, p, 3);
-					}
-			
-				};
-		
-		
-  		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
-		se.particle = Particle.CRIT_MAGIC;
-		se.radius = 0.2;
-		se.iterations = 10;
-		se.particles = 5;
-		se.speed = (float) 0;
-		se.visibleRange = 200;
-		se.infinite();
-		AbilityUtils.followTargetParticle(p, target, se, false, true, run, null, 1.7, 200);
-		
-		
-		
 		
 /*	 	  new BukkitRunnable(){      
               Location loc = p.getLocation();
@@ -159,6 +141,13 @@ public class ParticleTestAbility implements Ability, Listener{
 	@Override
 	public void DisableAbility(Player p) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	@EventHandler
+	public void onMove(PlayerMoveEvent e)
+	{
 		
 	}
 

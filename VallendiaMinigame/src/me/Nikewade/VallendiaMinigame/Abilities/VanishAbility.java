@@ -64,52 +64,55 @@ public class VanishAbility implements Ability, Listener{
 			Language.sendAbilityUseMessage(p, "You are already using this.", this.getName());
 			return false;
 		}
-		enabled.add(p);
+		if(	AbilityUtils.makeInvisible(p, this.getName()))
+		{
+			enabled.add(p);
 
-		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
-		se.setLocation(p.getLocation());
-		se.particle = Particle.SMOKE_NORMAL;
-		se.radius = 1;
-		se.particles = 10;
-		se.yOffset = 0.6;
-		se.iterations = 3;
-		se.start();
-		Language.sendAbilityUseMessage(p, "You vanish.", "Vanish");
-		
-		AbilityUtils.makeInvisible(p);
-		
-		
-		BukkitTask task = new BukkitRunnable() {
-            @Override
-            public void run() {
-            	removeVanish(p);
-            }
-        }.runTaskLater(VallendiaMinigame.getInstance(), enabledTime*20L);
-        tasks.put(p, task);
-        
-        
-        
-        
-    	BukkitTask countdown =	new BukkitRunnable() {
-			int x = enabledTime;
-            @Override
-            public void run() {
-            	if(enabled.contains(p))
-            	{
-            		if(x == 10)
-            		{
-        		        p.sendTitle(Utils.Colorate("&3&lVanish " + x + " seconds"), null, 0, 26, 0);
-            		}
-            		if(x <= 5)
-            		{
-        		        p.sendTitle(Utils.Colorate("&3&lVanish " + x + " seconds"), null, 0, 26, 0);
-            		}
-            		x--;
-            	}else this.cancel();
-            }
-        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L);
-        countDown.put(p, countdown);
-        return true;
+			SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+			se.setLocation(p.getLocation());
+			se.particle = Particle.SMOKE_NORMAL;
+			se.radius = 1;
+			se.particles = 10;
+			se.yOffset = 0.6;
+			se.iterations = 3;
+			se.start();
+			Language.sendAbilityUseMessage(p, "You vanish.", "Vanish");
+			
+			
+			
+			BukkitTask task = new BukkitRunnable() {
+	            @Override
+	            public void run() {
+	            	removeVanish(p);
+	            }
+	        }.runTaskLater(VallendiaMinigame.getInstance(), enabledTime*20L);
+	        tasks.put(p, task);
+	        
+	        
+	        
+	        
+	    	BukkitTask countdown =	new BukkitRunnable() {
+				int x = enabledTime;
+	            @Override
+	            public void run() {
+	            	if(enabled.contains(p))
+	            	{
+	            		if(x == 10)
+	            		{
+	        		        p.sendTitle(Utils.Colorate("&3&lVanish " + x + " seconds"), null, 0, 26, 0);
+	            		}
+	            		if(x <= 5)
+	            		{
+	        		        p.sendTitle(Utils.Colorate("&3&lVanish " + x + " seconds"), null, 0, 26, 0);
+	            		}
+	            		x--;
+	            	}else this.cancel();
+	            }
+	        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L);
+	        countDown.put(p, countdown);
+	        return true;	
+		}
+		return false;
 	}
 	
 
@@ -140,7 +143,7 @@ public class VanishAbility implements Ability, Listener{
 	@EventHandler
 	public void onEntityDamage(EntityDamageByEntityEvent e)
 	{
-		if(e.isCancelled() || e.getDamage() == 0)
+		if(e.isCancelled()) //e.getDamage() == 0
 		{
 			return;
 		}
@@ -164,7 +167,7 @@ public class VanishAbility implements Ability, Listener{
 	@EventHandler
 	public void onDamage(EntityDamageEvent e)
 	{
-		if(e.isCancelled() || e.getDamage() == 0)
+		if(e.isCancelled())
 		{
 			return;
 		}

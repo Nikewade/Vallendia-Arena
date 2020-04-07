@@ -45,10 +45,11 @@ public class VampiricAuraAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Align your soul with the draining force of a vampire.",
-							"For " + duration + " seconds an aura surrounds you in a",
-							"radius of " + radius + " blocks dealing consistent damage,",
-							"this drains the health of the target and transfers it to you.");
+		return Arrays.asList("Align your soul with the draining force of a",
+							"vampire. For " + duration + " seconds an aura",
+							"surrounds you in a radius of " + radius,
+							"blocks dealing consistent damage, this drains",
+							"the health of the target and transfers it to you");
 	}
 
 	@Override

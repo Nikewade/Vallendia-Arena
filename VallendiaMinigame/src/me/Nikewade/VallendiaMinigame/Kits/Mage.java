@@ -39,8 +39,13 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Delayed Blast Fireball"));
 		abilities.add(Main.abilitymanager.getAbility("Water Mastery"));
 		abilities.add(Main.abilitymanager.getAbility("Blindness"));
-		abilities.add(Main.abilitymanager.getAbility("Hammer"));
 		abilities.add(Main.abilitymanager.getAbility("Repulsion"));
+		abilities.add(Main.abilitymanager.getAbility("Heal"));
+		abilities.add(Main.abilitymanager.getAbility("Healing Aura"));
+		abilities.add(Main.abilitymanager.getAbility("Healing Blast"));
+		abilities.add(Main.abilitymanager.getAbility("Healing Burst"));
+		abilities.add(Main.abilitymanager.getAbility("Glitterdust"));
+		abilities.add(Main.abilitymanager.getAbility("Invisibility"));
 	}
 
 	@Override

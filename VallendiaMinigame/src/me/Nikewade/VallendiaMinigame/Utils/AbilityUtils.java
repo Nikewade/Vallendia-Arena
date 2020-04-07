@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -84,10 +85,24 @@ public class AbilityUtils implements Listener {
 	private static HashMap<LivingEntity, BukkitTask> stunTimer = new HashMap<>();
 	private static HashMap<LivingEntity, BukkitTask> stunCountdown = new HashMap<>();
 	private static HashMap<LivingEntity ,SphereEffect> stunParticle = new HashMap<>();
+	private static List<LivingEntity> rooted = new ArrayList<>();
+	private static List<LivingEntity> rootedOnDamage = new ArrayList<>();
+	private static HashMap<LivingEntity ,String> rootName = new HashMap<>();
+	private static HashMap<LivingEntity, BukkitTask> rootTimer = new HashMap<>();
+	private static HashMap<LivingEntity, BukkitTask> rootCountdown = new HashMap<>();
+	private static HashMap<LivingEntity ,SphereEffect> rootParticle = new HashMap<>();
+	private static List<LivingEntity> charmed = new ArrayList<>();
+	private static List<LivingEntity> charmedOnDamage = new ArrayList<>();
+	private static HashMap<LivingEntity ,String> charmName = new HashMap<>();
+	private static HashMap<LivingEntity, BukkitTask> charmTimer = new HashMap<>();
+	private static HashMap<LivingEntity, BukkitTask> charmTicks = new HashMap<>(); // make player look
+	private static HashMap<LivingEntity, BukkitTask> charmCountdown = new HashMap<>();
+	private static HashMap<LivingEntity ,SphereEffect> charmParticle = new HashMap<>();
 	private static HashMap<String ,Location> traps = new HashMap<>();
 	private static HashMap<Location ,SphereEffect> trapParticle = new HashMap<>();
 	private static HashMap<Location ,BukkitTask> trapTasks = new HashMap<>();
-	private static List<LivingEntity> invisible = new ArrayList<>();
+	private static HashMap<LivingEntity, String> invisible = new HashMap<>();
+	private static List<LivingEntity> noInvisible = new ArrayList<>();
 	private static HashMap<Entity, Player> evokerFangs = new HashMap<>();
 	private static HashMap<Entity, Integer> evokerFangsDamage = new HashMap<>();
 	private static ArrayList<Player> noTargetCooldown = new ArrayList<>();
@@ -304,7 +319,7 @@ public class AbilityUtils implements Listener {
 	      List<Block> lineOfSight = null;
 	      List<Entity> nearbyEntities = p.getNearbyEntities(range, range, range);
 	      for (Entity entity : nearbyEntities) {
-	        if (((entity instanceof LivingEntity)) && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
+	        if (((entity instanceof Player)) && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
 	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)) {
 	        	
 	  	        if(entity instanceof Player)
@@ -358,7 +373,7 @@ public class AbilityUtils implements Listener {
 	      List<Block> lineOfSight = null;
 	      List<Entity> nearbyEntities = p.getNearbyEntities(range, range, range);
 	      for (Entity entity : nearbyEntities) {
-	        if (((entity instanceof LivingEntity)) && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
+	        if (((entity instanceof Player)) && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
 	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)) {
 	        	
 	  	        if(entity instanceof Player)
@@ -564,7 +579,7 @@ public class AbilityUtils implements Listener {
 			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
 			for(Entity entity : loc.getWorld().getNearbyEntities(loc, Radiusx, Radiusy, Radiusz))
 			{
-				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand))
+				if(entity instanceof Player && !(entity == originplayer) && !(entity instanceof ArmorStand))
 				{
 					if(entity instanceof Player)
 					{
@@ -963,13 +978,352 @@ public class AbilityUtils implements Listener {
     
     
     
-    public static boolean makeInvisible(Player p)
+    
+    
+    public static void root(LivingEntity caster, LivingEntity e, String abilityname, int tickTime, boolean cancelOnDamage)
     {
-    	if(invisible.contains(p))
+    	if(e instanceof Player)
+    	{
+    		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e, "Escape Artist"))
+    		{
+    			Language.sendAbilityUseMessage((Player)caster, "The target evades your root.", abilityname);
+    			Language.sendAbilityUseMessage((Player)e, "You break free from the root.", abilityname);
+    			caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.6);
+    			return;
+    		}
+    	}
+    		removeAllRoots(e);
+    		rooted.add(e);
+    		if(e instanceof Player)
+    		{
+    			Player p = (Player) e;
+    		}
+    		if(e instanceof Creature)
+    		{
+    			AbilityUtils.addPotionDuration(caster, e, abilityname, PotionEffectType.SLOW, 10, tickTime);
+    			Creature mob = (Creature) e;
+    			if(mob.getTarget() != null)
+    			{
+    				mob.setTarget(null);
+    			}
+    		}
+    		
+        		BukkitTask countdown = new BukkitRunnable() {
+        			int x = (tickTime / 20) + 1;
+                    @Override
+                    public void run() {
+                    	x--;
+                		if(e instanceof Player)
+                		{
+                			Player p = (Player) e;
+                        	if(x <= 0)
+                        	{
+                        		x = 1;
+                		        p.sendTitle(Utils.Colorate("&3&lRooted < " + x), null, 0, 26, 0);	
+                        	}else
+                        	{
+                		        p.sendTitle(Utils.Colorate("&3&lRooted " + x), null, 0, 26, 0);	
+                        	}	
+                		}
+                    }
+                }.runTaskTimer(VallendiaMinigame.getInstance(),0, 20L);	
+    		
+    		BukkitTask timer = new BukkitRunnable() {
+                @Override
+                public void run() {
+                	removeRoot(e, abilityname);
+                }
+            }.runTaskLater(VallendiaMinigame.getInstance(), tickTime);
+            
+            rootTimer.put(e, timer);
+            rootCountdown.put(e, countdown);
+            rootName.put(e, abilityname);
+            
+            
+			SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+			se.setEntity(e);
+			se.disappearWithOriginEntity = true;
+			se.infinite();
+			se.particle = Particle.REDSTONE;
+			se.color = Color.ORANGE;
+			se.radius = 0.1;
+			se.particles = 1;
+			se.yOffset = 0.8;
+			se.start();
+			
+			rootParticle.put(e, se);
+			
+			
+			if(cancelOnDamage)
+			{
+				rootedOnDamage.add(e);
+			}
+            
+    	}
+    
+    
+    public static void removeRoot(LivingEntity e, String abilityname)
+    {
+    	if(rooted.contains(e))
+    	{
+    		if(rootName.containsKey(e) && rootName.get(e) == abilityname)
+    		{
+        		if(e instanceof Creature)
+        		{
+        			Creature mob = (Creature) e;
+        			if(mob.hasPotionEffect(PotionEffectType.SLOW))
+        			{
+        				mob.removePotionEffect(PotionEffectType.SLOW);
+        			}
+        		}
+        		rooted.remove(e);
+        		rootTimer.get(e).cancel();
+        		rootTimer.remove(e);
+        		rootCountdown.get(e).cancel();
+        		rootCountdown.remove(e);	
+        		rootName.remove(e);
+        		rootParticle.get(e).cancel();
+        		rootParticle.remove(e);
+        		if(rootedOnDamage.contains(e))
+        		{
+        			rootedOnDamage.remove(e);
+        		}
+    		}
+    	}
+    }
+    
+    public static void removeAllRoots(LivingEntity e)
+    {
+    	if(rooted.contains(e))
+    	{
+        		if(e instanceof Creature)
+        		{
+        			Creature mob = (Creature) e;
+        			if(mob.hasPotionEffect(PotionEffectType.SLOW))
+        			{
+        				mob.removePotionEffect(PotionEffectType.SLOW);
+        			}
+        		}
+        		rooted.remove(e);
+        		rootTimer.get(e).cancel();
+        		rootTimer.remove(e);
+        		rootCountdown.get(e).cancel();
+        		rootCountdown.remove(e);	
+        		rootName.remove(e);
+        		rootParticle.get(e).cancel();
+        		rootParticle.remove(e);
+        		if(rootedOnDamage.contains(e))
+        		{
+        			rootedOnDamage.remove(e);
+        		}
+    		}
+    }
+    
+    
+    public static boolean isRooted(LivingEntity e)
+    {
+    	if(rooted.contains(e))
+    	{
+    		return true;
+    	}else
     	{
     		return false;
     	}
-    	invisible.add(p);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public static void charm(LivingEntity caster, LivingEntity e, String abilityname, int tickTime, boolean cancelOnDamage, boolean taunt)
+    {
+    		removeAllCharms(e);
+    		charmed.add(e);
+    		if(e instanceof Player)
+    		{
+    			Player p = (Player) e;
+    		}
+    		if(e instanceof Creature)
+    		{
+    			Creature mob = (Creature) e;
+    				mob.setTarget(caster);
+    		}
+    		
+        		BukkitTask countdown = new BukkitRunnable() {
+        			int x = (tickTime / 20) + 1;
+                    @Override
+                    public void run() {
+                    	x--;
+                		if(e instanceof Player)
+                		{
+                			Player p = (Player) e;
+                        	if(x <= 0)
+                        	{
+                        		x = 1;
+                        		if(taunt)
+                        		{
+                    		        p.sendTitle(Utils.Colorate("&3&lTaunt < " + x), null, 0, 26, 0);
+                        		}else
+                        		{
+                    		        p.sendTitle(Utils.Colorate("&3&lCharmed < " + x), null, 0, 26, 0);		
+                        		}
+                        	}else
+                        	{
+                        		if(taunt)
+                        		{
+                    		        p.sendTitle(Utils.Colorate("&3&lTaunt " + x), null, 0, 26, 0);	
+                        		}else
+                        		{
+                    		        p.sendTitle(Utils.Colorate("&3&lCharmed " + x), null, 0, 26, 0);		
+                        		}
+                        	}	
+                		}
+                    }
+                }.runTaskTimer(VallendiaMinigame.getInstance(),0, 20L);	
+    		
+    		BukkitTask timer = new BukkitRunnable() {
+                @Override
+                public void run() {
+                	removeCharm(e, abilityname);
+                }
+            }.runTaskLater(VallendiaMinigame.getInstance(), tickTime);
+            
+            
+    		BukkitTask tick = new BukkitRunnable()
+			{
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					if(e instanceof Player)
+					{
+						  Location loc = e.getLocation();
+			              Location tloc = caster.getLocation();
+			              Vector direction = tloc.toVector().subtract(loc.toVector()).normalize();
+			              Location newloc = loc.clone();
+			              newloc.setDirection(direction);
+			  			Utils.sendPacketPlayOutPosition((Player) e, newloc.getYaw(), newloc.getPitch());	
+					}
+				}
+		
+			}.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
+            
+            charmTimer.put(e, timer);
+            charmTicks.put(e, tick);
+            charmCountdown.put(e, countdown);
+            charmName.put(e, abilityname);
+            
+            
+			SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+			se.setEntity(e);
+			se.disappearWithOriginEntity = true;
+			se.infinite();
+			se.particle = Particle.REDSTONE;
+			if(taunt)
+			{
+				se.color = Color.GRAY;
+			}else
+			{
+				se.color = Color.FUCHSIA;	
+			}
+			se.radius = 0.1;
+			se.particles = 1;
+			se.yOffset = 0.8;
+			se.start();
+			
+			charmParticle.put(e, se);
+			
+			
+			if(cancelOnDamage)
+			{
+				charmedOnDamage.add(e);
+			}
+            
+    	}
+    
+    
+    public static void removeCharm(LivingEntity e, String abilityname)
+    {
+    	if(charmed.contains(e))
+    	{
+    		if(charmName.containsKey(e) && charmName.get(e) == abilityname)
+    		{
+        		charmed.remove(e);
+        		charmTimer.get(e).cancel();
+        		charmTimer.remove(e);
+        		charmTicks.get(e).cancel();
+        		charmTicks.remove(e);
+        		charmCountdown.get(e).cancel();
+        		charmCountdown.remove(e);	
+        		charmName.remove(e);
+        		charmParticle.get(e).cancel();
+        		charmParticle.remove(e);
+        		if(charmedOnDamage.contains(e))
+        		{
+        			charmedOnDamage.remove(e);
+        		}
+    		}
+    	}
+    }
+    
+    public static void removeAllCharms(LivingEntity e)
+    {
+    	if(charmed.contains(e))
+    	{
+        		if(e instanceof Creature)
+        		{
+        			Creature mob = (Creature) e;
+        			if(mob.hasPotionEffect(PotionEffectType.SLOW))
+        			{
+        				mob.removePotionEffect(PotionEffectType.SLOW);
+        			}
+        		}
+        		charmed.remove(e);
+        		charmTimer.get(e).cancel();
+        		charmTimer.remove(e);
+        		charmTicks.get(e).cancel();
+        		charmTicks.remove(e);
+        		charmCountdown.get(e).cancel();
+        		charmCountdown.remove(e);	
+        		charmName.remove(e);
+        		charmParticle.get(e).cancel();
+        		charmParticle.remove(e);
+        		if(charmedOnDamage.contains(e))
+        		{
+        			charmedOnDamage.remove(e);
+        		}
+    		}
+    }
+    
+    
+    public static boolean isCharmed(LivingEntity e)
+    {
+    	if(charmed.contains(e))
+    	{
+    		return true;
+    	}else
+    	{
+    		return false;
+    	}
+    }
+    
+    
+    
+    public static boolean makeInvisible(Player p, String ability)
+    {
+    	if(invisible.containsKey(p))
+    	{
+    		return false;
+    	}
+    	if(noInvisible.contains(p))
+    	{
+    		Language.sendDefaultMessage(p, "You are unable to use this ability!");
+    		return false;
+    	}
+    	invisible.put(p, ability);
     	
 		//Untarget entities
 		for(Entity en : p.getNearbyEntities(50, 50, 50))
@@ -979,7 +1333,7 @@ public class AbilityUtils implements Listener {
 				Creature mob = (Creature) en;
 				if(mob.getTarget() != null)
 				{
-					if(invisible.contains(mob.getTarget()))
+					if(invisible.containsKey(mob.getTarget()))
 					{
 						mob.setTarget(null);
 					}
@@ -992,7 +1346,7 @@ public class AbilityUtils implements Listener {
 		BukkitTask task = new BukkitRunnable() {
             @Override
             public void run() {
-        		if(invisible.contains(p))
+        		if(invisible.containsKey(p))
         		{
         			for(Player player : Bukkit.getOnlinePlayers())
         			{
@@ -1013,25 +1367,53 @@ public class AbilityUtils implements Listener {
     
     public static void removeInvisible(Player p)
     {
-    	if(invisible.contains(p))
+    	if(invisible.containsKey(p))
     	{
 			for(Player player : Bukkit.getOnlinePlayers())
 			{
 				player.showPlayer(p);
 			}
+			VallendiaMinigame.getInstance().abilitymanager.getAbility(invisible.get(p)).DisableAbility(p);
 			invisible.remove(p);
     	}
     }
     
     public static boolean isInvisible(Player p)
     {
-    	if(invisible.contains(p))
+    	if(invisible.containsKey(p))
     	{
     		return true;
     	}	
     	return false;
 
     }
+    
+    
+    public static void noInvisible(Player p)
+    {
+    	if(!noInvisible.contains(p))
+    	{
+    		noInvisible.add(p);
+    	}
+    }
+    
+    public static void removeNoInvisible(Player p)
+    {
+    	if(noInvisible.contains(p))
+    	{
+    		noInvisible.remove(p);
+    	}
+    }
+    
+    public static boolean isNoInvisible(Player p)
+    {
+    	if(noInvisible.contains(p))
+    	{
+    		return true;
+    	}
+    	return false;
+    }
+    
     
     
     
@@ -1256,6 +1638,14 @@ public class AbilityUtils implements Listener {
         		{
         			AbilityUtils.removeAllStuns((LivingEntity) e.getEntity());
         		}
+        		if(charmedOnDamage.contains(e.getEntity()))
+        		{
+        			AbilityUtils.removeAllCharms((LivingEntity) e.getEntity());
+        		}
+        		if(rootedOnDamage.contains(e.getEntity()))
+        		{
+        			AbilityUtils.removeAllRoots((LivingEntity) e.getEntity());
+        		}
         	}
         	
         	@EventHandler
@@ -1265,6 +1655,14 @@ public class AbilityUtils implements Listener {
         		if(isStunned(e.getPlayer()) && (e.getTo().getY() >= e.getFrom().getY())){
         			e.setCancelled(true);
         			}
+        		
+        		
+        		if((e.getTo().getY() >= e.getFrom().getY()))
+        		{
+            		if(isRooted(e.getPlayer()) && (e.getFrom().distance(e.getTo()) > 0)){
+            			e.setCancelled(true);
+            			}	
+        		}
         		
         		if(casting.containsKey(e.getPlayer()) &&
         		   !FlyAbility.enabled.contains(e.getPlayer()))
@@ -1384,7 +1782,12 @@ public class AbilityUtils implements Listener {
         				e.setCancelled(true);
         			}
         			
-        			if(invisible.contains(e.getTarget()))
+        			if(isCharmed(mob))
+        			{
+        				e.setCancelled(true);
+        			}
+        			
+        			if(invisible.containsKey(e.getTarget()))
         			{
         				e.setCancelled(true);
         			}
@@ -1406,7 +1809,7 @@ public class AbilityUtils implements Listener {
 			p.setHealth(p.getMaxHealth());
 		}else p.setHealth(p.getHealth() + amount);
     	
-		if(!invisible.contains(p))
+		if(!invisible.containsKey(p))
 		{
 	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
 	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);

@@ -137,7 +137,6 @@ public class SniperAbility implements Ability, Listener{
 		if(e.getDamager() instanceof Arrow && locations.containsKey(e.getDamager()))
 		{
 			Projectile arrow = (Projectile) e.getDamager();
-			Player shooter = (Player) arrow.getShooter();
 			int distance = (int)e.getEntity().getLocation().distance(locations.get(arrow));
 			if(distance < lowestRange)
 			{

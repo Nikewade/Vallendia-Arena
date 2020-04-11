@@ -13,7 +13,7 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 
 public class GuiShop implements IInvGuiScreen {
 	
-	private final int size = 6;
+	private final int size = 2;
 	private InvGuiItem[] items;
 	private Player player;
 	private int page;

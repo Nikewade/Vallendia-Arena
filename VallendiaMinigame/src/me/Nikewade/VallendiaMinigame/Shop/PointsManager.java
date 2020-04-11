@@ -17,7 +17,7 @@ public class PointsManager {
 	{
 		if(points < 0)
 		{
-			Language.sendDefaultMessage(p, "Could not set your points to a negative.");
+			Language.sendDefaultMessage(p, "Could not set your essence to a negative.");
 			return;
 		}
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", points);
@@ -27,7 +27,7 @@ public class PointsManager {
 	{
 		if(add < 0)
 		{
-			Language.sendDefaultMessage(p, "Could not set your points to a negative.");
+			Language.sendDefaultMessage(p, "Could not set your essence to a negative.");
 			return;
 		}
 		Main.playerdatamanager.addData(p.getUniqueId(), "Points", add);
@@ -38,7 +38,7 @@ public class PointsManager {
 		if(this.getPoints(p) - subtract < 0)
 		{
 			this.setPoints(p, 0);
-			Language.sendDefaultMessage(p, "You are taking damage from negative points!");
+			Language.sendDefaultMessage(p, "You are taking damage from negative essence!");
 			p.damage(1);
 			return;
 		}

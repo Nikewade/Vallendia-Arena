@@ -15,7 +15,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class KidneyShotAbility implements Ability{
-	int time = 3;
+	int time = 3 * 20;
 
 	@Override
 	public String getName() {

@@ -62,7 +62,13 @@ public class Archer implements Kit {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return Utils.Colorate("&aA master marksman.");
+		return Utils.Colorate("&aA versatile ranged combatant");
+	}
+	
+	@Override
+	public String getDescription2() {
+		// TODO Auto-generated method stub
+		return Utils.Colorate("&aknowledgeable in the ways of nature.");
 	}
 
 	@Override

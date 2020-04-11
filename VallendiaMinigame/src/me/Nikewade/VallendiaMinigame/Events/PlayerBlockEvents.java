@@ -64,7 +64,7 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 				v.multiply(-10 / 10D);
 				p.setVelocity(v);
 				p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1, (float) 0.7);
-		        p.sendTitle(Utils.Colorate(Utils.Colorate("&3&lPick a kit!")), null, 0, 26, 0);
+		        p.sendTitle(Utils.Colorate(Utils.Colorate("&3&lPick a class!")), null, 0, 26, 0);
 			}else
 			{
 				Main.spawnhandler.teleportPlayerRandom(p);	
@@ -127,7 +127,8 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 						return;
 					}
 					
-					if(block.getType() == Material.LEAVES)
+					if(block.getType() == Material.LEAVES || block.getType() == Material.GRASS || block.getType() == Material.LONG_GRASS ||
+							block.getType() == Material.DOUBLE_PLANT)
 					{
 						Utils.regenBlock(block, 15);
 						block.setType(Material.AIR);
@@ -136,6 +137,16 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 						e.setCancelled(true);
 						return;
 
+					}
+					
+					if(block.getType() == Material.WEB)
+					{
+						Utils.regenBlock(block, 15);
+						block.setType(Material.AIR);
+						block.getWorld().playSound(block.getLocation(), Sound.BLOCK_STONE_BREAK, 1.0F, 1.0F);
+						e.setDropItems(false);
+						e.setCancelled(true);
+						return;
 					}
 					
 					if(block.getTypeId() == 95 || block.getTypeId() == 20 || block.getTypeId() == 160 || block.getTypeId() == 102)

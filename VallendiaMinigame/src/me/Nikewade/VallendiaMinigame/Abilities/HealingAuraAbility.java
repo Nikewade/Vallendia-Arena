@@ -82,6 +82,7 @@ public class HealingAuraAbility implements Ability{
 					{		
 						Language.sendAbilityUseMessage(p, "Healing Aura is no longer Active", "Healing Aura");
 						this.cancel();
+						timers.remove(p);
 					}
 //-----------------------------------------------------------------------------------------------------------------
 					DonutEffect de = new DonutEffect(VallendiaMinigame.getInstance().effectmanager);
@@ -160,6 +161,7 @@ public class HealingAuraAbility implements Ability{
 		if(timers.containsKey(p))
 		{
 			timers.get(p).cancel();
+			timers.remove(p);
 		}
 	}
 

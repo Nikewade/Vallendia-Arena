@@ -60,7 +60,13 @@ public class Assassin implements Kit {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return Utils.Colorate("&7The master of stealth and deception.");
+		return Utils.Colorate("&7A stealthy rogue who uses");
+	}
+	
+	@Override
+	public String getDescription2() {
+		// TODO Auto-generated method stub
+		return Utils.Colorate("&7underhanded tactics to fight.");
 	}
 
 	@Override

@@ -13,5 +13,7 @@ public interface Kit {
 	public Sound getSound();
 	
 	public ArrayList<Ability> getAbilities();
+
+	String getDescription2();
 	
 }

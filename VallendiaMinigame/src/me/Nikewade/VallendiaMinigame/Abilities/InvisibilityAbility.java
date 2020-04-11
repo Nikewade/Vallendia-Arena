@@ -136,6 +136,9 @@ public class InvisibilityAbility implements Ability, Listener {
         {
             AbilityUtils.castAbility(p, castTime, run);
             return true;
+        }else
+        {
+        	Language.sendDefaultMessage(p, "You are unable to use this ability!");
         }
         return false;
 		

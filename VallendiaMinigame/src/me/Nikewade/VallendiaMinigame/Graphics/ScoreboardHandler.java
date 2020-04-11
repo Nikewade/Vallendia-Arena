@@ -47,12 +47,12 @@ public class ScoreboardHandler{
 	            //Had to add a space at the end for some reason Archer shows up weird without it?
 	            if(ScoreboardHandler.this.Main.kitmanager.getKit(p).getName(false).equalsIgnoreCase("archer"))
 	            {
-		            row1.setMessage(Utils.Colorate("&3Kit: ") + ScoreboardHandler.this.Main.kitmanager.getKit(p).getName(true) + " ");	
-	            }else {	            row1.setMessage(Utils.Colorate("&3Kit: ") + ScoreboardHandler.this.Main.kitmanager.getKit(p).getName(true));}
+		            row1.setMessage(Utils.Colorate("&3Class: ") + ScoreboardHandler.this.Main.kitmanager.getKit(p).getName(true) + "   ");	
+	            }else {	            row1.setMessage(Utils.Colorate("&3Class: ") + ScoreboardHandler.this.Main.kitmanager.getKit(p).getName(true)+ "  ");}
 	            row2.setMessage(Utils.Colorate("&3Level: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Level")));
 	            row3.setMessage(Utils.Colorate("&3Kills: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "KillStreak")));
 	            row4.setMessage(Utils.Colorate("&3Upgrades: &8" + ScoreboardHandler.this.Main.upgrademanager.getUpgradeTotal(p)));
-	            row5.setMessage(Utils.Colorate("&3Points: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points")));
+	            row5.setMessage(Utils.Colorate("&3Essence: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points")));
 	         }
 	      }).runTaskTimer(VallendiaMinigame.getInstance(), 20L, 20L);
 	      Scoreboard sb = p.getScoreboard();

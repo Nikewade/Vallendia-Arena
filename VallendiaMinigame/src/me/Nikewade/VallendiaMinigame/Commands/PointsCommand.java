@@ -43,7 +43,7 @@ public class PointsCommand implements CommandInterface{
 			   if(Bukkit.getPlayer(args[2]) != null)
 			   {
 				   Player p = Bukkit.getPlayer(args[2]);  
-				   sender.sendMessage(Utils.Colorate("&8" + p.getName() + " has " + main.shopmanager.getPoints(p) + " points."));
+				   sender.sendMessage(Utils.Colorate("&8" + p.getName() + " has " + main.shopmanager.getPoints(p) + " essence."));
 			   }else sender.sendMessage(Utils.Colorate("&8Player does not exist!"));
 			   return false;
 		   }	
@@ -64,22 +64,22 @@ public class PointsCommand implements CommandInterface{
 			   if(args[1].equalsIgnoreCase("set"))
 			   {
 				   main.shopmanager.setPoints(p, amount);
-				   sender.sendMessage(Utils.Colorate( "&8" + p.getName() + "'s points set to " + amount + "."));
-				   p.sendMessage(Utils.Colorate("&8Your points were set to "  + amount +  "."));
+				   sender.sendMessage(Utils.Colorate( "&8" + p.getName() + "'s essence set to " + amount + "."));
+				   p.sendMessage(Utils.Colorate("&8Your essence was set to "  + amount +  "."));
 			   }
 			   
 			   if(args[1].equalsIgnoreCase("add"))
 			   {
 				   main.shopmanager.addPoints(p, amount);
-				   sender.sendMessage(Utils.Colorate( "&8Gave " + amount +  " points to " +  p.getName() +  "."));
-				   p.sendMessage(Utils.Colorate( "&8You were given " + amount +  " points."));
+				   sender.sendMessage(Utils.Colorate( "&8Gave " + amount +  " essence to " +  p.getName() +  "."));
+				   p.sendMessage(Utils.Colorate( "&8You were given " + amount +  " essence."));
 			   }
 			   
 			   if(args[1].equalsIgnoreCase("subtract"))
 			   {
 				   main.shopmanager.subtractPoints(p, amount);
-				   sender.sendMessage(Utils.Colorate( "&8Took " + amount +  " points from " +  p.getName() +  "."));
-				   p.sendMessage(Utils.Colorate("&8"  + amount + " points were taken from you."));
+				   sender.sendMessage(Utils.Colorate( "&8Took " + amount +  " essence from " +  p.getName() +  "."));
+				   p.sendMessage(Utils.Colorate("&8"  + amount + " essence was taken from you."));
 			   }
 		   }else sender.sendMessage(Utils.Colorate("&8Player does not exist!"));	
 	    }
@@ -109,9 +109,9 @@ public class PointsCommand implements CommandInterface{
 					   main.shopmanager.addPoints(p, randomAmount);
 					   if(sender instanceof Player)
 					   {
-						   sender.sendMessage(Utils.Colorate( "&8Gave " + randomAmount +  " points to " +  p.getName() +  "."));   
+						   sender.sendMessage(Utils.Colorate( "&8Gave " + randomAmount +  " essence to " +  p.getName() +  "."));   
 					   }
-					   p.sendMessage(Utils.Colorate( "&8You gained " + randomAmount +  " points."));
+					   p.sendMessage(Utils.Colorate( "&8You gained " + randomAmount +  " essence."));
 				   }
 			   }
 			   

@@ -45,6 +45,10 @@ public class Warrior implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Undying Rage"));
 		abilities.add(Main.abilitymanager.getAbility("Break Free"));
 		abilities.add(Main.abilitymanager.getAbility("Quake"));
+		abilities.add(Main.abilitymanager.getAbility("Lay On Hands"));
+		abilities.add(Main.abilitymanager.getAbility("Rally Up"));
+		abilities.add(Main.abilitymanager.getAbility("Blessing Aura"));
+		abilities.add(Main.abilitymanager.getAbility("Bola"));
 	}
 	
 	@Override
@@ -60,7 +64,13 @@ public class Warrior implements Kit {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return Utils.Colorate("&cA master of combat.");
+		return Utils.Colorate("&cA martial combatant");
+	}
+	
+	@Override
+	public String getDescription2() {
+		// TODO Auto-generated method stub
+		return Utils.Colorate("&cskilled in the art of war.");
 	}
 
 	@Override

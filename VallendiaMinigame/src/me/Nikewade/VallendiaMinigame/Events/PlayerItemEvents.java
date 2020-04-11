@@ -80,7 +80,7 @@ public class PlayerItemEvents implements Listener {
 		    	if(itemtype != Material.AIR && item.getItemMeta().hasDisplayName())
 		    	{
 			 	   	String itemname = item.getItemMeta().getDisplayName();
-			    	   if(itemtype == Material.NETHER_STAR && itemname.equals(Utils.Colorate("&b&lKit")))
+			    	   if(itemtype == Material.NETHER_STAR && itemname.equals(Utils.Colorate("&b&lClass")))
 			    	   {
 				    		Main.guihandler.openGui(p, "kit");   
 				    		p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
@@ -370,7 +370,7 @@ public class PlayerItemEvents implements Listener {
 			e.setCancelled(true);	
 			}
 			if (itemtype == Material.NETHER_STAR && itemname != null) {
-				if(itemname.equals(Utils.Colorate("&b&lKit")) || itemname.equals(Utils.Colorate("&b&lShop")))
+				if(itemname.equals(Utils.Colorate("&b&lClass")) || itemname.equals(Utils.Colorate("&b&lShop")))
 				{
 					e.setCancelled(true);
 				}
@@ -415,7 +415,7 @@ public class PlayerItemEvents implements Listener {
 	    	return;
 	    }
 	    String itemname = item.getItemMeta().getDisplayName();
-		if (itemname.equals(Utils.Colorate("&b&lKit")) || itemname.equals(Utils.Colorate("&b&lShop"))) {
+		if (itemname.equals(Utils.Colorate("&b&lClass")) || itemname.equals(Utils.Colorate("&b&lShop"))) {
 			e.setCancelled(true);
 		}
 		

@@ -37,8 +37,8 @@ public class StatsCommand implements  CommandInterface {
 			sender.sendMessage(Utils.Colorate("&3KDR: " + kdr));
 			sender.sendMessage(Utils.Colorate("&3Current Kills: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "KillStreak")));
 			sender.sendMessage(Utils.Colorate("&3Upgrades: " +main.upgrademanager.getUpgradeTotal(p)));
-			sender.sendMessage(Utils.Colorate("&3Points Spent: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "PointsSpent")));
-			sender.sendMessage(Utils.Colorate("&3Points: " + main.shopmanager.getPoints(p)));
+			sender.sendMessage(Utils.Colorate("&3Essence Spent: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "PointsSpent")));
+			sender.sendMessage(Utils.Colorate("&3Essence: " + main.shopmanager.getPoints(p)));
 			sender.sendMessage("");
 			sender.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));	
 		}
@@ -71,8 +71,8 @@ public class StatsCommand implements  CommandInterface {
 					sender.sendMessage(Utils.Colorate("&3KDR: " + kdr));
 					sender.sendMessage(Utils.Colorate("&3CurrentKills: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "KillStreak")));
 					sender.sendMessage(Utils.Colorate("&3Upgrades: " +main.upgrademanager.getUpgradeTotal(p)));
-					sender.sendMessage(Utils.Colorate("&3PointsSpent: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "PointsSpent")));
-					sender.sendMessage(Utils.Colorate("&3Points: " + main.shopmanager.getPoints(p)));
+					sender.sendMessage(Utils.Colorate("&3Essence Spent: " + main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "PointsSpent")));
+					sender.sendMessage(Utils.Colorate("&3Essence: " + main.shopmanager.getPoints(p)));
 					sender.sendMessage("");
 					sender.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));	
 			   } else

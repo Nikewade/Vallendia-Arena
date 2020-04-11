@@ -32,7 +32,7 @@ public class KitGui {
 	//KITS
 	  public void openKitMenu(Player p)
 	  {
-		  AdvInventory kitInv = new AdvInventory(Utils.Colorate("&8&lPick your Kit"), 27, Utils.placeholder((byte) 7, " "));
+		  AdvInventory kitInv = new AdvInventory(Utils.Colorate("&8&lPick your Class"), 27, Utils.placeholder((byte) 7, " "));
 		  Kit warrior = km.kit("warrior");
 		  Kit archer = km.kit("archer");
 		  Kit assassin = km.kit("assassin");
@@ -42,14 +42,14 @@ public class KitGui {
 			    public void run(InventoryClickEvent e) {
 			    		KitGui.this.yesNoMenu((Player) e.getWhoClicked(), warrior);
 			    }
-			}, warrior.getDescription());
+			}, warrior.getDescription(), warrior.getDescription2());
 		  
 		  kitInv.setItem(new ItemStack(Material.BOW), Utils.Colorate("&2&lArcher"), 12, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			        	KitGui.this.yesNoMenu((Player) e.getWhoClicked(), archer);
 			    }
-			}, archer.getDescription());
+			}, archer.getDescription() , archer.getDescription2() );
 		  
 		  ItemStack helm = new ItemStack(Material.LEATHER_HELMET);
 		  LeatherArmorMeta helmmeta = (LeatherArmorMeta) helm.getItemMeta();
@@ -59,14 +59,14 @@ public class KitGui {
 			    public void run(InventoryClickEvent e) {
 			    		KitGui.this.yesNoMenu((Player) e.getWhoClicked(), assassin);
 			    }
-			}, assassin.getDescription());
+			}, assassin.getDescription(), assassin.getDescription2());
 		  
 		  kitInv.setItem(new ItemStack(Material.EYE_OF_ENDER), Utils.Colorate("&3&lMage"), 16, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    		KitGui.this.yesNoMenu((Player) e.getWhoClicked(), mage);
 			    }
-			}, mage.getDescription());
+			}, mage.getDescription() , mage.getDescription2() );
 		  kitInv.openInventory(p);
 	  }
 	  
@@ -102,7 +102,7 @@ public class KitGui {
 			        ep.sendTitle(kit.getName(true), "", 20, 40, 40);
 			        ep.playSound(ep.getLocation(), kit.getSound(), 2, (float) 0.5);
 			    }
-			}, Utils.Colorate("&aConfirm kit " + kit.getName(true)));
+			}, Utils.Colorate("&aConfirm class " + kit.getName(true)));
 			
 			
 			kitInvYesNo.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 14), Utils.Colorate("&4&lNo"), 15, new ClickRunnable() {

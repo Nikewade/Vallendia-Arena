@@ -38,8 +38,8 @@ public class PillageAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Each time you melee hit a player, steal 2 points.", 
-				"Sending a player into negative points will damage them.");
+		return Arrays.asList("Each time you melee hit a player, steal 2 Essence.", 
+				"Sending a player into negative Essence will damage them.");
 	}
 
 	@Override

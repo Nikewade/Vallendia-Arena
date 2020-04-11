@@ -25,6 +25,12 @@ public class Starter implements Kit {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public String getDescription2() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public ArrayList<Ability> getAbilities() {

@@ -46,6 +46,11 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Healing Burst"));
 		abilities.add(Main.abilitymanager.getAbility("Glitterdust"));
 		abilities.add(Main.abilitymanager.getAbility("Invisibility"));
+		abilities.add(Main.abilitymanager.getAbility("Faerie Fire"));
+		abilities.add(Main.abilitymanager.getAbility("Entangle"));
+		abilities.add(Main.abilitymanager.getAbility("Charm Person"));
+		abilities.add(Main.abilitymanager.getAbility("Enthrall"));
+		abilities.add(Main.abilitymanager.getAbility("Avasculate"));
 	}
 
 	@Override
@@ -61,9 +66,15 @@ public class Mage implements Kit {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return Utils.Colorate("&bA weaver of powerful magicical spells.");
+		return Utils.Colorate("&bA scholarly spellcaster capable");
 	}
 
+	@Override
+	public String getDescription2() {
+		// TODO Auto-generated method stub
+		return Utils.Colorate("&bof wielding varied and powerful magic.");
+	}
+	
 	@Override
 	public ArrayList<Ability> getAbilities() {
 		// TODO Auto-generated method stub

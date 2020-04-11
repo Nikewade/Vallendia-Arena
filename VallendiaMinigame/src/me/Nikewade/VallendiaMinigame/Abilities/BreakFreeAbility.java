@@ -21,6 +21,7 @@ import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 
 public class BreakFreeAbility implements Ability{
+	//made by emma
 	int radius = 5;
 
 	@Override
@@ -105,7 +106,7 @@ public class BreakFreeAbility implements Ability{
 
 		de3.start();
 		
-		if(AbilityUtils.isStunned(p) || p.hasPotionEffect(PotionEffectType.SLOW))
+		if(AbilityUtils.isStunned(p) || p.hasPotionEffect(PotionEffectType.SLOW) || AbilityUtils.isRooted(p))
 		{
 			Language.sendAbilityUseMessage(p, "You break free from all stuns and slowness!", "Break Free");
 		}
@@ -118,13 +119,17 @@ public class BreakFreeAbility implements Ability{
 		{
 			p.removePotionEffect(PotionEffectType.SLOW);
 		}
+		if(AbilityUtils.isRooted(p))
+		{
+			AbilityUtils.removeAllRoots(p);
+		}
 		
 		
 		for(Entity e: AbilityUtils.getHealingAoeTargets(p, p.getLocation(), radius, radius, radius))
 		{
 			if(e instanceof LivingEntity)
 			{			
-				if(AbilityUtils.isStunned((LivingEntity) e) || ((LivingEntity) e).hasPotionEffect(PotionEffectType.SLOW))
+				if(AbilityUtils.isStunned((LivingEntity) e) || ((LivingEntity) e).hasPotionEffect(PotionEffectType.SLOW) || AbilityUtils.isRooted((LivingEntity) e))
 				{
 					Language.sendAbilityUseMessage((LivingEntity) e, "You break free from all stuns and slowness!", "Break Free");
 				}
@@ -137,6 +142,10 @@ public class BreakFreeAbility implements Ability{
 				if(((LivingEntity) e).hasPotionEffect(PotionEffectType.SLOW))
 				{
 					((LivingEntity) e).removePotionEffect(PotionEffectType.SLOW);
+				}
+				if(AbilityUtils.isRooted((LivingEntity) e))
+				{
+					AbilityUtils.removeAllRoots(p);
 				}
 			}
 		}

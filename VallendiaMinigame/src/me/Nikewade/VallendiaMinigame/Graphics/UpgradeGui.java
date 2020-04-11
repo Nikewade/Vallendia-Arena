@@ -136,8 +136,8 @@ public class UpgradeGui {
 				itemTitle = Utils.Colorate("&2&lUpgrade " + upgrade);
 			}else {itemTitle = Utils.Colorate("&2&lUpgrade " + upgrade + " (" + enchant + ")");}
 			
-			String description1 =  Utils.Colorate("&aPrice: &2" + um.getPrice(p, upgrade, enchant) + Utils.Colorate(" points"));
-			String description2 = Utils.Colorate("&aKit Discount: &2" + um.getDiscount(p, upgrade, enchant) + "%");
+			String description1 =  Utils.Colorate("&aPrice: &2" + um.getPrice(p, upgrade, enchant) + Utils.Colorate(" Essence"));
+			String description2 = Utils.Colorate("&aClass Discount: &2" + um.getDiscount(p, upgrade, enchant) + "%");
 			upgradeInvYesNo.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 13), itemTitle, 11, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {

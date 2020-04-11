@@ -38,8 +38,8 @@ public class RepurposeAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Each time you damage a player, steal 2 points.", 
-				"Sending a player into negative points will damage them.");
+		return Arrays.asList("Each time you damage a player, steal 2 Essence.", 
+				"Sending a player into negative Essence will damage them.");
 	}
 
 	@Override

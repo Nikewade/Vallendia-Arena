@@ -120,25 +120,25 @@ public class SignEvents implements Listener{
 				            Language.sendCentredMessage(p, Utils.Colorate("&3&lYou sold"));
 				            if(coal > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Coal x" + coal + " (" + this.coal * (coal / oreBulk) + " points)" ));	
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Coal x" + coal + " (" + this.coal * (coal / oreBulk) + " essence)" ));	
 				            }
 				            if(iron > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Iron Ore x" + iron + " (" + this.iron * (iron / oreBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Iron Ore x" + iron + " (" + this.iron * (iron / oreBulk) + " essence)" ));
 				            }
 				            if(gold > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Gold Ore x" + gold + " (" + this.gold * (gold / oreBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Gold Ore x" + gold + " (" + this.gold * (gold / oreBulk) + " essence)" ));
 				            }
 				            if(diamond > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Diamond x" + diamond + " (" + this.diamond * (diamond / oreBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Diamond x" + diamond + " (" + this.diamond * (diamond / oreBulk) + " essence)" ));
 				            }
 				            if(emerald > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Emerald x" + emerald + " (" + this.emerald * (emerald / oreBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Emerald x" + emerald + " (" + this.emerald * (emerald / oreBulk) + " essence)" ));
 				            }
-				            Language.sendCentredMessage(p, Utils.Colorate("&3Total: " + points + " points"));
+				            Language.sendCentredMessage(p, Utils.Colorate("&3Total: " + points + " essence"));
 				            p.sendMessage("");
 				            p.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));	
 		            	}else {Language.sendDefaultMessage(p, "You have no ores to sell.");}
@@ -215,33 +215,33 @@ public class SignEvents implements Listener{
 				            Language.sendCentredMessage(p, Utils.Colorate("&3&lYou sold"));
 				            if(wheat > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Wheat x" + wheat + " (" + this.wheat * ( wheat / produceBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Wheat x" + wheat + " (" + this.wheat * ( wheat / produceBulk) + " essence)" ));
 				            }
 				            if(red_mushroom > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Red Mushroom x" + red_mushroom + " (" + this.red_mushroom * ( red_mushroom / produceBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Red Mushroom x" + red_mushroom + " (" + this.red_mushroom * ( red_mushroom / produceBulk) + " essence)" ));
 				            }
 				            if(brown_mushroom > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Brown Mushroom x" + brown_mushroom + " (" + this.brown_mushroom * (brown_mushroom  /produceBulk )+ " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Brown Mushroom x" + brown_mushroom + " (" + this.brown_mushroom * (brown_mushroom  /produceBulk )+ " essence)" ));
 				            }
 				            if(carrot > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Carrot x" + carrot + " (" + this.carrot * (carrot /produceBulk)+ " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Carrot x" + carrot + " (" + this.carrot * (carrot /produceBulk)+ " essence)" ));
 				            }
 				            if(potato > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Potato x" + potato + " (" + this.potato * (potato/produceBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Potato x" + potato + " (" + this.potato * (potato/produceBulk) + " essence)" ));
 				            }
 				            if(poison_potato > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Poison Potato x" + poison_potato + " (" + this.poison_potato * (poison_potato/produceBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Poison Potato x" + poison_potato + " (" + this.poison_potato * (poison_potato/produceBulk) + " essence)" ));
 				            }
 				            if(nether_wart > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Nether Wart x" + nether_wart + " (" + this.nether_wart * (nether_wart/produceBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Nether Wart x" + nether_wart + " (" + this.nether_wart * (nether_wart/produceBulk) + " essence)" ));
 				            }
-				            Language.sendCentredMessage(p, Utils.Colorate("&3Total: " + points + " points"));
+				            Language.sendCentredMessage(p, Utils.Colorate("&3Total: " + points + " essence"));
 				            p.sendMessage("");
 				            p.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));	
 		            	}else {Language.sendDefaultMessage(p, "You need a stack of 4 produce to sell.");}
@@ -366,23 +366,23 @@ public class SignEvents implements Listener{
 				            Language.sendCentredMessage(p, Utils.Colorate("&3&lYou sold"));
 				            if(coal > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Coal x" + coal + " (" + this.coal * (coal / oreBulk) + " points)" ));	
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Coal x" + coal + " (" + this.coal * (coal / oreBulk) + " essence)" ));	
 				            }
 				            if(iron > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Iron Ore x" + iron + " (" + this.iron * (iron / oreBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Iron Ore x" + iron + " (" + this.iron * (iron / oreBulk) + " essence)" ));
 				            }
 				            if(gold > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Gold Ore x" + gold + " (" + this.gold * (gold / oreBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Gold Ore x" + gold + " (" + this.gold * (gold / oreBulk) + " essence)" ));
 				            }
 				            if(diamond > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Diamond x" + diamond + " (" + this.diamond * (diamond / oreBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Diamond x" + diamond + " (" + this.diamond * (diamond / oreBulk) + " essence)" ));
 				            }
 				            if(emerald > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Emerald x" + emerald + " (" + this.emerald * (emerald / oreBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Emerald x" + emerald + " (" + this.emerald * (emerald / oreBulk) + " essence)" ));
 				            }
 				            p.sendMessage("");
 				            p.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));	
@@ -468,31 +468,31 @@ public class SignEvents implements Listener{
 				            Language.sendCentredMessage(p, Utils.Colorate("&3&lYou sold"));
 				            if(wheat > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Wheat x" + wheat + " (" + this.wheat * ( wheat / produceBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Wheat x" + wheat + " (" + this.wheat * ( wheat / produceBulk) + " essence)" ));
 				            }
 				            if(red_mushroom > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Red Mushroom x" + red_mushroom + " (" + this.red_mushroom * ( red_mushroom / produceBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Red Mushroom x" + red_mushroom + " (" + this.red_mushroom * ( red_mushroom / produceBulk) + " essence)" ));
 				            }
 				            if(brown_mushroom > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Brown Mushroom x" + brown_mushroom + " (" + this.brown_mushroom * (brown_mushroom  /produceBulk )+ " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Brown Mushroom x" + brown_mushroom + " (" + this.brown_mushroom * (brown_mushroom  /produceBulk )+ " essence)" ));
 				            }
 				            if(carrot > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Carrot x" + carrot + " (" + this.carrot * (carrot /produceBulk)+ " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Carrot x" + carrot + " (" + this.carrot * (carrot /produceBulk)+ " essence)" ));
 				            }
 				            if(potato > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Potato x" + potato + " (" + this.potato * (potato/produceBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Potato x" + potato + " (" + this.potato * (potato/produceBulk) + " essence)" ));
 				            }
 				            if(poison_potato > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Poison Potato x" + poison_potato + " (" + this.poison_potato * (poison_potato/produceBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Poison Potato x" + poison_potato + " (" + this.poison_potato * (poison_potato/produceBulk) + " essence)" ));
 				            }
 				            if(nether_wart > 0)
 				            {
-					            Language.sendCentredMessage(p, Utils.Colorate("&3Nether Wart x" + nether_wart + " (" + this.nether_wart * (nether_wart/produceBulk) + " points)" ));
+					            Language.sendCentredMessage(p, Utils.Colorate("&3Nether Wart x" + nether_wart + " (" + this.nether_wart * (nether_wart/produceBulk) + " essence)" ));
 				            }
 				            p.sendMessage("");
 				            p.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));	

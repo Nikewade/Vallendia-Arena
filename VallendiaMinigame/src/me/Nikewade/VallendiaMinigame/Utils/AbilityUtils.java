@@ -77,7 +77,7 @@ public class AbilityUtils implements Listener {
 	private static HashMap<Player, BukkitTask> castingTask2 = new HashMap<>();
 	private static HashMap<String, Double> maxHealth = new HashMap<>();
 	private static HashMap<Projectile, Runnable> arcProjectiles = new HashMap<>();
-	private static HashMap<LivingEntity, Integer> handleDamage = new HashMap<>();
+	private static HashMap<LivingEntity, Double> handleDamage = new HashMap<>();
 	private static HashMap<Player, SphereEffect> castingParticles = new HashMap<>();
 	private static List<LivingEntity> stunned = new ArrayList<>();
 	private static List<LivingEntity> stunnedOnDamage = new ArrayList<>();
@@ -865,7 +865,7 @@ public class AbilityUtils implements Listener {
                         	if(x <= 0)
                         	{
                         		x = 1;
-                		        p.sendTitle(Utils.Colorate("&3&lStunned < " + x), null, 0, 26, 0);	
+                		        p.sendTitle(Utils.Colorate("&3&lStunned"), null, 0, 26, 0);	
                         	}else
                         	{
                 		        p.sendTitle(Utils.Colorate("&3&lStunned " + x), null, 0, 26, 0);	
@@ -1019,7 +1019,7 @@ public class AbilityUtils implements Listener {
                         	if(x <= 0)
                         	{
                         		x = 1;
-                		        p.sendTitle(Utils.Colorate("&3&lRooted < " + x), null, 0, 26, 0);	
+                		        p.sendTitle(Utils.Colorate("&3&lRooted"), null, 0, 26, 0);	
                         	}else
                         	{
                 		        p.sendTitle(Utils.Colorate("&3&lRooted " + x), null, 0, 26, 0);	
@@ -1166,10 +1166,10 @@ public class AbilityUtils implements Listener {
                         		x = 1;
                         		if(taunt)
                         		{
-                    		        p.sendTitle(Utils.Colorate("&3&lTaunt < " + x), null, 0, 26, 0);
+                    		        p.sendTitle(Utils.Colorate("&3&lTaunt"), null, 0, 26, 0);
                         		}else
                         		{
-                    		        p.sendTitle(Utils.Colorate("&3&lCharmed < " + x), null, 0, 26, 0);		
+                    		        p.sendTitle(Utils.Colorate("&3&lCharmed"), null, 0, 26, 0);		
                         		}
                         	}else
                         	{
@@ -1821,7 +1821,7 @@ public class AbilityUtils implements Listener {
         }
     }
     
-    public static void damageEntity(LivingEntity target, LivingEntity damager, int amount)
+    public static void damageEntity(LivingEntity target, LivingEntity damager, double amount)
     {
     	if(target instanceof Player)
     	{

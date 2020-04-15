@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class GuiShop implements IInvGuiScreen {
 	
-	private final int size = 2;
+	private final int size = 3;
 	private InvGuiItem[] items;
 	private Player player;
 	private int page;
@@ -39,6 +42,39 @@ public class GuiShop implements IInvGuiScreen {
 			lore.add("&aLeft-click Buy: " + ShopUtils.formatPrice(currentShopItem.getBuyPrice()));
 			lore.add("&aRight-click Sell: " + ShopUtils.formatPrice(currentShopItem.getSellPrice()));
 			ShopUtils.loreItemStack(toAdd[start + num], lore);
+	 		if(currentShopItem.getStack().getType() == Material.COOKED_BEEF || currentShopItem.getStack().getType() == Material.GRILLED_PORK || 
+	 				currentShopItem.getStack().getType() == Material.COOKED_CHICKEN || currentShopItem.getStack().getType() == Material.BREAD || 
+	 				currentShopItem.getStack().getType() == Material.COOKED_FISH || currentShopItem.getStack().getType() == Material.COOKED_RABBIT)
+			{
+	 			int healPercent = 0;
+	 			String itemName = "";
+	 			
+		        switch (currentShopItem.getStack().getType()) {
+	            case COOKED_BEEF:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.steak");
+	            itemName = "Steak";
+	                     break;
+	            case GRILLED_PORK:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.pork");
+	            itemName = "Porkchop";
+	                     break;
+	            case COOKED_CHICKEN:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.chicken");
+	            itemName = "Chicken";
+	                     break;
+	            case BREAD:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.bread");
+	            itemName = "Bread";
+	                     break;
+	            case COOKED_FISH:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.fish");
+	            itemName = "Fish";
+	                     break;
+	            case COOKED_RABBIT:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.rabbit");
+	            itemName = "Rabbit";
+                 break;
+				default:
+					healPercent = 0;
+					break;
+	        }
+		        
+		        ShopUtils.nameItemStack(toAdd[start + num], Utils.Colorate("&f" + itemName + " (Heals " + healPercent + "%)"));
+			}
 			
 			items[num] = new InvGuiItem(toAdd[start + num], (type) -> {
 				ItemStack toBuy = currentShopItem.getStack().clone();
@@ -76,8 +112,8 @@ public class GuiShop implements IInvGuiScreen {
 		items[items.length - 3] = back;
 		items[items.length - 2] = forw;
 		
-		if(this.page > 0) inv.setItem(45, backStack);
-		if(this.page < this.numberOfPages()) inv.setItem(53, nextStack);
+		//if(this.page > 0) inv.setItem(45, backStack);
+		if(this.page < this.numberOfPages()) inv.setItem(17, nextStack);
 		
 		player.openInventory(inv);
 	}

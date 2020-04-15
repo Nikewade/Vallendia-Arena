@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -51,27 +52,27 @@ public class AltitudeChecker {
                 		        p.sendTitle(Utils.Colorate("&4&lToo high!"), null, 20, 1, 1);
                 		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 5)
                 		        {
-                		        	p.damage(2);
+                		        	p.damage((int) ((p.getMaxHealth() * 10) / 100));
                 		        }
                 		        
                 		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 15)
                 		        {
-                		        	p.damage(4);
+                		        	p.damage((int) ((p.getMaxHealth() * 30) / 100));
                 		        }
                 		        
                 		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 25)
                 		        {
-                		        	p.damage(10);
+                		        	p.damage((int) ((p.getMaxHealth() * 40) / 100));
                 		        }
                 		        
                 		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 30)
                 		        {
-                		        	p.damage(15);
+                		        	p.damage((int) ((p.getMaxHealth() * 60) / 100));
                 		        }
                 		        
                 		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 40)
                 		        {
-                		        	p.damage(30);
+                		        	p.damage((int) ((p.getMaxHealth() * 100) / 100));
                 		        }	
             				}
             			}else

@@ -26,11 +26,11 @@ import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockIgniteEvent;
@@ -40,6 +40,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerAnimationType;
@@ -54,6 +55,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
+import com.SirBlobman.combatlogx.CombatLogX;
+import com.SirBlobman.combatlogx.event.PlayerUntagEvent.UntagReason;
+import com.SirBlobman.combatlogx.utility.CombatUtil;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
@@ -92,6 +96,7 @@ public class AbilityUtils implements Listener {
 	private static HashMap<LivingEntity, BukkitTask> rootCountdown = new HashMap<>();
 	private static HashMap<LivingEntity ,SphereEffect> rootParticle = new HashMap<>();
 	private static List<LivingEntity> charmed = new ArrayList<>();
+	private static HashMap<LivingEntity ,LivingEntity> charmedPeople = new HashMap<>();
 	private static List<LivingEntity> charmedOnDamage = new ArrayList<>();
 	private static HashMap<LivingEntity ,String> charmName = new HashMap<>();
 	private static HashMap<LivingEntity, BukkitTask> charmTimer = new HashMap<>();
@@ -257,14 +262,8 @@ public class AbilityUtils implements Listener {
 	      List<Block> lineOfSight = null;
 	      List<Entity> nearbyEntities = p.getNearbyEntities(range, range, range);
 	      for (Entity entity : nearbyEntities) {
-	        if (((entity instanceof LivingEntity)) && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
+	        if (((entity instanceof LivingEntity)) && entity != p && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
 	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)) {
-	        	//Can damage
-	        	if(!Utils.canDamage(p, entity))
-	        	{
-	      	      	sendNoTargetMessage(p);
-		            return null;
-	        	}
 	  	        if(entity instanceof Player)
 		        {
 		        	Player player = (Player) entity;
@@ -278,6 +277,12 @@ public class AbilityUtils implements Listener {
 		        	}
 
 					if(!(player.getGameMode() == GameMode.SURVIVAL) && !(player.getGameMode() == GameMode.ADVENTURE))
+		        	{
+		      	      	sendNoTargetMessage(p);
+			            return null;
+		        	}
+		        	//Can damage
+		        	if(!Utils.canDamage(p, entity))
 		        	{
 		      	      	sendNoTargetMessage(p);
 			            return null;
@@ -319,7 +324,7 @@ public class AbilityUtils implements Listener {
 	      List<Block> lineOfSight = null;
 	      List<Entity> nearbyEntities = p.getNearbyEntities(range, range, range);
 	      for (Entity entity : nearbyEntities) {
-	        if (((entity instanceof Player)) && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
+	        if (((entity instanceof Player)) && entity != p && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
 	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)) {
 	        	
 	  	        if(entity instanceof Player)
@@ -373,7 +378,7 @@ public class AbilityUtils implements Listener {
 	      List<Block> lineOfSight = null;
 	      List<Entity> nearbyEntities = p.getNearbyEntities(range, range, range);
 	      for (Entity entity : nearbyEntities) {
-	        if (((entity instanceof Player)) && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
+	        if (((entity instanceof Player)) && entity != p && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
 	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)) {
 	        	
 	  	        if(entity instanceof Player)
@@ -852,6 +857,24 @@ public class AbilityUtils implements Listener {
     			{
     				mob.setTarget(null);
     			}
+    			
+    			Location loc = e.getLocation();
+    			new BukkitRunnable()
+    			{
+
+					@Override
+					public void run() {
+						if(stunned.contains(e))
+						{
+							e.teleport(loc);	
+						}else
+						{
+							this.cancel();
+						}
+						
+					}
+    				
+    			}.runTaskTimer(VallendiaMinigame.getInstance(), 0, 2);
     		}
     		
         		BukkitTask countdown = new BukkitRunnable() {
@@ -1006,6 +1029,24 @@ public class AbilityUtils implements Listener {
     			{
     				mob.setTarget(null);
     			}
+    			
+    			Location loc = e.getLocation();
+    			new BukkitRunnable()
+    			{
+
+					@Override
+					public void run() {
+						if(rooted.contains(e))
+						{
+							e.teleport(loc);	
+						}else
+						{
+							this.cancel();
+						}
+						
+					}
+    				
+    			}.runTaskTimer(VallendiaMinigame.getInstance(), 0, 2);
     		}
     		
         		BukkitTask countdown = new BukkitRunnable() {
@@ -1215,6 +1256,7 @@ public class AbilityUtils implements Listener {
             charmTicks.put(e, tick);
             charmCountdown.put(e, countdown);
             charmName.put(e, abilityname);
+            charmedPeople.put(caster, e);
             
             
 			SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
@@ -1261,6 +1303,7 @@ public class AbilityUtils implements Listener {
         		charmName.remove(e);
         		charmParticle.get(e).cancel();
         		charmParticle.remove(e);
+        		charmedPeople.remove(e);
         		if(charmedOnDamage.contains(e))
         		{
         			charmedOnDamage.remove(e);
@@ -1291,6 +1334,7 @@ public class AbilityUtils implements Listener {
         		charmName.remove(e);
         		charmParticle.get(e).cancel();
         		charmParticle.remove(e);
+        		charmedPeople.remove(e);
         		if(charmedOnDamage.contains(e))
         		{
         			charmedOnDamage.remove(e);
@@ -1648,6 +1692,24 @@ public class AbilityUtils implements Listener {
         		}
         	}
         	
+        	
+        	@EventHandler
+        	public void onDeath(PlayerDeathEvent e)
+        	{
+        		if(charmedPeople.containsValue(e.getEntity()))
+        		{
+        			AbilityUtils.removeAllCharms((LivingEntity) e.getEntity());
+        			return;
+        		}
+        		
+        		if(charmedPeople.containsKey(e.getEntity()))
+        		{
+        			AbilityUtils.removeAllCharms(charmedPeople.get(e.getEntity()));
+        			return;
+        		}
+        	}
+        	
+        	
         	@EventHandler
         	public void onMove(PlayerMoveEvent e)
         	{
@@ -1682,6 +1744,7 @@ public class AbilityUtils implements Listener {
         			e.setCancelled(true);
         		}
         	}
+        	
         	
         	
         	@EventHandler

@@ -80,17 +80,7 @@ public class OneManArmyAbility implements Listener, Ability {
     @EventHandler
     public void onDamage (EntityDamageByEntityEvent e)
     {
-    	Player p = null;
-    	
-    	if(!(e.getDamager() instanceof Player) && !(e.getDamager() instanceof Projectile))
-    	{
-    		return;
-    	}
-    		
-        if(!(e.getDamager() instanceof Player || !(e.getDamager() instanceof Projectile)))
-        {
-            return;
-        }
+        Player p = null;
         if(e.getDamager() instanceof Projectile)
         {
         	Projectile proj = (Projectile) e.getDamager();
@@ -103,7 +93,14 @@ public class OneManArmyAbility implements Listener, Ability {
         	}
         }else
         {
+        	if(e.getDamager() instanceof Player)
+        	{
         	p = (Player) e.getDamager();
+        	}
+        	if(!(e.getDamager() instanceof Player))
+        	{
+        		return;
+        	}
         }
         
         if(AbilityUtils.getPlayerParty(p) == "")
@@ -117,9 +114,6 @@ public class OneManArmyAbility implements Listener, Ability {
         //IF PLAYER IS ATTACKER
         if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(p, "One Man Army"))
         {
-        	
-        	
- 
             int amount = 0;
            
             for (Entity ent : AbilityUtils.getAoeTargetsNonDamage(p, p.getLocation(), distance, distance, distance))

@@ -202,16 +202,16 @@ public class PlayerDeathEvents implements Listener {
 	            p.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
 	            p.sendMessage("");
 	            Language.sendCentredMessage(p, Utils.Colorate("&c&lYou died"));
-	            Language.sendCentredMessage(p, Utils.Colorate("&3Class: " + this.Main.kitmanager.getKit(p).getName(true)));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Level: " + this.Main.levelmanager.getLevel(p)));
+	            Language.sendCentredMessage(p, Utils.Colorate("&3Class: " + this.Main.kitmanager.getKit(p).getName(true)));
 		        double pointsLost = pointsCarried * (1- (Math.pow(Math.E, -n* (sumOfLvls))));
 		        if(pointsLost <= 0)
 		        {
 		        	pointsLost = pointsLost - 1;
 		        }
 		        double pointsRefunded = (b * pointsSpent) * (Math.pow(Math.E, -n *(sumOfLvls)));
-	            Language.sendCentredMessage(p, Utils.Colorate("&3Essence lost: " + (int) (pointsLost + 1)));
-	            Language.sendCentredMessage(p, Utils.Colorate("&3Essence Refunded: " + (int) pointsRefunded));
+	            Language.sendCentredMessage(p, Utils.Colorate("&3Essence Lost: " + (int) (pointsLost + 1)));
+	            Language.sendCentredMessage(p, Utils.Colorate("&3Essence Returned: " + (int) pointsRefunded));
 	            p.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
 	         }else 
 	         {
@@ -224,16 +224,16 @@ public class PlayerDeathEvents implements Listener {
 	         p.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
 	         p.sendMessage("");
 	         Language.sendCentredMessage(p, Utils.Colorate("&c&lYou died"));
-	         Language.sendCentredMessage(p, Utils.Colorate("&3Class: " + this.Main.kitmanager.getKit(p).getName(true)));
 	         Language.sendCentredMessage(p, Utils.Colorate("&3Level: " + this.Main.levelmanager.getLevel(p)));
+	         Language.sendCentredMessage(p, Utils.Colorate("&3Class: " + this.Main.kitmanager.getKit(p).getName(true)));
 	         double pointsLost = (pointsCarried * (1-d)) + 1;
 	         if(pointsCarried < 1)
 	         {
 	        	 pointsLost = 0;
 	         }
 	         double pointsRefunded = b * pointsSpent * d;
-	         Language.sendCentredMessage(p, Utils.Colorate("&3Essence lost: " + (int) pointsLost));
-	         Language.sendCentredMessage(p, Utils.Colorate("&3Essence Refunded: " + (int) pointsRefunded));
+	         Language.sendCentredMessage(p, Utils.Colorate("&3Essence Lost: " + (int) pointsLost));
+	         Language.sendCentredMessage(p, Utils.Colorate("&3Essence Returned: " + (int) pointsRefunded));
 	         p.sendMessage("");
 	         p.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
 	      }
@@ -244,5 +244,6 @@ public class PlayerDeathEvents implements Listener {
 	      Player p = e.getPlayer();
 	      this.Main.kitmanager.giveRespawnKit(p, "starter");
 	      ScoreboardHandler.updateHealth(p, 0, 0);
+			p.setFoodLevel(19);
 	   }
 	}

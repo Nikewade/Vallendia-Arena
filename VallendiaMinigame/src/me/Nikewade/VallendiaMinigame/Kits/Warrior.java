@@ -49,6 +49,8 @@ public class Warrior implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Rally Up"));
 		abilities.add(Main.abilitymanager.getAbility("Blessing Aura"));
 		abilities.add(Main.abilitymanager.getAbility("Bola"));
+		abilities.add(Main.abilitymanager.getAbility("Taunt Creatures"));
+		abilities.add(Main.abilitymanager.getAbility("Through The Seams"));
 	}
 	
 	@Override

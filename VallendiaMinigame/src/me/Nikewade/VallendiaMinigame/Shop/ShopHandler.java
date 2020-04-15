@@ -4,16 +4,19 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class ShopHandler {
 
@@ -140,6 +143,42 @@ public class ShopHandler {
 	public static final boolean buyItem(Player player, ItemStack stack, double cost) {
 		if(VallendiaMinigame.getInstance().shopmanager.getPoints(player) >= cost) {
 			VallendiaMinigame.getInstance().shopmanager.subtractPoints(player, (int) cost);
+	 		if(stack.getType() == Material.COOKED_BEEF || stack.getType() == Material.GRILLED_PORK || 
+	 				stack.getType() == Material.COOKED_CHICKEN || stack.getType() == Material.BREAD || 
+	 				stack.getType() == Material.COOKED_FISH || stack.getType() == Material.COOKED_RABBIT)
+			{
+				ItemMeta im = stack.getItemMeta();
+				
+	 			int healPercent = 0;
+	 			String itemName = "";
+	 			
+		        switch (stack.getType()) {
+	            case COOKED_BEEF:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.steak");
+	            itemName = "Steak";
+	                     break;
+	            case GRILLED_PORK:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.pork");
+	            itemName = "Cooked Porkchop";
+	                     break;
+	            case COOKED_CHICKEN:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.chicken");
+	            itemName = "Cooked Chicken";
+	                     break;
+	            case BREAD:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.bread");
+	            itemName = "Bread";
+	                     break;
+	            case COOKED_FISH:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.fish");
+	            itemName = "Cooked Fish";
+	                     break;
+	            case COOKED_RABBIT:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.rabbit");
+	            itemName = "Cooked Rabbit";
+                 break;
+				default:
+					healPercent = 0;
+					break;
+	        }
+				im.setDisplayName(Utils.Colorate("&8&l" + itemName));
+				im.setLore(Arrays.asList(Utils.Colorate("&8Heals " + healPercent + "% max health")));
+				stack.setItemMeta(im);
+			}
 			player.getInventory().addItem(stack);
 			return true;
 		}

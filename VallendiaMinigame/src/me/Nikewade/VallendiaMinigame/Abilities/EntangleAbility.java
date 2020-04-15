@@ -58,26 +58,40 @@ public class EntangleAbility implements Ability{
 		
 		AbilityUtils.root(p, target, "Entangle", time*20, false);
 		
-		target.getWorld().playSound(target.getLocation(), Sound.BLOCK_GRASS_BREAK, 2, (float) 0.1);
-		p.getWorld().playSound(p.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 2, (float) 0.1);
-		FountainEffect d = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
-		d.setTargetEntity(target);
-		d.disappearWithTargetEntity = true;
-		d.setDynamicOrigin(new DynamicLocation(target.getLocation().add(0, 0.1, 0)));
-		d.strands = 5;
-		d.height = (float) 0.3;
-		d.heightSpout = 0;
-		d.particlesSpout = 0;
-		d.radiusSpout = 0;
-		d.radius = (float) 1;
-		d.particlesStrand = 5;
-		d.particle = Particle.BLOCK_CRACK;
-		d.material = Material.VINE;
-		d.infinite();
-		d.start();
-		
-		particles.put(target, d);
-		
+		new BukkitRunnable()
+		{
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				if(target.isOnGround())
+				{
+				target.getWorld().playSound(target.getLocation(), Sound.BLOCK_GRASS_BREAK, 2, (float) 0.1);
+				p.getWorld().playSound(p.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 2, (float) 0.1);
+				FountainEffect d = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
+				d.setTargetEntity(target);
+				d.disappearWithTargetEntity = true;
+				d.setDynamicOrigin(new DynamicLocation(target.getLocation().add(0, 0.1, 0)));
+				d.strands = 5;
+				d.height = (float) 0.3;
+				d.heightSpout = 0;
+				d.particlesSpout = 0;
+				d.radiusSpout = 0;
+				d.radius = (float) 1;
+				d.particlesStrand = 5;
+				d.particle = Particle.BLOCK_CRACK;
+				d.material = Material.VINE;
+				d.infinite();
+				d.start();
+				
+				particles.put(target, d);
+				
+				this.cancel();
+				}
+			}
+		}.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
+
 		new BukkitRunnable()
 		{
 

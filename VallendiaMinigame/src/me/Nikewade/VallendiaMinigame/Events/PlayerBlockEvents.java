@@ -127,7 +127,7 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 						return;
 					}
 					
-					if(block.getType() == Material.LEAVES || block.getType() == Material.GRASS || block.getType() == Material.LONG_GRASS ||
+					if(block.getType() == Material.LEAVES || block.getType() == Material.LONG_GRASS ||
 							block.getType() == Material.DOUBLE_PLANT)
 					{
 						Utils.regenBlock(block, 15);

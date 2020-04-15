@@ -19,6 +19,7 @@ import org.bukkit.scoreboard.Team;
 import com.mojang.authlib.GameProfile;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.CScoreboard;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import net.citizensnpcs.api.CitizensAPI;
@@ -36,6 +37,7 @@ public class ScoreboardHandler{
 	      final CScoreboard scoreboard = new CScoreboard("name", "criterion", "title");
 	      final CScoreboard.Row row1 = scoreboard.addRow("1");
 	      final CScoreboard.Row row2 = scoreboard.addRow("2");
+	      final CScoreboard.Row row6 = scoreboard.addRow("6");
 	      final CScoreboard.Row row3 = scoreboard.addRow("3");
 	      final CScoreboard.Row row4 = scoreboard.addRow("4");
 	      final CScoreboard.Row row5 = scoreboard.addRow("5");
@@ -53,6 +55,13 @@ public class ScoreboardHandler{
 	            row3.setMessage(Utils.Colorate("&3Kills: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "KillStreak")));
 	            row4.setMessage(Utils.Colorate("&3Upgrades: &8" + ScoreboardHandler.this.Main.upgrademanager.getUpgradeTotal(p)));
 	            row5.setMessage(Utils.Colorate("&3Essence: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points")));
+	            if(AbilityUtils.getPlayerParty(p) != "")
+	            {
+		            row6.setMessage(Utils.Colorate("&3Party: " + AbilityUtils.getPlayerParty(p)));	
+	            }else
+	            {
+		            row6.setMessage(Utils.Colorate("&3Party: None"));
+	            }
 	         }
 	      }).runTaskTimer(VallendiaMinigame.getInstance(), 20L, 20L);
 	      Scoreboard sb = p.getScoreboard();

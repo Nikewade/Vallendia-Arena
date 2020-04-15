@@ -15,7 +15,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class KidneyShotAbility implements Ability{
-	int time = 3 * 20;
+	int time = 3;
 
 	@Override
 	public String getName() {
@@ -46,7 +46,7 @@ public class KidneyShotAbility implements Ability{
  		LivingEntity target = AbilityUtils.getTarget(p, 5);
  		if(target != null)
  		{
- 			AbilityUtils.stun(p,target, this.getName(), time, false);
+ 			AbilityUtils.stun(p,target, this.getName(), time * 20, false);
  	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_BIG_FALL, 1, 0.1F);
  	 		target.getWorld().spawnParticle(Particle.CRIT, target.getLocation().add(0, 1.8, 0), 20);
  	 		AbilityUtils.damageEntity(target, p, 2);

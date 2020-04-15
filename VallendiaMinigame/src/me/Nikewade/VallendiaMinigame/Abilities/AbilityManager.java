@@ -84,6 +84,7 @@ public class AbilityManager {
 		abilities.add(new RepurposeAbility());
 		abilities.add(new StunningBlowsAbility());
 		abilities.add(new CamouflageAbility());
+        abilities.add(new RepellingShotAbility());
 		abilities.add(new IceTrapAbility());
         abilities.add(new SunderWeaponAbility());
         abilities.add(new StompAbility());
@@ -97,6 +98,7 @@ public class AbilityManager {
         abilities.add(new MartyrdomAbility());
         abilities.add(new CatFallAbility());
         abilities.add(new PhoenixAbility());
+        abilities.add(new ThornShotAbility());
         abilities.add(new HealingArrowAbility());
         abilities.add(new SonarArrowAbility());
         abilities.add(new InitiateAbility());
@@ -110,6 +112,7 @@ public class AbilityManager {
         abilities.add(new HealingBurstAbility());
         abilities.add(new ZapAbility());
         abilities.add(new MindThrustAbility());
+        abilities.add(new ThunderShotAbility());
         abilities.add(new RepellingBlastAbility());
         abilities.add(new DelayedBlastFireballAbility());
         abilities.add(new WaterMasteryAbility());
@@ -130,6 +133,13 @@ public class AbilityManager {
         abilities.add(new BolaAbility());
         abilities.add(new CharmPersonAbility());
         abilities.add(new AvasculateAbility());
+        abilities.add(new FireMasteryAbility());
+        abilities.add(new TauntCreaturesAbility());
+        abilities.add(new ThroughTheSeamsAbility());
+        abilities.add(new ConcussiveShotAbility());
+        abilities.add(new VendettaAbility());
+        abilities.add(new AcidRainAbility());
+        abilities.add(new NightCrawlerAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);

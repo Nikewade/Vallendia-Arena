@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Server;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -23,12 +24,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import de.slikey.effectlib.effect.SphereEffect;
+
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
-import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
-public class WaterMasteryAbility implements Ability, Listener{
+public class FireMasteryAbility implements Ability, Listener{
 	//made by emma 
 	ArrayList<Player> inWater = new ArrayList<>();
 	HashMap<Player, BukkitTask> particles = new HashMap<>();
@@ -39,7 +40,7 @@ public class WaterMasteryAbility implements Ability, Listener{
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Water Mastery";
+		return "Fire Mastery";
 	}
 
 	@Override
@@ -51,15 +52,15 @@ public class WaterMasteryAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("You can now breathe underwater.  While in", 
-							"water, you take " + defencepercent + "% less damage and deal " + attackpercent +"%",
+		return Arrays.asList("You are now immune to fire damage. While on", 
+							"fire, you take " + defencepercent + "% less damage and deal " + attackpercent +"%",
 							"more damage.");
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack(Material.WATER_BUCKET);
+		return new ItemStack(Material.LAVA_BUCKET);
 	}
 
 	@Override
@@ -84,21 +85,13 @@ public class WaterMasteryAbility implements Ability, Listener{
 			inWater.remove(p);
 		}
 		
-		if(!(p.getInventory().getLeggings()== null))
-		{
-
-		if(p.getInventory().getLeggings().containsEnchantment(Enchantment.DEPTH_STRIDER))
-		{
-			p.getInventory().getLeggings().removeEnchantment(Enchantment.DEPTH_STRIDER);
-		}
-		}
 	}
 
 	@EventHandler
 	public void onMove (PlayerMoveEvent e)
 	{
 		
-		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(e.getPlayer(), "Water Mastery"))
+		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(e.getPlayer(), "Fire Mastery"))
 		{
 			if(inWater.contains(e.getPlayer()))
 			{
@@ -106,27 +99,21 @@ public class WaterMasteryAbility implements Ability, Listener{
 			}
 			
 			Player p = e.getPlayer();
-		    if (p.getLocation().getBlock().getType() == Material.STATIONARY_WATER || 
-		    		p.getLocation().getBlock().getType() == Material.WATER) {		    	
+		    if (p.getLocation().getBlock().getType() == Material.STATIONARY_LAVA|| 
+		    		p.getLocation().getBlock().getType() == Material.LAVA) {		    	
 		    	inWater.add(p);	
 				SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 				se.disappearWithOriginEntity = true;
 				se.infinite();
-				se.particle = Particle.WATER_BUBBLE;
+				se.particle = Particle.FLAME;
 				se.radius = 0.8;
 				se.particleOffsetY = (float) 0.5;
-				se.particles = 3;
+				se.particles = 1;
 				se.yOffset = -0.8;
 				se.speed = (float) 0;
 				se.setEntity(p);
-				se.start();
-				
-				if(p.getInventory().getLeggings()!= null)
-				{
-				if(!(p.getInventory().getLeggings().containsEnchantment(Enchantment.DEPTH_STRIDER)))
-				{
-				p.getInventory().getLeggings().addUnsafeEnchantment(Enchantment.DEPTH_STRIDER, 999);;
-				}}
+				se.start()
+				;
 				
 				sphere.put(p, se);
 				
@@ -136,8 +123,8 @@ public class WaterMasteryAbility implements Ability, Listener{
 							@Override
 							public void run() {
 								// TODO Auto-generated method stub
-							    if (p.getLocation().getBlock().getType() != Material.STATIONARY_WATER && 
-							    		p.getLocation().getBlock().getType() != Material.WATER)
+							    if (p.getLocation().getBlock().getType() != Material.STATIONARY_LAVA && 
+							    		p.getLocation().getBlock().getType() != Material.LAVA)
 							    {
 							    	inWater.remove(p);
 							    	se.cancel();
@@ -164,7 +151,6 @@ public class WaterMasteryAbility implements Ability, Listener{
 	public void onHit (EntityDamageByEntityEvent e)
 	{
         Player p = null;
-        
         if(e.getDamager() instanceof Projectile)
         {
         	Projectile proj = (Projectile) e.getDamager();
@@ -186,9 +172,11 @@ public class WaterMasteryAbility implements Ability, Listener{
         		return;
         	}
         }
-		
-		if(inWater.contains(p))
+        
+		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(p, "Fire Mastery"))
 		{
+			if(!(p.getFireTicks() <= 0))
+			{
 			double highPercent = Utils.getPercentHigherOrLower(attackpercent, true);
 			double newdamage = e.getFinalDamage()*highPercent;
 			e.setDamage(0);
@@ -203,10 +191,10 @@ public class WaterMasteryAbility implements Ability, Listener{
 			se.setEntity(ent);
 			se.disappearWithOriginEntity = true;
 			se.iterations = 10;
-			se.particle = Particle.WATER_BUBBLE;
+			se.particle = Particle.FLAME;
 			se.radius = 0.8;
 			se.particleOffsetY = (float) 0.5;
-			se.particles = 5;
+			se.particles = 1;
 			se.yOffset = -0.8;
 			se.speed = (float) 0;
 			se.start();
@@ -215,14 +203,15 @@ public class WaterMasteryAbility implements Ability, Listener{
 			se2.setEntity(ent);
 			se2.disappearWithOriginEntity = true;
 			se2.iterations = 10;
-			se2.particle = Particle.WATER_SPLASH;
+			se2.particle = Particle.LAVA;
 			se2.radius = 0.8;
 			se2.particleOffsetY = (float) 0.5;
-			se2.particles = 15;
+			se2.particles = 1;
 			se2.yOffset = -0.8;
 			se2.speed = (float) 0;
 			se2.start();
 			
+			}
 			}
 			
 		}
@@ -237,22 +226,28 @@ public class WaterMasteryAbility implements Ability, Listener{
 		}
 		
 		Player p = (Player) e.getEntity();
-		if(inWater.contains(p))
+		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(p, "Fire Mastery"))
 		{
-			if(e.getCause() == DamageCause.DROWNING)
+			if(e.getCause() == DamageCause.FIRE || e.getCause() == DamageCause.FIRE_TICK || e.getCause() == DamageCause.LAVA)
 			{
+
 				e.setCancelled(true);
+				return;
 
 			}
+			
+			if(!(p.getFireTicks() <= 0))
+			{
+
 			
 			SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 			se.setEntity(p);
 			se.disappearWithOriginEntity = true;
 			se.iterations = 10;
-			se.particle = Particle.WATER_BUBBLE;
+			se.particle = Particle.FLAME;
 			se.radius = 0.8;
 			se.particleOffsetY = (float) 0.5;
-			se.particles = 5;
+			se.particles = 1;
 			se.yOffset = -0.8;
 			se.speed = (float) 0;
 			se.start();
@@ -261,10 +256,10 @@ public class WaterMasteryAbility implements Ability, Listener{
 			se2.setEntity(p);
 			se2.disappearWithOriginEntity = true;
 			se2.iterations = 10;
-			se2.particle = Particle.WATER_SPLASH;
+			se2.particle = Particle.LAVA;
 			se2.radius = 0.8;
 			se2.particleOffsetY = (float) 0.5;
-			se2.particles = 15;
+			se2.particles = 1;
 			se2.yOffset = -0.8;
 			se2.speed = (float) 0;
 			se2.start();
@@ -273,8 +268,9 @@ public class WaterMasteryAbility implements Ability, Listener{
 			double newdamage = e.getFinalDamage()*lowPercent;
 			e.setDamage(0);
 			e.setDamage(DamageModifier.ARMOR, newdamage);
+			
+			}
 
 		}
 	}
-	
 }

@@ -47,6 +47,13 @@ public class Archer implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Noxious Gas Trap"));
 		abilities.add(Main.abilitymanager.getAbility("Water Mastery"));
 		abilities.add(Main.abilitymanager.getAbility("One Man Army"));
+		abilities.add(Main.abilitymanager.getAbility("Fire Mastery"));
+		abilities.add(Main.abilitymanager.getAbility("Thorn Shot"));
+		abilities.add(Main.abilitymanager.getAbility("Thunder Shot"));
+		abilities.add(Main.abilitymanager.getAbility("Repelling Shot"));
+		abilities.add(Main.abilitymanager.getAbility("Concussive Shot"));
+		abilities.add(Main.abilitymanager.getAbility("Night Crawler"));
+		abilities.add(Main.abilitymanager.getAbility("Entangle"));
 	}
 	
 	@Override

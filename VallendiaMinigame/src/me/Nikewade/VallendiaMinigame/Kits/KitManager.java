@@ -169,6 +169,7 @@ public class KitManager {
         Main.abilitymanager.resetAbilities(p);
         Main.levelmanager.resetLevel(p);
         Main.levelmanager.resetExp(p);
+		p.setFoodLevel(19);
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "KillStreak", 0);
         SneakAbility.onDie(p);
         ClimbAbility.onDie(p);
@@ -284,6 +285,7 @@ public class KitManager {
         
         AbilityCooldown.stopAll(p.getUniqueId());
         p.getInventory().clear();
+		p.setFoodLevel(19);
         Main.upgrademanager.resetUpgrades(p);
         Main.abilitymanager.resetAbilities(p);
         Main.levelmanager.resetLevel(p);
@@ -326,7 +328,9 @@ public class KitManager {
             if (name != null)
                 im.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
  
-            if (lore != null);
+            if (lore != null){
+            	im.setLore(lore);
+            }
             	
             if (enchants != null) {
                 for (String s1 : enchants) {

@@ -42,6 +42,8 @@ import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import com.SirBlobman.combatlogx.event.PlayerUntagEvent.UntagReason;
+import com.SirBlobman.combatlogx.utility.CombatUtil;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;

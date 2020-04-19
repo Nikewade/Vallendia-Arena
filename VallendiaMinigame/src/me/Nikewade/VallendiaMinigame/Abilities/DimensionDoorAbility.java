@@ -18,6 +18,7 @@ import com.comphenix.protocol.ProtocolManager;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import net.minecraft.server.v1_12_R1.EnumItemSlot;
 import net.minecraft.server.v1_12_R1.PacketPlayOutEntityEquipment;
@@ -69,7 +70,9 @@ public class DimensionDoorAbility implements Ability{
 	 	 		p.getWorld().spawnParticle(Particle.PORTAL, p.getLocation().add(0, 1, 0), 20);
 	 	 		p.getWorld().spawnParticle(Particle.PORTAL, p.getLocation().add(0, 1, 0), 20);
 	 	 		p.getWorld().spawnParticle(Particle.PORTAL, p.getLocation().add(0, 1, 0), 20);
+		        
 		        return true;	
+		        
 		}else Language.sendAbilityUseMessage(p, "Could not teleport.", "Dimension Door");
 		return false;
 	}

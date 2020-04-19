@@ -30,6 +30,7 @@ public class AbilityCooldown {
         this.timeInSeconds = timeInSeconds;
         this.i = i;
     }
+    
  
     public static boolean isInCooldown(UUID id, String cooldownName){
         if(getTimeLeft(id, cooldownName)>=1){

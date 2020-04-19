@@ -22,6 +22,9 @@ import org.bukkit.material.Door;
 import org.bukkit.material.Gate;
 import org.bukkit.material.TrapDoor;
 
+import com.alessiodp.parties.bukkit.addons.external.MythicMobsHandler;
+
+import io.lumine.xikage.mythicmobs.MythicMobs;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 

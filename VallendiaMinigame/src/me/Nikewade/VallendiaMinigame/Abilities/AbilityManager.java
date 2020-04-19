@@ -15,6 +15,7 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 
@@ -140,6 +141,7 @@ public class AbilityManager {
         abilities.add(new VendettaAbility());
         abilities.add(new AcidRainAbility());
         abilities.add(new NightCrawlerAbility());
+        abilities.add(new FavouredEnemyAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);
@@ -450,6 +452,52 @@ public class AbilityManager {
 			
 			Main.saveConfig();
 		}
+	}
+	
+	
+	
+	public static ItemStack locateAbilityItem(Player p, String abilityname)
+	{
+		ItemStack itemstack = null;
+		String slot = null;
+		for(int x = 1; x < 7; x++)
+		{
+			if(AbilityManager.getAbilitySlot(Integer.toString(x), p).equalsIgnoreCase(abilityname))
+			{
+				slot = Integer.toString(x);
+				break;
+			}
+		}
+		
+		if(slot == null)
+		{
+			return null;
+		}
+		
+		
+		for(ItemStack item : p.getInventory().getContents())
+		{
+			if(item != null)
+			{
+				if(item.getType() == Material.INK_SACK && item.getDurability() == 10 && item.getItemMeta().hasLore())
+				{
+					for(String s : item.getItemMeta().getLore())
+					{
+						if(s.equalsIgnoreCase(Utils.Colorate("&8&lSlot " + slot)))
+						{
+							itemstack = item;
+							break;
+						}
+					}
+				}
+			}
+		}
+		
+        
+		
+		
+		return itemstack;
+		
 	}
 	
 	

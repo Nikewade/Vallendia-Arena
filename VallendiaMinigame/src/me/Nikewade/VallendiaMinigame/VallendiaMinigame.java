@@ -42,6 +42,8 @@ import me.Nikewade.VallendiaMinigame.Commands.ReloadCommand;
 import me.Nikewade.VallendiaMinigame.Commands.ShopCommand;
 import me.Nikewade.VallendiaMinigame.Commands.SpawnCommand;
 import me.Nikewade.VallendiaMinigame.Commands.StatsCommand;
+import me.Nikewade.VallendiaMinigame.Commands.TutorialNextCommand;
+import me.Nikewade.VallendiaMinigame.Commands.TutorialQuitCommand;
 import me.Nikewade.VallendiaMinigame.Commands.VallendiaMainCommand;
 import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Events.AltitudeChecker;
@@ -157,14 +159,12 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.protocolManager = ProtocolLibrary.getProtocolManager();
 		   this.worldguard = getWorldGuard();
 	       this.fallingblocks = new FallingBlocksManager(this);
-	      
-	       
-	       
 	       if (getServer().getPluginManager().getPlugin("Parties") != null) {
 	    	    if (getServer().getPluginManager().getPlugin("Parties").isEnabled()) {
 	    	    	this.parties = Parties.getApi();
 	    	    }
 	    	}
+	       
 	       
 	        if (!setupPermissions() ) {
 	            Bukkit.getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
@@ -287,6 +287,8 @@ public class VallendiaMinigame extends JavaPlugin{
 	        handler.register("spawn", new SpawnCommand());
 	        handler.register("level", new LevelCommand());
 	        handler.register("cooldown", new CooldownCommand());
+	        handler.register("next", new TutorialNextCommand());
+	        handler.register("quit", new TutorialQuitCommand());
 	        getCommand("vallendia").setExecutor(handler);
 	    }
 	    

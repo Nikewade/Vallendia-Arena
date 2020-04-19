@@ -19,6 +19,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityBreakDoorEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -26,6 +28,9 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import io.lumine.xikage.mythicmobs.MythicMobs;
+import io.lumine.xikage.mythicmobs.adapters.AbstractEntity;
+import io.lumine.xikage.mythicmobs.mobs.ActiveMob;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
@@ -246,6 +251,20 @@ public PlayerBlockEvents(VallendiaMinigame Main)
         {
             e.setCancelled(true);
         }
+    }
+    
+    
+    
+    
+    @EventHandler
+    public void onMobTarget(EntityTargetLivingEntityEvent e)
+    {
+		Language.sendVallendiaBroadcast("TARGET!");	
+    	if(MythicMobs.inst().getAPIHelper().isMythicMob(e.getEntity()))
+    	{
+    		ActiveMob m = (ActiveMob) MythicMobs.inst().getAPIHelper().getMythicMobInstance(e.getEntity());
+    		Language.sendVallendiaBroadcast(m.getEntity().getTarget().getName());
+    	}
     }
 	
 	

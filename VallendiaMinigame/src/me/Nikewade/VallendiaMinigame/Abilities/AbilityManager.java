@@ -12,10 +12,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.CustomEvents.BuyAbilityEvent;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
-import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 
@@ -451,6 +451,10 @@ public class AbilityManager {
 	        p.sendTitle(Utils.Colorate("&3&lAbility " + abilityname), "", 20, 40, 40);
 	        p.playSound(p.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 2, 0);
 	        Main.levelmanager.addEXP(p, Main.getConfig().getInt("Abilities." + abilityname + "." + Main.kitmanager.getKit(p).getName(false).toLowerCase() + ".exp"));
+	        
+	        //EVENT FIRE BuyAbilityEvent
+	        BuyAbilityEvent event = new BuyAbilityEvent(p, abilityname);
+	        Bukkit.getPluginManager().callEvent(event);
 			
 		}else
 		{

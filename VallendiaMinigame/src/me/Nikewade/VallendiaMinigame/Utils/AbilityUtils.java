@@ -26,7 +26,6 @@ import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
@@ -55,9 +54,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
-import com.SirBlobman.combatlogx.CombatLogX;
-import com.SirBlobman.combatlogx.event.PlayerUntagEvent.UntagReason;
-import com.SirBlobman.combatlogx.utility.CombatUtil;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
@@ -65,6 +61,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.FlyAbility;
+import me.Nikewade.VallendiaMinigame.CustomEvents.BuyAbilityEvent;
 import me.Nikewade.VallendiaMinigame.Events.PlayerItemEvents;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import me.Nikewade.VallendiaMinigame.Saves.FireLocations;
@@ -1856,9 +1853,7 @@ public class AbilityUtils implements Listener {
         			}
         		}
         	}
-        	
-        	
-        	
+   
             
  
         };
@@ -2075,8 +2070,6 @@ public class AbilityUtils implements Listener {
  	 	  }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
  			particleEffect.start();
     }
-    
-    
     
     
     	

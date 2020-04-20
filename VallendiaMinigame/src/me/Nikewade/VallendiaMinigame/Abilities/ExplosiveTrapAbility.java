@@ -144,9 +144,9 @@ public class ExplosiveTrapAbility implements Ability, Listener {
 						// TODO Auto-generated method stub
 	                	for(Entity e : AbilityUtils.getAoeTargets(p, loc, 2, 2.8, 2))
 	                	{
-	        				AbilityUtils.explode(loc, p, 5, damage, false, true, true);
 							Language.sendAbilityUseMessage((LivingEntity) e, "You triggered a trap!", "explosive trap");
 	                	}
+        				AbilityUtils.explode(loc, p, 5, damage, false, true, true);
 						Language.sendAbilityUseMessage(p, "Your trap was triggered!", "explosive trap");
 					}
 					

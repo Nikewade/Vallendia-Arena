@@ -22,6 +22,7 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Abilities.BandageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RageAbility;
@@ -110,6 +111,7 @@ public class PlayerDeathEvents implements Listener {
 	      AbilityUtils.removeAllStuns(p);
 	      BandageAbility.removeBandage(p);
 	      SurvivalistAbility.removeEnabled(p);
+	      AbilityManager.removeAllAbilityData(p);
 	      this.Main.playerdatamanager.addData(p.getUniqueId(), "Deaths", 1);
 	      AbilityUtils.removeCast(p);
 	      

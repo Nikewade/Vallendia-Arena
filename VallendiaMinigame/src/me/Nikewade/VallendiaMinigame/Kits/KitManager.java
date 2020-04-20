@@ -20,6 +20,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
@@ -288,6 +289,7 @@ public class KitManager {
 		p.setFoodLevel(19);
         Main.upgrademanager.resetUpgrades(p);
         Main.abilitymanager.resetAbilities(p);
+		AbilityManager.removeAllAbilityData(p);
         Main.levelmanager.resetLevel(p);
         Main.levelmanager.resetExp(p);
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "KillStreak", 0);

@@ -62,9 +62,6 @@ public class SneakAbility implements Ability , Listener {
 
 	@Override
 	public boolean RunAbility(Player p) {
-		
-		
-		
 		if(sneaking.contains(p))
 		{
 			sneaking.remove(p);
@@ -175,6 +172,7 @@ public class SneakAbility implements Ability , Listener {
         	sneaking.remove(p.getPlayer());
     		p.getPlayer().setSneaking(false);
     	}
+		AbilityManager.removeAbilityData("Sneak", p);
 	}
 
 }

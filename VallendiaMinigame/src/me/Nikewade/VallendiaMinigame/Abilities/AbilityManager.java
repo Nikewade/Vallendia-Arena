@@ -24,6 +24,8 @@ public class AbilityManager {
 	private ArrayList<Ability> abilities = new ArrayList<Ability>();
 	private HashMap<UUID, Long> cooldown = new HashMap<>();
 	private static HashMap<Player, ArrayList<String>> playerAbilities = new HashMap<>();
+	//Hashmap Ability name , SLOT
+	private static HashMap<Player, HashMap<String, String>> abilitySlots = new HashMap<>();
 	
 	
 	public AbilityManager(VallendiaMinigame Main)
@@ -172,37 +174,46 @@ public class AbilityManager {
 		String slot5 = AbilityManager.getAbilitySlot("5", p);
 		String slot6 = AbilityManager.getAbilitySlot("6", p);
 		ArrayList<String> playerAbilitiesList = new ArrayList<String>();
+		HashMap<String, String> playerAbilitySlots = new HashMap<>();
 		if(slot1 != "empty")
 		{
 			playerAbilitiesList.add(slot1);	
+			playerAbilitySlots.put(slot1, "1");
 		}
 		if(slot2 != "empty")
 		{
 			playerAbilitiesList.add(slot2);	
+			playerAbilitySlots.put(slot2, "2");
 		}
 		if(slot3 != "empty")
 		{
 			playerAbilitiesList.add(slot3);	
+			playerAbilitySlots.put(slot3, "3");
 		}
 		if(slot4 != "empty")
 		{
 			playerAbilitiesList.add(slot4);	
+			playerAbilitySlots.put(slot4, "4");
 		}
 		if(slot5 != "empty")
 		{
 			playerAbilitiesList.add(slot5);	
+			playerAbilitySlots.put(slot5, "5");
 		}
 		if(slot6 != "empty")
 		{
 			playerAbilitiesList.add(slot6);	
+			playerAbilitySlots.put(slot6, "6");
 		}
 		
 		playerAbilities.put(p, playerAbilitiesList);
+		abilitySlots.put(p, playerAbilitySlots);
 	}
 	
 	public static void unsaveAbilities(Player p)
 	{
 		playerAbilities.get(p).clear();
+		abilitySlots.get(p).clear();
 	}
 	
 	//Disables all abilities except the one that is specified 
@@ -233,6 +244,49 @@ public class AbilityManager {
 	public static String getAbilitySlot(String slot, Player p)
 	{
 		return VallendiaMinigame.getInstance().playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities.slot " + slot);
+	}
+	
+	public static String getSlotOfAbility(String abilityname, Player p)
+	{
+		if(abilitySlots.containsKey(p))
+		{
+			HashMap<String, String> h = abilitySlots.get(p);
+			
+			if(h.containsKey(abilityname))
+			{
+				return h.get(abilityname);
+			}
+		}
+		return null;
+	}
+	
+	
+	public static String getAbilityData(String abilityname, Player p)
+	{
+		return VallendiaMinigame.getInstance().playerdatamanager.getPlayerStringData(p.getUniqueId(), "Abilities.slot " + 
+	AbilityManager.getSlotOfAbility(abilityname, p) + " data");
+	}
+	
+	public static void addAbilityData(String abilityname, Player p, String data)
+	{
+		VallendiaMinigame.getInstance().playerdatamanager.editData(p.getUniqueId(), "Abilities.slot " + 
+	AbilityManager.getSlotOfAbility(abilityname, p) + " data", data);
+	}
+	
+	
+	public static void removeAbilityData(String abilityname, Player p)
+	{
+		VallendiaMinigame.getInstance().playerdatamanager.editData(p.getUniqueId(), "Abilities.slot " + 
+	AbilityManager.getSlotOfAbility(abilityname, p) + " data", "empty");
+	}
+	
+	
+	public static void removeAllAbilityData(Player p)
+	{
+		for(int x = 1; x < 7; x++)
+		{
+			VallendiaMinigame.getInstance().playerdatamanager.editData(p.getUniqueId(), "Abilities.slot " + x + " data", "empty");	
+		}
 	}
 	
 	public int getPrice(String ability, Player p)
@@ -336,9 +390,12 @@ public class AbilityManager {
 				Main.playerdatamanager.editData(p.getUniqueId(), slot, abilityname);	
 				if(previousAbility != null)
 				{
+					AbilityManager.removeAbilityData(previousAbility, p);
 					playerAbilities.get(p).remove(previousAbility);	
+					abilitySlots.get(p).remove(previousAbility);
 				}
 				playerAbilities.get(p).add(abilityname);
+				abilitySlots.get(p).put(abilityname, Integer.toString(abilityslot));
 			}else
 			{
 				int x = -1;
@@ -358,9 +415,12 @@ public class AbilityManager {
 				
 				if(previousAbility != null)
 				{
+					AbilityManager.removeAbilityData(previousAbility, p);
 					playerAbilities.get(p).remove(previousAbility);	
+					abilitySlots.get(p).remove(previousAbility);
 				}
 				playerAbilities.get(p).add(abilityname);
+				abilitySlots.get(p).put(abilityname, Integer.toString(abilityslot));
 				
 			}
 			
@@ -411,6 +471,7 @@ public class AbilityManager {
 		Main.playerdatamanager.editData(p.getUniqueId(), "Abilities.slot 6", "empty");
 
 		playerAbilities.get(p).clear();
+		abilitySlots.get(p).clear();
 	}
 	
 	

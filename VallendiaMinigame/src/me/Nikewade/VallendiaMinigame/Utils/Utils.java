@@ -2,6 +2,7 @@ package me.Nikewade.VallendiaMinigame.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
@@ -21,10 +23,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.Skull;
+import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
@@ -41,19 +46,23 @@ import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
-import com.SirBlobman.combatlogx.event.PlayerUntagEvent.UntagReason;
-import com.SirBlobman.combatlogx.utility.CombatUtil;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.WorldBorderAction;
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
+import com.mojang.authlib.properties.PropertyMap;
 
 import de.slikey.effectlib.Effect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import net.minecraft.server.v1_12_R1.BlockPosition;
 import net.minecraft.server.v1_12_R1.EnumItemSlot;
 import net.minecraft.server.v1_12_R1.PacketPlayOutEntityEquipment;
 import net.minecraft.server.v1_12_R1.PacketPlayOutPosition;
+import net.minecraft.server.v1_12_R1.TileEntitySkull;
 import net.minecraft.server.v1_12_R1.PacketPlayOutPosition.EnumPlayerTeleportFlags;
 
 public class Utils {
@@ -480,5 +489,57 @@ public class Utils {
 	    }
 
 	    
+	    
+	    public static ItemStack getItem(String b64stringtexture) {
+	    	GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+	        PropertyMap propertyMap = profile.getProperties();
+	        if (propertyMap == null) {
+	            throw new IllegalStateException("Profile doesn't contain a property map");
+	        }
+	        propertyMap.put("textures", new Property("textures", b64stringtexture));
+	        ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+	        ItemMeta headMeta = head.getItemMeta();
+	        Class<?> headMetaClass = headMeta.getClass();
+	        try {
+	    		getField(headMetaClass, "profile", GameProfile.class, 0).set(headMeta, profile);
+	    	} catch (IllegalArgumentException e) {
+	    		e.printStackTrace();
+	    	} catch (IllegalAccessException e) {
+	    		e.printStackTrace();
+	    	}
+	        head.setItemMeta(headMeta);
+	        return head;
+	    }
+
+	    private static <T> Field getField(Class<?> target, String name, Class<T> fieldType, int index) {
+	        for (final Field field : target.getDeclaredFields()) {
+	            if ((name == null || field.getName().equals(name)) && fieldType.isAssignableFrom(field.getType()) && index-- <= 0) {
+	                field.setAccessible(true);
+	                return field;
+	            }
+	        }
+
+	        // Search in parent classes
+	        if (target.getSuperclass() != null)
+	            return getField(target.getSuperclass(), name, fieldType, index);
+	        throw new IllegalArgumentException("Cannot find field with type " + fieldType);
+	    }
+	    
+		
+		public static void setSkullUrl(String skinUrl, Block block) {
+		    block.setType(Material.SKULL);
+		    Skull skullData = (Skull)block.getState();
+		    skullData.setSkullType(SkullType.PLAYER);
+		 
+		    TileEntitySkull skullTile = (TileEntitySkull)((CraftWorld)block.getWorld()).getHandle().getTileEntity(new BlockPosition(block.getX(), block.getY(), block.getZ()));
+		    skullTile.setGameProfile(getNonPlayerProfile(skinUrl));
+		    block.getState().update(true);
+		}
+		
+		public static GameProfile getNonPlayerProfile(String skinURL) {
+		    GameProfile newSkinProfile = new GameProfile(UUID.randomUUID(), null);
+		    newSkinProfile.getProperties().put("textures", new Property("textures", Base64Coder.encodeString("{textures:{SKIN:{url:\"" + skinURL + "\"}}}")));
+		    return newSkinProfile;
+		}
 
 }

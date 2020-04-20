@@ -51,7 +51,7 @@ public class BlurAbility implements Ability, Listener{
 		// TODO Auto-generated method stub
 		return Arrays.asList("For " + enabledTime + " seconds, your body becomes",
 				"blurred, shifting and wavering. All melee or ranged",
-				"attacks done to you have a 25% chance to miss.");
+				"attacks done to you have a 50% chance to miss.");
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class BlurAbility implements Ability, Listener{
         			if(e.getCause() == DamageCause.ENTITY_ATTACK || e.getCause() == DamageCause.PROJECTILE || e.getCause() == DamageCause.ENTITY_EXPLOSION)
         			{
             			int random = Utils.randomNumber(1, 100);
-            			if(random <= 25)
+            			if(random <= 50)
             			{
                 			e.getEntity().getWorld().playSound(e.getEntity().getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 2, (float) 1.6);
                 			e.setDamage(0);

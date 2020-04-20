@@ -31,7 +31,6 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory.ClickRunnable;
 
 public class FavouredEnemyAbility implements Ability, Listener{
-	HashMap<Player, Kit> chosenEnemy = new HashMap<>();
 	int morepercent = 20;
 	int lesspercent = 10;
 
@@ -66,11 +65,12 @@ public class FavouredEnemyAbility implements Ability, Listener{
 	@Override
 	public boolean RunAbility(Player p) {
 		// TODO Auto-generated method stub
-		if(chosenEnemy.containsKey(p))
-		{
-			Language.sendAbilityUseMessage(p, "Your Favoured Enemy is " + chosenEnemy.get(p).getName(true), "Favoured Enemy");
+			if(!(AbilityManager.getAbilityData("Favoured Enemy", p).equalsIgnoreCase("empty")))
+			{
+			Language.sendAbilityUseMessage(p, "Your Favoured Enemy is " + AbilityManager.getAbilityData(this.getName(), p), "Favoured Enemy");
 			return true;
-		}
+			}
+		
 		openChooseEnemyMenu(p);
 		  
 		return false;
@@ -109,9 +109,9 @@ public class FavouredEnemyAbility implements Ability, Listener{
 		
 		Player target = (Player) e.getEntity();
 		
-		if(chosenEnemy.containsKey(p))
+		if(!AbilityManager.getAbilityData(this.getName(), p).equalsIgnoreCase("empty"));
 		{
-			if(chosenEnemy.get(p).getName(false) == VallendiaMinigame.getInstance().kitmanager.getKit(target).getName(false))
+			if(AbilityManager.getAbilityData(this.getName(), p).equalsIgnoreCase(VallendiaMinigame.getInstance().kitmanager.getKit(target).getName(false)))
 			{
 
 	            double damage = e.getFinalDamage();
@@ -123,9 +123,9 @@ public class FavouredEnemyAbility implements Ability, Listener{
 			}
 		}
 		
-		if(chosenEnemy.containsKey(target))
+		if(!AbilityManager.getAbilityData(this.getName(), p).equalsIgnoreCase("empty"))
 		{
-			if(chosenEnemy.get(target).getName(false) == VallendiaMinigame.getInstance().kitmanager.getKit(p).getName(false))
+			if(AbilityManager.getAbilityData(this.getName(), target).equalsIgnoreCase(VallendiaMinigame.getInstance().kitmanager.getKit(p).getName(false)))
 			{
         		double lowerPercent =  Utils.getPercentHigherOrLower(lesspercent, false);
         		double damage = e.getFinalDamage()*lowerPercent;
@@ -195,9 +195,9 @@ public class FavouredEnemyAbility implements Ability, Listener{
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	chosenEnemy.put(ep, kit);
+		    	AbilityManager.addAbilityData("Favoured Enemy", p, kit.getName(false));
 		    	ep.closeInventory();
-				Language.sendAbilityUseMessage(p, "You chose " + chosenEnemy.get(p).getName(true) + Utils.Colorate("&8 as your Favoured Enemy!"), "Favoured Enemy");
+				Language.sendAbilityUseMessage(p, "You chose " + AbilityManager.getAbilityData("Favoured Enemy", ep) + Utils.Colorate("&8 as your Favoured Enemy!"), "Favoured Enemy");
 				ep.playSound(ep.getLocation(), Sound.BLOCK_END_PORTAL_SPAWN, 1, 0.5F);
 		    }
 		}, description );

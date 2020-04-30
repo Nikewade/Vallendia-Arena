@@ -255,17 +255,6 @@ public PlayerBlockEvents(VallendiaMinigame Main)
     
     
     
-    
-    @EventHandler
-    public void onMobTarget(EntityTargetLivingEntityEvent e)
-    {
-		Language.sendVallendiaBroadcast("TARGET!");	
-    	if(MythicMobs.inst().getAPIHelper().isMythicMob(e.getEntity()))
-    	{
-    		ActiveMob m = (ActiveMob) MythicMobs.inst().getAPIHelper().getMythicMobInstance(e.getEntity());
-    		Language.sendVallendiaBroadcast(m.getEntity().getTarget().getName());
-    	}
-    }
 	
 	
 }

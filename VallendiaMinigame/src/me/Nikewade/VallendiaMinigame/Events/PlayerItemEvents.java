@@ -45,6 +45,7 @@ import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import me.kvq.supertrailspro.API.SuperTrailsAPI;
 import net.md_5.bungee.api.ChatColor;
 
 public class PlayerItemEvents implements Listener {
@@ -182,6 +183,7 @@ public class PlayerItemEvents implements Listener {
 			    	            				if(e instanceof LivingEntity && e != p)
 			    	            				{
 			    	            					AbilityUtils.damageEntity((LivingEntity)e, p, 1);
+			    	            					p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1, 1.3F);
 			    	            					this.cancel();
 			    	            					return;
 			    	            				}

@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
@@ -17,9 +17,7 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Abilities.BandageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
-import me.Nikewade.VallendiaMinigame.Abilities.LastStandAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
-import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Upgrades.RegenUpgrade;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
@@ -121,12 +119,11 @@ public class PlayerJoinEvents implements Listener{
 		}
 		
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onChat(PlayerChatEvent e)
+	public void onChat(AsyncPlayerChatEvent e)
 	{
 		Player p = e.getPlayer();
-		e.setFormat (Utils.Colorate("&8&l[" + Language.getPlayerPrefix(p) + "&lLevel " + Main.levelmanager.getLevel(p) + "&8&l] "
+		e.setFormat(Utils.Colorate("&8&l[" + Language.getPlayerPrefix(p) + "&lLevel " + Main.levelmanager.getLevel(p) + "&8&l] "
 					+ "&8&l" + Main.chat.getPlayerPrefix(p) + p.getName() + " > ") + e.getMessage());
 	}
 

@@ -4,20 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.adapters.AbstractEntity;
-import io.lumine.xikage.mythicmobs.api.exceptions.InvalidMobTypeException;
-import io.lumine.xikage.mythicmobs.mobs.ActiveMob;
+import de.slikey.effectlib.effect.ColoredImageEffect;
+import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
-import me.Nikewade.VallendiaMinigame.Utils.Language;
 
 public class ParticleTestAbility implements Ability, Listener{
 	ArrayList<Player> enabled = new ArrayList<>();
@@ -48,13 +45,33 @@ public class ParticleTestAbility implements Ability, Listener{
 
 	@Override
 	public boolean RunAbility(Player p) {
-		try {
-			ActiveMob  ent = MythicMobs.inst().getAPIHelper().getMythicMobInstance(MythicMobs.inst().getAPIHelper().spawnMythicMob("WolfCompanion", p.getLocation()));
-
-		} catch (InvalidMobTypeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+  		ColoredImageEffect se = new ColoredImageEffect(VallendiaMinigame.getInstance().effectmanager);
+  		se.fileName = "/home/mch/multicraft/servers/server61539/Untitled.png";
+  		se.setLocation(p.getLocation().add(0, 2, 0));
+  		se.pitch = p.getLocation().getPitch();
+  		se.enableRotation = false;
+  		se.transparency = true;
+  		se.stepX = 3;
+  		se.stepY = 3;
+  		se.period = 14;
+  		se.visibleRange = 20;
+  		se.start();
+		
+		
+		
+		
+		
+		
+		
+		
+//		try {
+//			ActiveMob  ent = MythicMobs.inst().getAPIHelper().getMythicMobInstance(MythicMobs.inst().getAPIHelper().spawnMythicMob("WolfCompanion", p.getLocation()));
+//
+//		} catch (InvalidMobTypeException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 
 		

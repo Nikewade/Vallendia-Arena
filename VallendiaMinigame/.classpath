@@ -13,5 +13,7 @@
 	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/ServerTutorialPlus-1.21.3-SNAPSHOT (2).jar"/>
 	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/MythicMobs-4.5.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/spigot.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/MiniaturePets (3).jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/SuperTrailsPro.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

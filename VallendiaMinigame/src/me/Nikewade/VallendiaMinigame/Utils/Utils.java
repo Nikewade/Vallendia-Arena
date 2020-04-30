@@ -67,6 +67,7 @@ import net.minecraft.server.v1_12_R1.PacketPlayOutPosition.EnumPlayerTeleportFla
 
 public class Utils {
 	public static HashMap<Location, BlockState> blocks = new HashMap<>();
+    private static List<Block> nonRegenBlocks = new ArrayList<Block>();
     private static List<String> changes = new LinkedList<String>();
     public static Map<Entity,Effect> particle = new HashMap<>();
 	private static Random random = new Random();
@@ -160,6 +161,10 @@ public class Utils {
 	  {
 				BlockState state = b.getState();
 				Location location = b.getLocation();
+				if(nonRegenBlocks.contains(b))
+				{
+					return;
+				}
 				if(!blocks.containsKey(location))
 				{
 					blocks.put(location, state);	
@@ -247,7 +252,6 @@ public class Utils {
 	            int x = Integer.parseInt(blockdata[3]);
 	            int y = Integer.parseInt(blockdata[4]);
 	            int z = Integer.parseInt(blockdata[5]);
-	          
 	            world.getBlockAt(x, y, z).setTypeId(id);
 	            world.getBlockAt(x, y, z).setData(data);
             	for(Entity e : world.getNearbyEntities(world.getBlockAt(x, y, z).getLocation(), 1, 1, 1))
@@ -300,6 +304,24 @@ public class Utils {
 	    }
 	   
 	   
+	   
+	   
+	   public static void makeNonRegenBlock(Location b)
+	   {
+		if(!nonRegenBlocks.contains(b))
+		{
+			nonRegenBlocks.add(b.getBlock());	
+		}
+	   }
+	   
+	   
+	   public static void removeNonRegenBlock(Location b)
+	   {
+		if(nonRegenBlocks.contains(b))
+		{
+			nonRegenBlocks.remove(b.getBlockX());	
+		}
+	   }
 	   
 	   public static int randomNumber(int lowest, int max)
 	   {

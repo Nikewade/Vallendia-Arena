@@ -46,6 +46,7 @@ import me.Nikewade.VallendiaMinigame.Commands.TutorialNextCommand;
 import me.Nikewade.VallendiaMinigame.Commands.TutorialQuitCommand;
 import me.Nikewade.VallendiaMinigame.Commands.VallendiaMainCommand;
 import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
+import me.Nikewade.VallendiaMinigame.Donations.PetParticleEvents;
 import me.Nikewade.VallendiaMinigame.Events.AltitudeChecker;
 import me.Nikewade.VallendiaMinigame.Events.PlayerBlockEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerCustomFoodCookEvents;
@@ -77,6 +78,8 @@ import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
 import me.Nikewade.VallendiaMinigame.Utils.FallingBlocksManager;
 import me.Nikewade.VallendiaMinigame.Utils.FileManager;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import me.kvq.supertrailspro.SuperTrails;
+import me.kvq.supertrailspro.API.SuperTrailsAPI;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
 
@@ -190,6 +193,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
 		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(new SpawnCommand(), this);
+		   new PetParticleEvents(this);
 		   
 		   //Ability Listeners
 		   

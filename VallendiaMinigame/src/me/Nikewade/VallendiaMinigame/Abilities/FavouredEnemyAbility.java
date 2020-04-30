@@ -18,9 +18,11 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.CustomEvents.BuyAbilityEvent;
 import me.Nikewade.VallendiaMinigame.Graphics.KitGui;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
@@ -79,6 +81,10 @@ public class FavouredEnemyAbility implements Ability, Listener{
 	@EventHandler
 	public void onDamage (EntityDamageByEntityEvent e)
 	{
+        if(e.getEntity().hasMetadata("NPC"))
+        {
+        	return;
+        }
         Player p = null;
         if(e.getDamager() instanceof Projectile)
         {
@@ -90,8 +96,7 @@ public class FavouredEnemyAbility implements Ability, Listener{
         	p = (Player) proj.getShooter();
         	
         	}
-        }else
-        {
+        }
         	if(e.getDamager() instanceof Player)
         	{
         	p = (Player) e.getDamager();
@@ -100,17 +105,16 @@ public class FavouredEnemyAbility implements Ability, Listener{
         	{
         		return;
         	}
-        }
+        
         
         if(!(e.getEntity() instanceof Player))
         {
         	return;
         }
+
 		
 		Player target = (Player) e.getEntity();
-		
-		if(!AbilityManager.getAbilityData(this.getName(), p).equalsIgnoreCase("empty"));
-		{
+
 			if(AbilityManager.getAbilityData(this.getName(), p).equalsIgnoreCase(VallendiaMinigame.getInstance().kitmanager.getKit(target).getName(false)))
 			{
 
@@ -121,7 +125,7 @@ public class FavouredEnemyAbility implements Ability, Listener{
 				e.setDamage(DamageModifier.ARMOR, newdamage);
 
 			}
-		}
+		
 		
 		if(!AbilityManager.getAbilityData(this.getName(), p).equalsIgnoreCase("empty"))
 		{
@@ -136,6 +140,22 @@ public class FavouredEnemyAbility implements Ability, Listener{
 		
 	}
 	
+	   @EventHandler
+	    public void onBuy (BuyAbilityEvent e)
+	    {
+	        new BukkitRunnable()
+	        {
+
+	        @Override
+	        public void run() {
+	            // TODO Auto-generated method stub
+	            if(e.getAbility() == "Favoured Enemy")
+	            {
+	                openChooseEnemyMenu(e.getPlayer());
+	            }
+	        }
+	        }.runTaskLater(VallendiaMinigame.getInstance(), 10);
+	    }
 	
 	
 	public void openChooseEnemyMenu(Player p)

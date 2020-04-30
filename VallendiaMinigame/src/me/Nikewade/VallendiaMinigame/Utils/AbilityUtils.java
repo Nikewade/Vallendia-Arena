@@ -54,6 +54,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
+import com.kirelcodes.miniaturepets.MiniaturePets;
+import com.kirelcodes.miniaturepets.api.Particale;
+import com.kirelcodes.miniaturepets.utils.APIUtils;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
@@ -61,7 +64,6 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.FlyAbility;
-import me.Nikewade.VallendiaMinigame.CustomEvents.BuyAbilityEvent;
 import me.Nikewade.VallendiaMinigame.Events.PlayerItemEvents;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import me.Nikewade.VallendiaMinigame.Saves.FireLocations;
@@ -260,7 +262,8 @@ public class AbilityUtils implements Listener {
 	      List<Entity> nearbyEntities = p.getNearbyEntities(range, range, range);
 	      for (Entity entity : nearbyEntities) {
 	        if (((entity instanceof LivingEntity)) && entity != p && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
-	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)) {
+	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand) 
+	          && !APIUtils.isPartOfMob((LivingEntity) entity) && !APIUtils.isPartOfPet((LivingEntity) entity)) {
 	  	        if(entity instanceof Player)
 		        {
 		        	Player player = (Player) entity;
@@ -322,7 +325,8 @@ public class AbilityUtils implements Listener {
 	      List<Entity> nearbyEntities = p.getNearbyEntities(range, range, range);
 	      for (Entity entity : nearbyEntities) {
 	        if (((entity instanceof Player)) && entity != p && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
-	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)) {
+	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)
+	          && !APIUtils.isPartOfMob((LivingEntity) entity) && !APIUtils.isPartOfPet((LivingEntity) entity)) {
 	        	
 	  	        if(entity instanceof Player)
 		        {
@@ -376,7 +380,8 @@ public class AbilityUtils implements Listener {
 	      List<Entity> nearbyEntities = p.getNearbyEntities(range, range, range);
 	      for (Entity entity : nearbyEntities) {
 	        if (((entity instanceof Player)) && entity != p && (!entity.isDead()) && (((LivingEntity)entity).getHealth() != 0.0D) && 
-	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)) {
+	          (locs.contains(entity.getLocation().getBlock().getLocation())) && !(entity instanceof ArmorStand)
+	          && !APIUtils.isPartOfMob((LivingEntity) entity) && !APIUtils.isPartOfPet((LivingEntity) entity)) {
 	        	
 	  	        if(entity instanceof Player)
 		        {
@@ -462,7 +467,8 @@ public class AbilityUtils implements Listener {
 			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
 			for(Entity entity : loc.getWorld().getNearbyEntities(loc, Radiusx, Radiusy, Radiusz))
 			{
-				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand))
+				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand) && 
+						!APIUtils.isPartOfMob((LivingEntity) entity) && !APIUtils.isPartOfPet((LivingEntity) entity))
 				{
 					if(entity instanceof Player)
 					{
@@ -501,7 +507,8 @@ public class AbilityUtils implements Listener {
 			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
 			for(Entity entity : loc.getWorld().getNearbyEntities(loc, Radiusx, Radiusy, Radiusz))
 			{
-				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand))
+				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand) && 
+						!APIUtils.isPartOfMob((LivingEntity) entity) && !APIUtils.isPartOfPet((LivingEntity) entity))
 				{
 					if(entity instanceof Player)
 					{
@@ -533,7 +540,9 @@ public class AbilityUtils implements Listener {
 			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
 			for(Entity entity : loc.getWorld().getNearbyEntities(loc, Radiusx, Radiusy, Radiusz))
 			{
-				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand) || entity instanceof Projectile)
+				if(entity instanceof LivingEntity && !(entity == originplayer)  && 
+						!APIUtils.isPartOfMob((LivingEntity) entity) && 
+						!APIUtils.isPartOfPet((LivingEntity) entity) && !(entity instanceof ArmorStand) || entity instanceof Projectile)
 				{
 		        	
 		        	if(entity instanceof Projectile)
@@ -581,7 +590,8 @@ public class AbilityUtils implements Listener {
 			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
 			for(Entity entity : loc.getWorld().getNearbyEntities(loc, Radiusx, Radiusy, Radiusz))
 			{
-				if(entity instanceof Player && !(entity == originplayer) && !(entity instanceof ArmorStand))
+				if(entity instanceof Player && !(entity == originplayer) && !(entity instanceof ArmorStand)  && 
+						!APIUtils.isPartOfMob((LivingEntity) entity) && !APIUtils.isPartOfPet((LivingEntity) entity))
 				{
 					if(entity instanceof Player)
 					{
@@ -615,7 +625,8 @@ public class AbilityUtils implements Listener {
 			Collection<Entity> nearbyEntities = new ArrayList<Entity>();
 			for(Entity entity : loc.getWorld().getNearbyEntities(loc, Radiusx, Radiusy, Radiusz))
 			{
-				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand))
+				if(entity instanceof LivingEntity && !(entity == originplayer) && !(entity instanceof ArmorStand)  && 
+						!APIUtils.isPartOfMob((LivingEntity) entity) && !APIUtils.isPartOfPet((LivingEntity) entity))
 				{
 					if(entity instanceof Player)
 					{
@@ -1608,6 +1619,7 @@ public class AbilityUtils implements Listener {
         			explosivesEntities.remove(e.getEntity());
         		}
         	}
+        	
         	
         	@EventHandler
         	public void onEntityDamage(EntityDamageByEntityEvent e)

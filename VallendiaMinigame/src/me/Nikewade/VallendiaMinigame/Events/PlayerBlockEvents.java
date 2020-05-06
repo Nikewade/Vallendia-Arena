@@ -34,6 +34,7 @@ import io.lumine.xikage.mythicmobs.mobs.ActiveMob;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import nl.martenm.servertutorialplus.api.events.TutorialEndEvent;
 
 
 public class PlayerBlockEvents implements Listener {
@@ -53,6 +54,7 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 		regenTime = 120;
 	}
 }
+
 	//END GATE TELEPORT
 	@EventHandler
 	public void onMove(PlayerMoveEvent e)

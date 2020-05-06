@@ -47,6 +47,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import me.kvq.supertrailspro.API.SuperTrailsAPI;
 import net.md_5.bungee.api.ChatColor;
+import nl.martenm.servertutorialplus.api.ServerTutorialApi;
 
 public class PlayerItemEvents implements Listener {
 	VallendiaMinigame Main;
@@ -74,6 +75,17 @@ public class PlayerItemEvents implements Listener {
 	    if (a == Action.RIGHT_CLICK_AIR || a == Action.RIGHT_CLICK_BLOCK)
 	    {
 		    Player p = e.getPlayer();
+		    if(ServerTutorialApi.getApi().isInTutorial(p.getUniqueId()))
+		    {
+				if(!AbilityCooldown.isInCooldown(p.getUniqueId(), "rightclicktutorial"))
+				{  
+		    		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), "rightclicktutorial", 3, null);
+		    		c.start();	
+			    	Language.sendDefaultMessage(p, "You can't do this while in the tutorial!");	
+				}
+		    	e.setCancelled(true);
+		    	return;
+		    }
 		    ItemStack item = p.getInventory().getItemInMainHand();
 		    Material itemtype = item.getType();
 			if(!AbilityUtils.isStunned(p))

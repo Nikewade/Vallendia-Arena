@@ -1402,6 +1402,10 @@ public class AbilityUtils implements Listener {
         		{
         			for(Player player : Bukkit.getOnlinePlayers())
         			{
+        				if(AbilityUtils.partyCheck(player, p))
+        				{
+        					continue;
+        				}
         				player.hidePlayer(p);
         			}
         		}else 

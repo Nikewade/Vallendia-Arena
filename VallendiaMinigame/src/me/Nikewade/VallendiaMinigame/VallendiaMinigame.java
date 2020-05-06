@@ -39,6 +39,7 @@ import me.Nikewade.VallendiaMinigame.Commands.LevelCommand;
 import me.Nikewade.VallendiaMinigame.Commands.PointsCommand;
 import me.Nikewade.VallendiaMinigame.Commands.RegenCommand;
 import me.Nikewade.VallendiaMinigame.Commands.ReloadCommand;
+import me.Nikewade.VallendiaMinigame.Commands.ResetKitCommand;
 import me.Nikewade.VallendiaMinigame.Commands.ShopCommand;
 import me.Nikewade.VallendiaMinigame.Commands.SpawnCommand;
 import me.Nikewade.VallendiaMinigame.Commands.StatsCommand;
@@ -78,8 +79,6 @@ import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
 import me.Nikewade.VallendiaMinigame.Utils.FallingBlocksManager;
 import me.Nikewade.VallendiaMinigame.Utils.FileManager;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
-import me.kvq.supertrailspro.SuperTrails;
-import me.kvq.supertrailspro.API.SuperTrailsAPI;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
 
@@ -293,6 +292,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	        handler.register("cooldown", new CooldownCommand());
 	        handler.register("next", new TutorialNextCommand());
 	        handler.register("quit", new TutorialQuitCommand());
+	        handler.register("resetkit", new ResetKitCommand());
 	        getCommand("vallendia").setExecutor(handler);
 	    }
 	    

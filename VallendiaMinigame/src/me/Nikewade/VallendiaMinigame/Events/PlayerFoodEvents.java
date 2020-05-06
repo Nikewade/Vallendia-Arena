@@ -113,7 +113,7 @@ public class PlayerFoodEvents implements Listener {
 				                    if(p.getHealth() == p.getMaxHealth() || (p.getHealth() + healAmount > p.getMaxHealth()))
 				                    {
 				                    	healing.remove(p);
-				                    	p.setHealth(p.getMaxHealth());
+							    	 	AbilityUtils.healEntity(p, p.getMaxHealth());
 				                    	Language.sendDefaultMessage(p, "You have stopped regenerating health.");
 				                    	cancel();
 				                    	return;
@@ -126,10 +126,9 @@ public class PlayerFoodEvents implements Listener {
 						    	 		cancel();
 						    	 		return;
 						    	 	}
-						    	 	
+						    	 	AbilityUtils.healEntity(p, healAmount);
 						    	 	if(!AbilityUtils.isInvisible(p))
 						    	 	{
-					                    p.setHealth(p.getHealth() + healAmount);
 					                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
 					                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
 					                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 	

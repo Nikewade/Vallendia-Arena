@@ -43,7 +43,7 @@ public class SpawnCommand implements CommandInterface, Listener{
 	HashMap<Player, BukkitTask> tasks2 = new HashMap<>();
 	
 	int warmup = 15;
-	int cooldown = 120;
+	int cooldown = 240;
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -123,6 +123,7 @@ public class SpawnCommand implements CommandInterface, Listener{
 			if(ServerTutorialApi.getApi().isInTutorial(p.getUniqueId()))
 			{
 				e.setCancelled(true);
+				Language.sendDefaultMessage(p, "You can't do this while in the tutorial!");
 				return;
 			}
 			if(CombatUtil.isInCombat(p))

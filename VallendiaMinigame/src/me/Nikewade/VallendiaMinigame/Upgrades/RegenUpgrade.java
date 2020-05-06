@@ -69,11 +69,7 @@ public class RegenUpgrade implements Upgrade{
             public void run() {	
                 	if(p.getHealth() < p.getMaxHealth())
                 	{
-                    	if(p.getHealth() >= p.getMaxHealth() - 1)
-                    	{
-                    		p.setHealth(p.getMaxHealth());
-                    	}else
-                		p.setHealth(p.getHealth() + 1);
+                		AbilityUtils.healEntity(p, 1);
                 		if(!AbilityUtils.isInvisible(p))
                 		{
                 	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);

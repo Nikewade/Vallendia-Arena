@@ -2,6 +2,7 @@ package me.Nikewade.VallendiaMinigame.Events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,6 +25,8 @@ import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import nl.martenm.servertutorialplus.api.ServerTutorialApi;
+import nl.martenm.servertutorialplus.api.events.TutorialEndEvent;
 
 public class PlayerJoinEvents implements Listener{
 	VallendiaMinigame Main;
@@ -42,7 +45,6 @@ public class PlayerJoinEvents implements Listener{
 		Player p = e.getPlayer();
         Main.playerdatamanager.createFile(p);
 		RegenUpgrade.addTimer(p);
-        
         new BukkitRunnable()
         {
 
@@ -53,11 +55,12 @@ public class PlayerJoinEvents implements Listener{
 					Main.kitmanager.giveKit(p, "starter");
 					p.setExp(0);
 					p.setLevel(1);
+					ServerTutorialApi.getApi().startTutorial("ValTut", p);
 				}
 		        Main.sb.setupPlayerScoreboard(p);
 			}
         	
-        }.runTaskLater(Main, 40);
+        }.runTaskLater(Main, 20);
        // Main.sb.runScoreboard(p);
 		e.getPlayer().setGravity(true);
 		
@@ -119,12 +122,29 @@ public class PlayerJoinEvents implements Listener{
 		}
 		
 	
+	//Tutorial leave
+	@EventHandler
+	public void handlestop(TutorialEndEvent e){
+		new BukkitRunnable()
+		{
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				e.getPlayer().teleport(new Location(e.getPlayer().getLocation().getWorld(), -107.5, 65, -638.5, 0, 0));
+			}
+			
+		}.runTaskLater(VallendiaMinigame.getInstance(), 2);
+	}
+	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(AsyncPlayerChatEvent e)
 	{
 		Player p = e.getPlayer();
-		e.setFormat(Utils.Colorate("&8&l[" + Language.getPlayerPrefix(p) + "&lLevel " + Main.levelmanager.getLevel(p) + "&8&l] "
-					+ "&8&l" + Main.chat.getPlayerPrefix(p) + p.getName() + " > ") + e.getMessage());
+		e.setMessage(Utils.Colorate("&8&l[" + Language.getPlayerPrefix(p) + "&lLevel " + Main.levelmanager.getLevel(p) + "&8&l] "
+				+ "&8&l" + Main.chat.getPlayerPrefix(p) + p.getName() + " > ") + e.getMessage());
+		
+		e.setFormat("%2$s");
 	}
 
 }

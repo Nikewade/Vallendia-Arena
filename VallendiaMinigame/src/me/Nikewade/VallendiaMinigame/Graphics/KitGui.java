@@ -37,14 +37,14 @@ public class KitGui {
 		  Kit archer = km.kit("archer");
 		  Kit assassin = km.kit("assassin");
 		  Kit mage = km.kit("mage");
-		  kitInv.setItem(new ItemStack(Material.IRON_SWORD), Utils.Colorate("&4&lWarrior"), 10, new ClickRunnable() {
+		  kitInv.setItem(new ItemStack(Material.IRON_SWORD), Utils.Colorate("&4&lWarrior &8&l[ &a&lEASY&8&l ]"), 10, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    		KitGui.this.yesNoMenu((Player) e.getWhoClicked(), warrior);
 			    }
 			}, warrior.getDescription(), warrior.getDescription2());
 		  
-		  kitInv.setItem(new ItemStack(Material.BOW), Utils.Colorate("&2&lArcher"), 12, new ClickRunnable() {
+		  kitInv.setItem(new ItemStack(Material.BOW), Utils.Colorate("&2&lArcher &8&l[ &e&lMODERATE&8&l ]"), 12, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			        	KitGui.this.yesNoMenu((Player) e.getWhoClicked(), archer);
@@ -54,14 +54,14 @@ public class KitGui {
 		  ItemStack helm = new ItemStack(Material.LEATHER_HELMET);
 		  LeatherArmorMeta helmmeta = (LeatherArmorMeta) helm.getItemMeta();
 		  helmmeta.setColor(Color.BLACK);
-		  kitInv.setItem(new ItemStack(helm), Utils.Colorate("&8&lAssassin"), 14, new ClickRunnable() {
+		  kitInv.setItem(new ItemStack(helm), Utils.Colorate("&8&lAssassin &8&l[ &e&lMODERATE&8&l ]"), 14, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    		KitGui.this.yesNoMenu((Player) e.getWhoClicked(), assassin);
 			    }
 			}, assassin.getDescription(), assassin.getDescription2());
 		  
-		  kitInv.setItem(new ItemStack(Material.EYE_OF_ENDER), Utils.Colorate("&3&lMage"), 16, new ClickRunnable() {
+		  kitInv.setItem(new ItemStack(Material.EYE_OF_ENDER), Utils.Colorate("&3&lMage &8&l[ &4&lHARD&8&l ]"), 16, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    		KitGui.this.yesNoMenu((Player) e.getWhoClicked(), mage);

@@ -25,7 +25,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class BlindingArrowsAbility implements Ability, Listener {
     private static Map<Projectile,SphereEffect> arrow = new HashMap<>();
-    private static int chance = 20;
+    private static int chance = 25;
     private static int duration = 3;
 
 	@Override

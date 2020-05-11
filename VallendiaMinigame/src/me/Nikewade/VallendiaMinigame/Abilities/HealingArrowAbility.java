@@ -54,7 +54,8 @@ public class HealingArrowAbility implements Ability, Listener {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Your next Arrow heals for " + heal + " health. This works on enemies too.");
+		return Arrays.asList("Your next Arrow heals for " + heal,
+				"health. This works on enemies too.");
 	}
 
 	@Override

@@ -20,7 +20,7 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
-public class BolaAbility implements Ability{
+public class BolasAbility implements Ability{
 	int time = 10;
 	int range = 15;
 	int damage = 4;
@@ -30,7 +30,7 @@ public class BolaAbility implements Ability{
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Bola";
+		return "Bolas";
 	}
 
 	@Override
@@ -42,8 +42,10 @@ public class BolaAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("root an enemy within" + range + " blocks for",
-							+ time + " seconds. This breaks on damage");
+		return Arrays.asList("Throw a set of bolas at your targets feet",
+							"from up to " + range + " blocks away.",
+							"This roots the target for " + time + " seconds.",
+							"Any damage done to the target will cancel this effect.");
 	}
 
 	@Override

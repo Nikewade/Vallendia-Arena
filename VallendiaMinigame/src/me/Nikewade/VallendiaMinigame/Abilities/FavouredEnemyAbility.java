@@ -51,9 +51,9 @@ public class FavouredEnemyAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Choose a class, you now recieve " + lesspercent + "% less damage from",
-							"players of that class and deal " + morepercent + "% extra damage to",
-							"them");
+		return Arrays.asList("Choose a class, you now recieve " + lesspercent + "%",
+							"less damage from players of that class and deal ",
+							morepercent + "% extra damage to them.");
 	}
 
 	@Override

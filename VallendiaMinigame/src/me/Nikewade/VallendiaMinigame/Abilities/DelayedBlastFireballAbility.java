@@ -37,8 +37,8 @@ public class DelayedBlastFireballAbility implements Ability {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Fireball but it takes 5 seconds to explode.,",
-							"No casting time.");
+		return Arrays.asList("Acts as Fireball but it takes 5 seconds to explode,",
+							"and has no cast time.");
 	}
 
 	@Override

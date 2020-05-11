@@ -50,9 +50,9 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Entangle"));
 		abilities.add(Main.abilitymanager.getAbility("Charm Person"));
 		abilities.add(Main.abilitymanager.getAbility("Enthrall"));
-		abilities.add(Main.abilitymanager.getAbility("Avasculate"));
 		abilities.add(Main.abilitymanager.getAbility("Fire Mastery"));
 		abilities.add(Main.abilitymanager.getAbility("Acid Rain"));
+		abilities.add(Main.abilitymanager.getAbility("Locate"));
 	}
 
 	@Override

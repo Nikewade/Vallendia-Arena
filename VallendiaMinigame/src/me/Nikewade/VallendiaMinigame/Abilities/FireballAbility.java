@@ -40,7 +40,7 @@ public class FireballAbility implements Ability{
 				"explodes on impact destroying blocks" ,
 				"and damaging anything in a large",
 				"radius for " + damage + " damage.",
-				Utils.Colorate("&8Cast: " + castTime + " seconds."));
+				Utils.Colorate("&8Cast: " + castTime + " seconds"));
 	}
 
 	@Override

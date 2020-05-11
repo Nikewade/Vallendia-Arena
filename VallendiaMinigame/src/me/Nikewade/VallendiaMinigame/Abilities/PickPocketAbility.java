@@ -39,8 +39,9 @@ public class PickPocketAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Each time you melee hit a player, steal 3 Essence.", 
-				"Sending a player into negative Essence will damage them.");
+		return Arrays.asList("Each time you melee hit a player,", 
+				"steal 3 Essence. Sending a player into",
+				"negative Essence will damage them.");
 	}
 
 	@Override

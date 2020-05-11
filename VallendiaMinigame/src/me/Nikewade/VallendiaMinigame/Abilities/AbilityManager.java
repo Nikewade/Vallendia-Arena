@@ -16,6 +16,7 @@ import me.Nikewade.VallendiaMinigame.CustomEvents.BuyAbilityEvent;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 
@@ -109,7 +110,6 @@ public class AbilityManager {
         abilities.add(new HealAbility());
         abilities.add(new LoneWolfAbility());
         abilities.add(new OneManArmyAbility());
-        abilities.add(new UndyingRageAbility());
         abilities.add(new BreakFreeAbility());
         abilities.add(new NoxiousGasTrapAbility());
         abilities.add(new HealingBurstAbility());
@@ -133,9 +133,8 @@ public class AbilityManager {
         abilities.add(new RallyUpAbility());
         abilities.add(new BlessingAuraAbility());
         abilities.add(new EntangleAbility());
-        abilities.add(new BolaAbility());
+        abilities.add(new BolasAbility());
         abilities.add(new CharmPersonAbility());
-        abilities.add(new AvasculateAbility());
         abilities.add(new FireMasteryAbility());
         abilities.add(new TauntCreaturesAbility());
         abilities.add(new ThroughTheSeamsAbility());
@@ -145,6 +144,8 @@ public class AbilityManager {
         abilities.add(new NightCrawlerAbility());
         abilities.add(new FavouredEnemyAbility());
         abilities.add(new CameraAbility());
+        abilities.add(new ShieldAbility());
+        abilities.add(new LocateAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);
@@ -331,7 +332,7 @@ public class AbilityManager {
 			this.getAbility(ability).RunAbility(p);
 		}else
 		{
-			p.sendMessage("YOU DONT HAVE THIS ABILITY!");
+		 Language.sendDefaultMessage(p, "You don't have the ability (" + ability + ")");
 		}
 	}
 	

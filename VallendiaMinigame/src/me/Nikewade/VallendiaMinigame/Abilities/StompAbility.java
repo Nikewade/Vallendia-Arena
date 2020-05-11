@@ -44,7 +44,7 @@ public class StompAbility implements Ability {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("You stomp stunning enemies in a" + radius + " block radius",
+		return Arrays.asList("You stomp, stunning enemies in a " + radius + " block radius",
 				"for " + duration / 20 + " seconds. Any damage done to the",
 				"target will break the stun.");
 	}

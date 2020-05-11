@@ -22,16 +22,18 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
@@ -43,12 +45,11 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
-import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory.ClickRunnable;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.NPCDamageByEntityEvent;
-import net.citizensnpcs.api.event.NPCDamageEvent;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.trait.Equipment;
 import net.citizensnpcs.api.trait.trait.Equipment.EquipmentSlot;
@@ -78,7 +79,12 @@ public class CameraAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return  Arrays.asList("place a camera");
+		return  Arrays.asList("This allows you to place a camera pointing",
+				"wherever you want. Use this to spy on your enemies,",
+				"or simply take a photo. You can at anytime reactivate",
+				"this ability to view the camera or remove the camera.",
+				"Viewing your camera leaves your body vulnerable, your",
+				"camera can also be destroyed.");
 	}
 
 	@Override
@@ -131,7 +137,7 @@ public class CameraAbility implements Ability, Listener{
 		{
 			locations.remove(uuid);
 		}
-		
+				
 	}
 	
 	
@@ -232,7 +238,6 @@ public class CameraAbility implements Ability, Listener{
     	blocks.put(p.getUniqueId().toString(), block);
     	players.put(block, p);
     	Skull skull = (Skull) block.getState();
-    	
     	skull.setRotation(getDirection(p));
     	skull.update();		
     	Language.sendAbilityUseMessage(p, "Your Camera has been placed.", "Camera");
@@ -299,6 +304,8 @@ public class CameraAbility implements Ability, Listener{
 		npc.getTrait(Equipment.class).set(EquipmentSlot.CHESTPLATE, p.getInventory().getChestplate());
 		npc.getTrait(Equipment.class).set(EquipmentSlot.HELMET, p.getInventory().getHelmet());		
 		npc.spawn(p.getLocation());
+		Location loc = p.getLocation().add(p.getLocation().getDirection().setY(0).normalize().multiply(25));
+		npc.getNavigator().setTarget(loc);
 		npcs.put(p.getUniqueId().toString(), npc);	
 
 		
@@ -323,7 +330,7 @@ public class CameraAbility implements Ability, Listener{
 			if(block.getType() == Material.SKULL)
 			{
 				block.setType(Material.AIR);
-	            players.remove(block);
+				players.remove(block);
 				blocks.remove(p.getUniqueId().toString());
 				locations.remove(p.getUniqueId().toString());
 				Language.sendAbilityUseMessage(p, "You remove your Camera.", "Camera");
@@ -343,7 +350,7 @@ public class CameraAbility implements Ability, Listener{
 			Player p = players.get(b);
 			String uuid = p.getUniqueId().toString();
 			e.setCancelled(true);
-            players.remove(e.getBlock());
+			players.remove(e.getBlock());
 			if(timers.containsKey(p))
 			{
 				timers.get(p).cancel();
@@ -486,5 +493,67 @@ public class CameraAbility implements Ability, Listener{
 	    return newSkinProfile;
 	}
 	
+	@EventHandler 
+	public void onSwitchSlot (PlayerItemHeldEvent e)
+	{
+		Player p = e.getPlayer();
+		
+		if(viewing.contains(p))
+		{
+			e.setCancelled(true);
+		}
+		
+	}
+	
+	
+    @EventHandler
+    public void onTeleport(PlayerTeleportEvent e)
+    {
+    	Player p = e.getPlayer();
+    	
+        if (e.getCause().equals(TeleportCause.SPECTATE) && viewing.contains(p))
+        {
+            e.setCancelled(true);
+            e.getPlayer().setSpectatorTarget(null);
+        }
+    }
+
+    
+    @EventHandler
+    public void onInteract (PlayerInteractEvent e)
+    {
+    	if(viewing.contains(e.getPlayer()))
+    	{
+    		e.setCancelled(true);
+    	}
+    }
+    
+    @EventHandler
+    public void onInteract (PlayerInteractEntityEvent e)
+    {
+    	if(viewing.contains(e.getPlayer()))
+    	{
+    		e.setCancelled(true);
+    	}
+    }
+    
+    @EventHandler
+    public void onCommand (PlayerCommandPreprocessEvent e)
+    {
+    	if(viewing.contains(e.getPlayer()))
+    	{
+    		e.setCancelled(true);
+    		Language.sendAbilityUseMessage(e.getPlayer(), "Sorry, you can't do that right now!", "Camera");
+    	}
+    }
+    
+    @EventHandler
+    public void onGamemodeChange (PlayerGameModeChangeEvent e)
+    {
+    	if(viewing.contains(e.getPlayer()))
+    	{
+    		e.setCancelled(true);
+    	}
+    }
 
 }

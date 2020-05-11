@@ -49,10 +49,10 @@ public class HealingAuraAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Heal allies in a " + radius + " block radius and",
-							"yourself for " + healAmount + "damage",
-							"over " + length + " seconds.",
-							"Cast Time: " + castTime + " seconds.");
+		return Arrays.asList("Allies and you in a " + radius + " block radius will",
+							"heal for " + perSec + " health every second, lasting",
+							length + " seconds.",
+							Utils.Colorate("&8Cast: " + castTime + " seconds"));
 	}
 
 	@Override
@@ -81,8 +81,8 @@ public class HealingAuraAbility implements Ability{
 					if(t >= length/period)
 					{		
 						Language.sendAbilityUseMessage(p, "Healing Aura is no longer Active", "Healing Aura");
-						this.cancel();
 						timers.remove(p);
+						this.cancel();
 					}
 //-----------------------------------------------------------------------------------------------------------------
 					DonutEffect de = new DonutEffect(VallendiaMinigame.getInstance().effectmanager);

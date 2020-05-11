@@ -27,7 +27,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class WeakeningArrowsAbility implements Ability, Listener {
     private static Map<Projectile,SphereEffect> arrow = new HashMap<>();
-    private static int chance = 20;
+    private static int chance = 25;
     private static int duration = 20;
 
 	@Override
@@ -119,7 +119,7 @@ public class WeakeningArrowsAbility implements Ability, Listener {
                 			return;
                 		}	
         			}
-        			AbilityUtils.addPotionDuration((LivingEntity)e.getEntity().getShooter(), entity, this.getName(), PotionEffectType.WEAKNESS, 0, duration * 20);
+        			AbilityUtils.addPotionDuration((LivingEntity)e.getEntity().getShooter(), entity, this.getName(), PotionEffectType.WEAKNESS, 2, duration * 20);
         			entity.getLocation().getWorld().playSound(entity.getLocation(), Sound.ENTITY_SPLASH_POTION_BREAK, 2, 1);
         		}
          

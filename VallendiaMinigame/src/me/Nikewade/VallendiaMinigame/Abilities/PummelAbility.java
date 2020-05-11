@@ -39,7 +39,7 @@ public class PummelAbility implements Ability{
 		// TODO Auto-generated method stub
 		return Arrays.asList("You pummel your target interrupting",
 				"Spell casting and silencing them ",
-				"for " + duration + "seconds.");
+				"for " + duration + " seconds.");
 	}
 
 	@Override

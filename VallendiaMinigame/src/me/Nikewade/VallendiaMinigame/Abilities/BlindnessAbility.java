@@ -36,7 +36,8 @@ public class BlindnessAbility implements Ability {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Give an enemy blindness and nausea for 30 seconds.");
+		return Arrays.asList("Give an enemy blindness and",
+				"nausea for 30 seconds.");
 	}
 
 	@Override

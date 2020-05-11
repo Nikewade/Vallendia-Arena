@@ -62,8 +62,8 @@ public class ThornShotAbility implements Ability, Listener{
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("You shoot an arrow that roots your enemy",
-							"within thorns and damages them for " + damage + " health",
-							"over " + time + " seconds");
+							"with thorns and damages them for " + damage + " health",
+							"over " + time + " seconds.");
 	}
 
 	@Override

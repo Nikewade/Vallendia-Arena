@@ -36,7 +36,10 @@ public class CatFallAbility implements Listener, Ability {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("immune to fall damage unless " + distance + " blocks or more = slowed");
+		return Arrays.asList("You are as graceful as a cat, you become",
+				"immune to fall damage. Falling from a height of",
+				distance + " blocks will severly slow you for " + duration,
+				"seconds though.");
 	}
 
 	@Override

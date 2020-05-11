@@ -55,14 +55,14 @@ public class ConcussiveShotAbility implements Ability, Listener {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Your shot gives your enemy slowness " + desc + " and",
-							"nausea for " + time + " seconds.");
+		return Arrays.asList("Your shot gives your enemy slowness " + desc,
+							"and nausea for " + time + " seconds.");
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack(Material.APPLE);
+		return new ItemStack(Material.CLAY_BALL);
 	}
 
 	@Override

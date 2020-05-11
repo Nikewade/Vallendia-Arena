@@ -44,9 +44,10 @@ public class OneManArmyAbility implements Listener, Ability {
     public List<String> getDescription() {
         // TODO Auto-generated method stub
         return Arrays.asList
-                ("You feel like the protagonist of an old spice commercial.",
-                "For every enemy within " + distance + " blocks, you deal 5% more damage",
-                "and take 5% less damage. This doubles to 10% when you are ",
+                ("You feel like the protagonist of an",
+                "old spice commercial. For every enemy within " + distance,
+                "blocks, you deal 5% more damage and take 5%",
+                "less damage. This doubles to 10% when you are",
                 "not in a party and caps at 60%.");
     }
  

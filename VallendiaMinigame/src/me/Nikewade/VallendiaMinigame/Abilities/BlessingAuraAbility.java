@@ -20,11 +20,11 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class BlessingAuraAbility implements Ability{
 	int healAmount = 20;
 	int radius = 10;
-	int castTime = 2;
 	int period = 1;
 	int length = 20;
 	int perSec = healAmount/length;
@@ -45,8 +45,9 @@ public class BlessingAuraAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Slowly heal yourself and allies within " + radius + " blocks",
-							"for " + healAmount + " over " + length + " seconds.") ;
+		return Arrays.asList("Allies in a " + radius + " block radius will",
+				"heal for " + perSec + " health every second, lasting",
+				length + " seconds.");
 		
 	}
 

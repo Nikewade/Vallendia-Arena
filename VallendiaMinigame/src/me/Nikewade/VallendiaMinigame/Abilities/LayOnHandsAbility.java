@@ -40,7 +40,7 @@ public class LayOnHandsAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Heal yourself or an ally for" + healAmount + " health",
+		return Arrays.asList("Heal yourself or an ally for " + healAmount + " health",
 							"over " + length + " seconds.");
 	}
 

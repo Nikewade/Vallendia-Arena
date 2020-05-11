@@ -51,7 +51,7 @@ public class HealAbility implements Ability{
 		// TODO Auto-generated method stub
 		return Arrays.asList("Heal an ally within " + range + " blocks or yourself for",
 				+ maxPercent + "% of their max health over " + time + " seconds.",
-				"Cast Time: " + castTime + " seconds.");
+				Utils.Colorate("&8Cast: " + castTime + " seconds"));
 	}
 
 	@Override

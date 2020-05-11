@@ -48,7 +48,7 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 {
 	this.Main = Main;
 	Main.getServer().getPluginManager().registerEvents(this, Main);
-	PlayerBlockEvents.regenTime = (20* Math.pow(Math.E, -0.17328 * (Bukkit.getOnlinePlayers().size() - 1)) * 60);
+	PlayerBlockEvents.regenTime = (30* Math.pow(Math.E, -0.17328 * (Bukkit.getOnlinePlayers().size() - 1)) * 60);
 	if(regenTime < 120)
 	{
 		regenTime = 120;

@@ -60,8 +60,9 @@ public class RepellingShotAbility implements Ability, Listener {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("You repel yourself and all entities",
-							"within a " + radius + " block radius");
+		return Arrays.asList("Your shot repels yourself and all entities",
+							"within a " + radius + " block radius, away from",
+							"your arrow.");
 	}
 
 	@Override

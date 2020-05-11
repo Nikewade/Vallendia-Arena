@@ -27,8 +27,8 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class SlowingArrowsAbility implements Ability, Listener {
     private static Map<Projectile,SphereEffect> arrow = new HashMap<>();
-    private static int chance = 15;
-    private static int duration = 5;
+    private static int chance = 20;
+    private static int duration = 7;
 
 	@Override
 	public String getName() {

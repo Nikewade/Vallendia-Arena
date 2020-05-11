@@ -60,9 +60,10 @@ public class QuakeAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("if u fall 10 or more blocks whilst sneaking u"
-				,"do damage in a radius and stun for short time"
-				, "and take less fall damage");
+		return Arrays.asList("Falling 10 or more blocks whilst sneaking"
+				,"will cause an explosion dealing " + damage + " damage"
+				, "and stunning players for a brief moment within",
+				radius + " blocks. You will also take " + percent + "% less fall damage.");
 	}
 
 	@Override

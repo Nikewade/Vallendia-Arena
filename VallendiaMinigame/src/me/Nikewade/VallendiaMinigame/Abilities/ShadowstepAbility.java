@@ -32,7 +32,8 @@ public class ShadowstepAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Step through the shadows appearing behind your enemy.");
+		return Arrays.asList("Step through the shadows",
+				"appearing behind your enemy.");
 	}
 
 	@Override

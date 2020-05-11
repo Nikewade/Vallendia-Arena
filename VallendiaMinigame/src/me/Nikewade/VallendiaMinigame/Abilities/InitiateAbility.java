@@ -35,7 +35,8 @@ public class InitiateAbility implements Listener, Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Hits while you are at full health do " + percent + "% extra damage");
+		return Arrays.asList("Hits while you are at full health do ",
+				percent + "% extra damage");
 	}
 
 	@Override

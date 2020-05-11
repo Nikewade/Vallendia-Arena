@@ -45,15 +45,16 @@ public class RallyUpAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("You rally up your teammates, granting yourself and all allies",
-								"within " + range + " blocks speed and " + healAmount,
-								"health every " + period + " seconds for " + length + "seconds.");
+		return Arrays.asList("You rally up your teammates, granting yourself and",
+								"all allies within " + range + " blocks speed",
+								"and " + healAmount + " health every" + period + " seconds,",
+								"lasting for " + length + " seconds.");
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack(Material.APPLE);
+		return new ItemStack(Material.TOTEM);
 	}
 
 	@Override

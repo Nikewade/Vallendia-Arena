@@ -54,7 +54,7 @@ public class SunderWeaponAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Sunder your enemies weapon for", + duration + "seconds");
+		return Arrays.asList("Sunder your enemies weapon for ", + duration + " seconds.");
 	}
 
 	@Override

@@ -31,6 +31,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.MountAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.PickPocketAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.PillageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
+import me.Nikewade.VallendiaMinigame.Commands.AbilityCommand;
 import me.Nikewade.VallendiaMinigame.Commands.AdminCommand;
 import me.Nikewade.VallendiaMinigame.Commands.CommandHandler;
 import me.Nikewade.VallendiaMinigame.Commands.CooldownCommand;
@@ -293,6 +294,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	        handler.register("next", new TutorialNextCommand());
 	        handler.register("quit", new TutorialQuitCommand());
 	        handler.register("resetkit", new ResetKitCommand());
+	        handler.register("ability", new AbilityCommand());
 	        getCommand("vallendia").setExecutor(handler);
 	    }
 	    

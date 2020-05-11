@@ -54,7 +54,7 @@ public class SunderArmorAbility implements Ability, Listener{
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("You sunder your targets armor for " + duration + "",
-				" seconds.");
+				"seconds.");
 	}
 
 	@Override

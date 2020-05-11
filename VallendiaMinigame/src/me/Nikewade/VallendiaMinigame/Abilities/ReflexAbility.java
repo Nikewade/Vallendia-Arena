@@ -46,7 +46,7 @@ public class ReflexAbility implements Ability, Listener{
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("You quickly dodge out of the way of any harm",
-				"becoming completly invincible for " + enabledTime + " second.");
+				"becoming completely invincible for " + enabledTime + " second.");
 	}
 
 	@Override

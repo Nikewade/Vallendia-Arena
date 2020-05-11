@@ -60,7 +60,10 @@ public class ThunderShotAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("");
+		return Arrays.asList("Your arrow calls down a lightning bolt that",
+				"damages enemies within " + radius + " blocks for " + initialdamage,
+				"damage. The enemies are then electrified for " + time,
+				"seconds, taking " + tickdamage + " damage every " + period + " seconds.");
 	}
 
 	@Override

@@ -34,10 +34,11 @@ public class AllureAbility implements Ability {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("A target within " + range +" blocks becomes overwhelmed with lust",
-				"towards you. The target is charmed and is unable to look at anything",
-				"but you, for " + duration +" seconds. Any damage" ,
-				"delt to the target will cancel this effect.");
+		return Arrays.asList("A target within " + range +" blocks becomes",
+				"overwhelmed with lust towards you.",
+				"The target is charmed and is unable to",
+				"look at anything but you, for " + duration +" seconds." ,
+				"Any damage delt to the target will cancel this effect.");
 	}
 
 	@Override

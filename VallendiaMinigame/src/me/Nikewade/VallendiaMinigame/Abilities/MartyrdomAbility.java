@@ -42,8 +42,7 @@ public class MartyrdomAbility implements Listener, Ability {
 		// TODO Auto-generated method stub
 		return Arrays.asList("When you die, you leave a surprise!",
 				"You explode 1.5 seconds after death, dealing",
-				damage + " damage to all enemies within melee",
-				"range.");
+				damage + " damage to all enemies within melee range.");
 						
 	}
 

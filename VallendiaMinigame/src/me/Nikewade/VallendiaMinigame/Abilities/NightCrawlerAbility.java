@@ -45,7 +45,7 @@ public class NightCrawlerAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("deal " + percent + "% extra damage at night",
+		return Arrays.asList("Deal " + percent + "% extra damage at night",
 							"You will also gain night vision in the dark.");
 	}
 

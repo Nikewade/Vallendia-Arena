@@ -41,8 +41,8 @@ public class HealingBlastAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("you heal and ally up to " + range + "",
-							"blocks away for " + healAmount + "damage.");
+		return Arrays.asList("You heal and ally up to " + range + " blocks away",
+							"for " + healAmount + " health.");
 	}
 
 	@Override

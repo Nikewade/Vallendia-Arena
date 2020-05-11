@@ -49,13 +49,15 @@ public class HamstringAbility implements Listener, Ability {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("");
+		return Arrays.asList("Once activated, for " + delay + " seconds, your",
+				"next hit will severely slow your target for",
+				duration + " seconds.");
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack(Material.APPLE);
+		return new ItemStack(Material.PORK);
 	}
 
 	@Override
@@ -68,7 +70,7 @@ public class HamstringAbility implements Listener, Ability {
 		
 		abilityActive.add(p);
 		
-		Language.sendAbilityUseMessage(p, "Hamstring is now Active", "Hamstring");
+		Language.sendAbilityUseMessage(p, "is now active.", "Hamstring");
 		
 		new BukkitRunnable()
 				{
@@ -80,6 +82,7 @@ public class HamstringAbility implements Listener, Ability {
 						if(abilityActive.contains(p))
 						{
 							abilityActive.remove(p);
+							Language.sendAbilityUseMessage(p, "is no longer active.", "Hamstring");
 						}
 						
 					}

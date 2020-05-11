@@ -53,8 +53,9 @@ public class ExplosiveTrapAbility implements Ability, Listener {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Place an explosive trap that when" , "triggered, explodes dealing"  + damage
-				, " damage and destroying blocks in a large radius.");
+		return Arrays.asList("Place an explosive trap that when" , 
+				"triggered, explodes dealing "  + damage
+				, "damage and destroying blocks in a large radius.");
 	}
 
 	@Override

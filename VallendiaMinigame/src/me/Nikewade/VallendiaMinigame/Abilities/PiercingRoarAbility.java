@@ -39,8 +39,8 @@ public class PiercingRoarAbility implements Ability {
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("You let out a loud roar, slowing",
-				" and disorienting enemies within a " + radius + "",
-				" block range");
+				"and disorienting enemies within a " + radius,
+				"block range");
 	}
 
 	@Override

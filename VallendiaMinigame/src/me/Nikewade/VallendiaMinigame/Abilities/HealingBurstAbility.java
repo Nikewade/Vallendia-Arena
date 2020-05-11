@@ -55,7 +55,7 @@ public class HealingBurstAbility implements Ability{
 		return Arrays.asList("Heal allies in a " + radius + " block radius and",
 							"yourself for " + percent + "% of their max health every ",
 							+ period + " second for " + length + " seconds.",
-							"Cast Time: " + castTime + " seconds.");
+							Utils.Colorate("&8Cast: " + castTime + " seconds"));
 	}
 
 	@Override

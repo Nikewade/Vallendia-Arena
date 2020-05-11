@@ -42,15 +42,15 @@ public class Warrior implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Initiate"));
 		abilities.add(Main.abilitymanager.getAbility("Lone Wolf"));
 		abilities.add(Main.abilitymanager.getAbility("One Man Army"));
-		abilities.add(Main.abilitymanager.getAbility("Undying Rage"));
 		abilities.add(Main.abilitymanager.getAbility("Break Free"));
 		abilities.add(Main.abilitymanager.getAbility("Quake"));
 		abilities.add(Main.abilitymanager.getAbility("Lay On Hands"));
 		abilities.add(Main.abilitymanager.getAbility("Rally Up"));
 		abilities.add(Main.abilitymanager.getAbility("Blessing Aura"));
-		abilities.add(Main.abilitymanager.getAbility("Bola"));
+		abilities.add(Main.abilitymanager.getAbility("Bolas"));
 		abilities.add(Main.abilitymanager.getAbility("Taunt Creatures"));
 		abilities.add(Main.abilitymanager.getAbility("Through The Seams"));
+		abilities.add(Main.abilitymanager.getAbility("Shield"));
 	}
 	
 	@Override

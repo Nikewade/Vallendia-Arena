@@ -18,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
@@ -35,6 +36,7 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class PhoenixAbility implements Listener, Ability{
 	int delay = 8;
@@ -62,8 +64,15 @@ public class PhoenixAbility implements Listener, Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("blah blah ",
-				"Reagents: 5 Netherwart, 4 Diamonds");
+		return Arrays.asList("Like the majestic Phoenix, upon death,",
+				"you are reborn and reformed from",
+				"smoldering ashes. When you die, you",
+				"instead drop a pile of ashes on",
+				"the ground. After 8 seconds you",
+				"resurrect from these ashes in a",
+				"burst of flames and speed with 10%",
+				"of your max health.",
+				Utils.Colorate("&8Reagents: 10 Diamond, 10 Nether Wart, 1 Egg"));
 	}
 
 	@Override
@@ -423,6 +432,16 @@ public class PhoenixAbility implements Listener, Ability{
         		Language.sendAbilityUseMessage(e.getPlayer(), "Sorry, you can't do that right now!", "Phoenix");
         	}
         }
+        
+        @EventHandler
+        public void onGamemodeChange (PlayerGameModeChangeEvent e)
+        {
+        	if(dead.contains(e.getPlayer()))
+        	{
+        		e.setCancelled(true);
+        	}
+        }
+
 	
 	
 

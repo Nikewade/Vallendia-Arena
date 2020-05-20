@@ -1878,6 +1878,10 @@ public class AbilityUtils implements Listener {
     
     public static void healEntity(LivingEntity p, double amount)
     {
+    	if(p.isDead())
+    	{
+    		return;
+    	}
 		if(p.getHealth() + amount >= p.getMaxHealth())
 		{
 			p.setHealth(p.getMaxHealth());

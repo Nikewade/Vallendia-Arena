@@ -24,11 +24,6 @@ public class AbilityCommand implements CommandInterface{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-	    if(sender instanceof  Player && !sender.hasPermission("vallendia.admin"))
-	    {
-	    	sender.sendMessage(Utils.Colorate("&8You lack permissions!"));
-	    	return false;	    	
-	    }
 	    
 	    if(!(args.length >1) || args.length > 5)
 	    {

@@ -20,7 +20,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class LoneWolfAbility implements Listener, Ability {
 	//made by emma
-	int percent = 15;
+	int percent = 40;
 
 	@Override
 	public String getName() {
@@ -38,7 +38,8 @@ public class LoneWolfAbility implements Listener, Ability {
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("You feel the spirit of freedom. Take ",
-				+ percent + "% less damage if you are not in a party.");
+				+ percent + "% less damage from players who are in a",
+				"party if you are not in a party.");
 	}
 
 	@Override
@@ -67,12 +68,16 @@ public class LoneWolfAbility implements Listener, Ability {
 		{
 			return;
 		}
+		if(!(e.getDamager() instanceof Player))
+		{
+			return;
+		}
 		
 		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e.getEntity(), "Lone Wolf"))
 		{
 			Player p = (Player) e.getEntity();
 
-			if (AbilityUtils.getPlayerParty(p) == "")
+			if (AbilityUtils.getPlayerParty(p) == "" && !(AbilityUtils.getPlayerParty((Player) e.getDamager()) == ""))
 			{
 				
         		double lowerPercent =  Utils.getPercentHigherOrLower(percent, false);

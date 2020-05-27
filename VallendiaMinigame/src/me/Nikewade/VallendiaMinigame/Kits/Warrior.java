@@ -51,6 +51,7 @@ public class Warrior implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Taunt Creatures"));
 		abilities.add(Main.abilitymanager.getAbility("Through The Seams"));
 		abilities.add(Main.abilitymanager.getAbility("Shield"));
+		abilities.add(Main.abilitymanager.getAbility("Investor"));
 	}
 	
 	@Override

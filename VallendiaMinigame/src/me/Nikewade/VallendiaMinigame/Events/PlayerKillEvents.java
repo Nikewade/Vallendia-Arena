@@ -31,6 +31,10 @@ public class PlayerKillEvents implements Listener {
 	   @EventHandler
 	   public void onPlayerKill(PlayerDeathEvent e) {
 	      Player p = e.getEntity();
+	      if(p.hasMetadata("NPC"))
+	        {
+	            return;
+	        }
 	      if (p.getKiller() != null && p.getKiller() instanceof Player && p.getKiller() != p) {
 	         double points = 0;
 	         Player killer = p.getKiller();

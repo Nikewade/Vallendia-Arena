@@ -53,7 +53,7 @@ public class VendettaAbility implements Ability, Listener{
 		// TODO Auto-generated method stub
 		return Arrays.asList("You mark your target. Damage you deal to them",
 							"is now increased by " + morepercent + "% and damage you",
-							"deal to other players will be decreased by" + lesspercent + " %.",
+							"deal to other players will be decreased by " + lesspercent + "%.",
 							"This lasts for " + delay +" seconds.");
 	}
 

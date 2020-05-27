@@ -86,11 +86,15 @@ public class OneManArmyAbility implements Listener, Ability {
         {
         	Projectile proj = (Projectile) e.getDamager();
         	
+        	
         	if(proj.getShooter() instanceof Player)
         	{
         		
         	p = (Player) proj.getShooter();
         	
+        	}else
+        	{
+        		return;
         	}
         }else
         {

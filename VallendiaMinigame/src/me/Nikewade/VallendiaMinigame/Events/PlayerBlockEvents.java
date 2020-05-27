@@ -19,22 +19,17 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityBreakDoorEvent;
-import org.bukkit.event.entity.EntityTargetEvent;
-import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.adapters.AbstractEntity;
-import io.lumine.xikage.mythicmobs.mobs.ActiveMob;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
-import nl.martenm.servertutorialplus.api.events.TutorialEndEvent;
 
 
 public class PlayerBlockEvents implements Listener {
@@ -213,7 +208,8 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 		    if(e.getAction() == Action.RIGHT_CLICK_BLOCK) 
 		    {
 		        if(e.getClickedBlock().getState() instanceof InventoryHolder || e.getClickedBlock().getType() == Material.ENDER_CHEST ||
-		        		e.getClickedBlock().getType() == Material.FLOWER_POT || e.getClickedBlock().getType() == Material.ITEM_FRAME)
+		        		e.getClickedBlock().getType() == Material.FLOWER_POT || e.getClickedBlock().getType() == Material.ITEM_FRAME || 
+		        		e.getClickedBlock().getType() == Material.WORKBENCH || e.getClickedBlock().getType() == Material.ANVIL)
 		        {
 		            e.setCancelled(true);
 		        }   
@@ -254,6 +250,8 @@ public PlayerBlockEvents(VallendiaMinigame Main)
             e.setCancelled(true);
         }
     }
+    
+    
     
     
     

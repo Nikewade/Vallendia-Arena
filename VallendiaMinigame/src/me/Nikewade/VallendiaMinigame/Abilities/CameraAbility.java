@@ -22,7 +22,9 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
@@ -31,9 +33,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.MetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
@@ -43,13 +47,15 @@ import com.mojang.authlib.properties.Property;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
-import me.Nikewade.VallendiaMinigame.Utils.AdvInventory.ClickRunnable;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
+import me.Nikewade.VallendiaMinigame.Utils.AdvInventory.ClickRunnable;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.NPCDamageByEntityEvent;
+import net.citizensnpcs.api.event.NPCDamageEvent;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.trait.Equipment;
 import net.citizensnpcs.api.trait.trait.Equipment.EquipmentSlot;
@@ -79,12 +85,7 @@ public class CameraAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return  Arrays.asList("This allows you to place a camera pointing",
-				"wherever you want. Use this to spy on your enemies,",
-				"or simply take a photo. You can at anytime reactivate",
-				"this ability to view the camera or remove the camera.",
-				"Viewing your camera leaves your body vulnerable, your",
-				"camera can also be destroyed.");
+		return  Arrays.asList("place a camera");
 	}
 
 	@Override
@@ -97,7 +98,7 @@ public class CameraAbility implements Ability, Listener{
 	public boolean RunAbility(Player p) {
 		// TODO Auto-generated method stub
 		openCameraInv(p);
-		return true;
+		return false;
 	}
 
 	@Override
@@ -242,6 +243,11 @@ public class CameraAbility implements Ability, Listener{
     	skull.update();		
     	Language.sendAbilityUseMessage(p, "Your Camera has been placed.", "Camera");
     	
+		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), this.getName(), 
+				VallendiaMinigame.getInstance().abilitymanager.getCooldown(this.getName(), p), 
+				AbilityManager.locateAbilityItem(p, this.getName()));
+		c.start();
+    	
     	BukkitTask timer = new BukkitRunnable()
     			{
 
@@ -258,6 +264,10 @@ public class CameraAbility implements Ability, Listener{
 								String uuid = p.getUniqueId().toString();
 								
 								Language.sendAbilityUseMessage(p, "Your Camera has been destroyed!", "Camera");
+								AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), "Camera", 
+										VallendiaMinigame.getInstance().abilitymanager.getCooldown("Camera", p), 
+										AbilityManager.locateAbilityItem(p, "Camera"));
+								c.start();
 								if(locations.containsKey(uuid))
 								{
 									locations.remove(uuid);
@@ -304,15 +314,14 @@ public class CameraAbility implements Ability, Listener{
 		npc.getTrait(Equipment.class).set(EquipmentSlot.CHESTPLATE, p.getInventory().getChestplate());
 		npc.getTrait(Equipment.class).set(EquipmentSlot.HELMET, p.getInventory().getHelmet());		
 		npc.spawn(p.getLocation());
-		Location loc = p.getLocation().add(p.getLocation().getDirection().setY(0).normalize().multiply(25));
-		npc.getNavigator().setTarget(loc);
-		npcs.put(p.getUniqueId().toString(), npc);	
-
-		
+		npcs.put(p.getUniqueId().toString(), npc);			
+		p.setGameMode(GameMode.SPECTATOR);	
 		viewing.add(p);
-		p.setGameMode(GameMode.SPECTATOR);		
 		p.teleport(locations.get(p.getUniqueId().toString()));
 		p.sendBlockChange(blocks.get(p.getUniqueId().toString()).getLocation(), Material.AIR, (byte) 1);
+		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), "Camera", 
+				VallendiaMinigame.getInstance().abilitymanager.getCooldown("Camera", p), 
+				AbilityManager.locateAbilityItem(p, "Camera"));
 		
 	}
 	
@@ -334,6 +343,10 @@ public class CameraAbility implements Ability, Listener{
 				blocks.remove(p.getUniqueId().toString());
 				locations.remove(p.getUniqueId().toString());
 				Language.sendAbilityUseMessage(p, "You remove your Camera.", "Camera");
+				AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), this.getName(), 
+						VallendiaMinigame.getInstance().abilitymanager.getCooldown(this.getName(), p), 
+						AbilityManager.locateAbilityItem(p, this.getName()));
+				c.start();
 			}
 		}else
 		{
@@ -359,6 +372,10 @@ public class CameraAbility implements Ability, Listener{
 			Utils.removeNonRegenBlock(b.getLocation());
 			
 			Language.sendAbilityUseMessage(p, "Your Camera has been destroyed!", "Camera");
+			AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), this.getName(), 
+					VallendiaMinigame.getInstance().abilitymanager.getCooldown(this.getName(), p), 
+					AbilityManager.locateAbilityItem(p, this.getName()));
+			c.start();
 			b.setType(Material.AIR);
 			if(locations.containsKey(uuid))
 			{

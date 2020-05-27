@@ -21,6 +21,7 @@ import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 
 import de.slikey.effectlib.effect.SphereEffect;
+import email.com.gmail.cosmoconsole.bukkit.deathmsg.DeathMessageBroadcastEvent;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Abilities.BandageAbility;
@@ -86,6 +87,10 @@ public class PlayerDeathEvents implements Listener {
 	   @EventHandler
 	   public void onDeath(PlayerDeathEvent e) {
 	      Player p = e.getEntity();
+	      if(p.hasMetadata("NPC"))
+	        {
+	            return;
+	        }
 	      int pointsCarried = this.Main.shopmanager.getPoints(p);
 	      int pointsSpent = this.Main.shopmanager.getPointsSpent(p);
 	      int level = this.Main.levelmanager.getLevel(p);
@@ -216,6 +221,7 @@ public class PlayerDeathEvents implements Listener {
 		        double pointsRefunded = (b * pointsSpent) * (Math.pow(Math.E, -n *(sumOfLvls)));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Essence Lost: " + (int) (pointsLost + 1)));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Essence Returned: " + (int) pointsRefunded));
+		        p.sendMessage("");
 	            p.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
 	         }else 
 	         {
@@ -249,6 +255,16 @@ public class PlayerDeathEvents implements Listener {
 	      this.Main.kitmanager.giveRespawnKit(p, "starter");
 	      ScoreboardHandler.updateHealth(p, 0, 0);
 			p.setFoodLevel(19);
+	   }
+	   
+	   
+	   @EventHandler
+	   public void npcDeath(DeathMessageBroadcastEvent e)
+	   {
+		      if(e.getPlayer().hasMetadata("NPC"))
+		        {
+		            e.setCancelled(true);
+		        }
 	   }
 	   
 	   

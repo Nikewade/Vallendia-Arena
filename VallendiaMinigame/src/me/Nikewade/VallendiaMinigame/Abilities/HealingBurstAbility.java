@@ -136,9 +136,6 @@ public class HealingBurstAbility implements Ability{
 					double lowpercent = percent/100;
 					double maxhealth = p.getMaxHealth();
 					double healamount = maxhealth*lowpercent;
-					p.sendMessage("low percent = " + lowpercent);
-					p.sendMessage("percent " + percent);
-					p.sendMessage("heal amount " + healamount);
 
 					AbilityUtils.healEntity(p, healamount);
 					
@@ -149,9 +146,6 @@ public class HealingBurstAbility implements Ability{
 					double lowpercent2 = percent/100;
 					double maxhealth2 = ((Damageable) target).getMaxHealth();
 					double healamount2 = maxhealth2*lowpercent2;
-					target.sendMessage("low percent = " + lowpercent2);
-					target.sendMessage("percent " + percent);
-					target.sendMessage("heal amount " + healamount2);
 					target.getWorld().playSound(target.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 1, 1.6F);
 					AbilityUtils.healEntity((LivingEntity) target, healamount2);		
 				}

@@ -19,6 +19,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Abilities.BandageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
+import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Upgrades.RegenUpgrade;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
@@ -43,29 +44,42 @@ public class PlayerJoinEvents implements Listener{
 	public void onJoin(PlayerJoinEvent e)
 	{
 		Player p = e.getPlayer();
+		
+		//Player data
         Main.playerdatamanager.createFile(p);
-		RegenUpgrade.addTimer(p);
         new BukkitRunnable()
         {
 
 			@Override
 			public void run() {
-				if(!p.hasPlayedBefore())
+				if(!PlayerDataManager.data.containsKey(p))
 				{
-					Main.kitmanager.giveKit(p, "starter");
-					p.setExp(0);
-					p.setLevel(1);
-					ServerTutorialApi.getApi().startTutorial("ValTut", p);
+					PlayerDataManager.createData(p);
 				}
-		        Main.sb.setupPlayerScoreboard(p);
+		        new BukkitRunnable()
+		        {
+
+					@Override
+					public void run() {
+						if(!p.hasPlayedBefore())
+						{
+							Main.kitmanager.giveKit(p, "starter");
+							p.setExp(0);
+							p.setLevel(1);
+							ServerTutorialApi.getApi().startTutorial("ValTut", p);
+						}
+				        Main.sb.setupPlayerScoreboard(p);
+					}
+		        	
+		        }.runTaskLater(Main, 20);
+		       // Main.sb.runScoreboard(p);
+				e.getPlayer().setGravity(true);
+				RegenUpgrade.addTimer(p);				
+				
+				AbilityManager.saveAbilities(p);
 			}
         	
-        }.runTaskLater(Main, 20);
-       // Main.sb.runScoreboard(p);
-		e.getPlayer().setGravity(true);
-		
-		
-		AbilityManager.saveAbilities(p);
+        }.runTaskLater(Main, 40);
 		
 		
 		//PlayerDataManager.giveInventory(p);
@@ -75,6 +89,8 @@ public class PlayerJoinEvents implements Listener{
 		{
 			PlayerBlockEvents.regenTime = 120;
 		}
+		
+		
 		
 	}
 	

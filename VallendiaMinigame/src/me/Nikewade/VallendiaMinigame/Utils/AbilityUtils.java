@@ -1434,6 +1434,19 @@ public class AbilityUtils implements Listener {
     	}
     }
     
+    
+    public static void removeInvisibleNoDisable(Player p)
+    {
+        if(invisible.containsKey(p))
+        {
+            for(Player player : Bukkit.getOnlinePlayers())
+            {
+                player.showPlayer(p);
+            }
+            invisible.remove(p);
+        }
+    }
+    
     public static boolean isInvisible(Player p)
     {
     	if(invisible.containsKey(p))
@@ -1915,6 +1928,21 @@ public class AbilityUtils implements Listener {
 		target.setVelocity(vel);
     }
     
+    //Does not go thru armor
+    public static void damageEntityNoArmor(LivingEntity target, LivingEntity damager, double amount)
+    {
+    	if(target instanceof Player)
+    	{
+    		Player p = (Player) target;
+    		if(((Player) target).getGameMode() == GameMode.CREATIVE)
+    		{
+    			return;
+    		}
+    	}
+		Vector vel = target.getVelocity();
+		target.damage(amount, damager);
+		target.setVelocity(vel);
+    }
     
     public static void setMaxHealth(Player p, double amount, String ability)
     {

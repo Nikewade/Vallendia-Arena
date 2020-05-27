@@ -36,9 +36,10 @@ public class ThornShotAbility implements Ability, Listener{
 	Map<Projectile,SphereEffect> arrow = new HashMap<>();
 	ArrayList<Player> abilityActive = new ArrayList<>();
 	Map<Player, BukkitTask> timers = new HashMap<>();
-	Map <LivingEntity, FountainEffect> particles = new HashMap<>();
-	Map <LivingEntity, BukkitTask> timer2 = new HashMap<>();
-	Map <LivingEntity, BukkitTask> damagetimers = new HashMap<>();
+	Map<LivingEntity, FountainEffect> particles = new HashMap<>();
+	Map<LivingEntity, BukkitTask> damagetimers = new HashMap<>();
+	Map<Player, LivingEntity> targets = new HashMap<>();
+	Boolean breakondamage = false;
     int delay = 15;
     int time = 5;
     int period = 1;
@@ -62,8 +63,8 @@ public class ThornShotAbility implements Ability, Listener{
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("You shoot an arrow that roots your enemy",
-							"with thorns and damages them for " + damage + " health",
-							"over " + time + " seconds.");
+							"within thorns and damages them for " + damage + " health",
+							"over " + time + " seconds");
 	}
 
 	@Override
@@ -121,9 +122,7 @@ public class ThornShotAbility implements Ability, Listener{
         		{
         			return;
         		}
-        		
 
-        		
             		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
             		se.setEntity(e.getProjectile());
             		se.particle = Particle.BLOCK_CRACK;
@@ -147,6 +146,7 @@ public class ThornShotAbility implements Ability, Listener{
             	{
             		return;
             	}
+            	Player p = (Player) e.getEntity().getShooter();
             	
         		arrow.get(e.getEntity()).cancel();
                 arrow.remove(e.getEntity());
@@ -164,29 +164,28 @@ public class ThornShotAbility implements Ability, Listener{
         		}
         		if(e.getHitEntity() != null && e.getHitEntity() instanceof LivingEntity)
         		{
-        			LivingEntity entity = (LivingEntity) e.getHitEntity();
-        			if(AbilityUtils.isRooted(entity))
+        			LivingEntity target = (LivingEntity) e.getHitEntity();
+        			if(AbilityUtils.isRooted(target))
         			{
-        				AbilityUtils.removeAllRoots(entity);
+        				AbilityUtils.removeAllRoots(target);
+        				Disable(p, target);
         			}
-        			
-        			AbilityUtils.root((LivingEntity) e.getEntity().getShooter(), entity, "Thorn Shot", time*20, false);
-        			entity.getWorld().playSound(entity.getLocation(), Sound.BLOCK_GRASS_BREAK, 2, (float) 0.1);
-        			entity.getWorld().playSound(entity.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 2, (float) 0.1);
-        			
         			new BukkitRunnable()
         			{
 
         				@Override
         				public void run() {
         					// TODO Auto-generated method stub
-        					
-        					if(entity.isOnGround())
+        					if(target.isOnGround())
         					{
-        	        			FountainEffect d = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
-        	        			d.setTargetEntity(entity);
+        						AbilityUtils.root(p, target, "Thorn Shot", time*20, breakondamage);
+        						targets.put(p, target);
+        						target.getWorld().playSound(target.getLocation(), Sound.BLOCK_GRASS_BREAK, 2, (float) 0.1);
+        						p.getWorld().playSound(p.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 2, (float) 0.1);
+        						FountainEffect d = new FountainEffect(VallendiaMinigame.getInstance().effectmanager);
+        	        			d.setTargetEntity(target);
         	        			d.disappearWithTargetEntity = true;
-        	        			d.setDynamicOrigin(new DynamicLocation(entity.getLocation().add(0, 0.1, 0)));
+        	        			d.setDynamicOrigin(new DynamicLocation(target.getLocation().add(0, 0.1, 0)));
         	        			d.strands = 5;
         	        			d.height = (float) 0.3;
         	        			d.heightSpout = 0;
@@ -196,49 +195,33 @@ public class ThornShotAbility implements Ability, Listener{
         	        			d.particlesStrand = 5;
         	        			d.particle = Particle.BLOCK_CRACK;
         	        			d.material = Material.DEAD_BUSH;
-        	        			d.infinite();
+        	        			d.iterations = 100;
         	        			d.start();	
-        	        			
-        	        			particles.put(entity, d);
-        						
+        						particles.put(target, d);
         						this.cancel();
-        						
         					}
         					
-        				}}.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
-
-
-        			
-        			BukkitTask rootCheck = new BukkitRunnable()
-        					{
-
-								@Override
-								public void run() {
-									// TODO Auto-generated method stub
-									
-									if(!AbilityUtils.isRooted(entity))
-									{
-										if(particles.containsKey(entity))
-										{
-											particles.get(entity).cancel();
-											particles.remove(entity);
-										}
-										
-										if(damagetimers.containsKey(entity))
-										{
-											damagetimers.get(entity).cancel();
-											damagetimers.remove(entity);
-										}
-										timer2.remove(entity);
-										this.cancel();
-
-									}
-									
-								}
+        				}
         				
-        					}.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
-        					
-        					timer2.put(entity, rootCheck);
+        			}.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1);
+        			
+        			new BukkitRunnable()
+        			{
+
+        				@Override
+        				public void run() {
+        					// TODO Auto-generated method stub
+        					if(!AbilityUtils.isRooted(target) && target.isOnGround())
+        					{				
+        						Disable(p, target);
+        						this.cancel();
+        					}
+
+        					}
+        				
+        			}.runTaskTimer(VallendiaMinigame.getInstance(), 0, 2);
+        			
+
         					
         			BukkitTask damage = new BukkitRunnable()
         					{
@@ -249,11 +232,11 @@ public class ThornShotAbility implements Ability, Listener{
 									// TODO Auto-generated method stub
 									if(t >= cycleCount)
 									{
-										damagetimers.remove(entity);
+										damagetimers.remove(target);
 										this.cancel();
 									}
 									
-									AbilityUtils.damageEntity(entity, (LivingEntity) e.getEntity().getShooter(), persec);
+									AbilityUtils.damageEntity(target, (LivingEntity) e.getEntity().getShooter(), persec);
 									
 									t++;
 									
@@ -261,35 +244,45 @@ public class ThornShotAbility implements Ability, Listener{
         				
         					}.runTaskTimer(VallendiaMinigame.getInstance(), 0, period*20);
         					
-        					damagetimers.put(entity, damage);
+        					damagetimers.put(target, damage);
         		}
          
             }
+            
+        	public void Disable(Player p, LivingEntity target)
+        	{
+				
+        		if(particles.containsKey(target))
+        		{
+        			particles.get(target).cancel();
+        			particles.remove(target);
+        		}
+        		if(AbilityUtils.isRooted(target))
+        		{
+        			AbilityUtils.removeRoot(target, "Thorn Shot");
+        		}
+        		if(targets.containsKey(p))
+        		{
+        			targets.remove(p);
+        		}
+        		if(damagetimers.containsKey(target))
+        		{
+        			damagetimers.get(target).cancel();
+        		}
+        	}
             
 
 	@Override
 	public void DisableAbility(Player p) {
 		// TODO Auto-generated method stub
+		if(targets.containsKey(p))
+		{
+			Disable(p, targets.get(p));
+		}
 		
-		if(abilityActive.contains(p))
-		{
-			abilityActive.remove(p);
-		}
-		if(particles.containsKey(p))
-		{
-			particles.get(p).cancel();
-			particles.remove(p);
-		}
-		if(timer2.containsKey(p))
-		{
-			timer2.get(p).cancel();
-			timer2.remove(p);
-		}
 		if(damagetimers.containsKey(p))
 		{
 			damagetimers.get(p).cancel();
-			damagetimers.remove(p);
-			
 		}
 		
 	}

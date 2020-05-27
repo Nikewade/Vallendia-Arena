@@ -108,6 +108,10 @@ public class BlindingArrowsAbility implements Ability, Listener {
         			LivingEntity entity = (LivingEntity) e.getHitEntity();
         			if(entity instanceof Player)
         			{
+                        if(((Player) entity).isBlocking())
+                        {
+                            return;
+                        }
                 		if(!AbilityUtils.runPassive((Player)e.getEntity().getShooter(), (Player)entity))
                 		{
                 			return;

@@ -105,6 +105,7 @@ public class AbilityManager {
         abilities.add(new ThornShotAbility());
         abilities.add(new HealingArrowAbility());
         abilities.add(new SonarArrowAbility());
+        abilities.add(new AcidSplashAbility());
         abilities.add(new InitiateAbility());
         abilities.add(new VampiricAuraAbility());
         abilities.add(new HealAbility());
@@ -140,12 +141,16 @@ public class AbilityManager {
         abilities.add(new ThroughTheSeamsAbility());
         abilities.add(new ConcussiveShotAbility());
         abilities.add(new VendettaAbility());
-        abilities.add(new AcidRainAbility());
         abilities.add(new NightCrawlerAbility());
         abilities.add(new FavouredEnemyAbility());
         abilities.add(new CameraAbility());
         abilities.add(new ShieldAbility());
         abilities.add(new LocateAbility());
+        abilities.add(new AvasculateAbility());
+        abilities.add(new ShadowCloneAbility());
+        abilities.add(new InvestorAbility());
+        abilities.add(new AcidRainAbility());
+        abilities.add(new ContingencyAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);

@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/spigot.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/MiniaturePets (3).jar"/>
 	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/SuperTrailsPro.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/DeathMessagesPrime_1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

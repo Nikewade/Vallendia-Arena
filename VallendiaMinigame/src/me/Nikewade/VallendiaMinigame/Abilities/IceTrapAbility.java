@@ -107,6 +107,13 @@ public class IceTrapAbility implements Ability, Listener {
 		// TODO Auto-generated method stub
 		AbilityUtils.removeTrap(p, this.getName());
 		
+		if(trapMode.contains(p))
+		{
+			trapMode.remove(p);
+			trapModeTask.get(p).cancel();
+			trapModeTask.remove(p);
+		}
+		
 	}
 	
 	

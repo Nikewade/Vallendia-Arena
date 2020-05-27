@@ -35,8 +35,8 @@ public class ThroughTheSeamsAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("You deal and extra " + damage + " damage",
-				"with your sword, that extra danage goes through armor.");
+		return Arrays.asList("You deal an extra " + damage + " damage",
+				"with your sword, that extra damage goes through armor.");
 	}
 
 	@Override

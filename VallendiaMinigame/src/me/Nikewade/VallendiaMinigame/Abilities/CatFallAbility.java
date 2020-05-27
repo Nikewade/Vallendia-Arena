@@ -38,7 +38,7 @@ public class CatFallAbility implements Listener, Ability {
 		// TODO Auto-generated method stub
 		return Arrays.asList("You are as graceful as a cat, you become",
 				"immune to fall damage. Falling from a height of",
-				distance + " blocks will severly slow you for " + duration,
+				distance + " blocks will severely slow you for " + duration,
 				"seconds though.");
 	}
 

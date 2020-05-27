@@ -53,6 +53,10 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Fire Mastery"));
 		abilities.add(Main.abilitymanager.getAbility("Acid Rain"));
 		abilities.add(Main.abilitymanager.getAbility("Locate"));
+		abilities.add(Main.abilitymanager.getAbility("Avasculate"));
+		abilities.add(Main.abilitymanager.getAbility("Investor"));
+		abilities.add(Main.abilitymanager.getAbility("Acid Splash"));
+		abilities.add(Main.abilitymanager.getAbility("Contingency"));
 	}
 
 	@Override

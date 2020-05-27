@@ -49,6 +49,8 @@ public class Assassin implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Vendetta"));
 		abilities.add(Main.abilitymanager.getAbility("Night Crawler"));
 		abilities.add(Main.abilitymanager.getAbility("Camera"));
+		abilities.add(Main.abilitymanager.getAbility("Shadow Clone"));
+		abilities.add(Main.abilitymanager.getAbility("Investor"));
 	}
 	
 	@Override

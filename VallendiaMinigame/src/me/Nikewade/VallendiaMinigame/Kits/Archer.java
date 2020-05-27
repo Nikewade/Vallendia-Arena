@@ -56,6 +56,7 @@ public class Archer implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Entangle"));
 		abilities.add(Main.abilitymanager.getAbility("Favoured Enemy"));
 		abilities.add(Main.abilitymanager.getAbility("Camera"));
+		abilities.add(Main.abilitymanager.getAbility("Investor"));
 	}
 	
 	@Override

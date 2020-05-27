@@ -74,11 +74,11 @@ public class UpgradeWeaponGui {
 	
 	private void openMageInventory(Player p)
 	{
-		  inv.setItem(new ItemStack(Material.STICK), Utils.Colorate("&9&lMelee"), 13, new ClickRunnable() {
+		  inv.setItem(new ItemStack(Material.STICK), Utils.Colorate("&9&lWand"), 13, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
-			    	UpgradeWeaponGui.this.openMeleeEnchants(ep);
+			    	UpgradeWeaponGui.this.openMageMeleeEnchants(ep);
 			    }
 			});
 		  inv.openInventory(p);
@@ -111,6 +111,56 @@ public class UpgradeWeaponGui {
 			    	upgrades.openUpgradeYesNoMenu(ep, "Weapon", "sharpness");
 			    }
 			}, Utils.Colorate("&8Level &9" + um.getUpgradeEnchantAmount(p, "weapon", "sharpness")));
+		  
+		  
+		  
+		  
+		  invMelee.setItem(new ItemStack(Material.ENCHANTED_BOOK), Utils.Colorate("&9&lFire Aspect"), 12, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	upgrades.openUpgradeYesNoMenu(ep, "Weapon", "fireaspect");
+			    }
+			}, Utils.Colorate("&8Level &9" + um.getUpgradeEnchantAmount(p, "weapon", "fireaspect")));
+		  
+		  
+		  
+		  
+		  invMelee.setItem(new ItemStack(Material.ENCHANTED_BOOK), Utils.Colorate("&9&lKnockback"), 14, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	upgrades.openUpgradeYesNoMenu(ep, "Weapon", "knockback");
+			    }
+			}, Utils.Colorate("&8Level &9" + um.getUpgradeEnchantAmount(p, "weapon", "knockback")));
+		  
+		  
+		  
+		  
+		  invMelee.setItem(new ItemStack(Material.ENCHANTED_BOOK), Utils.Colorate("&9&lSmite"), 15, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	upgrades.openUpgradeYesNoMenu(ep, "Weapon", "smite");
+			    }
+			}, Utils.Colorate("&8Level &9" + um.getUpgradeEnchantAmount(p, "weapon", "smite")));
+		  
+		  invMelee.openInventory(p);
+
+	}
+	
+	
+	
+	public void openMageMeleeEnchants(Player p)
+	{
+		  AdvInventory invMelee = new AdvInventory(Utils.Colorate("&8&lWand Upgrade"), 27, Utils.placeholder((byte) 7, " "));
+		  invMelee.setItem(new ItemStack(Material.ENCHANTED_BOOK), Utils.Colorate("&9&lSharpness"), 11, new ClickRunnable() {
+			    @Override
+			    public void run(InventoryClickEvent e) {
+			    	Player ep = (Player) e.getWhoClicked();
+			    	upgrades.openUpgradeYesNoMenu(ep, "Weapon", "sharpness");
+			    }
+			}, Utils.Colorate("&8This increases melee and ranged wand damage"), Utils.Colorate("&8Level &9" + um.getUpgradeEnchantAmount(p, "weapon", "sharpness")));
 		  
 		  
 		  

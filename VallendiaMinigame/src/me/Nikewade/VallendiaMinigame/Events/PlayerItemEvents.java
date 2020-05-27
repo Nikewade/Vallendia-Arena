@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -19,7 +20,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -27,6 +27,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
@@ -45,7 +46,6 @@ import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
-import me.kvq.supertrailspro.API.SuperTrailsAPI;
 import net.md_5.bungee.api.ChatColor;
 import nl.martenm.servertutorialplus.api.ServerTutorialApi;
 
@@ -55,7 +55,6 @@ public class PlayerItemEvents implements Listener {
 	double wandCooldownAmount = 0.5;
 	public static Map<Player, BukkitTask> casting = new HashMap<>();
 	private static List<String> noStunAbilities = new ArrayList<>();
-	
 	
 	
 	public PlayerItemEvents(VallendiaMinigame Main)
@@ -135,10 +134,21 @@ public class PlayerItemEvents implements Listener {
 			    		            }
 
 			    		        }
-			    			   
-			    			   
+				    			int particleCountBefore = 1;
+			    		        if(item.hasItemMeta())
+			    		        {
+			    		        	ItemMeta meta = item.getItemMeta();
+			    		        	if(meta.hasEnchant(Enchantment.DAMAGE_ALL))
+			    		        	{
+			    		        		particleCountBefore = 1 + (meta.getEnchantLevel(Enchantment.DAMAGE_ALL) / 6);
+			    		        		if(particleCountBefore >= 10)
+			    		        		{
+			    		        			particleCountBefore = 10;
+			    		        		}
+			    		        	}
+			    		        }
+			    		        final int particleCount = particleCountBefore;
 				    		   new BukkitRunnable(){
-				    		         
 				    	            double t = 1;
 				    	            Location loc = p.getLocation();
 				    	            Vector dir = loc.getDirection().normalize();
@@ -173,7 +183,7 @@ public class PlayerItemEvents implements Listener {
 			    	              		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 			    	            		se.particle = Particle.END_ROD;
 			    	            		se.iterations = 1;
-			    	            		se.particles = 1;
+			    	            		se.particles = particleCount;
 			    	            		se.radius = 0.2;
 			    	            		se.speed = (float) 0;
 			    	            		se.visibleRange = 50;
@@ -194,7 +204,16 @@ public class PlayerItemEvents implements Listener {
 			    	            			{
 			    	            				if(e instanceof LivingEntity && e != p)
 			    	            				{
-			    	            					AbilityUtils.damageEntity((LivingEntity)e, p, 1);
+			    	            					int sharpness = 0;
+			    				    		        if(item.hasItemMeta())
+			    				    		        {
+			    				    		        	ItemMeta meta = item.getItemMeta();
+			    				    		        	if(meta.hasEnchant(Enchantment.DAMAGE_ALL))
+			    				    		        	{
+			    				    		        		sharpness = meta.getEnchantLevel(Enchantment.DAMAGE_ALL);
+			    				    		        	}
+			    				    		        }
+			    	            					AbilityUtils.damageEntityNoArmor((LivingEntity)e, p, (2 + sharpness));
 			    	            					p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1, 1.3F);
 			    	            					this.cancel();
 			    	            					return;

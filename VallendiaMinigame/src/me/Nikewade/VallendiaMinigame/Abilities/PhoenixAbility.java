@@ -131,7 +131,6 @@ public class PhoenixAbility implements Listener, Ability{
 		        {
 		            return;
 		        }
-				dead.add(p);
 				double playerX = p.getLocation().getX();
 				double playerY = p.getLocation().getY();
 				double playerZ = p.getLocation().getZ();
@@ -267,6 +266,7 @@ public class PhoenixAbility implements Listener, Ability{
 
 				e.setCancelled(true);
 				p.setGameMode(GameMode.SPECTATOR);
+				dead.add(p);
 				VallendiaMinigame.getInstance().abilitymanager.disableAllExceptAbility(p, "Phoenix");
 	 	 		p.getWorld().spawnParticle(Particle.FLAME, p.getLocation().add(0, 1, 0), 20);
 	 	 		p.getWorld().spawnParticle(Particle.FLAME, p.getLocation().add(0, 1, 0), 20);

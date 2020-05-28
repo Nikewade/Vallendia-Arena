@@ -73,7 +73,14 @@ public class PlayerDataManager {
 
 	 public int getPlayerIntData(UUID uuid, String data)
 	 {
-		return Integer.parseInt(this.data.get(uuid).get(data));
+		 try {
+				return Integer.parseInt(this.data.get(uuid).get(data));
+			}
+			catch(Exception e) {
+
+			}
+		 
+		 return 1;
 	 }
 	 
 	 

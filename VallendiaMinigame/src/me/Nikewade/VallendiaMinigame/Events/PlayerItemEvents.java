@@ -40,6 +40,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Abilities.SunderArmorAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SunderWeaponAbility;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
@@ -285,6 +286,11 @@ public class PlayerItemEvents implements Listener {
 	    		   	}
 		    		if(!AbilityCooldown.isInCooldown(p.getUniqueId(), ability))
 		    		{  
+		    			if(AbilityManager.disabledAbilities.contains(Main.abilitymanager.getAbility(ability)))
+		    			{
+		    				Language.sendAbilityUseMessage(p,  "Sorry, that ability is disabled!", ability);
+		    				return;
+		    			}
 			    		if(Main.abilitymanager.getAbility(ability).RunAbility(p) && Main.abilitymanager.getCooldown(ability, p) > 0)
 			    		{
 			    			if(AbilityUtils.casting.containsKey(p))

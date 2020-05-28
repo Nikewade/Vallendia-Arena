@@ -19,6 +19,7 @@ import org.bukkit.scoreboard.Team;
 import com.mojang.authlib.GameProfile;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.CScoreboard;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;

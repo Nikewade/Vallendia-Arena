@@ -306,7 +306,10 @@ public class CameraAbility implements Ability, Listener{
 			Language.sendAbilityUseMessage(p, "You do not have a camera!", this.getName());
 			return;
 		}
-		
+		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), "Camera", 
+				VallendiaMinigame.getInstance().abilitymanager.getCooldown("Camera", p), 
+				AbilityManager.locateAbilityItem(p, "Camera"));
+		c.start();
 		NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, p.getName());
 		npc.setProtected(false);
 		npc.getTrait(Equipment.class).set(EquipmentSlot.BOOTS, p.getInventory().getBoots());
@@ -319,9 +322,7 @@ public class CameraAbility implements Ability, Listener{
 		viewing.add(p);
 		p.teleport(locations.get(p.getUniqueId().toString()));
 		p.sendBlockChange(blocks.get(p.getUniqueId().toString()).getLocation(), Material.AIR, (byte) 1);
-		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), "Camera", 
-				VallendiaMinigame.getInstance().abilitymanager.getCooldown("Camera", p), 
-				AbilityManager.locateAbilityItem(p, "Camera"));
+
 		
 	}
 	

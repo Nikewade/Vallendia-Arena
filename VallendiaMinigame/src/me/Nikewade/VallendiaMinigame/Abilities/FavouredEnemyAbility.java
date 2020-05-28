@@ -111,6 +111,10 @@ public class FavouredEnemyAbility implements Ability, Listener{
         {
         	return;
         }
+        if(!VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(p, this.getName()))
+        {
+        	return;
+        }
 
 		
 		Player target = (Player) e.getEntity();

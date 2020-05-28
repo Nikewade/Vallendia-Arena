@@ -36,6 +36,7 @@ import me.Nikewade.VallendiaMinigame.Commands.AbilityCommand;
 import me.Nikewade.VallendiaMinigame.Commands.AdminCommand;
 import me.Nikewade.VallendiaMinigame.Commands.CommandHandler;
 import me.Nikewade.VallendiaMinigame.Commands.CooldownCommand;
+import me.Nikewade.VallendiaMinigame.Commands.DisableAbilityCommand;
 import me.Nikewade.VallendiaMinigame.Commands.KitCommand;
 import me.Nikewade.VallendiaMinigame.Commands.LevelCommand;
 import me.Nikewade.VallendiaMinigame.Commands.PointsCommand;
@@ -296,6 +297,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	        handler.register("quit", new TutorialQuitCommand());
 	        handler.register("resetkit", new ResetKitCommand());
 	        handler.register("ability", new AbilityCommand());
+	        handler.register("disableability", new DisableAbilityCommand());
 	        getCommand("vallendia").setExecutor(handler);
 	    }
 	    

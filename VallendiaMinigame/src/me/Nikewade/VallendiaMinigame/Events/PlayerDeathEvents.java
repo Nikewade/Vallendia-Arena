@@ -198,7 +198,7 @@ public class PlayerDeathEvents implements Listener {
 	            Player killer = p.getKiller();
 	            int levelKilledBy = this.Main.levelmanager.getLevel(killer);
 	            float sumOfLvls = (float) ((float) level / (float) levelKilledBy);
-	            double points = ((pointsCarried + (b * pointsSpent)) * Math.pow(Math.E, (-n * sumOfLvls)));
+	            double points = ((pointsCarried + (b * pointsSpent)) * (Math.pow(Math.E, -n* (sumOfLvls)) + 0.03 * Math.pow(levelKilledBy, (-0.005 * levelKilledBy))));
 	            /*
 	             * where c is points carried
 					s is points spent
@@ -213,12 +213,12 @@ public class PlayerDeathEvents implements Listener {
 	            Language.sendCentredMessage(p, Utils.Colorate("&c&lYou died"));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Level: " + this.Main.levelmanager.getLevel(p)));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Class: " + this.Main.kitmanager.getKit(p).getName(true)));
-		        double pointsLost = pointsCarried * (1- (Math.pow(Math.E, -n* (sumOfLvls))));
+		        double pointsLost = pointsCarried * (1- (Math.pow(Math.E, -n* (sumOfLvls)) + 0.03 * Math.pow(levelKilledBy, (-0.005 * levelKilledBy))));
 		        if(pointsLost <= 0)
 		        {
 		        	pointsLost = pointsLost - 1;
 		        }
-		        double pointsRefunded = (b * pointsSpent) * (Math.pow(Math.E, -n *(sumOfLvls)));
+		        double pointsRefunded = (b * pointsSpent) * (Math.pow(Math.E, -n *(sumOfLvls)) + 0.03 * Math.pow(levelKilledBy, (-0.005 * levelKilledBy)));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Essence Lost: " + (int) (pointsLost + 1)));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Essence Returned: " + (int) pointsRefunded));
 		        p.sendMessage("");

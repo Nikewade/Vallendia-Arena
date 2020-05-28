@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.CommandInterface;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 
 public class TutorialQuitCommand implements CommandInterface{
 
@@ -24,6 +25,10 @@ public class TutorialQuitCommand implements CommandInterface{
 			return false;
 		}
 		VallendiaMinigame.getInstance().getServer().dispatchCommand(sender, "st quit");
+		if(TutorialNextCommand.next.contains(p))
+		{
+			TutorialNextCommand.next.remove(p);
+		}
 	}
 		return false;
 

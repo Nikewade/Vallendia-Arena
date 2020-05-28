@@ -19,6 +19,7 @@ import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Abilities.BandageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RootAbility;
+import me.Nikewade.VallendiaMinigame.Commands.TutorialNextCommand;
 import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Upgrades.RegenUpgrade;
@@ -110,6 +111,10 @@ public class PlayerJoinEvents implements Listener{
 		AbilityUtils.resetAllMaxHealth(p);
 		AbilityUtils.removeCast(p);
 		BandageAbility.removeBandage(p);
+		if(TutorialNextCommand.next.contains(p))
+		{
+			TutorialNextCommand.next.remove(p);
+		}
 		
 		//item cooldowns
 		for(ItemStack item : p.getInventory().getContents())

@@ -183,59 +183,67 @@ public class Utils {
 		            	{
 		            		return;	
 		            	}
-
-		            	for(Entity e : loc.getWorld().getNearbyEntities(loc, 1, 1, 1))
+		            	
+		            	if(!(b.getType() == Material.CROPS && b.getData() == (byte) 7 || b.getType() == Material.BROWN_MUSHROOM ||
+						b.getType() == Material.RED_MUSHROOM || b.getType() == Material.CARROT ||
+						b.getType() == Material.POTATO || b.getType() == Material.NETHER_WARTS && b.getData() == (byte) 3 ||
+						b.getType() == Material.LEAVES || b.getType() == Material.LONG_GRASS ||
+						b.getType() == Material.DOUBLE_PLANT))
 		            	{
-		            		if(e instanceof LivingEntity)
-		            		{
-		            			int x = 1;
-		            			while(e.getLocation().getBlock().getType().isSolid() || 
-		            					e.getLocation().add(0, 1, 0).getBlock().getType().isSolid() ||
-		            					e.getLocation().add(0, 2, 0).getBlock().getType().isSolid())
-		            			{
-		            				
-		            				if(x >= 100)
-		            				{
+
+			            	for(Entity e : loc.getWorld().getNearbyEntities(loc, 1, 1, 1))
+			            	{
+			            		if(e instanceof LivingEntity)
+			            		{
+			            			int x = 1;
+			            			while(e.getLocation().getBlock().getType().isSolid() || 
+			            					e.getLocation().add(0, 1, 0).getBlock().getType().isSolid() ||
+			            					e.getLocation().add(0, 2, 0).getBlock().getType().isSolid())
+			            			{
+			            				
+			            				if(x >= 100)
+			            				{
+				                			e.teleport(e.getLocation().add(0, 1, 0));
+			            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
+			            					continue;
+			            				}
+			            				x++;
+			            				Block n = e.getLocation().getBlock().getRelative(BlockFace.NORTH);
+			            				Block s = e.getLocation().getBlock().getRelative(BlockFace.SOUTH);
+			            				Block east = e.getLocation().getBlock().getRelative(BlockFace.EAST);
+			            				Block w = e.getLocation().getBlock().getRelative(BlockFace.WEST);
 			                			e.teleport(e.getLocation().add(0, 1, 0));
-		            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
-		            					continue;
-		            				}
-		            				x++;
-		            				Block n = e.getLocation().getBlock().getRelative(BlockFace.NORTH);
-		            				Block s = e.getLocation().getBlock().getRelative(BlockFace.SOUTH);
-		            				Block east = e.getLocation().getBlock().getRelative(BlockFace.EAST);
-		            				Block w = e.getLocation().getBlock().getRelative(BlockFace.WEST);
-		                			e.teleport(e.getLocation().add(0, 1, 0));
-		            				if(!n.getType().isSolid())
-		            				{
-		            					e.teleport(n.getLocation());
-		            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
-		            					continue;
-		            				}
-		            				
-		            				if(!s.getType().isSolid())
-		            				{
-		            					e.teleport(s.getLocation());
-		            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
-		            					continue;
-		            				}
-		            				
-		            				if(!east.getType().isSolid())
-		            				{
-		            					e.teleport(east.getLocation());
-		            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
-		            					continue;
-		            				}
-		            				
-		            				if(!w.getType().isSolid())
-		            				{
-		            					e.teleport(w.getLocation());
-		            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
-		            					continue;
-		            				}
-		            					
-		            			}
-		            		}
+			            				if(!n.getType().isSolid())
+			            				{
+			            					e.teleport(n.getLocation());
+			            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
+			            					continue;
+			            				}
+			            				
+			            				if(!s.getType().isSolid())
+			            				{
+			            					e.teleport(s.getLocation());
+			            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
+			            					continue;
+			            				}
+			            				
+			            				if(!east.getType().isSolid())
+			            				{
+			            					e.teleport(east.getLocation());
+			            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
+			            					continue;
+			            				}
+			            				
+			            				if(!w.getType().isSolid())
+			            				{
+			            					e.teleport(w.getLocation());
+			            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
+			            					continue;
+			            				}
+			            					
+			            			}
+			            		}
+			            	}	
 		            	}
 		            	
 		            	changes.remove(block);
@@ -264,56 +272,64 @@ public class Utils {
 	            int z = Integer.parseInt(blockdata[5]);
 	            world.getBlockAt(x, y, z).setTypeId(id);
 	            world.getBlockAt(x, y, z).setData(data);
-            	for(Entity e : world.getNearbyEntities(world.getBlockAt(x, y, z).getLocation(), 1, 1, 1))
+	            Block block = world.getBlockAt(x,y,z);
+            	if(!(block.getType() == Material.CROPS && block.getData() == (byte) 7 || block.getType() == Material.BROWN_MUSHROOM ||
+				block.getType() == Material.RED_MUSHROOM || block.getType() == Material.CARROT ||
+				block.getType() == Material.POTATO || block.getType() == Material.NETHER_WARTS && block.getData() == (byte) 3 ||
+				block.getType() == Material.LEAVES || block.getType() == Material.LONG_GRASS ||
+				block.getType() == Material.DOUBLE_PLANT))
             	{
-            		if(e instanceof LivingEntity)
-            		{
-            			int time = 1;
-            			while(e.getLocation().getBlock().getType().isSolid() || e.getLocation().add(0, 1, 0).getBlock().getType().isSolid())
-            			{
-            				
-            				if(time >= 50)
-            				{
-	                			e.teleport(e.getLocation().add(0, 1, 0));
-            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
-            					continue;
-            				}
-            				time++;
-            				Block n = e.getLocation().getBlock().getRelative(BlockFace.NORTH);
-            				Block s = e.getLocation().getBlock().getRelative(BlockFace.SOUTH);
-            				Block east = e.getLocation().getBlock().getRelative(BlockFace.EAST);
-            				Block w = e.getLocation().getBlock().getRelative(BlockFace.WEST);
-                			e.teleport(e.getLocation().add(0, 1, 0));
-            				if(!n.getType().isSolid())
-            				{
-            					e.teleport(n.getLocation());
-            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
-            					continue;
-            				}
-            				
-            				if(!s.getType().isSolid())
-            				{
-            					e.teleport(s.getLocation());
-            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
-            					continue;
-            				}
-            				
-            				if(!east.getType().isSolid())
-            				{
-            					e.teleport(east.getLocation());
-            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
-            					continue;
-            				}
-            				
-            				if(!w.getType().isSolid())
-            				{
-            					e.teleport(w.getLocation());
-            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
-            					continue;
-            				}
-            					
-            			}
-            		}
+                	for(Entity e : world.getNearbyEntities(world.getBlockAt(x, y, z).getLocation(), 1, 1, 1))
+                	{
+                		if(e instanceof LivingEntity)
+                		{
+                			int time = 1;
+                			while(e.getLocation().getBlock().getType().isSolid() || e.getLocation().add(0, 1, 0).getBlock().getType().isSolid())
+                			{
+                				
+                				if(time >= 50)
+                				{
+    	                			e.teleport(e.getLocation().add(0, 1, 0));
+                					e.sendMessage("YOU WERE TPED DUE TO REGEN");
+                					continue;
+                				}
+                				time++;
+                				Block n = e.getLocation().getBlock().getRelative(BlockFace.NORTH);
+                				Block s = e.getLocation().getBlock().getRelative(BlockFace.SOUTH);
+                				Block east = e.getLocation().getBlock().getRelative(BlockFace.EAST);
+                				Block w = e.getLocation().getBlock().getRelative(BlockFace.WEST);
+                    			e.teleport(e.getLocation().add(0, 1, 0));
+                				if(!n.getType().isSolid())
+                				{
+                					e.teleport(n.getLocation());
+                					e.sendMessage("YOU WERE TPED DUE TO REGEN");
+                					continue;
+                				}
+                				
+                				if(!s.getType().isSolid())
+                				{
+                					e.teleport(s.getLocation());
+                					e.sendMessage("YOU WERE TPED DUE TO REGEN");
+                					continue;
+                				}
+                				
+                				if(!east.getType().isSolid())
+                				{
+                					e.teleport(east.getLocation());
+                					e.sendMessage("YOU WERE TPED DUE TO REGEN");
+                					continue;
+                				}
+                				
+                				if(!w.getType().isSolid())
+                				{
+                					e.teleport(w.getLocation());
+                					e.sendMessage("YOU WERE TPED DUE TO REGEN");
+                					continue;
+                				}
+                					
+                			}
+                		}
+                	}	
             	}
             	
 	            

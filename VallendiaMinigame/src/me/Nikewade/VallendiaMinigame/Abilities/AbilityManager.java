@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -23,6 +24,7 @@ import net.md_5.bungee.api.ChatColor;
 public class AbilityManager {
 	VallendiaMinigame Main;
 	private ArrayList<Ability> abilities = new ArrayList<Ability>();
+	public static ArrayList<Ability> disabledAbilities = new ArrayList<Ability>();
 	private HashMap<UUID, Long> cooldown = new HashMap<>();
 	private static HashMap<Player, ArrayList<String>> playerAbilities = new HashMap<>();
 	//Hashmap Ability name , SLOT
@@ -161,6 +163,11 @@ public class AbilityManager {
 		{
 			AbilityManager.saveAbilities(p);
 			
+		}
+		ConfigurationSection section = VallendiaMinigame.getInstance().getConfig().getConfigurationSection("DisabledAbilities");
+		for(String s : section.getKeys(false))
+		{
+			disabledAbilities.add(this.getAbility(s));
 		}
 		
 	}
@@ -444,6 +451,13 @@ public class AbilityManager {
 		int points = Main.shopmanager.getPoints(p);
 		int price = this.getPrice(abilityname, p);
 		String slot = "Abilities.slot " + abilityslot;
+		
+		if(AbilityManager.disabledAbilities.contains(Main.abilitymanager.getAbility(abilityname)))
+		{
+	        p.sendTitle(Utils.Colorate("&4&lX"), Utils.Colorate("&4&lThat ability is disabled!"), 20, 40, 40);
+	        p.playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 1, 1);
+			return;
+		}
 		
 		if(points >= price)
 		{

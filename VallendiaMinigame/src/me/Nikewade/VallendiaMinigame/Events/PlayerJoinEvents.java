@@ -1,5 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Events;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -32,6 +34,7 @@ import nl.martenm.servertutorialplus.api.events.TutorialEndEvent;
 
 public class PlayerJoinEvents implements Listener{
 	VallendiaMinigame Main;
+	ArrayList<Player> joining = new ArrayList<>();
 	
 	
 	
@@ -45,7 +48,10 @@ public class PlayerJoinEvents implements Listener{
 	public void onJoin(PlayerJoinEvent e)
 	{
 		Player p = e.getPlayer();
-		
+		if(!joining.contains(p))
+		{
+			joining.add(p);
+		}
 		//Player data
         Main.playerdatamanager.createFile(p);
         new BukkitRunnable()
@@ -70,10 +76,21 @@ public class PlayerJoinEvents implements Listener{
 							ServerTutorialApi.getApi().startTutorial("ValTut", p);
 						}
 				        Main.sb.setupPlayerScoreboard(p);
+				        new BukkitRunnable()
+				        {
+
+							@Override
+							public void run() {
+								if(joining.contains(p))
+								{
+									joining.remove(p);
+								}
+							}
+				        	
+				        }.runTaskLater(Main, 20);
 					}
 		        	
 		        }.runTaskLater(Main, 20);
-		       // Main.sb.runScoreboard(p);
 				e.getPlayer().setGravity(true);
 				RegenUpgrade.addTimer(p);				
 				
@@ -81,6 +98,8 @@ public class PlayerJoinEvents implements Listener{
 			}
         	
         }.runTaskLater(Main, 40);
+        
+        
 		
 		
 		//PlayerDataManager.giveInventory(p);
@@ -162,6 +181,11 @@ public class PlayerJoinEvents implements Listener{
 	public void onChat(AsyncPlayerChatEvent e)
 	{
 		Player p = e.getPlayer();
+		if(joining.contains(p))
+		{
+			e.setCancelled(true);
+			return;
+		}
 		e.setMessage(Utils.Colorate("&8&l[" + Language.getPlayerPrefix(p) + "&lLevel " + Main.levelmanager.getLevel(p) + "&8&l] "
 				+ "&8&l" + Main.chat.getPlayerPrefix(p) + p.getName() + " > ") + e.getMessage());
 		

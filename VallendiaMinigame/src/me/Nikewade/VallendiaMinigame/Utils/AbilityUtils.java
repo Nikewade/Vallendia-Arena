@@ -1676,13 +1676,16 @@ public class AbilityUtils implements Listener {
         		
         		if(e.getEntity() instanceof Player && casting.containsKey(e.getEntity()))
         		{
-        			Player p = (Player) e.getEntity();
-        			double currentHealth = p.getHealth() - e.getFinalDamage();
-        			double lowestHealth = p.getMaxHealth() * Utils.getPercentHigherOrLower(castingHealthPercent, false);
-        			if(currentHealth <= lowestHealth)
+        			if(!e.isCancelled() && !(e.getDamage() <= 0))
         			{
-            			removeCast((Player) e.getEntity());
-            			Language.sendDefaultMessage((Player) e.getEntity(), "Your casting was interrupted.");	
+            			Player p = (Player) e.getEntity();
+            			double currentHealth = p.getHealth() - e.getFinalDamage();
+            			double lowestHealth = p.getMaxHealth() * Utils.getPercentHigherOrLower(castingHealthPercent, false);
+            			if(currentHealth <= lowestHealth)
+            			{
+                			removeCast((Player) e.getEntity());
+                			Language.sendDefaultMessage((Player) e.getEntity(), "Your casting was interrupted.");	
+            			}	
         			}
         		}
         		

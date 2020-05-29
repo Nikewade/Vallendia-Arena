@@ -117,8 +117,12 @@ public class SpawnCommand implements CommandInterface, Listener{
 	public void onCommand(PlayerCommandPreprocessEvent e)
 	{	
 		
-		if(e.getMessage().equalsIgnoreCase("/spawn"))
+		if(e.getMessage().equalsIgnoreCase("/spawn") || e.getMessage().contains("/spawn"))
 		{
+			if(e.getMessage().contains("/spawnmob"))
+			{
+				return;
+			}
 			Player p = e.getPlayer();
 			if(ServerTutorialApi.getApi().isInTutorial(p.getUniqueId()))
 			{

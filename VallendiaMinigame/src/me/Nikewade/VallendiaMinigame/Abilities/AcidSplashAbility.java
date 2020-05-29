@@ -28,7 +28,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Language;
 
 public class AcidSplashAbility implements Ability{
 	int range = 3;
-	int damage = 3;
+	int damage = 6;
 	int radius = 8;
 
 	@Override
@@ -78,6 +78,26 @@ public class AcidSplashAbility implements Ability{
 		se.speed = (float) 0;
 		se.visibleRange = 50;
 		
+		
+  		SphereEffect se3 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+		se3.particle = Particle.REDSTONE;
+		se3.color = Color.GREEN;
+		se3.disappearWithOriginEntity = true;
+		se3.infinite();
+		se3.radius = 0.3;
+		se3.particles = 2;
+		se3.speed = (float) 0;
+		se3.visibleRange = 50;
+		
+  		SphereEffect se4 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+		se4.particle = Particle.REDSTONE;
+		se4.color = Color.GREEN;
+		se4.radius = range;
+		se4.particles = 25;
+		se4.iterations = 3;
+		se4.speed = (float) 0;
+		se4.visibleRange = 50;
+				
   		SphereEffect se2 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 		se2.particle = Particle.BLOCK_CRACK;
 		se2.material = Material.LIME_SHULKER_BOX;
@@ -87,7 +107,16 @@ public class AcidSplashAbility implements Ability{
 		se2.speed = (float) 0;
 		se2.visibleRange = 50;
 		  		
+		Runnable run2 = new Runnable()
+		{
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
 		
+		};
 		Runnable run = new Runnable()
 		{
 
@@ -101,8 +130,8 @@ public class AcidSplashAbility implements Ability{
 					seloc.subtract(0,1,0);
 				}
 
-				p.getWorld().playSound(seloc, Sound.BLOCK_SLIME_BREAK, 2, (float) 1.4);
-				p.getWorld().playSound(seloc, Sound.BLOCK_FIRE_EXTINGUISH, 2, 1F);
+				p.getWorld().playSound(seloc, Sound.BLOCK_SLIME_BREAK, 1, (float) 1.4);
+				p.getWorld().playSound(seloc, Sound.BLOCK_FIRE_EXTINGUISH, 1, 1F);
 				
 				for(Entity e : AbilityUtils.getAoeTargets(p, seloc, range, range, range) )
 				{
@@ -111,13 +140,16 @@ public class AcidSplashAbility implements Ability{
 				}
 				
 				se2.setLocation(seloc);
-				se2.start();				
+				se2.start();	
+				se4.setLocation(seloc);
+				se4.start();
 		}
 			
 		};
 		
-		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_SPLASH_POTION_THROW, 2, (float) 0.6);
+		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_SPLASH_POTION_THROW, 1, (float) 0.6);
 		AbilityUtils.arcParticle(p, se, 0.4, run);	
+		AbilityUtils.arcParticle(p, se3, 0.4, run2);	
 		
 		return true;
 	}

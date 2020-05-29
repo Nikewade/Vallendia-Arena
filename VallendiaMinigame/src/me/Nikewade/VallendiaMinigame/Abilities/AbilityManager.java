@@ -153,6 +153,15 @@ public class AbilityManager {
         abilities.add(new InvestorAbility());
         abilities.add(new AcidRainAbility());
         abilities.add(new ContingencyAbility());
+        abilities.add(new IceShardAbility());
+        abilities.add(new FireBlastAbility());
+        abilities.add(new RayOfEnfeeblementAbility());
+        abilities.add(new HeatRayAbility());
+        abilities.add(new FreezeRayAbility());
+        abilities.add(new AcidicRayAbility());
+        abilities.add(new PickOffAbility());
+        abilities.add(new StoneSkinAbility());
+        abilities.add(new ScorchingRayAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);

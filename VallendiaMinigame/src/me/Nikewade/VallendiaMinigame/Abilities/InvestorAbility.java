@@ -30,10 +30,10 @@ public class InvestorAbility implements Ability, Listener{
 	List<Player> investing = new ArrayList<>();	
 	HashMap<Player, BukkitTask> timers = new HashMap<>();
 	int period = 60;
-	int descpercent = 5;
+	int descpercent = 6;
 	// percent is the 100 - the percent you want
-	int percent = 95;
-	int cap = 100;
+	int percent = 94;
+	int cap = 80;
 
 	@Override
 	public String getName() {
@@ -50,9 +50,9 @@ public class InvestorAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("You gain " + descpercent +"% of your total Essence",
-				"every " + period + " seconds. This is capped at",
-				cap + " Essence and does not work while in spawn.");
+		return Arrays.asList("You invest your Essence and gain " + descpercent + " percent of",
+								"your total Essence every " + period + " seconds. This doesn't",
+								"work if you are in spawn.");
 	}
 
 	@Override

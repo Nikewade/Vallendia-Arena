@@ -57,6 +57,14 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Investor"));
 		abilities.add(Main.abilitymanager.getAbility("Acid Splash"));
 		abilities.add(Main.abilitymanager.getAbility("Contingency"));
+		abilities.add(Main.abilitymanager.getAbility("Ice Shard"));
+		abilities.add(Main.abilitymanager.getAbility("Fire Blast"));
+		abilities.add(Main.abilitymanager.getAbility("Ray of Enfeeblement"));
+		abilities.add(Main.abilitymanager.getAbility("Heat Ray"));
+		abilities.add(Main.abilitymanager.getAbility("Freeze Ray"));
+		abilities.add(Main.abilitymanager.getAbility("Acidic Ray"));
+		abilities.add(Main.abilitymanager.getAbility("Stone Skin"));
+		abilities.add(Main.abilitymanager.getAbility("Scorching Ray"));
 	}
 
 	@Override

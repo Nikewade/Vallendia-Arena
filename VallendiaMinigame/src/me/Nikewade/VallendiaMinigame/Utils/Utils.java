@@ -204,7 +204,6 @@ public class Utils {
 			            				if(x >= 100)
 			            				{
 				                			e.teleport(e.getLocation().add(0, 1, 0));
-			            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
 			            					continue;
 			            				}
 			            				x++;
@@ -216,28 +215,24 @@ public class Utils {
 			            				if(!n.getType().isSolid())
 			            				{
 			            					e.teleport(n.getLocation());
-			            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
 			            					continue;
 			            				}
 			            				
 			            				if(!s.getType().isSolid())
 			            				{
 			            					e.teleport(s.getLocation());
-			            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
 			            					continue;
 			            				}
 			            				
 			            				if(!east.getType().isSolid())
 			            				{
 			            					e.teleport(east.getLocation());
-			            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
 			            					continue;
 			            				}
 			            				
 			            				if(!w.getType().isSolid())
 			            				{
 			            					e.teleport(w.getLocation());
-			            					e.sendMessage("YOU WERE TPED DUE TO REGEN");
 			            					continue;
 			            				}
 			            					
@@ -261,6 +256,7 @@ public class Utils {
 	   @SuppressWarnings("deprecation")
 	    public static void restoreBlocks() {
 	        int blocks = 0;
+	        int t = 0;
 	        for (String b : changes) {
 	            String[] blockdata = b.split(":");
 	          
@@ -290,7 +286,6 @@ public class Utils {
                 				if(time >= 50)
                 				{
     	                			e.teleport(e.getLocation().add(0, 1, 0));
-                					e.sendMessage("YOU WERE TPED DUE TO REGEN");
                 					continue;
                 				}
                 				time++;
@@ -302,28 +297,24 @@ public class Utils {
                 				if(!n.getType().isSolid())
                 				{
                 					e.teleport(n.getLocation());
-                					e.sendMessage("YOU WERE TPED DUE TO REGEN");
                 					continue;
                 				}
                 				
                 				if(!s.getType().isSolid())
                 				{
                 					e.teleport(s.getLocation());
-                					e.sendMessage("YOU WERE TPED DUE TO REGEN");
                 					continue;
                 				}
                 				
                 				if(!east.getType().isSolid())
                 				{
                 					e.teleport(east.getLocation());
-                					e.sendMessage("YOU WERE TPED DUE TO REGEN");
                 					continue;
                 				}
                 				
                 				if(!w.getType().isSolid())
                 				{
                 					e.teleport(w.getLocation());
-                					e.sendMessage("YOU WERE TPED DUE TO REGEN");
                 					continue;
                 				}
                 					
@@ -334,6 +325,11 @@ public class Utils {
             	
 	            
 	            blocks++;
+	            t++;
+	            if(t >= changes.size())
+	            {
+	    	        changes.clear();
+	            }
 	        }
 	      
 	        System.out.println(blocks+" blocks regenerated!");

@@ -213,7 +213,7 @@ public class KitManager {
             }
             
             im.setUnbreakable(true);
-            im.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS  });
+            im.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES });
             
             //Shop item
             if(!kitName.equalsIgnoreCase("starter"))
@@ -347,7 +347,7 @@ public class KitManager {
             	im.setLore(loreadd);
             }
             im.setUnbreakable(true);
-            im.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS  });
+            im.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES });
             
             //Shop item
             if(!kitName.equalsIgnoreCase("starter"))

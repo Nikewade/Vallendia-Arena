@@ -28,7 +28,6 @@ public class ScorchingRayAbility implements Ability{
 	int range = 100;
 	int damage = 15;
 	HashMap<Player, ArrayList<Block>> pb = new HashMap<>();
-	ArrayList<Block> blocks = new ArrayList<>();
 	List<Player> active = new ArrayList<>();
 
 	@Override
@@ -140,6 +139,7 @@ public class ScorchingRayAbility implements Ability{
 		se8.delay = 40;
 		
 		active.add(p);
+		ArrayList<Block> blocks = new ArrayList<>();
 		pb.put(p, blocks);
 		
 			Location loc = p.getLocation().add(0, 1.4, 0);
@@ -156,7 +156,6 @@ public class ScorchingRayAbility implements Ability{
 				
 				if(loc.getBlock().getType().isSolid())
 				{
-					loc = loc.getBlock().getLocation();
 					break;
 				}
 			    loc = loc.add(loc.getDirection());			    
@@ -201,10 +200,13 @@ public class ScorchingRayAbility implements Ability{
          			{
          				if(e instanceof LivingEntity && e != p)
          				{
-                            if(AbilityUtils.partyCheck(p, (Player) e))
-                            {
-                                continue;
-                            }
+          					if(e instanceof Player)
+          					{
+                                if(AbilityUtils.partyCheck(p, (Player) e))
+                                {
+                                    continue;
+                                }	
+          					}
     
          					AbilityUtils.damageEntity((LivingEntity) e, p, damage);
          					e.setFireTicks(200);
@@ -228,6 +230,7 @@ public class ScorchingRayAbility implements Ability{
 			{
 						active.remove(p);
 			}
+				pb.get(p).clear();
 				pb.remove(p);
 			}
 			
@@ -299,7 +302,15 @@ public class ScorchingRayAbility implements Ability{
 	@Override
 	public void DisableAbility(Player p) {
 		// TODO Auto-generated method stub
-		
+        if(active.contains(p))
+        {
+            active.remove(p);
+        }
+        if(pb.containsKey(p))
+        {
+            pb.get(p).clear();
+            pb.remove(p);
+        }
 	}
 
 }

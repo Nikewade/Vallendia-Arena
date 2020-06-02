@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import de.slikey.effectlib.effect.ColoredImageEffect;
+import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDeathEvent;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Events.PlayerBlockEvents;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 
 public class ParticleTestAbility implements Ability, Listener{
 	ArrayList<Player> enabled = new ArrayList<>();
@@ -57,7 +60,6 @@ public class ParticleTestAbility implements Ability, Listener{
   		se.period = 14;
   		se.visibleRange = 20;
   		se.start();
-		
 		
 		
 		
@@ -160,11 +162,5 @@ public class ParticleTestAbility implements Ability, Listener{
 		
 	}
 	
-	
-	@EventHandler
-	public void onMove(PlayerMoveEvent e)
-	{
-		
-	}
 
 }

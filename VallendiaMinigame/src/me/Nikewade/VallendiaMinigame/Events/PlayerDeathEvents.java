@@ -111,7 +111,6 @@ public class PlayerDeathEvents implements Listener {
 	      e.setDroppedExp(0);
 	      p.setLevel(0);
 	      p.setExp(0.0F);
-		  p.setMaxHealth(20);
 	      RootAbility.removeLists(p);
 	      AbilityUtils.removeAllStuns(p);
 	      BandageAbility.removeBandage(p);
@@ -252,6 +251,7 @@ public class PlayerDeathEvents implements Listener {
 	   @EventHandler
 	   public void onRespawn(PlayerRespawnEvent e) {
 	      Player p = e.getPlayer();
+		  p.setMaxHealth(20);
 	      this.Main.kitmanager.giveRespawnKit(p, "starter");
 	      ScoreboardHandler.updateHealth(p, 0, 0);
 			p.setFoodLevel(19);

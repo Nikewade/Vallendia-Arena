@@ -25,7 +25,7 @@ public class ContingencyAbility implements Ability{
 	@Override
 	public AbilityType getAbilityType() {
 		// TODO Auto-generated method stub
-		return AbilityType.DEFENSIVE;
+		return AbilityType.UTILITY;
 	}
 
     @Override

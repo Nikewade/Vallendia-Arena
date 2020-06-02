@@ -1,9 +1,11 @@
 package me.Nikewade.VallendiaMinigame.Levels;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Events.PartyEvents;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class LevelManager {
@@ -33,6 +35,7 @@ public class LevelManager {
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Level", amount);
 		this.updateLevelBar(p);
         p.setExp(0);
+		PartyEvents.setPartyLevel(p);
 	}
 	
 	public void addLevel (Player p, int amount)
@@ -48,6 +51,7 @@ public class LevelManager {
         p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 1, 1);
         p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_TWINKLE, 1, 1);
         p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LARGE_BLAST, 1, 1);
+		PartyEvents.setPartyLevel(p);
 	}
 	
 	public void subtractLevel (Player p, int amount)
@@ -59,12 +63,14 @@ public class LevelManager {
 		Main.playerdatamanager.subtractData(p.getUniqueId(), "Level", amount);
 		this.updateLevelBar(p);
         p.setExp(0);
+		PartyEvents.setPartyLevel(p);
 	}
 	
 	public void resetLevel (Player p)
 	{
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Level", 1);
         p.setLevel(1);
+		PartyEvents.setPartyLevel(p);
 	}
 	
 	public void updateLevelBar (Player p)
@@ -139,6 +145,7 @@ public class LevelManager {
 			this.resetExp(p);
 			Main.playerdatamanager.addData(p.getUniqueId(), "Exp", leftOverExp);
 			this.levelUpCheck(p);
+			PartyEvents.setPartyLevel(p);
 			return;
 		}
 		
@@ -147,6 +154,7 @@ public class LevelManager {
 			this.addLevel(p, 1);
 			this.resetExp(p);
 		}
+		PartyEvents.setPartyLevel(p);
 		
 	}
 	
@@ -166,6 +174,7 @@ public class LevelManager {
 			int currentExp = (this.getTotalExp(Integer.toString(level))) - (this.getExp(p) * -1);
 			this.resetExp(p);
 			this.addEXP(p, currentExp);
+			PartyEvents.setPartyLevel(p);
 			return;
 		}
 		

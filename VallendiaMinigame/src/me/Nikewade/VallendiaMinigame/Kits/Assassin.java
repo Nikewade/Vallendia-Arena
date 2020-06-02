@@ -52,6 +52,7 @@ public class Assassin implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Shadow Clone"));
 		abilities.add(Main.abilitymanager.getAbility("Investor"));
 		abilities.add(Main.abilitymanager.getAbility("Pick Off"));
+		abilities.add(Main.abilitymanager.getAbility("Ghost Touch"));
 	}
 	
 	@Override

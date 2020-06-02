@@ -1964,6 +1964,8 @@ public class AbilityUtils implements Listener {
     	if(maxHealth.containsKey(p.toString()+ability))
     	{
     		p.setMaxHealth(p.getMaxHealth() - maxHealth.get(p.toString()+ability));
+    		Language.sendVallendiaBroadcast("old" + (p.getMaxHealth()));
+    		Language.sendVallendiaBroadcast("new" + (p.getMaxHealth() - maxHealth.get(p.toString()+ability)));
     		maxHealth.remove(p.toString()+ability);
     	}
         ScoreboardHandler.updateMaxHealth(p);

@@ -8,7 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Events.PlayerKillEvents;
 import me.Nikewade.VallendiaMinigame.Interface.CommandInterface;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class PointsCommand implements CommandInterface{
@@ -106,6 +108,10 @@ public class PointsCommand implements CommandInterface{
 					        return false;
 					    }
 					    int randomAmount = ThreadLocalRandom.current().nextInt(lowestAmount, maxAmount + 1);
+			        	 if(AbilityUtils.getPlayerParty(p) != "")
+			        	 {
+			        		 randomAmount = PlayerKillEvents.shareEssence(p, (int) randomAmount, true);
+			        	 }
 					   main.shopmanager.addPoints(p, randomAmount);
 					   if(sender instanceof Player)
 					   {

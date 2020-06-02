@@ -55,22 +55,22 @@ public class AltitudeChecker {
                 		        	p.damage((int) ((p.getMaxHealth() * 10) / 100));
                 		        }
                 		        
-                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 15)
+                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 10)
                 		        {
                 		        	p.damage((int) ((p.getMaxHealth() * 30) / 100));
                 		        }
                 		        
-                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 25)
+                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 15)
                 		        {
                 		        	p.damage((int) ((p.getMaxHealth() * 40) / 100));
                 		        }
                 		        
-                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 30)
+                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 20)
                 		        {
                 		        	p.damage((int) ((p.getMaxHealth() * 60) / 100));
                 		        }
                 		        
-                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 40)
+                		        if(p.getLocation().getY() > Main.getConfig().getInt("Options.altitude") + 35)
                 		        {
                 		        	p.damage((int) ((p.getMaxHealth() * 100) / 100));
                 		        }	

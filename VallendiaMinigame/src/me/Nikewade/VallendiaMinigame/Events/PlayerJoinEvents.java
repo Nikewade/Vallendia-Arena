@@ -92,7 +92,8 @@ public class PlayerJoinEvents implements Listener{
 		        	
 		        }.runTaskLater(Main, 20);
 				e.getPlayer().setGravity(true);
-				RegenUpgrade.addTimer(p);				
+				RegenUpgrade.addTimer(p);	
+				PartyEvents.setPartyLevel(p);
 				
 				AbilityManager.saveAbilities(p);
 			}
@@ -158,6 +159,7 @@ public class PlayerJoinEvents implements Listener{
 			PlayerBlockEvents.regenTime = 120;
 		}
 		
+		PartyEvents.setPartyLevelMinusOriginPlayer(p);
 		
 		}
 		

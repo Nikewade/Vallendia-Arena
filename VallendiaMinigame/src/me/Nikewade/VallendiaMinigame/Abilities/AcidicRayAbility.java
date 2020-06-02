@@ -28,7 +28,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class AcidicRayAbility implements Ability, Listener{
 	int range = 20;
-	int damage= 5;
+	int damage= 6;
 	ArrayList<Player> active = new ArrayList<>();
 	ArrayList<Block> blocks = new ArrayList<>();
 	
@@ -49,7 +49,7 @@ public class AcidicRayAbility implements Ability, Listener{
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Instantly fire a corrosive ray up to 20 blocks,",
-							"dealing 5 damage and poisoning enemies.");
+							"dealing " + damage + " damage and poisoning enemies.");
 	}
 
 	@Override
@@ -100,15 +100,16 @@ public class AcidicRayAbility implements Ability, Listener{
 				{	
 					if(e instanceof LivingEntity && e != p)
 					{
-	                    if(AbilityUtils.partyCheck(p, (Player) e))
-	                    {
-	                        continue;
-	                    }
+      					if(e instanceof Player)
+      					{
+                            if(AbilityUtils.partyCheck(p, (Player) e))
+                            {
+                                continue;
+                            }	
+      					}
 					AbilityUtils.damageEntity((LivingEntity) e, p, damage);
 					p.getWorld().playSound(loc, Sound.BLOCK_LAVA_EXTINGUISH, 2, 0.6F);
 					AbilityUtils.addPotionDuration(p, (LivingEntity) e, "Acidic Ray", PotionEffectType.POISON, 0, 10*20);
-					loc = e.getLocation();
-					loc.add(0,1,0);
 					players = true;	
 					}
 				}
@@ -120,7 +121,6 @@ public class AcidicRayAbility implements Ability, Listener{
 				{
 					active.add(p);
 					AbilityUtils.explode(loc, p, 1, 0, false, true, false);
-					loc = loc.getBlock().getLocation();
 					break;
 				}
 			    loc = loc.add(loc.getDirection());			    

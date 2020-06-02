@@ -125,7 +125,6 @@ public class UpgradeManager {
 	
 	public void resetUpgradesOnDeath(Player p)
 	{
-		p.setMaxHealth(20);
 		p.setWalkSpeed((float) 0.2);
 		armor.resetArmor(p);
 		weapon.resetWeapon(p);

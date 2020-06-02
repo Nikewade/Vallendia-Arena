@@ -37,6 +37,7 @@ import me.Nikewade.VallendiaMinigame.Commands.AdminCommand;
 import me.Nikewade.VallendiaMinigame.Commands.CommandHandler;
 import me.Nikewade.VallendiaMinigame.Commands.CooldownCommand;
 import me.Nikewade.VallendiaMinigame.Commands.DisableAbilityCommand;
+import me.Nikewade.VallendiaMinigame.Commands.DonateCommand;
 import me.Nikewade.VallendiaMinigame.Commands.KitCommand;
 import me.Nikewade.VallendiaMinigame.Commands.LevelCommand;
 import me.Nikewade.VallendiaMinigame.Commands.PointsCommand;
@@ -52,6 +53,7 @@ import me.Nikewade.VallendiaMinigame.Commands.VallendiaMainCommand;
 import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Donations.PetParticleEvents;
 import me.Nikewade.VallendiaMinigame.Events.AltitudeChecker;
+import me.Nikewade.VallendiaMinigame.Events.PartyEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerBlockEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerCustomFoodCookEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerDeathEvents;
@@ -191,6 +193,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   new PlayerTakeDamageEvent(this);
 		   new SignEvents(this);
 		   new PlayerCustomFoodCookEvents(this);
+		   new PartyEvents(this);
 		   Bukkit.getPluginManager().registerEvents(AdvInventory.getListener(), this);
 		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
 		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);
@@ -298,6 +301,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	        handler.register("resetkit", new ResetKitCommand());
 	        handler.register("ability", new AbilityCommand());
 	        handler.register("disableability", new DisableAbilityCommand());
+	        handler.register("donate", new DonateCommand());
 	        getCommand("vallendia").setExecutor(handler);
 	    }
 	    

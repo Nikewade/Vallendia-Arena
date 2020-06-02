@@ -162,6 +162,9 @@ public class AbilityManager {
         abilities.add(new PickOffAbility());
         abilities.add(new StoneSkinAbility());
         abilities.add(new ScorchingRayAbility());
+        abilities.add(new RayOfFrostAbility());
+        abilities.add(new GhostTouchAbility());
+        abilities.add(new SunStrikeAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);

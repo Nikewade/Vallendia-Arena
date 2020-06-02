@@ -24,10 +24,14 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
@@ -135,20 +139,6 @@ public class PlayerItemEvents implements Listener {
 			    		            }
 
 			    		        }
-				    			int particleCountBefore = 1;
-			    		        if(item.hasItemMeta())
-			    		        {
-			    		        	ItemMeta meta = item.getItemMeta();
-			    		        	if(meta.hasEnchant(Enchantment.DAMAGE_ALL))
-			    		        	{
-			    		        		particleCountBefore = 1 + (meta.getEnchantLevel(Enchantment.DAMAGE_ALL) / 6);
-			    		        		if(particleCountBefore >= 10)
-			    		        		{
-			    		        			particleCountBefore = 10;
-			    		        		}
-			    		        	}
-			    		        }
-			    		        final int particleCount = particleCountBefore;
 				    		   new BukkitRunnable(){
 				    	            double t = 1;
 				    	            Location loc = p.getLocation();
@@ -184,7 +174,7 @@ public class PlayerItemEvents implements Listener {
 			    	              		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 			    	            		se.particle = Particle.END_ROD;
 			    	            		se.iterations = 1;
-			    	            		se.particles = particleCount;
+			    	            		se.particles = 1;
 			    	            		se.radius = 0.2;
 			    	            		se.speed = (float) 0;
 			    	            		se.visibleRange = 50;
@@ -528,6 +518,44 @@ public class PlayerItemEvents implements Listener {
             	}
 
             }
+
+        }
+    }
+    
+    
+    @EventHandler
+    public void onConsume (PlayerItemConsumeEvent e)
+    {
+        if(e.getItem().getType() == Material.POTION)
+        {
+            e.setCancelled(true);
+            Player p = e.getPlayer();
+            PotionMeta meta = (PotionMeta) e.getItem().getItemMeta();
+            PotionData data = meta.getBasePotionData();
+            if(data.getType() == PotionType.INSTANT_HEAL)
+            {
+                if(data.isUpgraded())
+                {
+                    AbilityUtils.healEntity(p, 8);
+                }else
+                {
+                    AbilityUtils.healEntity(p, 4);
+                }
+            }
+            
+            ItemStack air = new ItemStack(Material.AIR);
+
+            if(p.getInventory().getItemInMainHand().getType() == e.getItem().getType())
+            {
+                p.getInventory().setItemInMainHand(air);
+            }else
+            {
+                if(p.getInventory().getItemInOffHand().getType() == e.getItem().getType())
+                {
+                    p.getInventory().setItemInOffHand(air);
+                }
+            }
+            
 
         }
     }

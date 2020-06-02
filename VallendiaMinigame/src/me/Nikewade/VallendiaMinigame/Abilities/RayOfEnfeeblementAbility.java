@@ -38,8 +38,9 @@ public class RayOfEnfeeblementAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Fire a ray which slows and fatigues targets, giving",
-							"them slowness and weakness for " + time + " seconds.");
+		return Arrays.asList("Fire a long range ray which slows and",
+							"fatigues targets, giving them slowness and",
+							"weakness for " + time + " seconds.");
 		
 	}
 
@@ -91,15 +92,16 @@ public class RayOfEnfeeblementAbility implements Ability{
 				{	
 					if(e instanceof LivingEntity && e != p)
 					{
-	                    if(AbilityUtils.partyCheck(p, (Player) e))
-	                    {
-	                        continue;
-	                    }
+      					if(e instanceof Player)
+      					{
+                            if(AbilityUtils.partyCheck(p, (Player) e))
+                            {
+                                continue;
+                            }	
+      					}
 					// on players
 					AbilityUtils.addPotionDuration(p, (LivingEntity) e, "Ray of Enfeeblement", PotionEffectType.SLOW, 0, time*20);
 					AbilityUtils.addPotionDuration(p, (LivingEntity) e, "Ray of Enfeeblement", PotionEffectType.WEAKNESS, 1, time*20);
-					loc = e.getLocation();
-					loc.add(0,1,0);
 					p.getWorld().playSound(loc, Sound.ENTITY_GHAST_AMBIENT, 2, 0.7F);
 					players = true;	
 					}
@@ -111,7 +113,6 @@ public class RayOfEnfeeblementAbility implements Ability{
 				if(loc.getBlock().getType().isSolid())
 				{
 					// on hit block
-					loc = loc.getBlock().getLocation();
 					break;
 				}
 			    loc = loc.add(loc.getDirection());			    

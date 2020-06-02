@@ -13,6 +13,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import de.slikey.effectlib.effect.LineEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
@@ -20,9 +21,10 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class FreezeRayAbility implements Ability{
-	int time = 15;
-	int damage = 8;
+	int time = 8;
+	int damage = 5;
 	int range = 20;
+	int stunTime = 1;
 
 	@Override
 	public String getName() {
@@ -40,7 +42,9 @@ public class FreezeRayAbility implements Ability{
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Instantly fire a cryogenic ray up to " + range + " blocks,",
-							"dealing " + damage + " damage and slowing enemies for " + time + " seconds.");
+							"dealing " + damage + " damage, stunning enemies for " + stunTime + " seconds",
+							"and then slowing them for " + time + " seconds. This stun breaks",
+							"on damage.");
 	}
 
 	@Override
@@ -91,14 +95,25 @@ public class FreezeRayAbility implements Ability{
 				{	
 					if(e instanceof LivingEntity && e != p)
 					{
-	                    if(AbilityUtils.partyCheck(p, (Player) e))
-	                    {
-	                        continue;
-	                    }
+      					if(e instanceof Player)
+      					{
+                            if(AbilityUtils.partyCheck(p, (Player) e))
+                            {
+                                continue;
+                            }	
+      					}
 					AbilityUtils.damageEntity((LivingEntity) e, p, damage);
-					AbilityUtils.addPotionDuration(p, (LivingEntity) e, "Freeze Ray", PotionEffectType.SLOW, 1, time*20);
-					loc = e.getLocation();
-					loc.add(0,1,0);
+					AbilityUtils.stun(p, (LivingEntity) e, "Freeze Ray", stunTime*20, true);
+					new BukkitRunnable()
+					{
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							AbilityUtils.addPotionDuration(p, (LivingEntity) e, "Freeze Ray", PotionEffectType.SLOW, 1, time*20);
+						}
+						
+					}.runTaskLater(VallendiaMinigame.getInstance(), stunTime * 20);
                  	 p.getWorld().playSound(loc, Sound.BLOCK_GLASS_BREAK, 2, 1.2F);
                 	 p.getWorld().playSound(loc, Sound.BLOCK_GLASS_BREAK, 2, 0.6F);
 					players = true;	
@@ -111,7 +126,6 @@ public class FreezeRayAbility implements Ability{
 				if(loc.getBlock().getType().isSolid())
 				{
 					// on hit block
-					loc = loc.getBlock().getLocation();
 					break;
 				}
 			    loc = loc.add(loc.getDirection());			    

@@ -25,7 +25,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class HoldPersonAbility implements Ability, Listener {
-	int time = 100;
+	int time = 200;
 	int range = 15;
 
 	@Override

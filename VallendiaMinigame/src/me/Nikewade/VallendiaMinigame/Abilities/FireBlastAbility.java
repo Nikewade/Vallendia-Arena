@@ -21,7 +21,7 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class FireBlastAbility implements Ability{
-	int damage = 4;
+	int damage = 3;
 	int radius = 2;
 	double speed = 0.7;
 
@@ -128,10 +128,13 @@ public class FireBlastAbility implements Ability{
          			{
          				if(e instanceof LivingEntity && e != p)
          				{
-                            if(AbilityUtils.partyCheck(p, (Player) e))
-                            {
-                                continue;
-                            }
+          					if(e instanceof Player)
+          					{
+                                if(AbilityUtils.partyCheck(p, (Player) e))
+                                {
+                                    continue;
+                                }	
+          					}
          					onHit(p, loc);
                 			se2.setEntity(e);
                 			se2.start();

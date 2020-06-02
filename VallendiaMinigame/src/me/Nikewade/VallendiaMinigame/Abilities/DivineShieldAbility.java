@@ -28,7 +28,7 @@ public class DivineShieldAbility implements Ability, Listener{
 	private static ArrayList<Player> enabled = new ArrayList<>();
 	private static HashMap<Player,SphereEffect> effect1 = new HashMap<>();
 	private static HashMap<Player,SphereEffect> effect2 = new HashMap<>();
-	int enabledTime = 5;
+	int enabledTime = 10;
 
 	@Override
 	public String getName() {

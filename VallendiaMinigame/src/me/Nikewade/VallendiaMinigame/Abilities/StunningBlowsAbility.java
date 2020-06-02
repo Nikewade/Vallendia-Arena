@@ -21,7 +21,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class StunningBlowsAbility implements Ability, Listener{
 	//made by Emma
-	int percent = 5;
+	int percent = 7;
 	int duration = 10;
 			
 

@@ -3,6 +3,7 @@ package me.Nikewade.VallendiaMinigame.Abilities;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -22,10 +23,10 @@ import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class IceShardAbility implements Ability{
 	int slow = 5;
-	int damage = 7;
+	int damage = 3;
 	double speed = 1;
 	int amplifier = 1;
-	int distance = 50;
+	int distance = 100;
 
 	@Override
 	public String getName() {
@@ -42,9 +43,9 @@ public class IceShardAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Throw a projectile in a straight line, dealing " + damage,
-							"damage to an enemy directly hit and slowing them",
-							"for " + slow + " seconds");
+		return Arrays.asList("Throw a long range projectile in a straight line",
+							"dealing " + damage + " damage to an enemy directly",
+							"hit and slowing them for " + slow + " seconds");
 	}
 
 	@Override
@@ -91,7 +92,7 @@ public class IceShardAbility implements Ability{
             		se.particles = 3;
             		se.radius = 0.2;
             		se.speed = (float) 0;
-            		se.visibleRange = 50;
+            		se.visibleRange = 101;
           			se.setLocation(loc);
           			se.start();
           			
@@ -103,7 +104,21 @@ public class IceShardAbility implements Ability{
               		se2.radius = 2;
               		se2.particleOffsetX = 1.2F;
               		se2.speed = (float) 0;
-              		se2.visibleRange = 50;
+              		se2.visibleRange = 101;
+              		
+              		
+                    SphereEffect se3 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+                   se3.particle = Particle.REDSTONE;
+                   se3.color = Color.WHITE;
+                   se3.iterations = 1;
+                   se3.particles = 4;
+                   se3.radius = 0.2;
+                   se3.particleOffsetX = 1.2F;
+                   se3.speed = (float) 0;
+                   se3.visibleRange = 101;
+                   
+                   se3.setLocation(loc);
+                   se3.start();
 	                
 	               if (loc2.getBlock().getType().isSolid())
 	                {
@@ -134,10 +149,13 @@ public class IceShardAbility implements Ability{
           			{
           				if(e instanceof LivingEntity && e != p)
           				{
-                            if(AbilityUtils.partyCheck(p, (Player) e))
-                            {
-                                continue;
-                            }
+          					if(e instanceof Player)
+          					{
+                                if(AbilityUtils.partyCheck(p, (Player) e))
+                                {
+                                    continue;
+                                }	
+          					}
                          	 p.getWorld().playSound(loc, Sound.BLOCK_GLASS_BREAK, 2, 1.2F);
                          	 p.getWorld().playSound(loc, Sound.BLOCK_GLASS_BREAK, 2, 0.6F);
                  			se2.setEntity(e);
@@ -152,7 +170,7 @@ public class IceShardAbility implements Ability{
 	                loc.subtract(x,y,z);
 	                loc2.subtract(x2,y2,z2);
 	             
-	                if(t >= 30){
+	                if(t >= distance){
 	                    this.cancel();
 	                }
 	             

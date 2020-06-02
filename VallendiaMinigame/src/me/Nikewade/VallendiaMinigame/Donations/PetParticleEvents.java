@@ -25,7 +25,6 @@ public class PetParticleEvents implements Listener{
     @EventHandler
     public void onSpawn (PetFinishedSpawnEvent e)
     {
-        Language.sendVallendiaBroadcast("" + e.getPet().getType());
         if(e.getPet().getType().equalsIgnoreCase("babydragon"))
         {
 

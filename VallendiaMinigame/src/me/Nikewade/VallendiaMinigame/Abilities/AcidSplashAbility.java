@@ -28,7 +28,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Language;
 
 public class AcidSplashAbility implements Ability{
 	int range = 3;
-	int damage = 6;
+	int damage = 3;
 	int radius = 8;
 
 	@Override

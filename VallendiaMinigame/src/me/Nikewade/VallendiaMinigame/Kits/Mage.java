@@ -65,6 +65,8 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Acidic Ray"));
 		abilities.add(Main.abilitymanager.getAbility("Stone Skin"));
 		abilities.add(Main.abilitymanager.getAbility("Scorching Ray"));
+		abilities.add(Main.abilitymanager.getAbility("Ray Of Frost"));
+		abilities.add(Main.abilitymanager.getAbility("Ghost Touch"));
 	}
 
 	@Override

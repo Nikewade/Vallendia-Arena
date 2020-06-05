@@ -34,9 +34,9 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 public class SunderArmorAbility implements Ability, Listener{
 	//made by Emma
 	int duration = 10;
+	int range = 5;
 	public static List<Player> sundered = new ArrayList<>();
 	HashMap<Player, ItemStack> storePant = new HashMap<>();
-	HashMap<Player, ItemStack> storeBoot = new HashMap<>();
 
 	@Override
 	public String getName() {
@@ -53,7 +53,7 @@ public class SunderArmorAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("You sunder your targets armor for " + duration + "",
+		return Arrays.asList("You sunder your targets leg armor for " + duration,
 				"seconds.");
 	}
 
@@ -68,7 +68,7 @@ public class SunderArmorAbility implements Ability, Listener{
 		// TODO Auto-generated method stub
 		
 		
-		Player target = (Player) AbilityUtils.getTarget(p, 5);
+		Player target = (Player) AbilityUtils.getTarget(p, range);
 		
 		if(target == null)
 		{
@@ -119,35 +119,8 @@ public class SunderArmorAbility implements Ability, Listener{
 					
 					target.getInventory().setLeggings(pants);
 					Language.sendAbilityUseMessage(target, "You are no longer Sundered", "Sunder Armor");
-	
-				}
-				}
-				
-			}.runTaskLater(VallendiaMinigame.getInstance(), duration*20);
-
-			
-		}
-		if(!(target.getInventory().getBoots().getType()==Material.AIR))
-		{
-			
-			ItemStack boots = new ItemStack(target.getInventory().getBoots());
-			storeBoot.put(target, boots);
-			target.getInventory().setBoots(new ItemStack(Material.AIR));
-
-			
-			new BukkitRunnable() 
-			{
-
-				@Override
-				public void run() {
-					if(sundered.contains(target))
-					{
-					
-					target.getInventory().setBoots(boots);
 					sundered.remove(target);
-					
-					}
-					
+				}
 				}
 				
 			}.runTaskLater(VallendiaMinigame.getInstance(), duration*20);
@@ -169,10 +142,6 @@ public class SunderArmorAbility implements Ability, Listener{
 			{
 				p.getInventory().setLeggings(storePant.get(p));
 			}
-			if(storeBoot.containsKey(p))
-			{
-				p.getInventory().setBoots(storeBoot.get(p));
-			}
 			sundered.remove(p);
 		}
 		
@@ -190,10 +159,6 @@ public class SunderArmorAbility implements Ability, Listener{
 			if(storePant.containsKey(p))
 			{
 				storePant.remove(p);
-			}
-			if(storeBoot.containsKey(p))
-			{
-				storeBoot.remove(p);
 			}
 			sundered.remove(p);
 		}

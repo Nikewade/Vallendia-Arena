@@ -52,20 +52,26 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.WorldBorderAction;
+import com.kirelcodes.miniaturepets.utils.APIUtils;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 
 import de.slikey.effectlib.Effect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Donations.PetMenuGUI;
+import me.Nikewade.VallendiaMinigame.Events.CosmeticHideEvents;
+import me.kvq.supertrailspro.API.SuperTrailsAPI;
+import me.kvq.supertrailspro.modules.HideReason;
 import net.minecraft.server.v1_12_R1.BlockPosition;
 import net.minecraft.server.v1_12_R1.EnumItemSlot;
 import net.minecraft.server.v1_12_R1.PacketPlayOutEntityEquipment;
 import net.minecraft.server.v1_12_R1.PacketPlayOutPosition;
-import net.minecraft.server.v1_12_R1.TileEntitySkull;
 import net.minecraft.server.v1_12_R1.PacketPlayOutPosition.EnumPlayerTeleportFlags;
+import net.minecraft.server.v1_12_R1.TileEntitySkull;
 
 public class Utils {
+	private static HashMap<Player, String> petIn = new HashMap<>();
 	public static HashMap<Location, BlockState> blocks = new HashMap<>();
     private static List<Block> nonRegenBlocks = new ArrayList<Block>();
     private static List<String> changes = new LinkedList<String>();
@@ -594,6 +600,25 @@ public class Utils {
 		    GameProfile newSkinProfile = new GameProfile(UUID.randomUUID(), null);
 		    newSkinProfile.getProperties().put("textures", new Property("textures", Base64Coder.encodeString("{textures:{SKIN:{url:\"" + skinURL + "\"}}}")));
 		    return newSkinProfile;
+		}
+		
+		public static void removeCosmetics(Player p)
+		{//MAKE SURE IF YOU ARE USING THIS YOU DEF ADD IT BACK
+			if(CosmeticHideEvents.pets.containsKey(p))
+			{
+				CosmeticHideEvents.pets.get(p).remove();			
+			}
+			SuperTrailsAPI.getPlayerData(p).setHidden(true, HideReason.CUSTOM);
+
+		}
+		
+		public static void addCosmetics(Player p)
+		{
+			if(CosmeticHideEvents.pets.containsKey(p))
+			{
+				Bukkit.dispatchCommand(p, "mpet pet " + CosmeticHideEvents.pets.get(p).getType());
+			}
+			SuperTrailsAPI.getPlayerData(p).setHidden(false, HideReason.CUSTOM);
 		}
 
 }

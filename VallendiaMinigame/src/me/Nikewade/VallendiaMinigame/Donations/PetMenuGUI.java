@@ -1,6 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Donations;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -16,17 +17,17 @@ import com.kirelcodes.miniaturepets.api.events.pets.PetRemovedEvent;
 import com.kirelcodes.miniaturepets.pets.Pet;
 
 import me.Nikewade.VallendiaMinigame.Commands.DonateCommand;
+import me.Nikewade.VallendiaMinigame.Events.CosmeticHideEvents;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory.ClickRunnable;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class PetMenuGUI implements Listener {
-	public static ArrayList<Pet> pets = new ArrayList<>();
 	
 	public static void openPetMenu(Player p) {
 		
-	AdvInventory petMenu = new AdvInventory(Utils.Colorate(""), 54, Utils.placeholder((byte) 15, " "));
+	AdvInventory petMenu = new AdvInventory(Utils.Colorate("&9&lPets"), 54, Utils.placeholder((byte) 15, " "));
 	
 	for(int i = 10; i < 45 ; i++)
 	{
@@ -45,7 +46,11 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();		
-		    	Bukkit.dispatchCommand(ep, "mpet remove");		 
+		    	if(CosmeticHideEvents.pets.containsKey(p))
+		    	{
+					CosmeticHideEvents.pets.get(p).remove();
+		    	}
+
 		    }
 		});
 	 
@@ -78,7 +83,7 @@ public class PetMenuGUI implements Listener {
 	 }
 	 
 	 petMenu.setItem(new ItemStack(Utils.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWI5MmIwODYyMjY0ZmYyY2JhMWRiZDg4MTkyY2M4MTU0M2ZhYjU0OTY5ZTExN2Q0ZmU0MzUzYjk1MyJ9fX0=")),
-	 		 astro, 10, new ClickRunnable() {
+	 		 astro, 38, new ClickRunnable() {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
@@ -495,7 +500,7 @@ public class PetMenuGUI implements Listener {
 	 }
 	 
 	 petMenu.setItem(new ItemStack(Utils.getItem("ewogICJ0aW1lc3RhbXAiIDogMTU5MDc5MjIwODA1NCwKICAicHJvZmlsZUlkIiA6ICI3ZGEyYWIzYTkzY2E0OGVlODMwNDhhZmMzYjgwZTY4ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJHb2xkYXBmZWwiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTQ0MDhjOTZkY2I4NDVjNDFmZDRhNmJlNjlmZjk5NTljYjQwZTBlMjI0OGIxNGM4ZTE1ZDgwMTIzYTgxNjhlZSIKICAgIH0KICB9Cn0=")),
-	 		 penguin, 29, new ClickRunnable() {
+	 		 penguin, 36, new ClickRunnable() {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
@@ -511,7 +516,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String river = Utils.Colorate("&8&lRiver Otter");
-	 if(p.hasPermission("mpet.RiverOtter"))
+	 if(p.hasPermission("mpet.riverOtter"))
 	 {
 		 river = Utils.Colorate("&6&lRiver Otter");
 	 }
@@ -521,7 +526,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.riverOtter"))
+		    	if(ep.hasPermission("mpet.RiverOtter"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet RiverOtter");
 		       	ep.closeInventory();
@@ -623,7 +628,7 @@ public class PetMenuGUI implements Listener {
 	 String pug = Utils.Colorate("&8&lWhite Pug");
 	 if(p.hasPermission("mpet.WhitePug"))
 	 {
-		 pug = Utils.Colorate("&6&lWhitePug");
+		 pug = Utils.Colorate("&6&lWhite Pug");
 	 }
 	 
 	 petMenu.setItem(new ItemStack(Utils.getItem("ewogICJ0aW1lc3RhbXAiIDogMTU5MDc5MzI4NzM4MSwKICAicHJvZmlsZUlkIiA6ICI3ZGEyYWIzYTkzY2E0OGVlODMwNDhhZmMzYjgwZTY4ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJHb2xkYXBmZWwiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTQxZWNmNDYyM2FlMTNkZWE3MzM4NTU1OTNkMzA4NTFhZmE4N2VmMmQ5ZmY5YTY4YzMyZWQ0YmJhMTgxYTMyZCIKICAgIH0KICB9Cn0=")),
@@ -641,6 +646,76 @@ public class PetMenuGUI implements Listener {
 		    	}
 		    }
 		});
+	 
+	 String bsquirrel = Utils.Colorate("&8&lBrown Squirrel");
+	 if(p.hasPermission("mpet.Squirrel2"))
+	 {
+		 bsquirrel = Utils.Colorate("&6&lBrown Squirrel");
+	 }
+	 
+	 
+	 petMenu.setItem(new ItemStack(Utils.getItem("ewogICJ0aW1lc3RhbXAiIDogMTU5MTExNzI1Njg4MywKICAicHJvZmlsZUlkIiA6ICJlM2I0NDVjODQ3ZjU0OGZiOGM4ZmEzZjFmN2VmYmE4ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJNaW5pRGlnZ2VyVGVzdCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9mMGVmNTg1YTE2N2QwNjExM2JlOTI4NDMxZjhmOGQ3NGZiOTNhY2ZmY2U1ZTQyOTAzZTFjODg4MjY1MTczMTA1IgogICAgfQogIH0KfQ==")),
+	 		 bsquirrel, 29, new ClickRunnable() {
+		    @Override
+		    public void run(InventoryClickEvent e) {
+		    	Player ep = (Player) e.getWhoClicked();
+		    	if(ep.hasPermission("mpet.Squirrel2"))
+		    	{
+		    	Bukkit.dispatchCommand(ep, "mpet pet Squirrel2");
+		       	ep.closeInventory();
+		    	}else
+		    	{
+		    		ep.sendMessage(Utils.Colorate("&cYou don't have this pet!"));
+		    	}
+		    }
+		});
+	 
+	 String gsquirrel = Utils.Colorate("&8&lGrey Squirrel");
+	 if(p.hasPermission("mpet.Squirrel3"))
+	 {
+		 gsquirrel = Utils.Colorate("&6&lGrey Squirrel");
+	 }
+	 
+	 
+	 petMenu.setItem(new ItemStack(Utils.getItem("ewogICJ0aW1lc3RhbXAiIDogMTU5MTExNzM0NDYyMCwKICAicHJvZmlsZUlkIiA6ICIyMWUzNjdkNzI1Y2Y0ZTNiYjI2OTJjNGEzMDBhNGRlYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJHZXlzZXJNQyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8xN2ViMjFlNWY2NjUwMjBhMjY5NjAyNDE0YTU4MzAzNGY0NDVkZTNlNzdlZmYzYjMwNWJmNjQ1MTQ5ZDRhMTNiIgogICAgfQogIH0KfQ==")),
+	 		 gsquirrel, 37, new ClickRunnable() {
+		    @Override
+		    public void run(InventoryClickEvent e) {
+		    	Player ep = (Player) e.getWhoClicked();
+		    	if(ep.hasPermission("mpet.Squirrel3"))
+		    	{
+		    	Bukkit.dispatchCommand(ep, "mpet pet Squirrel3");
+		       	ep.closeInventory();
+		    	}else
+		    	{
+		    		ep.sendMessage(Utils.Colorate("&cYou don't have this pet!"));
+		    	}
+		    }
+		});
+	 
+	 String besquirrel = Utils.Colorate("&8&lBeige Squirrel");
+	 if(p.hasPermission("mpet.Squirrel1"))
+	 {
+		 besquirrel = Utils.Colorate("&6&lBeige Squirrel");
+	 }
+	 
+	 
+	 petMenu.setItem(new ItemStack(Utils.getItem("ewogICJ0aW1lc3RhbXAiIDogMTU5MTExNzQwNzE0OSwKICAicHJvZmlsZUlkIiA6ICI0ZDcwNDg2ZjUwOTI0ZDMzODZiYmZjOWMxMmJhYjRhZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJzaXJGYWJpb3pzY2hlIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzQ4YTczNmI4MTU1OGE5MmJkZGRkZWMzN2QxZGViOTkzNjU2MzEwY2E4NDQwOTdlY2NkMmNhYjQwOTZhNjRhYjgiCiAgICB9CiAgfQp9")),
+	 		 besquirrel, 10, new ClickRunnable() {
+		    @Override
+		    public void run(InventoryClickEvent e) {
+		    	Player ep = (Player) e.getWhoClicked();
+		    	if(ep.hasPermission("mpet.Squirrel1"))
+		    	{
+		    	Bukkit.dispatchCommand(ep, "mpet pet Squirrel1");
+		       	ep.closeInventory();
+		    	}else
+		    	{
+		    		ep.sendMessage(Utils.Colorate("&cYou don't have this pet!"));
+		    	}
+		    }
+		});
+	  
 	  
 	 petMenu.openInventory(p);
 }

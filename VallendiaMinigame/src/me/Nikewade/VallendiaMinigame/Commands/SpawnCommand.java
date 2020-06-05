@@ -231,6 +231,13 @@ public class SpawnCommand implements CommandInterface, Listener{
 			{
 				removeSpawn(e.getPlayer());
 				Language.sendDefaultMessage(e.getPlayer(), "&3Teleportation canceled.");
+				
+				if(AbilityCooldown.isInCooldown(e.getPlayer().getUniqueId(), "spawn"))
+				{  
+					AbilityCooldown.stop(e.getPlayer().getUniqueId(), "spawn");
+		    		AbilityCooldown c = new AbilityCooldown(e.getPlayer().getUniqueId(), "spawn", 60, null);
+		    		c.start();	
+				}
 			}
 		}
 	}
@@ -253,6 +260,13 @@ public class SpawnCommand implements CommandInterface, Listener{
 			{
 				removeSpawn(p);
 				Language.sendDefaultMessage(p, "&3Teleportation canceled.");
+				
+				if(AbilityCooldown.isInCooldown(p.getUniqueId(), "spawn"))
+				{  
+					AbilityCooldown.stop(p.getUniqueId(), "spawn");
+		    		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), "spawn", 60, null);
+		    		c.start();	
+				}
 			}
 		}
 	}

@@ -16,7 +16,7 @@ public class WingsMenuGUI {
 	
 	public static void openWingsMenu(Player p)
 	{
-		AdvInventory wingsMenu = new AdvInventory(Utils.Colorate(""), 54, Utils.placeholder((byte) 15, " "));	
+		AdvInventory wingsMenu = new AdvInventory(Utils.Colorate("&9&lWings"), 54, Utils.placeholder((byte) 15, " "));	
 		for(int i = 10; i < 45 ; i++)
 		{
 			wingsMenu.setItem(new ItemStack(Material.AIR), i);

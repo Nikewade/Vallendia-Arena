@@ -1,5 +1,7 @@
 package me.Nikewade.VallendiaMinigame.Donations;
 
+import java.util.HashMap;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -8,15 +10,15 @@ import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.Commands.DonateCommand;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
-import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory.ClickRunnable;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import me.kvq.supertrailspro.SuperTrails;
 import me.kvq.supertrailspro.API.SuperTrailsAPI;
 
-public class ParticleTrailsMenuGUI {
-	
+public class ParticleTrailsMenuGUI {	
 	public static void openDefaultMenu(Player p) {
 		
-	AdvInventory defaultMenu = new AdvInventory(Utils.Colorate(""), 54, Utils.placeholder((byte) 15, " "));
+	AdvInventory defaultMenu = new AdvInventory(Utils.Colorate("&9&lParticle Trails"), 54, Utils.placeholder((byte) 15, " "));
 	
 	for(int i = 10; i < 45 ; i++)
 	{
@@ -40,6 +42,7 @@ public class ParticleTrailsMenuGUI {
 		    		if(ep.hasPermission("trails.mode.Spiral"))
 		    		{
 		    			SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		    		}
 		    		openSpiralmenu(ep);
 		    	}
@@ -60,6 +63,7 @@ public class ParticleTrailsMenuGUI {
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();			    	
 		    	SuperTrailsAPI.getPlayerData(ep).setTrail(0);
+
 		    }
 		});
 	 
@@ -77,6 +81,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(26);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -123,6 +128,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(3);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -146,6 +152,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(4);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -169,6 +176,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(5);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -193,6 +201,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(6);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -216,6 +225,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(7);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -239,6 +249,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(8);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -263,6 +274,7 @@ public class ParticleTrailsMenuGUI {
 		    		//white magic
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(11);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+		    	
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -310,6 +322,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(12);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+		    	
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -333,6 +346,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(13);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -356,6 +370,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(14);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -378,6 +393,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(15);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -401,6 +417,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(16);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -423,6 +440,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(17);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -446,6 +464,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(27);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -470,6 +489,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(28);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -493,6 +513,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(20);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -516,6 +537,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(21);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -540,6 +562,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(22);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -563,6 +586,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(23);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -578,7 +602,7 @@ public class ParticleTrailsMenuGUI {
 	
 	public static void openCirclemenu(Player p) {
 		
-	AdvInventory circleMenu = new AdvInventory(Utils.Colorate(""), 54, Utils.placeholder((byte) 15, " "));
+	AdvInventory circleMenu = new AdvInventory(Utils.Colorate("&9&lParticle Trails"), 54, Utils.placeholder((byte) 15, " "));
 	
 	for(int i = 10; i < 45 ; i++)
 	{
@@ -594,12 +618,14 @@ public class ParticleTrailsMenuGUI {
 		    		if(ep.hasPermission("trails.mode.Pulse"))
 		    		{
 		    			SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		    		}
 		    		openPulsemenu(ep);
 		    	}
 		    	if(e.getClick() == ClickType.RIGHT)
 		    	{
 		    		SuperTrailsAPI.getPlayerData(ep).setMode(0);
+
 		    		openDefaultMenu(ep);
 		    	}
 		    	
@@ -619,6 +645,7 @@ public class ParticleTrailsMenuGUI {
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();			    	
 		    	SuperTrailsAPI.getPlayerData(ep).setTrail(0);
+
 		    }
 		});
 	 
@@ -641,6 +668,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(26);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -668,6 +696,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(2);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -696,6 +725,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(3);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -724,6 +754,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(4);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -752,6 +783,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(5);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -781,6 +813,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(6);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -809,6 +842,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(7);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -835,6 +869,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(8);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -864,6 +899,7 @@ public class ParticleTrailsMenuGUI {
 		    		//white magic
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(11);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -892,6 +928,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(10);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -918,6 +955,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(12);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -944,6 +982,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(13);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -971,6 +1010,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(14);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -997,6 +1037,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(15);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1024,6 +1065,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(16);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1050,6 +1092,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(17);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1078,6 +1121,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(27);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1106,6 +1150,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(28);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1134,6 +1179,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(20);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1162,6 +1208,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(21);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1190,6 +1237,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(22);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1218,6 +1266,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(23);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1233,7 +1282,7 @@ public class ParticleTrailsMenuGUI {
 	
 	public static void openPulsemenu(Player p) {
 		
-	AdvInventory pulseMenu = new AdvInventory(Utils.Colorate(""), 54, Utils.placeholder((byte) 15, " "));
+	AdvInventory pulseMenu = new AdvInventory(Utils.Colorate("&9&lParticle Trails"), 54, Utils.placeholder((byte) 15, " "));
 	
 	for(int i = 10; i < 45 ; i++)
 	{
@@ -1249,6 +1298,7 @@ public class ParticleTrailsMenuGUI {
 		    		if(ep.hasPermission("trails.mode.Spiral"))
 		    		{
 		    			SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		    		}
 		    		openSpiralmenu(ep);
 		    	}
@@ -1257,6 +1307,7 @@ public class ParticleTrailsMenuGUI {
 		    		if(ep.hasPermission("trails.mode.Circle"))
 		    		{
 		    			SuperTrailsAPI.getPlayerData(ep).setMode(1);
+
 		    		}
 		    		openCirclemenu(ep);
 		    	}
@@ -1277,6 +1328,7 @@ public class ParticleTrailsMenuGUI {
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();			    	
 		    	SuperTrailsAPI.getPlayerData(ep).setTrail(0);
+
 		    }
 		});
 	 
@@ -1299,6 +1351,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(26);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1326,6 +1379,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(2);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1354,6 +1408,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(3);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1382,6 +1437,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(4);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1409,6 +1465,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(5);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+		    
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1438,6 +1495,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(6);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1466,6 +1524,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(7);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1494,6 +1553,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(8);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1521,8 +1581,9 @@ public class ParticleTrailsMenuGUI {
 		    		//white magic
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(11);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
-		    	}else
+		       	 }else
 		    	{
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have this trail!"));
 		    	}
@@ -1549,6 +1610,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(10);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1575,6 +1637,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(12);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1601,6 +1664,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(13);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1629,6 +1693,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(14);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1656,6 +1721,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(15);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1682,6 +1748,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(16);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1710,6 +1777,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(17);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1737,6 +1805,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(27);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1765,6 +1834,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(28);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1793,6 +1863,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(20);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1821,6 +1892,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(21);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1849,6 +1921,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(22);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+		    
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1877,6 +1950,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(23);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1892,7 +1966,7 @@ public class ParticleTrailsMenuGUI {
 	
 	public static void openSpiralmenu(Player p) {
 		
-	AdvInventory spiralMenu = new AdvInventory(Utils.Colorate(""), 54, Utils.placeholder((byte) 15, " "));
+	AdvInventory spiralMenu = new AdvInventory(Utils.Colorate("&9&lParticle Trails"), 54, Utils.placeholder((byte) 15, " "));
 	
 	for(int i = 10; i < 45 ; i++)
 	{
@@ -1906,7 +1980,7 @@ public class ParticleTrailsMenuGUI {
 		    	if(e.getClick() == ClickType.LEFT)
 		    	{
 		    			SuperTrailsAPI.getPlayerData(ep).setMode(0);
-		    		
+
 		    		openDefaultMenu(ep);
 		    	}
 		    	if(e.getClick() == ClickType.RIGHT)
@@ -1914,6 +1988,7 @@ public class ParticleTrailsMenuGUI {
 		    		if(ep.hasPermission("trails.mode.Pulse"))
 		    		{
 		    			SuperTrailsAPI.getPlayerData(ep).setMode(2);
+
 		    		}
 		    		openPulsemenu(ep);
 		    	}
@@ -1934,6 +2009,7 @@ public class ParticleTrailsMenuGUI {
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();			    	
 		    	SuperTrailsAPI.getPlayerData(ep).setTrail(0);
+
 		    }
 		});
 	 
@@ -1956,6 +2032,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(26);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -1983,6 +2060,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(2);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2011,6 +2089,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(3);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2039,6 +2118,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(4);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2068,6 +2148,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(5);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2097,6 +2178,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(6);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2123,6 +2205,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(7);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2150,6 +2233,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(8);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2177,6 +2261,7 @@ public class ParticleTrailsMenuGUI {
 		    		//white magic
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(11);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+		    	
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2232,6 +2317,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(12);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2258,6 +2344,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(13);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2286,6 +2373,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(14);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2313,6 +2401,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(15);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2339,6 +2428,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(16);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2367,6 +2457,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(17);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2395,6 +2486,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(27);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2423,6 +2515,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(28);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2451,6 +2544,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(20);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2477,6 +2571,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(21);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2505,6 +2600,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(22);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{
@@ -2533,6 +2629,7 @@ public class ParticleTrailsMenuGUI {
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(23);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
+
 		       	ep.closeInventory();
 		    	}else
 		    	{

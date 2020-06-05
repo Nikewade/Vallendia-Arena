@@ -53,6 +53,8 @@ public class Assassin implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Investor"));
 		abilities.add(Main.abilitymanager.getAbility("Pick Off"));
 		abilities.add(Main.abilitymanager.getAbility("Ghost Touch"));
+		abilities.add(Main.abilitymanager.getAbility("Tunnel Vision"));
+		abilities.add(Main.abilitymanager.getAbility("Baker"));
 	}
 	
 	@Override

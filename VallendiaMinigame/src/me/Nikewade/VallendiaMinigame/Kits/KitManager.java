@@ -174,7 +174,6 @@ public class KitManager {
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "KillStreak", 0);
         SneakAbility.onDie(p);
         ClimbAbility.onDie(p);
-        RageAbility.onDie(p);
         String path = "kits." + kitName + ".";
         ConfigurationSection s = config.getConfigurationSection(path + "items");
         for (String str : s.getKeys(false)) {
@@ -301,7 +300,6 @@ public class KitManager {
 	      }
         SneakAbility.onDie(p);
         ClimbAbility.onDie(p);
-        RageAbility.onDie(p);
         String path = "kits." + kitName + ".";
         ConfigurationSection s = config.getConfigurationSection(path + "items");
         for (String str : s.getKeys(false)) {

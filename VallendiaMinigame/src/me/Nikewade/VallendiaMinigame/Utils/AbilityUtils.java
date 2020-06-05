@@ -1364,6 +1364,7 @@ public class AbilityUtils implements Listener {
     
     
     
+    
     public static boolean makeInvisible(Player p, String ability)
     {
     	if(invisible.containsKey(p))
@@ -1376,7 +1377,7 @@ public class AbilityUtils implements Listener {
     		return false;
     	}
     	invisible.put(p, ability);
-    	
+    	Utils.removeCosmetics(p);
 		//Untarget entities
 		for(Entity en : p.getNearbyEntities(50, 50, 50))
 		{
@@ -1425,6 +1426,7 @@ public class AbilityUtils implements Listener {
     {
     	if(invisible.containsKey(p))
     	{
+    		Utils.addCosmetics(p);
 			for(Player player : Bukkit.getOnlinePlayers())
 			{
 				player.showPlayer(p);
@@ -1439,6 +1441,7 @@ public class AbilityUtils implements Listener {
     {
         if(invisible.containsKey(p))
         {
+    		Utils.addCosmetics(p);
             for(Player player : Bukkit.getOnlinePlayers())
             {
                 player.showPlayer(p);
@@ -1964,8 +1967,6 @@ public class AbilityUtils implements Listener {
     	if(maxHealth.containsKey(p.toString()+ability))
     	{
     		p.setMaxHealth(p.getMaxHealth() - maxHealth.get(p.toString()+ability));
-    		Language.sendVallendiaBroadcast("old" + (p.getMaxHealth()));
-    		Language.sendVallendiaBroadcast("new" + (p.getMaxHealth() - maxHealth.get(p.toString()+ability)));
     		maxHealth.remove(p.toString()+ability);
     	}
         ScoreboardHandler.updateMaxHealth(p);

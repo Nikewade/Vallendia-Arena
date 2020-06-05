@@ -55,7 +55,10 @@ public class PlayerCustomFoodCookEvents implements Listener{
 			{
 				if(!food.containsKey(mainHand.getType()) && !food.containsKey(offHand.getType()))
 				{
-					Language.sendDefaultMessage(p, "Right click me with food in your hand to cook!");
+					if(!(mainHand.getType() == Material.WHEAT) && !(offHand.getType() == Material.WHEAT)) // FOr baker ability
+					{
+						Language.sendDefaultMessage(p, "Right click me with food in your hand to cook!");
+					}
 				}
 				if(food.containsKey(mainHand.getType()) || food.containsKey(offHand.getType()))
 				{

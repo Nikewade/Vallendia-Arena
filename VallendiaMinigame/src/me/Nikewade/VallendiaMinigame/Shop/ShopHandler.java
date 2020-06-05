@@ -143,9 +143,9 @@ public class ShopHandler {
 	public static final boolean buyItem(Player player, ItemStack stack, double cost) {
 		if(VallendiaMinigame.getInstance().shopmanager.getPoints(player) >= cost) {
 			VallendiaMinigame.getInstance().shopmanager.subtractPoints(player, (int) cost);
-	 		if(stack.getType() == Material.COOKED_BEEF || stack.getType() == Material.GRILLED_PORK || 
-	 				stack.getType() == Material.COOKED_CHICKEN || stack.getType() == Material.BREAD || 
-	 				stack.getType() == Material.COOKED_FISH || stack.getType() == Material.COOKED_RABBIT)
+	 		if(stack.getType() == Material.RAW_BEEF || stack.getType() == Material.PORK || 
+	 				stack.getType() == Material.RAW_CHICKEN || stack.getType() == Material.BREAD || 
+	 				stack.getType() == Material.COOKED_FISH || stack.getType() == Material.RABBIT)
 			{
 				ItemMeta im = stack.getItemMeta();
 				
@@ -153,14 +153,14 @@ public class ShopHandler {
 	 			String itemName = "";
 	 			
 		        switch (stack.getType()) {
-	            case COOKED_BEEF:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.steak");
-	            itemName = "Steak";
+	            case RAW_BEEF:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.steak");
+	            itemName = "Raw Beef";
 	                     break;
-	            case GRILLED_PORK:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.pork");
-	            itemName = "Cooked Porkchop";
+	            case PORK:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.pork");
+	            itemName = "Raw Porkchop";
 	                     break;
-	            case COOKED_CHICKEN:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.chicken");
-	            itemName = "Cooked Chicken";
+	            case RAW_CHICKEN:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.chicken");
+	            itemName = "Raw Chicken";
 	                     break;
 	            case BREAD:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.bread");
 	            itemName = "Bread";
@@ -168,8 +168,8 @@ public class ShopHandler {
 	            case COOKED_FISH:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.fish");
 	            itemName = "Cooked Fish";
 	                     break;
-	            case COOKED_RABBIT:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.rabbit");
-	            itemName = "Cooked Rabbit";
+	            case RABBIT:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.rabbit");
+	            itemName = "Raw Rabbit";
                  break;
 				default:
 					healPercent = 0;
@@ -187,12 +187,15 @@ public class ShopHandler {
 	}
 	
 	public static final boolean sellItem(Player player, ItemStack stahck, double cost) {
-		if(player.getInventory().containsAtLeast(stahck, stahck.getAmount())) {
+		/*
+		 * 	
+		 * if(player.getInventory().containsAtLeast(stahck, stahck.getAmount())) {
 			player.getInventory().removeItem(stahck);
 			VallendiaMinigame.getInstance().shopmanager.addPoints(player, (int) cost);
 			return true;
 		}
 		ShopUtils.chat(player, VallendiaMinigame.getInstance().getConfig().getString("langNotEnoughItems"));
+		 */
 		return false;
 	}
 	

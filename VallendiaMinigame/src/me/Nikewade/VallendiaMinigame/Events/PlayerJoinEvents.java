@@ -59,6 +59,10 @@ public class PlayerJoinEvents implements Listener{
 
 			@Override
 			public void run() {
+				if(!p.isOnline())
+				{
+					return;
+				}
 				if(!PlayerDataManager.data.containsKey(p))
 				{
 					PlayerDataManager.createData(p);

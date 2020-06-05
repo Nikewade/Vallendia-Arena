@@ -1,7 +1,6 @@
 package me.Nikewade.VallendiaMinigame;
 
 import java.util.Iterator;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -38,6 +37,7 @@ import me.Nikewade.VallendiaMinigame.Commands.CommandHandler;
 import me.Nikewade.VallendiaMinigame.Commands.CooldownCommand;
 import me.Nikewade.VallendiaMinigame.Commands.DisableAbilityCommand;
 import me.Nikewade.VallendiaMinigame.Commands.DonateCommand;
+import me.Nikewade.VallendiaMinigame.Commands.HelpCommand;
 import me.Nikewade.VallendiaMinigame.Commands.KitCommand;
 import me.Nikewade.VallendiaMinigame.Commands.LevelCommand;
 import me.Nikewade.VallendiaMinigame.Commands.PointsCommand;
@@ -53,6 +53,7 @@ import me.Nikewade.VallendiaMinigame.Commands.VallendiaMainCommand;
 import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Donations.PetParticleEvents;
 import me.Nikewade.VallendiaMinigame.Events.AltitudeChecker;
+import me.Nikewade.VallendiaMinigame.Events.CosmeticHideEvents;
 import me.Nikewade.VallendiaMinigame.Events.PartyEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerBlockEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerCustomFoodCookEvents;
@@ -64,6 +65,7 @@ import me.Nikewade.VallendiaMinigame.Events.PlayerJoinEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerKillEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerTakeDamageEvent;
 import me.Nikewade.VallendiaMinigame.Events.ProjectileEvents;
+import me.Nikewade.VallendiaMinigame.Events.RandomBroadcastEvents;
 import me.Nikewade.VallendiaMinigame.Events.SignEvents;
 import me.Nikewade.VallendiaMinigame.Graphics.GuiHandler;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
@@ -198,7 +200,11 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
 		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(new SpawnCommand(), this);
+		   Bukkit.getPluginManager().registerEvents(new HelpCommand(), this);
 		   new PetParticleEvents(this);
+		   new CosmeticHideEvents(this);
+		   
+		   new RandomBroadcastEvents(this);
 		   
 		   //Ability Listeners
 		   
@@ -303,6 +309,7 @@ public class VallendiaMinigame extends JavaPlugin{
 	        handler.register("disableability", new DisableAbilityCommand());
 	        handler.register("donate", new DonateCommand());
 	        getCommand("vallendia").setExecutor(handler);
+	        getCommand("donate").setExecutor(new DonateCommand());
 	    }
 	    
 	    private boolean setupChat() {

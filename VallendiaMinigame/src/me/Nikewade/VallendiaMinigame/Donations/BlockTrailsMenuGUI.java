@@ -15,7 +15,7 @@ public class BlockTrailsMenuGUI {
 	
 	public static void openBlockTrailMenu(Player p) {
 		
-	AdvInventory blocksMenu = new AdvInventory(Utils.Colorate(""), 54, Utils.placeholder((byte) 15, " "));
+	AdvInventory blocksMenu = new AdvInventory(Utils.Colorate("&9&lBlock Trails"), 54, Utils.placeholder((byte) 15, " "));
 	
 	for(int i = 10; i < 45 ; i++)
 	{

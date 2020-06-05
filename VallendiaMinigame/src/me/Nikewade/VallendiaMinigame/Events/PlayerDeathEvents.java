@@ -104,7 +104,6 @@ public class PlayerDeathEvents implements Listener {
 	    	  ability.DisableAbility(p);
 	      }
 	      AbilityCooldown.stopAll(p.getUniqueId());
-	      RageAbility.onDie(p);
 	      EquipBowAbility.onDie(p);
 	      e.getDrops().removeIf(is -> drops.contains(is.getType()));
 	      e.getDrops().removeIf(is -> is.getItemMeta().hasDisplayName());

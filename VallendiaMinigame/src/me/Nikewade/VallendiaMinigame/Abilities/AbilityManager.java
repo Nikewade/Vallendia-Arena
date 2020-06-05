@@ -165,6 +165,10 @@ public class AbilityManager {
         abilities.add(new RayOfFrostAbility());
         abilities.add(new GhostTouchAbility());
         abilities.add(new SunStrikeAbility());
+        abilities.add(new TunnelVisionAbility());
+        abilities.add(new TauntAbility());
+        abilities.add(new WhirlWindAbility());
+        abilities.add(new BakerAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);
@@ -238,8 +242,11 @@ public class AbilityManager {
 	
 	public static void unsaveAbilities(Player p)
 	{
-		playerAbilities.get(p).clear();
-		abilitySlots.get(p).clear();
+		if(playerAbilities.containsKey(p))
+		{
+			playerAbilities.get(p).clear();
+			abilitySlots.get(p).clear();	
+		}
 	}
 	
 	//Disables all abilities except the one that is specified 

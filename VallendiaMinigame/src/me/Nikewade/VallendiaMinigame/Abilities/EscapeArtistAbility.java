@@ -26,7 +26,7 @@ public class EscapeArtistAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("You are immune to all stun and slowing effects.");
+		return Arrays.asList("You are immune to all stun, root, and slowing effects.");
 	}
 
 	@Override

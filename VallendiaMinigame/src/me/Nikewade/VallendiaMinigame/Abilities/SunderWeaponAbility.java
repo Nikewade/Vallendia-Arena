@@ -54,7 +54,7 @@ public class SunderWeaponAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Sunder your enemies weapon for ", + duration + " seconds.");
+		return Arrays.asList("Sunder your enemies weapon for", + duration + "seconds");
 	}
 
 	@Override
@@ -79,7 +79,8 @@ public class SunderWeaponAbility implements Ability, Listener{
 				target.getInventory().getItemInMainHand().getType() == Material.IRON_SWORD||
 				target.getInventory().getItemInMainHand().getType() == Material.STONE_SWORD||
 				target.getInventory().getItemInMainHand().getType() == Material.WOOD_SWORD||
-				target.getInventory().getItemInMainHand().getType() == Material.STICK)
+				target.getInventory().getItemInMainHand().getType() == Material.STICK||
+				target.getInventory().getItemInMainHand().getType() == Material.BOW)
 		{
 			
 			ItemStack weapon = new ItemStack(target.getInventory().getItemInMainHand());

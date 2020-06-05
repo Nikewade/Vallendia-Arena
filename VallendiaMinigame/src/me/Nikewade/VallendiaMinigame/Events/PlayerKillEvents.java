@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Creature;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +19,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.alessiodp.parties.api.Parties;
 import com.alessiodp.parties.api.interfaces.Party;
 
+import io.lumine.xikage.mythicmobs.MythicMobs;
+import io.lumine.xikage.mythicmobs.adapters.AbstractEntity;
 import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDeathEvent;
+import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobSpawnEvent;
+import io.lumine.xikage.mythicmobs.mobs.ActiveMob;
+import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
@@ -75,7 +81,7 @@ public class PlayerKillEvents implements Listener {
         	 
         	 if(AbilityUtils.getPlayerParty(killer) != "")
         	 {
-        		 points = PlayerKillEvents.shareEssence(killer, (int) points, true);
+        		 points = PlayerKillEvents.shareEssence(killer, (int) points, true, "");
         	 }
         	 
 	         this.Main.playerdatamanager.addData(uuid, "Points", (int) points);
@@ -147,7 +153,7 @@ public class PlayerKillEvents implements Listener {
 	   
 	   
 	   
-	   public static int shareEssence(Player p, int amount, boolean killer)
+	   public static int shareEssence(Player p, int amount, boolean killer, String string)
 	   {
 		   if(AbilityUtils.getPlayerParty(p) != "")
 		   {
@@ -193,7 +199,7 @@ public class PlayerKillEvents implements Listener {
 			   {
 				   Player pl = Bukkit.getPlayer(uuid);
 				   VallendiaMinigame.getInstance().shopmanager.addPoints(pl, (int) newAmount);
-				   Language.sendDefaultMessage(pl, "You gained " + (int) newAmount + " points.");
+				   pl.sendMessage(Utils.Colorate( "&8&l[&3Party Essence&8&l] &8+" + (int) newAmount + " " + string));   
 			   }
 			   if(killer)
 			   {
@@ -210,20 +216,22 @@ public class PlayerKillEvents implements Listener {
 		return amount;
 	   }
 	   
-	   
-	   
+		
 		@EventHandler
-		public void mmspawn(MythicMobDeathEvent e)
+		public void mmdeath(MythicMobDeathEvent e)
 		{
-			new BukkitRunnable(){
+			if(e.getMob().getSpawner() != null)
+			{
+				new BukkitRunnable(){
 
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					e.getMob().getSpawner().setWarmupSeconds( (int) (PlayerBlockEvents.regenTime / 2 ));
-				}
-				
-			}.runTaskLater(VallendiaMinigame.getInstance(), 30);
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+							e.getMob().getSpawner().setWarmupSeconds( (int) (PlayerBlockEvents.regenTime / 2 ));	
+					}
+					
+				}.runTaskLater(VallendiaMinigame.getInstance(), 30);	
+			}
 		}
 	   
 	   

@@ -40,24 +40,23 @@ public class GuiShop implements IInvGuiScreen {
 			
 			List<String> lore = new ArrayList<String>();
 			lore.add("&aLeft-click Buy: " + ShopUtils.formatPrice(currentShopItem.getBuyPrice()));
-			lore.add("&aRight-click Sell: " + ShopUtils.formatPrice(currentShopItem.getSellPrice()));
 			ShopUtils.loreItemStack(toAdd[start + num], lore);
-	 		if(currentShopItem.getStack().getType() == Material.COOKED_BEEF || currentShopItem.getStack().getType() == Material.GRILLED_PORK || 
-	 				currentShopItem.getStack().getType() == Material.COOKED_CHICKEN || currentShopItem.getStack().getType() == Material.BREAD || 
-	 				currentShopItem.getStack().getType() == Material.COOKED_FISH || currentShopItem.getStack().getType() == Material.COOKED_RABBIT)
+	 		if(currentShopItem.getStack().getType() == Material.RAW_BEEF || currentShopItem.getStack().getType() == Material.PORK || 
+	 				currentShopItem.getStack().getType() == Material.RAW_CHICKEN || currentShopItem.getStack().getType() == Material.BREAD || 
+	 				currentShopItem.getStack().getType() == Material.COOKED_FISH || currentShopItem.getStack().getType() == Material.RABBIT)
 			{
 	 			int healPercent = 0;
 	 			String itemName = "";
 	 			
 		        switch (currentShopItem.getStack().getType()) {
-	            case COOKED_BEEF:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.steak");
-	            itemName = "Steak";
+	            case RAW_BEEF:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.steak");
+	            itemName = "Raw Beef";
 	                     break;
-	            case GRILLED_PORK:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.pork");
-	            itemName = "Porkchop";
+	            case PORK:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.pork");
+	            itemName = "Raw Porkchop";
 	                     break;
-	            case COOKED_CHICKEN:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.chicken");
-	            itemName = "Chicken";
+	            case RAW_CHICKEN:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.chicken");
+	            itemName = "Raw Chicken";
 	                     break;
 	            case BREAD:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.bread");
 	            itemName = "Bread";
@@ -65,8 +64,8 @@ public class GuiShop implements IInvGuiScreen {
 	            case COOKED_FISH:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.fish");
 	            itemName = "Fish";
 	                     break;
-	            case COOKED_RABBIT:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.rabbit");
-	            itemName = "Rabbit";
+	            case RABBIT:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.rabbit");
+	            itemName = "Raw Rabbit";
                  break;
 				default:
 					healPercent = 0;

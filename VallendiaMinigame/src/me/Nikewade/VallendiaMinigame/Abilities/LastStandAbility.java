@@ -20,7 +20,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 public class LastStandAbility implements Ability{
 	private static ArrayList<Player> enabled = new ArrayList<>();
 	int time = 20;
-	int percent = 30;
+	int percent = 40;
 
 	@Override
 	public String getName() {
@@ -56,7 +56,8 @@ public class LastStandAbility implements Ability{
 		}
 		enabled.add(p);
 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 2, (float) 0.2);
-		double oldHealth = p.getMaxHealth();
+		double oldHealth = p.getMaxHealth(); // I DONT CHECK IF HEALTH IS LESS THAN OLD HEALTH ANYMORE This may cause issues if something lowers their max health
+											//while this is active
 		double healthAdd = p.getMaxHealth() * Utils.getPercentHigherOrLower(percent, true);
 		AbilityUtils.setMaxHealth(p, healthAdd, "Last Stand");	
 		AbilityUtils.healEntity(p, (healthAdd - oldHealth));
@@ -66,10 +67,7 @@ public class LastStandAbility implements Ability{
         		if(enabled.contains(p))
         		{
         			enabled.remove(p);
-        			if(!(p.getMaxHealth() < oldHealth))
-        			{
             			AbilityUtils.resetMaxHealth(p, "Last Stand");	
-        			}
         		}
             }
         }.runTaskLaterAsynchronously(VallendiaMinigame.getInstance(), time*20L);

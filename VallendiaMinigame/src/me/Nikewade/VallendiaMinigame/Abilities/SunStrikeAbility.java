@@ -7,11 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -69,6 +72,17 @@ public class SunStrikeAbility implements Ability, Listener{
 	@Override
 	public boolean RunAbility(Player p) {
 		// TODO Auto-generated method stub
+		
+		if(active.contains(p))
+		{
+			return false;
+		}
+		
+		if(!isOutside(p))
+		{
+			Language.sendAbilityUseMessage(p, "You must be outside!", "Sun Strike");
+			return false;
+		}		
 		if(day(p) && !p.getWorld().hasStorm())
 		{
 			Collection<Location> locations = randomLocations(p);
@@ -90,8 +104,10 @@ public class SunStrikeAbility implements Ability, Listener{
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub						
-
-							
+							p.getWorld().playSound(p.getLocation(), Sound.ENTITY_EVOCATION_ILLAGER_CAST_SPELL, 2, 0.7F);
+							active.add(p);
+  							effects.get(p).start();
+  							
 							for(Location location : locations)
 							{
 				       	  		SphereEffect particleEffect = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
@@ -123,23 +139,12 @@ public class SunStrikeAbility implements Ability, Listener{
 					                      particleEffect.setLocation(loc);
 					                      if(loc.distance(tloc) <= 2)
 					                      {
-					                    	  if(!active.contains(p))
-					                    	  {
-					                    		 p.getWorld().playSound(p.getLocation(), Sound.ENTITY_EVOCATION_ILLAGER_CAST_SPELL, 2, 0.7F);
-					  							active.add(p);
-					  							effects.get(p).start();
-					                    	  }
 					                    	  particleEffect.cancel();
 					                    	  this.cancel();
 					                      }
 					                      if(loc == tloc)
 					                      {
-					                    	  if(!active.contains(p))
-					                    	  {
-					                    		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_EVOCATION_ILLAGER_CAST_SPELL, 2, 0.7F);
-					  							active.add(p);
-					  							effects.get(p).start();
-					                    	  }
+
 					                    	  particleEffect.cancel();
 					                    	  this.cancel();
 
@@ -148,11 +153,7 @@ public class SunStrikeAbility implements Ability, Listener{
 					                      loc.subtract(x,y,z);   
 					                      if (t > 100){
 					                    	  if(!active.contains(p))
-					                    	  {
-					                    		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_EVOCATION_ILLAGER_CAST_SPELL, 2, 0.7F);
-					  							active.add(p);
-					  							effects.get(p).start();
-					                    	  }
+
 						          			particleEffect.cancel();
 					                          this.cancel();
 
@@ -239,7 +240,6 @@ public class SunStrikeAbility implements Ability, Listener{
 				active.remove(p);
 				if(effects.containsKey(p))
 				{
-					Language.sendVallendiaBroadcast("gi");
 					effects.get(p).cancel();
 					effects.remove(p);
 				}
@@ -294,6 +294,25 @@ public class SunStrikeAbility implements Ability, Listener{
 		}.runTaskTimer(VallendiaMinigame.getInstance(), 0, 0);
 
 		return locations;
+		
+	}
+	
+	public boolean isOutside(Player p)
+	{	
+
+			if(!(p.getLocation().add(0,1,0).getBlockY() < p.getWorld().getHighestBlockYAt(p.getLocation())))
+			{
+				return true;
+			}else
+			{
+				Material m = p.getWorld().getHighestBlockAt(p.getLocation()).getLocation().subtract(0,1,0).getBlock().getType();
+				if(m == Material.LEAVES || m == Material.LEAVES_2)
+				{
+					return true;
+				}
+				Language.sendVallendiaBroadcast("" + p.getWorld().getHighestBlockAt(p.getLocation()).getLocation().subtract(0,1,0).getBlock().getType());
+				return false;
+			}
 		
 	}
 	

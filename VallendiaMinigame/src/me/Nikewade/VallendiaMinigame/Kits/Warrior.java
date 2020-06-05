@@ -53,6 +53,10 @@ public class Warrior implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Shield"));
 		abilities.add(Main.abilitymanager.getAbility("Investor"));
 		abilities.add(Main.abilitymanager.getAbility("Sun Strike"));
+		abilities.add(Main.abilitymanager.getAbility("Tunnel Vision"));
+		abilities.add(Main.abilitymanager.getAbility("Taunt"));
+		abilities.add(Main.abilitymanager.getAbility("Whirlwind"));
+		abilities.add(Main.abilitymanager.getAbility("Baker"));
 	}
 	
 	@Override

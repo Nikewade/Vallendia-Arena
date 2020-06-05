@@ -5,6 +5,7 @@ commands:
   vallendia:
     aliases: [va, val, vall]
   shop:
+  donate:
 depend:
   - EffectLib
   - CombatLogX

@@ -176,7 +176,7 @@ public class ScoreboardHandler{
 		               }
 
 		               gray.setPrefix(ChatColor.GRAY.toString());
-		               lightblue.setPrefix(ChatColor.DARK_AQUA.toString());
+		               lightblue.setPrefix(ChatColor.DARK_GREEN.toString());
 		               darkblue.setPrefix(ChatColor.BLUE.toString());
 		               yellow.setPrefix(ChatColor.GOLD.toString());
 		               red.setPrefix(ChatColor.DARK_RED.toString());

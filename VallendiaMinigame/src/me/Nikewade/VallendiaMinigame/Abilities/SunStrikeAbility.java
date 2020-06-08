@@ -232,6 +232,13 @@ public class SunStrikeAbility implements Ability, Listener{
 				p.getItemInHand().getType() == Material.GOLD_SWORD ||
 				p.getItemInHand().getType() == Material.WOOD_SWORD)
 				{
+				if(e.getEntity() instanceof Player)
+				{
+					if(AbilityUtils.partyCheck(p, (Player) e.getEntity()))
+					{
+						return;
+					}
+				}
 	            double damage = e.getFinalDamage();
 	            double newdamage = damage*multiplier;
 				e.setDamage(0);
@@ -299,18 +306,18 @@ public class SunStrikeAbility implements Ability, Listener{
 	
 	public boolean isOutside(Player p)
 	{	
-
 			if(!(p.getLocation().add(0,1,0).getBlockY() < p.getWorld().getHighestBlockYAt(p.getLocation())))
 			{
 				return true;
 			}else
 			{
+
 				Material m = p.getWorld().getHighestBlockAt(p.getLocation()).getLocation().subtract(0,1,0).getBlock().getType();
 				if(m == Material.LEAVES || m == Material.LEAVES_2)
 				{
 					return true;
 				}
-				Language.sendVallendiaBroadcast("" + p.getWorld().getHighestBlockAt(p.getLocation()).getLocation().subtract(0,1,0).getBlock().getType());
+				
 				return false;
 			}
 		

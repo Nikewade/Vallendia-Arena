@@ -176,7 +176,7 @@ public class ShopHandler {
 					break;
 	        }
 				im.setDisplayName(Utils.Colorate("&8&l" + itemName));
-				im.setLore(Arrays.asList(Utils.Colorate("&8Heals " + healPercent + "% max health")));
+				im.setLore(Arrays.asList(Utils.Colorate("&8Right click a furnce to cook!")));
 				stack.setItemMeta(im);
 			}
 			player.getInventory().addItem(stack);

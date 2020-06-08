@@ -2,6 +2,7 @@ package me.Nikewade.VallendiaMinigame.Events;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -83,7 +84,15 @@ public class PlayerFoodEvents implements Listener {
 	            double startHealth = p.getHealth();
 				new BukkitRunnable() {
 				     @Override
-				     public void run() {	
+				     public void run() {
+				    	 
+			            	if(Bukkit.getServer().getPlayer(p.getName()) == null)
+			            	{
+			            		healing.remove(p);
+			            		this.cancel();
+			            		return;
+			            	}
+				    	 
 				 			int healPercent = 0;
 					        switch (e.getItem().getType()) {
 				            case COOKED_BEEF:  healPercent = Main.getConfig().getInt("Options.food.steak");
@@ -127,12 +136,6 @@ public class PlayerFoodEvents implements Listener {
 						    	 		return;
 						    	 	}
 						    	 	AbilityUtils.healEntity(p, healAmount);
-						    	 	if(!AbilityUtils.isInvisible(p))
-						    	 	{
-					                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
-					                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
-					                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 	
-						    	 	}
 				     }
 				}.runTaskTimer(Main, 0, (2*20));
 				

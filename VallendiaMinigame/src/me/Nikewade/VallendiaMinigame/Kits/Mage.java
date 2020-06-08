@@ -69,6 +69,7 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Ghost Touch"));
 		abilities.add(Main.abilitymanager.getAbility("Tunnel Vision"));
 		abilities.add(Main.abilitymanager.getAbility("Baker"));
+		abilities.add(Main.abilitymanager.getAbility("Expeditious Retreat"));
 	}
 
 	@Override

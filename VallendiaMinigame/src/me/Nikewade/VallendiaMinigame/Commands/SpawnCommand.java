@@ -208,7 +208,8 @@ public class SpawnCommand implements CommandInterface, Listener{
  		 	 		p.getWorld().spawnParticle(Particle.PORTAL, p.getLocation().add(0, 1, 0), 20);
  		 	 		p.getWorld().spawnParticle(Particle.PORTAL, p.getLocation().add(0, 1.8, 0), 20);
  	    			removeSpawn(p);
- 	    			Bukkit.dispatchCommand(p, "spawn");
+ 	    			Location loc = new Location(p.getWorld(), -107.5, 65, -638.5, 0.0F, 0.0F);
+ 	    			p.teleport(loc);
  	            }
  	        }.runTaskLater(VallendiaMinigame.getInstance(), warmup * 20);
  	        

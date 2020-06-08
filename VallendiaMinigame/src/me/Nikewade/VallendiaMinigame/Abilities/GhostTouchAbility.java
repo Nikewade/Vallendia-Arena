@@ -43,9 +43,9 @@ public class GhostTouchAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("You shoot a blast of energy that travels through another",
-							"plane of existence allowing it to fly through solid matter.",
-							"This energy damages your target for " + damage + " damage and blinds them",
+		return Arrays.asList("You shoot a blast of energy that travels through",
+							"another plane of existence allowing it to fly through",
+							"solid matter. This energy damages your target for " + damage,
 							"for " + blind + " seconds. This will pass through walls and players.");
 		
 	}

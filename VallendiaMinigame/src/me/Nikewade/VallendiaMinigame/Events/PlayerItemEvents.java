@@ -20,6 +20,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -67,6 +68,8 @@ public class PlayerItemEvents implements Listener {
 		this.Main = Main;
 		Main.getServer().getPluginManager().registerEvents(this, Main);
 		noStunAbilities.add("Break Free");
+		noStunAbilities.add("Uncanny Dodge");
+		noStunAbilities.add("Expeditious Retreat");
 		
 
 	}
@@ -558,6 +561,21 @@ public class PlayerItemEvents implements Listener {
             
 
         }
+    }
+    
+    
+    @EventHandler
+    public void onCraft(CraftItemEvent e)
+    {
+    	if(e.getWhoClicked() instanceof Player)
+    	{
+    		Player p = (Player) e.getWhoClicked();
+    		
+    		if(p.getGameMode() == GameMode.SURVIVAL)
+    		{
+    			e.setCancelled(true);
+    		}
+    	}
     }
 	
 }

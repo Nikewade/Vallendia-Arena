@@ -19,9 +19,10 @@ import org.bukkit.scheduler.BukkitTask;
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 
 public class StoneSkinAbility implements Ability, Listener{
-	int attacksIgnored = 10;
+	int attacksIgnored = 5;
 	int time = 45;
 	HashMap<Player, Integer> ignored = new HashMap<>();
 	ArrayList<Player> abilityActive = new ArrayList<>(); 
@@ -60,6 +61,7 @@ public class StoneSkinAbility implements Ability, Listener{
 		abilityActive.add(p);
 		ignored.put(p, 0);
 		p.getWorld().playSound(p.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 2, (float) 0.5);
+		p.getWorld().playSound(p.getLocation(), Sound.BLOCK_STONE_BREAK, 2, 0.4F);
 		BukkitTask timer = new BukkitRunnable()
 				{
 
@@ -67,6 +69,8 @@ public class StoneSkinAbility implements Ability, Listener{
 					public void run() {
 						// TODO Auto-generated method stub
 						disable(p);
+			 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 2, (float) 0.4);
+			 			p.getWorld().playSound(p.getLocation(), Sound.BLOCK_STONE_BREAK, 2, 0.4F);
 					}
 			
 				}.runTaskLater(VallendiaMinigame.getInstance(), time*20);
@@ -110,10 +114,12 @@ public class StoneSkinAbility implements Ability, Listener{
 				abilityActive.remove(p);
 				ignored.remove(p);
 	 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 2, (float) 0.4);
+	 			p.getWorld().playSound(p.getLocation(), Sound.BLOCK_STONE_BREAK, 2, 0.4F);
 				return;
 			}
-			e.setCancelled(true);
+			e.setDamage(0);
  	 		p.getWorld().playSound(p.getLocation(), Sound.ITEM_SHIELD_BLOCK, 2, (float) 0.6);
+ 			p.getWorld().playSound(p.getLocation(), Sound.BLOCK_STONE_BREAK, 2, 0.4F);
 			int x = ignored.get(p);
 			ignored.remove(p);
 			int newx = x+1;
@@ -126,7 +132,7 @@ public class StoneSkinAbility implements Ability, Listener{
 			se.material = Material.STONE;
 			se.radius = 0.8;
 			se.particleOffsetY = (float) 0.5;
-			se.particles = 5;
+			se.particles = 8;
 			se.yOffset = -0.8;
 			se.speed = (float) 0;
 			se.setEntity(p);

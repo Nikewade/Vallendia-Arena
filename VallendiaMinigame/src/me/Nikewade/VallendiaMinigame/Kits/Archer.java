@@ -60,6 +60,7 @@ public class Archer implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Pick Off"));
 		abilities.add(Main.abilitymanager.getAbility("Tunnel Vision"));
 		abilities.add(Main.abilitymanager.getAbility("Baker"));
+		abilities.add(Main.abilitymanager.getAbility("Uncanny Dodge"));
 	}
 	
 	@Override

@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -33,7 +34,11 @@ public class RegenUpgrade implements Upgrade{
 		RegenUpgrade.addTimer(p);
     	double time = 0.00506 * Math.pow((0.25 * Main.upgrademanager.getUpgradeAmount(p, "regeneration") -8.985), 4) + 0.5;
     	DecimalFormat format = new DecimalFormat("0.0");
-
+    	
+    	if(time <= 1.1)
+    	{
+    		time = 1;
+    	}
     	String output = format.format(time);
 		p.sendMessage(Utils.Colorate("&cRegeneration every " + output + Utils.Colorate(" &cseconds.")));
 	}
@@ -67,15 +72,17 @@ public class RegenUpgrade implements Upgrade{
 
             @Override
             public void run() {	
+            	if(Bukkit.getServer().getPlayer(p.getName()) == null)
+            	{
+            		timers.remove(p);
+            		this.cancel();
+            		return;
+            	}
+            	
+            	
                 	if(p.getHealth() < p.getMaxHealth())
                 	{
                 		AbilityUtils.healEntity(p, 1);
-                		if(!AbilityUtils.isInvisible(p))
-                		{
-                	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0.4), 5);
-                	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
-                	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5);	
-                		}
                 	}     
             }
 	    }.runTaskTimer(VallendiaMinigame.getInstance(), 20* 3, (long) (20 * time));

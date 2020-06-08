@@ -56,7 +56,8 @@ public class BearTrapAbility implements Ability, Listener{
 		// TODO Auto-generated method stub
 		return Arrays.asList("Place a bear trap that when triggered, slows"
 				, "the target for " + slowTime + " seconds, and deals " + damage + " damage." 
-				, "This trap does double damage to bears.");
+				, "This trap does double damage to bears. When",
+				  "this trap is triggered, the cooldown is 60 seconds.");
 	}
 
 	@Override

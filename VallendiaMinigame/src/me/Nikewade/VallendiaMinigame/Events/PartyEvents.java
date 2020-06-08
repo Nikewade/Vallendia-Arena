@@ -36,7 +36,11 @@ public class PartyEvents implements Listener {
 	   @EventHandler
 	   public void onJoin(BukkitPartiesPlayerPostJoinEvent e)
 	   {
-		   int highestLevel = 	VallendiaMinigame.getInstance().levelmanager.getLevel(Bukkit.getPlayer(e.getParty().getLeader()));
+		   int highestLevel = 1;
+		   if(Bukkit.getPlayer(e.getParty().getLeader()) != null)
+				   {
+			   			highestLevel = 	VallendiaMinigame.getInstance().levelmanager.getLevel(Bukkit.getPlayer(e.getParty().getLeader()));
+				   }
        	for(UUID uuid : e.getParty().getMembers())
 		{
 			   if(Bukkit.getPlayer(uuid) == null)
@@ -62,7 +66,11 @@ public class PartyEvents implements Listener {
 	   @EventHandler
 	   public void onLeave(BukkitPartiesPlayerPostLeaveEvent e)
 	   {
-		   int highestLevel = 	VallendiaMinigame.getInstance().levelmanager.getLevel(Bukkit.getPlayer(e.getParty().getLeader()));
+		   int highestLevel = 1;
+		   if(Bukkit.getPlayer(e.getParty().getLeader()) != null)
+				   {
+			   			highestLevel = 	VallendiaMinigame.getInstance().levelmanager.getLevel(Bukkit.getPlayer(e.getParty().getLeader()));
+				   }
 	       	for(UUID uuid : e.getParty().getMembers())
 			{
 				   if(Bukkit.getPlayer(uuid) == null)
@@ -91,7 +99,11 @@ public class PartyEvents implements Listener {
 	   @EventHandler
 	   public void onCreate(BukkitPartiesPartyPostCreateEvent e)
 	   {
-		   int highestLevel = 	VallendiaMinigame.getInstance().levelmanager.getLevel(Bukkit.getPlayer(e.getParty().getLeader()));
+		   int highestLevel = 1;
+		   if(Bukkit.getPlayer(e.getParty().getLeader()) != null)
+				   {
+			   			highestLevel = 	VallendiaMinigame.getInstance().levelmanager.getLevel(Bukkit.getPlayer(e.getParty().getLeader()));
+				   }
 	       	for(UUID uuid : e.getParty().getMembers())
 			{
 				   if(Bukkit.getPlayer(uuid) == null)
@@ -117,7 +129,12 @@ public class PartyEvents implements Listener {
 		   if(AbilityUtils.getPlayerParty(p) != "")
 		   {
 			   Party party = Parties.getApi().getParty(AbilityUtils.getPlayerParty(p));
-			   int highestLevel = 	VallendiaMinigame.getInstance().levelmanager.getLevel(Bukkit.getPlayer(party.getLeader()));
+			   int highestLevel = 1;
+			   if(Bukkit.getPlayer(party.getLeader()) != null)
+					   {
+				   			highestLevel = 	VallendiaMinigame.getInstance().levelmanager.getLevel(Bukkit.getPlayer(party.getLeader()));
+					   }
+						   
 		       	for(UUID uuid : party.getMembers())
 				{
 					   if(Bukkit.getPlayer(uuid) == null)
@@ -144,7 +161,11 @@ public class PartyEvents implements Listener {
 		   if(AbilityUtils.getPlayerParty(p) != "")
 		   {
 			   Party party = Parties.getApi().getParty(AbilityUtils.getPlayerParty(p));
-			   int highestLevel = 	VallendiaMinigame.getInstance().levelmanager.getLevel(Bukkit.getPlayer(party.getLeader()));
+			   int highestLevel = 1;
+			   if(Bukkit.getPlayer(party.getLeader()) != null)
+					   {
+				   			highestLevel = 	VallendiaMinigame.getInstance().levelmanager.getLevel(Bukkit.getPlayer(party.getLeader()));
+					   }
 			   if(Bukkit.getPlayer(party.getLeader()) == p)
 			   {
 				   highestLevel = 0;

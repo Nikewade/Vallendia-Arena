@@ -17,6 +17,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -91,6 +92,70 @@ public class WaterMasteryAbility implements Ability, Listener{
 		{
 			p.getInventory().getLeggings().removeEnchantment(Enchantment.DEPTH_STRIDER);
 		}
+		}
+	}
+	
+	@EventHandler
+	public void onJoin (PlayerJoinEvent e)
+	{
+		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(e.getPlayer(), "Water Mastery"))
+		{
+			if(inWater.contains(e.getPlayer()))
+			{
+				return;
+			}
+			
+			Player p = e.getPlayer();
+		    if (p.getLocation().getBlock().getType() == Material.STATIONARY_WATER || 
+		    		p.getLocation().getBlock().getType() == Material.WATER) {		    	
+		    	inWater.add(p);	
+				SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+				se.disappearWithOriginEntity = true;
+				se.infinite();
+				se.particle = Particle.WATER_BUBBLE;
+				se.radius = 0.8;
+				se.particleOffsetY = (float) 0.5;
+				se.particles = 3;
+				se.yOffset = -0.8;
+				se.speed = (float) 0;
+				se.setEntity(p);
+				se.start();
+				
+				if(p.getInventory().getLeggings()!= null)
+				{
+				if(!(p.getInventory().getLeggings().containsEnchantment(Enchantment.DEPTH_STRIDER)))
+				{
+				p.getInventory().getLeggings().addUnsafeEnchantment(Enchantment.DEPTH_STRIDER, 999);;
+				}}
+				
+				sphere.put(p, se);
+				
+		    	BukkitTask timer = new BukkitRunnable()
+		    			{
+
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+							    if (p.getLocation().getBlock().getType() != Material.STATIONARY_WATER && 
+							    		p.getLocation().getBlock().getType() != Material.WATER)
+							    {
+							    	inWater.remove(p);
+							    	se.cancel();
+							    	this.cancel();
+							    	
+							    }
+								
+							}
+		    		
+		    			}.runTaskTimer(VallendiaMinigame.getInstance(), 10, 10);
+		    			
+						particles.put(p, timer);
+		    			
+		    	return;
+		    	
+		    }
+
+		    
 		}
 	}
 

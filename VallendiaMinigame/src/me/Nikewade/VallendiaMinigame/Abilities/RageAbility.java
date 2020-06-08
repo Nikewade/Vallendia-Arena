@@ -34,12 +34,13 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class RageAbility implements Ability, Listener{
 	int ragetime = 30;
+	int fatiguetime = 60;
 	ArrayList<Player> active = new ArrayList<>();
 	ArrayList<Player> fatigued = new ArrayList<>();
+	HashMap<Player, SphereEffect> effects = new HashMap<>();
 	int temppercent = 25;
-	int morepercent = 40;
-	int lesspercent = 30;
-	int defencepercent = 10;
+	int morepercent = 25;
+	int lesspercent = 40;
 	
 	int force = 20;
 	int yForce = 8;
@@ -60,13 +61,11 @@ public class RageAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Go into a frenzied rage for "  + ragetime+ " seconds," , 
-				"you gain " + morepercent + "% to damage, you become faster," ,
-				"you take " + defencepercent + "% less damage, and",
-				"you gain " + temppercent + "% extra max health.",
-				"After your rage ends your body will become fatigued," ,
-				"causing you to move slower and do " + lesspercent + "% less damage",
-				"for the same amount of time.");
+		return Arrays.asList("Go into a frenzied rage for "  + ragetime+ " seconds. You gain",
+				+ morepercent + "% extra damage, " + temppercent + "% extra max health, and you",
+				"become faster. After your rage ends, your body",
+				"becomes fatigued, causing you to move slower and",
+				"deal " + lesspercent +"% less damage for " + fatiguetime + " seconds.");
 	}
 
 	@Override
@@ -80,6 +79,10 @@ public class RageAbility implements Ability, Listener{
 	public boolean RunAbility(Player p) {
 		// TODO Auto-generated method stub
 		if(active.contains(p))
+		{
+			return false;
+		}
+		if(fatigued.contains(p))
 		{
 			return false;
 		}
@@ -156,9 +159,19 @@ public class RageAbility implements Ability, Listener{
             	
             	if(!fatigued.contains(p))
             	{
+         			SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+         			se.color = Color.fromRGB(84, 80, 30);
+         			se.radius = 0.4F;
+         			se.particles = 1;
+         			se.setEntity(p);
+         			se.infinite();
+         			se.particleOffsetY = 1.3F;
+         			se.yOffset = -0.8F;
+         		 	se.start();
+         		 	effects.put(p, se);
             		Language.sendAbilityUseMessage(p, "You feel fatigued", "Rage");
             		fatigued.add(p);
-            		AbilityUtils.addPotionDuration(p, p, "Rage", PotionEffectType.SLOW, 1, ragetime*20);
+            		AbilityUtils.addPotionDuration(p, p, "Rage", PotionEffectType.SLOW, 1, fatiguetime*20);
             		
             		new BukkitRunnable()
             		{
@@ -168,12 +181,17 @@ public class RageAbility implements Ability, Listener{
 							// TODO Auto-generated method stub
 							if(fatigued.contains(p))
 							{
+								if(effects.containsKey(p))
+								{
+									effects.get(p).cancel();
+									effects.remove(p);
+								}
 								Language.sendAbilityUseMessage(p, "You are no longer fatigued", "Rage");
 								fatigued.remove(p);
 							}
 						}
             			
-            		}.runTaskLater(VallendiaMinigame.getInstance(), ragetime*20);
+            		}.runTaskLater(VallendiaMinigame.getInstance(), fatiguetime*20);
             	}
             	
         			if(!(p.getMaxHealth() < oldHealth))
@@ -238,19 +256,6 @@ public class RageAbility implements Ability, Listener{
         }
 	}
 	
-	@EventHandler
-	public void onDamaged (EntityDamageEvent e)
-	{
-		if(active.contains(e.getEntity()))
-		{
-            double damage = e.getFinalDamage();
-            double multiplier = Utils.getPercentHigherOrLower(defencepercent, false);
-            double newdamage = damage*multiplier;
-			e.setDamage(0);
-			e.setDamage(DamageModifier.ARMOR, newdamage);
-		}
-	}
-
 	@Override
 	public void DisableAbility(Player p) {
 		// TODO Auto-generated method stub
@@ -262,6 +267,11 @@ public class RageAbility implements Ability, Listener{
 		if(fatigued.contains(p))
 		{
 			fatigued.remove(p);
+		}
+		if(effects.containsKey(p))
+		{
+			effects.get(p).cancel();
+			effects.remove(p);
 		}
 	}
 

@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -49,10 +48,11 @@ public class DonateCommand implements CommandInterface, CommandExecutor {
 		if(sender instanceof Player)
 		{
 			Player p = (Player) sender;
-            if(CombatUtil.isInCombat(p))
-            {
-                return false;
-            }
+			if(CombatUtil.isInCombat(p))
+			{
+				Language.sendDefaultMessage(p, "You can't use this command in combat!");
+				return false;
+			}
 			openCosmeticMainMenu(p);		
 		}
 
@@ -61,8 +61,8 @@ public class DonateCommand implements CommandInterface, CommandExecutor {
 	
 	public static void openCosmeticMainMenu(Player p)
 	{
-		p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
-		AdvInventory mainMenu = new AdvInventory(Utils.Colorate("&3&lCosmetics"), 27, Utils.placeholder((byte) 15, " "));
+
+		AdvInventory mainMenu = new AdvInventory(Utils.Colorate(""), 27, Utils.placeholder((byte) 15, " "));
 
 		mainMenu.setItem(new ItemStack(Material.ELYTRA), Utils.Colorate("&9&lWings"), 10, new ClickRunnable() {
 			    @Override
@@ -132,4 +132,3 @@ public class DonateCommand implements CommandInterface, CommandExecutor {
 	}
 		
 }
-

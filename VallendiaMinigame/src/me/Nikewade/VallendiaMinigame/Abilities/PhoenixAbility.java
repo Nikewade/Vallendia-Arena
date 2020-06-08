@@ -124,8 +124,9 @@ public class PhoenixAbility implements Listener, Ability{
 			
 		        ArrayList<ItemStack> items = new ArrayList<>();
 
-		        items.add(new ItemStack(Material.DIAMOND, 4));
-		        items.add(new ItemStack(372, 5));
+		        items.add(new ItemStack(Material.DIAMOND, 10));
+		        items.add(new ItemStack(372, 10));
+		        items.add(new ItemStack(Material.EGG));
 		        
 		        if(!AbilityUtils.hasReagentsMultiple(p, items,  "Phoenix", true))
 		        {

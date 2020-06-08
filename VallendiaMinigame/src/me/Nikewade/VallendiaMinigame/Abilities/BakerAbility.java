@@ -40,7 +40,7 @@ public class BakerAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Right click a furnace with 6 or more",
+		return Arrays.asList("Right click a furnace with 10 or more",
 							"wheat in your hand to turn it into bread");
 	}
 
@@ -89,10 +89,10 @@ public class BakerAbility implements Ability, Listener{
 			ItemStack offHand = p.getInventory().getItemInOffHand();
 			if(b.getType() == Material.FURNACE)
 			{
-				if(mainHand.getType() == Material.WHEAT && breadAmount(p, mainHand.getAmount(), 6) > 0)
+				if(mainHand.getType() == Material.WHEAT && breadAmount(p, mainHand.getAmount(), 10) > 0)
 				{
-					int bread = breadAmount(p, mainHand.getAmount(), 6);
-					int subtract = bread*6;
+					int bread = breadAmount(p, mainHand.getAmount(), 10);
+					int subtract = bread*10;
 					int amount = mainHand.getAmount();
 					int newAmount = amount - subtract;
 					mainHand.setAmount(newAmount);
@@ -139,10 +139,10 @@ public class BakerAbility implements Ability, Listener{
 					}.runTaskTimer(VallendiaMinigame.getInstance(), 0, 1L);
 							
 				}
-				if(offHand.getType() == Material.WHEAT && breadAmount(p, offHand.getAmount(), 6) > 0)
+				if(offHand.getType() == Material.WHEAT && breadAmount(p, offHand.getAmount(), 10) > 0)
 				{
-					int bread = breadAmount(p, offHand.getAmount(), 6);
-					int subtract = bread*6;
+					int bread = breadAmount(p, offHand.getAmount(), 10);
+					int subtract = bread*10;
 					int amount = offHand.getAmount();
 					int newAmount = amount - subtract;
 					offHand.setAmount(newAmount);

@@ -11,11 +11,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import com.sk89q.worldguard.LocalPlayer;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Interface.CommandInterface;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class AbilityCommand implements CommandInterface{
@@ -45,6 +51,14 @@ public class AbilityCommand implements CommandInterface{
 	 			   return false;
 	 		   }
 	 		   Player p = (Player) sender;
+	 		   	RegionManager regionManager = VallendiaMinigame.getInstance().worldguard.getRegionManager(p.getWorld());
+	 		   	ApplicableRegionSet arset = regionManager.getApplicableRegions(p.getLocation());
+	 		   	LocalPlayer localPlayer = VallendiaMinigame.getInstance().worldguard.wrapPlayer(p);
+	 		   	if(!arset.allows((StateFlag) VallendiaMinigame.blockAbilities, localPlayer))
+	 		   	{
+	 		   		Language.sendDefaultMessage(p, "You cant use abilities here!");
+	 		   		return false;
+	 		   	}
 				   String slot = args[2];  
 				   String ability = AbilityManager.getAbilitySlot(slot, (Player) sender);
 				   if(main.abilitymanager.getAbility(AbilityManager.getAbilitySlot(slot, (Player) sender)) != null) 

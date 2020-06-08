@@ -43,8 +43,9 @@ public class TunnelVisionAbility implements Listener, Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Take permanent blindness to deal "+ percent +"% extra damage",
-							"and take "+ percent +"% less damage");
+		return Arrays.asList("Take permanent blindness, this makes you take "+ percent +"%",
+							"less damage to players. You will also deal " + percent + "% more",
+							"damage to players and mobs.");
 	}
 
 	@Override
@@ -172,8 +173,13 @@ public class TunnelVisionAbility implements Listener, Ability{
 		
 		if(e.getEntity() instanceof Player)
 		{
+			
 			if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e.getEntity(), "Tunnel Vision"))
 			{
+				if(!(e.getDamager() instanceof Player))
+				{
+					return;
+				}
 				if(((LivingEntity) e.getEntity()).hasPotionEffect(PotionEffectType.BLINDNESS))
 				{
 				double highPercent = Utils.getPercentHigherOrLower(percent, false);

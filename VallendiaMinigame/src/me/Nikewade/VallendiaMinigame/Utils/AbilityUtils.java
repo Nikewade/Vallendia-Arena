@@ -30,6 +30,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockIgniteEvent;
@@ -63,6 +64,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
 import me.Nikewade.VallendiaMinigame.Abilities.FlyAbility;
 import me.Nikewade.VallendiaMinigame.Events.PlayerItemEvents;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
@@ -128,14 +130,17 @@ public class AbilityUtils implements Listener {
 		
 		if(e instanceof Player && p == PotionEffectType.SLOW)
 		{
-    		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e, "Escape Artist"))
-    		{
-    			Player newP = (Player) e;
-    			Language.sendAbilityUseMessage((Player)caster, "The target evades your slow.", abilityname);
-    			Language.sendAbilityUseMessage((Player)e, "You break free from the slowness.", abilityname);
-    			newP.getWorld().playSound(newP.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.6);
-    			return;	
-    		}
+	           if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e, "Escape Artist"))
+	            {
+	                int number = Utils.randomNumber(1, 100);
+	                if(number <= 30)
+	                {
+	                    Language.sendAbilityUseMessage((Player)caster, "The target evades your slow.", abilityname);
+	                    Language.sendAbilityUseMessage((Player)e, "You break free from the slow.", abilityname);
+	                    caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.6);
+	                    return;
+	                }
+	            }
 		}
 		
 		
@@ -843,13 +848,17 @@ public class AbilityUtils implements Listener {
     {
     	if(e instanceof Player)
     	{
-    		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e, "Escape Artist"))
-    		{
-    			Language.sendAbilityUseMessage((Player)caster, "The target evades your stun.", abilityname);
-    			Language.sendAbilityUseMessage((Player)e, "You break free from the stun.", abilityname);
-    			caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.6);
-    			return;
-    		}
+            if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e, "Escape Artist"))
+            {
+                int number = Utils.randomNumber(1, 100);
+                if(number <= 30)
+                {
+                    Language.sendAbilityUseMessage((Player)caster, "The target evades your stun.", abilityname);
+                    Language.sendAbilityUseMessage((Player)e, "You break free from the stun.", abilityname);
+                    caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.6);
+                    return;
+                }
+            }
     	}
     		removeAllStuns(e);
     		stunned.add(e);
@@ -1015,13 +1024,17 @@ public class AbilityUtils implements Listener {
     {
     	if(e instanceof Player)
     	{
-    		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e, "Escape Artist"))
-    		{
-    			Language.sendAbilityUseMessage((Player)caster, "The target evades your root.", abilityname);
-    			Language.sendAbilityUseMessage((Player)e, "You break free from the root.", abilityname);
-    			caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.6);
-    			return;
-    		}
+            if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e, "Escape Artist"))
+            {
+                int number = Utils.randomNumber(1, 100);
+                if(number <= 30)
+                {
+                    Language.sendAbilityUseMessage((Player)caster, "The target evades your root.", abilityname);
+                    Language.sendAbilityUseMessage((Player)e, "You break free from the root.", abilityname);
+                    caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.6);
+                    return;
+                }
+            }
     	}
     		removeAllRoots(e);
     		rooted.add(e);
@@ -1543,6 +1556,13 @@ public class AbilityUtils implements Listener {
 	                    		run.run();
 	                    		removeTrap(p, abilityname);
 	                    		this.cancel();
+	                    		
+	                    		if(AbilityCooldown.isInCooldown(p.getUniqueId(), abilityname))
+	                    		{  
+	                    			AbilityCooldown.stop(p.getUniqueId(), abilityname);
+	                    		}
+                        		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), abilityname, 60, AbilityManager.locateAbilityItem(p, abilityname));
+                        		c.start();	
 		                	}
 		                	for(Entity e : AbilityUtils.getAoeTargetsAndArrows(p, loc, 1, 1.8, 1))
 		                	{
@@ -1552,6 +1572,13 @@ public class AbilityUtils implements Listener {
 		                    		removeTrap(p, abilityname);
 		                    		e.getWorld().playSound(loc, Sound.BLOCK_TRIPWIRE_CLICK_ON, 1, 1);
 		                    		this.cancel();
+		                    		
+		                    		if(AbilityCooldown.isInCooldown(p.getUniqueId(), abilityname))
+		                    		{  
+		                    			AbilityCooldown.stop(p.getUniqueId(), abilityname);
+		                    		}
+	                        		AbilityCooldown c = new AbilityCooldown(p.getUniqueId(), abilityname, 60, AbilityManager.locateAbilityItem(p, abilityname));
+	                        		c.start();	
 		                		}
 		                	}
 		                }
@@ -1645,6 +1672,26 @@ public class AbilityUtils implements Listener {
         	public void onEntityDamage(EntityDamageByEntityEvent e)
         	{
         		
+        		
+  
+        		if(handleDamage.containsKey(e.getEntity()))
+        		{
+        			double damage = handleDamage.get(e.getEntity());
+        			if(e.getDamage() != damage)
+        			{
+        				return;
+        			}
+        			handleDamage.remove(e.getEntity());
+        			e.setDamage(0);
+        			if(e.getEntity() instanceof Player)
+        			{
+            			e.setDamage(DamageModifier.ARMOR, damage);	
+        			}else
+        			{
+            			e.setDamage(damage);
+        			}
+        		}
+        		
         		if(evokerFangs.containsKey(e.getDamager()))
         		{
         			e.setCancelled(true);
@@ -1690,19 +1737,6 @@ public class AbilityUtils implements Listener {
                 			Language.sendDefaultMessage((Player) e.getEntity(), "Your casting was interrupted.");	
             			}	
         			}
-        		}
-        		
-        		if(handleDamage.containsKey(e.getEntity()))
-        		{
-        			e.setDamage(0);
-        			if(e.getEntity() instanceof Player)
-        			{
-            			e.setDamage(DamageModifier.ARMOR, handleDamage.get(e.getEntity()));	
-        			}else
-        			{
-            			e.setDamage(handleDamage.get(e.getEntity()));
-        			}
-        			handleDamage.remove(e.getEntity());
         		}
         	}
         	
@@ -1897,7 +1931,7 @@ public class AbilityUtils implements Listener {
     
     public static void healEntity(LivingEntity p, double amount)
     {
-    	if(p.isDead())
+    	if(p.isDead() || Bukkit.getServer().getPlayer(p.getName()) == null)
     	{
     		return;
     	}

@@ -58,7 +58,8 @@ public class IceTrapAbility implements Ability, Listener {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Place an ice trap that when triggered, stuns"
 				, "the target for " + stunTime / 20 + " seconds. Damage done",
-				"to the enemy will break the stun.");
+				"to the enemy will break the stun. When this trap",
+				"is triggered, the cooldown is 60 seconds.");
 	}
 
 	@Override

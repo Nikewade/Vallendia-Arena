@@ -27,6 +27,7 @@ public class AdminCommand implements CommandInterface{
 		sender.sendMessage(Utils.Colorate("&3/shop help  &8- Commands for the  shop."));
 		sender.sendMessage(Utils.Colorate("&3/vallendia regen  &8- Force all blocks to regenerate."));
 		sender.sendMessage(Utils.Colorate("&3/vallendia reload  &8- Reloads (Will break things)."));
+		sender.sendMessage(Utils.Colorate("&3/vallendia reload config &8- Reloads just the config."));
 		sender.sendMessage("");
 		sender.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
 		return false;

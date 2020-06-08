@@ -31,4 +31,13 @@ public class SpeedUpgrade implements Upgrade{
 		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "speed." +  ".multiplier2");
 	}
 	
+	
+	public static void updateSpeed(Player p)
+	{
+		double speed = VallendiaMinigame.getInstance().upgrademanager.getUpgradeAmount(p, "speed");
+		
+		
+		p.setWalkSpeed(0.2F + (float) (0.01 * speed));
+	}
+	
 }

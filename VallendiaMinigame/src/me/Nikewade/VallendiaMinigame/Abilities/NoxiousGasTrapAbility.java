@@ -57,7 +57,8 @@ public class NoxiousGasTrapAbility implements Ability, Listener{
 		// TODO Auto-generated method stub
 		return Arrays.asList("Place a trap that when triggered, releases" , 
 				"a cloud of noxious gas that poisons and",
-				"blinds the targets within for " + duration + " seconds.");
+				"blinds the targets within for " + duration + " seconds.",
+				"When this trap is triggered, the cooldown is 60 seconds.");
 	}
 
 	@Override

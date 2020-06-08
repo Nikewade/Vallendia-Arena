@@ -30,10 +30,10 @@ public class InvestorAbility implements Ability, Listener{
 	List<Player> investing = new ArrayList<>();	
 	HashMap<Player, BukkitTask> timers = new HashMap<>();
 	int period = 60;
-	int descpercent = 6;
+	int descpercent = 4;
 	// percent is the 100 - the percent you want
-	int percent = 94;
-	int cap = 80;
+	int percent = 96;
+	int cap = 60;
 
 	@Override
 	public String getName() {
@@ -141,7 +141,7 @@ public class InvestorAbility implements Ability, Listener{
 							VallendiaMinigame.getInstance().shopmanager.addPoints(p, addpoints);
 							}
 				
-			}.runTaskTimer(VallendiaMinigame.getInstance(), 0, period*20);
+			}.runTaskTimer(VallendiaMinigame.getInstance(), period*20, period*20);
 			
 			timers.put(p, timer);
 		}

@@ -21,7 +21,7 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class StunningBlowsAbility implements Ability, Listener{
 	//made by Emma
-	int percent = 7;
+	int percent = 5;
 	int duration = 10;
 			
 
@@ -40,8 +40,9 @@ public class StunningBlowsAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Your hits have a " + percent + "% chance",
-				"to stun your target for " + (float) (duration) / 20 + " seconds");
+		return Arrays.asList("All of Yyour hits and damage abilities have a",
+				percent + "% chance to stun your target for",
+				+ (float) (duration) / 20 + " seconds.");
 	}
 
 	@Override
@@ -76,6 +77,11 @@ public class StunningBlowsAbility implements Ability, Listener{
 		if(e.getDamager() instanceof Player)
 		{
 			Player p = (Player) e.getDamager();
+			
+			if(!AbilityUtils.runPassive(p, null))
+			{
+				return;
+			}
 					
 			if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(p, "Stunning Blows"))
 					{

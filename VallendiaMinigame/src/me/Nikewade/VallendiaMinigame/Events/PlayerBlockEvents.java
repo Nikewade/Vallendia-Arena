@@ -208,7 +208,8 @@ public PlayerBlockEvents(VallendiaMinigame Main)
 		    {
 		        if(e.getClickedBlock().getState() instanceof InventoryHolder || e.getClickedBlock().getType() == Material.ENDER_CHEST ||
 		        		e.getClickedBlock().getType() == Material.FLOWER_POT || e.getClickedBlock().getType() == Material.ITEM_FRAME || 
-		        		e.getClickedBlock().getType() == Material.WORKBENCH || e.getClickedBlock().getType() == Material.ANVIL)
+		        		e.getClickedBlock().getType() == Material.WORKBENCH || e.getClickedBlock().getType() == Material.ANVIL ||
+		        		e.getClickedBlock().getType() == Material.BED)
 		        {
 		            e.setCancelled(true);
 		        }   

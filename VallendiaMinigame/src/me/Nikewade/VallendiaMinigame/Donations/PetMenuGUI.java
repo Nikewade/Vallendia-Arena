@@ -49,6 +49,7 @@ public class PetMenuGUI implements Listener {
 		    	if(CosmeticHideEvents.pets.containsKey(p))
 		    	{
 					CosmeticHideEvents.pets.get(p).remove();
+					CosmeticHideEvents.pets.remove(p);
 		    	}
 
 		    }
@@ -145,7 +146,7 @@ public class PetMenuGUI implements Listener {
 	 String brottweiler = Utils.Colorate("&8&lBaby Rottweiler");
 	 if(p.hasPermission("mpet.BabyRottweiler"))
 	 {
-		 brottweiler = Utils.Colorate("&6&lBabyRottweiler");
+		 brottweiler = Utils.Colorate("&6&lBaby Rottweiler");
 	 }
 	 
 	 petMenu.setItem(new ItemStack(Utils.getItem("ewogICJ0aW1lc3RhbXAiIDogMTU5MDc4OTQzMjk1NywKICAicHJvZmlsZUlkIiA6ICIzM2ViZDMyYmIzMzk0YWQ5YWM2NzBjOTZjNTQ5YmE3ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJEYW5ub0JhbmFubm9YRCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS83MzdjYTQzNWIxYzRjOWQ2MmZhMjNmODgxMWY4MWQyOTQwZmQ3YzhiZTZhNmU0ZmQwYTIxMTNlM2U4Y2M4NTk1IgogICAgfQogIH0KfQ==")),

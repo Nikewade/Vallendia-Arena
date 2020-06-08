@@ -5,7 +5,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.CommandInterface;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class ReloadCommand implements  CommandInterface{
@@ -17,9 +19,17 @@ public class ReloadCommand implements  CommandInterface{
 	    	sender.sendMessage(Utils.Colorate("&8You lack permissions!"));
 	    	return false;	    	
 	    }
-	    Bukkit.dispatchCommand(sender, "plugman reload VallendiaMinigame");
-	    sender.sendMessage(Utils.Colorate("&4&lRELOADED This will break things like worldguard flags!"));
-	    sender.sendMessage(Utils.Colorate("&4&lMake sure to do a proper reload / restart to fix."));
+	    
+	    if(args.length == 2 && args[1].equalsIgnoreCase("config"))
+	    	{
+	    		VallendiaMinigame.getInstance().reloadConfig();
+	    		Language.sendVallendiaBroadcast("reloaded ");
+	    		return false;
+	    	}
+	    
+		    Bukkit.dispatchCommand(sender, "plugman reload VallendiaMinigame");
+		    sender.sendMessage(Utils.Colorate("&4&lRELOADED This will break things like worldguard flags!"));
+		    sender.sendMessage(Utils.Colorate("&4&lMake sure to do a proper reload / restart to fix."));	
 		return false;
 	}
 

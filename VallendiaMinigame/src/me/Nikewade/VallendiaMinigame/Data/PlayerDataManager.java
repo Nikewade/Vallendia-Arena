@@ -80,13 +80,37 @@ public class PlayerDataManager {
 
 			}
 		 
-		 return 1;
+		 File f = new File(Main.getFileManager().getUsersFile().getAbsolutePath() + "/" + uuid + ".yml");
+		 config = YamlConfiguration.loadConfiguration(f);	
+		 
+		return config.getInt(data);
 	 }
 	 
 	 
 	 public String getPlayerStringData(UUID uuid, String data)
 	 {
 		 return this.data.get(uuid).get(data);
+	 }
+	 
+	 
+	 
+	 public String getRawPlayerStringData(UUID uuid, String data)
+	 {
+		 File f = new File(this.Main.getFileManager().getUsersFile().getAbsolutePath() + "/" + uuid + ".yml");
+		 config = YamlConfiguration.loadConfiguration(f);	
+		 
+		return config.getString(data);
+	 }
+	 
+	 
+	 
+	 
+	 public int getRawPlayerIntData(UUID uuid, String data)
+	 {
+		 File f = new File(this.Main.getFileManager().getUsersFile().getAbsolutePath() + "/" + uuid + ".yml");
+		 config = YamlConfiguration.loadConfiguration(f);	
+		 
+		return config.getInt(data);
 	 }
 	 
 	 

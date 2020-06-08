@@ -22,9 +22,10 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
  
 public class OneManArmyAbility implements Listener, Ability {
 	//made by emma
-    int percent;
+    double percent;
     int distance = 10;
-    int cappercent = 60;
+	int partypercent = 10;
+	int solopercent = 25;
     HashMap<Player, Integer> attackerEnemies = new HashMap<>();
     HashMap<Player, Integer> damageeEnemies = new HashMap<>();
    
@@ -44,11 +45,11 @@ public class OneManArmyAbility implements Listener, Ability {
     public List<String> getDescription() {
         // TODO Auto-generated method stub
         return Arrays.asList
-                ("You feel like the protagonist of an",
-                "old spice commercial. For every enemy within " + distance,
-                "blocks, you deal 5% more damage and take 5%",
-                "less damage. This doubles to 10% when you are",
-                "not in a party and caps at 60%.");
+        		("You feel like the protagonist of an",
+                        "old spice commercial. For every enemy within " + distance,
+                        "blocks, you deal " +partypercent + "% more damage and take " +partypercent+"%",
+                        "less damage. This gors up to " + solopercent + "%",
+                        "when you are not in a party.");
     }
  
     @Override
@@ -86,15 +87,16 @@ public class OneManArmyAbility implements Listener, Ability {
         {
         	Projectile proj = (Projectile) e.getDamager();
         	
+        	if(!(proj.getShooter() instanceof Player))
+        	{
+        		return;
+        	}
         	
         	if(proj.getShooter() instanceof Player)
-        	{
+        	{ 	
         		
         	p = (Player) proj.getShooter();
         	
-        	}else
-        	{
-        		return;
         	}
         }else
         {
@@ -107,40 +109,42 @@ public class OneManArmyAbility implements Listener, Ability {
         		return;
         	}
         }
-        
-        if(AbilityUtils.getPlayerParty(p) == "")
-        {
-        	percent = 10;
-        }else
-        {
-        	percent = 5;
-        }
-       
+               
         //IF PLAYER IS ATTACKER
         if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(p, "One Man Army"))
         {
+            if(AbilityUtils.getPlayerParty(p) == "")
+            {
+            	int solo = solopercent/100;
+            	solo = solo+1;
+            	percent = solo;
+            }else
+            {
+            	int party = partypercent/100;
+            	party = party+1;
+            	percent = party;
+            }
+            
             int amount = 0;
            
             for (Entity ent : AbilityUtils.getAoeTargetsNonDamage(p, p.getLocation(), distance, distance, distance))
             {
                 if(ent instanceof Player)
                 {
-                    // if cap is 60% == 12
-                    if(amount >= cappercent/percent)
-                    {
-                        break;
-                    }
-                   
+                	if(!AbilityUtils.partyCheck(p, (Player) ent))
+                	{
+                		                    
                     amount ++;
- 
+                    
+                	} 
                 }
             }
+            amount = amount -1;
             attackerEnemies.put(p, amount);
            
             double damage = e.getFinalDamage();
-            int multiplier = attackerEnemies.get(p);
-            double highpercent = Utils.getPercentHigherOrLower(percent*multiplier, true);
-            double newdamage = damage*highpercent;
+            double multiplier = Math.pow(percent, attackerEnemies.get(p));
+            double newdamage = damage*multiplier;
 			e.setDamage(0);
 			e.setDamage(DamageModifier.ARMOR, newdamage);
            
@@ -154,29 +158,31 @@ public class OneManArmyAbility implements Listener, Ability {
        
         if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility((Player) e.getEntity(), "One Man Army"))
         {
+            if(AbilityUtils.getPlayerParty((Player) e.getEntity()) == "")
+            {
+            	percent = 0.75;
+            }else
+            {
+            	percent = 0.90;
+            }
+            
             int amount = 0;
            
             for (Entity ent : AbilityUtils.getAoeTargetsNonDamage((Player) e.getEntity(), e.getEntity().getLocation(),
                     distance, distance, distance))
             {
                 if(ent instanceof Player)
-                {
-                    // if cap is 60% == 12
-                    if(amount >= cappercent/percent)
-                    {
-                        break;
-                    }
-                   
+                {                   
                     amount ++;
  
                 }
             }
+            amount = amount - 1;
             damageeEnemies.put((Player) e.getEntity(), amount);
            
             double damage = e.getFinalDamage();
-            int multiplier = damageeEnemies.get(e.getEntity());
-            double lowpercent = Utils.getPercentHigherOrLower(percent*multiplier, false);
-            double newdamage = damage*lowpercent;
+            double multiplier = Math.pow(percent, damageeEnemies.get(e.getEntity()));
+            double newdamage = damage*multiplier;
 			e.setDamage(0);
 			e.setDamage(DamageModifier.ARMOR, newdamage);
            

@@ -38,7 +38,7 @@ public class SiphonAbility implements Ability, Listener {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
-		return Arrays.asList("Each time you damage a player, steal 1 Essence.", 
+		return Arrays.asList("Each time you damage a player, steal 3 Essence.", 
 				"Sending a player into negative Essence will damage them.");
 	}
 
@@ -75,12 +75,12 @@ public class SiphonAbility implements Ability, Listener {
         		{
         			return;
         		}
-        		main.shopmanager.subtractPoints(target, 2);
+        		main.shopmanager.subtractPoints(target, 3);
         		if(main.shopmanager.getPoints(target) <= 0)
         		{
         			return;
         		}
-        		main.shopmanager.addPoints(damager, 2);
+        		main.shopmanager.addPoints(damager, 3);
         		
         		ItemStack itemstack = null;
         		int random = Utils.randomNumber(1, 3);

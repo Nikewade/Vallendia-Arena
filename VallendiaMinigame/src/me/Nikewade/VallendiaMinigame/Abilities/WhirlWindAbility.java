@@ -25,14 +25,14 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class WhirlWindAbility implements Ability{
 	int ticktime = 120;
-	int damageticks = 6;
-	int damage = 5;
+	int damageticks = 9;
+	int damage = 6;
 	int radius = 4;
 	HashMap<Player, BukkitTask> timers = new HashMap<>();
 	
-	int force = 20;
-	int yForce = 8;
-	int maxYForce = 10;
+	int force = 15;
+	int yForce = 4;
+	int maxYForce = 6;
 
 	@Override
 	public String getName() {

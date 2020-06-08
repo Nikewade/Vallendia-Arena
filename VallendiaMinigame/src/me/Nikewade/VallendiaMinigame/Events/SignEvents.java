@@ -257,9 +257,10 @@ public class SignEvents implements Listener{
 		            }
 		            int totalStackBulk = is.getAmount() % produceBulk;
 		            Material mat = is.getType();
-		            is.setAmount(is.getAmount() - totalStackBulk);
 		            if(producePrices.containsKey(mat))
 		            {
+			            is.setAmount(is.getAmount() - totalStackBulk);
+		            	Language.sendVallendiaBroadcast("" + mat);
 		            	points = points + (producePrices.get(mat) * (is.getAmount() / produceBulk));
 		            	inv.setItem(i, new ItemStack(Material.AIR));
 		            	inv.setItem(i, new ItemStack(mat, totalStackBulk ));

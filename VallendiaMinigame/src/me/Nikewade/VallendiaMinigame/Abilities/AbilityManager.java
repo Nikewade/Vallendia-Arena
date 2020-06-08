@@ -12,6 +12,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.sk89q.worldguard.LocalPlayer;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.CustomEvents.BuyAbilityEvent;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
@@ -169,6 +174,8 @@ public class AbilityManager {
         abilities.add(new TauntAbility());
         abilities.add(new WhirlWindAbility());
         abilities.add(new BakerAbility());
+        abilities.add(new ExpeditiousRetreatAbility());
+        abilities.add(new UncannyDodgeAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);
@@ -343,14 +350,34 @@ public class AbilityManager {
 	public boolean playerHasAbility(Player p, String ability)
 	{
 		
-		if(playerAbilities.get(p) == null)
+		if(p == null)
 		{
 			return false;
 		}
-		if(playerAbilities.get(p).contains(ability))
+		
+		if(p.hasPlayedBefore())
 		{
-			return true;
+			if(playerAbilities.get(p) == null) // Maybe optimize this
+			{
+				String slot1 = Main.playerdatamanager.getRawPlayerStringData(p.getUniqueId(), "Abilities.slot 1");
+				String slot2 = Main.playerdatamanager.getRawPlayerStringData(p.getUniqueId(), "Abilities.slot 2");
+				String slot3 = Main.playerdatamanager.getRawPlayerStringData(p.getUniqueId(), "Abilities.slot 3");
+				String slot4 = Main.playerdatamanager.getRawPlayerStringData(p.getUniqueId(), "Abilities.slot 4");
+				String slot5 = Main.playerdatamanager.getRawPlayerStringData(p.getUniqueId(), "Abilities.slot 5");
+				String slot6 = Main.playerdatamanager.getRawPlayerStringData(p.getUniqueId(), "Abilities.slot 6");
+				if(slot1.equalsIgnoreCase(ability) || slot2.equalsIgnoreCase(ability) || slot3.equalsIgnoreCase(ability) || slot4.equalsIgnoreCase(ability) || slot5.equalsIgnoreCase(ability) || slot6.equalsIgnoreCase(ability))
+				{
+					return true;
+				}
+
+				return false;
+			}
+			if(playerAbilities.get(p).contains(ability))
+			{
+				return true;
+			}	
 		}
+		
 		return false;
 	}
 	
@@ -514,8 +541,11 @@ public class AbilityManager {
 		Main.playerdatamanager.editData(p.getUniqueId(), "Abilities.slot 5", "empty");
 		Main.playerdatamanager.editData(p.getUniqueId(), "Abilities.slot 6", "empty");
 
-		playerAbilities.get(p).clear();
-		abilitySlots.get(p).clear();
+		if(playerAbilities.containsKey(p))
+		{
+			playerAbilities.get(p).clear();
+			abilitySlots.get(p).clear();	
+		}
 	}
 	
 	

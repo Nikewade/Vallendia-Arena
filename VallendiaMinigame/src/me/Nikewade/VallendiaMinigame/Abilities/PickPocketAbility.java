@@ -40,7 +40,7 @@ public class PickPocketAbility implements Ability, Listener{
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Each time you melee hit a player,", 
-				"steal 3 Essence. Sending a player into",
+				"steal 5 Essence. Sending a player into",
 				"negative Essence will damage them.");
 	}
 
@@ -81,12 +81,12 @@ public class PickPocketAbility implements Ability, Listener{
         		{
         			return;
         		}
-        		main.shopmanager.subtractPoints(target, 3);
+        		main.shopmanager.subtractPoints(target, 5);
         		if(main.shopmanager.getPoints(target) <= 0)
         		{
         			return;
         		}
-        		main.shopmanager.addPoints(damager, 3);
+        		main.shopmanager.addPoints(damager, 5);
         		
         		ItemStack itemstack = null;
         		int random = Utils.randomNumber(1, 3);

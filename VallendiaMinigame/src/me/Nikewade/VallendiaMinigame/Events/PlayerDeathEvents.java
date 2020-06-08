@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Color;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;
@@ -15,6 +16,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
+import com.alessiodp.parties.api.Parties;
+import com.alessiodp.parties.api.interfaces.Party;
 import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.StateFlag;
@@ -195,6 +198,12 @@ public class PlayerDeathEvents implements Listener {
 	      if (p.getKiller() != null && p.getKiller() instanceof Player && p.getKiller() != p) {
 	            Player killer = p.getKiller();
 	            int levelKilledBy = this.Main.levelmanager.getLevel(killer);
+		         //PARTY AVERAGE LEVEL
+		         if(AbilityUtils.getPlayerParty(killer) != "")
+		         {
+		        	Party party = Parties.getApi().getParty(AbilityUtils.getPlayerParty(killer));
+		        	levelKilledBy = (int) party.getExperience();
+		         }
 	            float sumOfLvls = (float) ((float) level / (float) levelKilledBy);
 	            double points = ((pointsCarried + (b * pointsSpent)) * (Math.pow(Math.E, -n* (sumOfLvls)) + 0.03 * Math.pow(levelKilledBy, (-0.005 * levelKilledBy))));
 	            /*
@@ -253,6 +262,8 @@ public class PlayerDeathEvents implements Listener {
 		  p.setMaxHealth(20);
 	      this.Main.kitmanager.giveRespawnKit(p, "starter");
 	      ScoreboardHandler.updateHealth(p, 0, 0);
+			Location loc = new Location(p.getWorld(), -107.5, 65, -638.5, 0.0F, 0.0F);
+			e.setRespawnLocation(loc);
 			p.setFoodLevel(19);
 	   }
 	   

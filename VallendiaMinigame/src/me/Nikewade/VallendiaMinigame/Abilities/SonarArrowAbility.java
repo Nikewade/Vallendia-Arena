@@ -45,7 +45,8 @@ public class SonarArrowAbility implements Ability, Listener{
 		// TODO Auto-generated method stub
 		return Arrays.asList("Shoot an arrow imbued with magical sound.",
 							"The enemy that gets hit makes a loud, distinct",
-							"beeping noise for 30 seconds, even while in stealth.");
+							"beeping noise for " + duration + " seconds, even while in stealth.",
+							"This ability will also work on party members.");
 	}
 
 	@Override
@@ -83,7 +84,7 @@ public class SonarArrowAbility implements Ability, Listener{
 				
 			}
 	
-		}.runTaskLater(VallendiaMinigame.getInstance(), 10*20);
+		}.runTaskLater(VallendiaMinigame.getInstance(), 15*20);
 		return true;
 	}
 
@@ -140,7 +141,7 @@ public class SonarArrowAbility implements Ability, Listener{
 
 								}
 								
-								p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_FLUTE, 1, 4);
+								p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_FLUTE, 4, 4);
 								
 								t++;
 							}

@@ -38,7 +38,7 @@ public class ThunderShotAbility implements Ability, Listener{
     int delay = 15;
     int radius = 8;
     int initialdamage = 5;
-    int tickdamage = 5;
+    int tickdamage = 3;
     int time = 10;
     int period = 2;
     int cycleCount = time/period;

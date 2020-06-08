@@ -201,6 +201,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);
 		   Bukkit.getPluginManager().registerEvents(new SpawnCommand(), this);
 		   Bukkit.getPluginManager().registerEvents(new HelpCommand(), this);
+		   Bukkit.getPluginManager().registerEvents(new AltitudeChecker(this), this);
 		   new PetParticleEvents(this);
 		   new CosmeticHideEvents(this);
 		   

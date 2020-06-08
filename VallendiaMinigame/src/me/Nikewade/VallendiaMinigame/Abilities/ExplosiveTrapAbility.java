@@ -55,7 +55,9 @@ public class ExplosiveTrapAbility implements Ability, Listener {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Place an explosive trap that when" , 
 				"triggered, explodes dealing "  + damage
-				, "damage and destroying blocks in a large radius.");
+				, "damage and destroying blocks in",
+				"a large radius. When this trap is triggered,",
+				"the cooldown is 60 seconds.");
 	}
 
 	@Override

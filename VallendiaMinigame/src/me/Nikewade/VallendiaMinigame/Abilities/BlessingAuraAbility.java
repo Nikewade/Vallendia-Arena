@@ -23,11 +23,11 @@ import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class BlessingAuraAbility implements Ability{
-	int healAmount = 20;
+	int healAmount = 10;
 	int radius = 10;
 	int period = 1;
 	int length = 20;
-	int perSec = healAmount/length;
+	double perSec = 0.5;
 	HashMap <Player, BukkitTask> timers = new HashMap<>();
 
 	@Override

@@ -70,6 +70,10 @@ public class Mage implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Tunnel Vision"));
 		abilities.add(Main.abilitymanager.getAbility("Baker"));
 		abilities.add(Main.abilitymanager.getAbility("Expeditious Retreat"));
+		abilities.add(Main.abilitymanager.getAbility("Flame Imbued Wand"));
+		abilities.add(Main.abilitymanager.getAbility("Extend Wand"));
+		abilities.add(Main.abilitymanager.getAbility("Quicken Wand"));
+		abilities.add(Main.abilitymanager.getAbility("Disruptive Wand"));
 	}
 
 	@Override

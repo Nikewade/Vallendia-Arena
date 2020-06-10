@@ -57,6 +57,7 @@ public class Warrior implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Taunt"));
 		abilities.add(Main.abilitymanager.getAbility("Whirlwind"));
 		abilities.add(Main.abilitymanager.getAbility("Baker"));
+		abilities.add(Main.abilitymanager.getAbility("Survivalist"));
 	}
 	
 	@Override

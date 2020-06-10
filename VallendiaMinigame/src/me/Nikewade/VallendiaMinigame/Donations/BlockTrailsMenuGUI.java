@@ -39,7 +39,7 @@ public class BlockTrailsMenuGUI {
 		});
 	 
 	 String luxury = Utils.Colorate("&8&lLuxury Trail");
-	 if(p.hasPermission("trails.blocks.Luxury"))
+	 if(p.hasPermission("trails.blocks.Luxury") || p.hasPermission("trails.alltrails"))
 	 {
 		 luxury = Utils.Colorate("&6&lLuxury Trail");
 	 }
@@ -48,7 +48,7 @@ public class BlockTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.blocks.Luxury"))
+		    	if(ep.hasPermission("trails.blocks.Luxury")|| p.hasPermission("trails.alltrails"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(100);;
 		       	ep.closeInventory();
@@ -60,7 +60,7 @@ public class BlockTrailsMenuGUI {
 		});
 	  
 	 String ores = Utils.Colorate("&8&lOres Trail");
-	 if(p.hasPermission("trails.blocks.Ores"))
+	 if(p.hasPermission("trails.blocks.Ores")|| p.hasPermission("trails.alltrails"))
 	 {
 		 ores = Utils.Colorate("&6&lOres Trail");
 	 }
@@ -69,7 +69,7 @@ public class BlockTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.blocks.Ores"))
+		    	if(ep.hasPermission("trails.blocks.Ores")|| p.hasPermission("trails.alltrails"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(101);;
 		       	ep.closeInventory();
@@ -82,7 +82,7 @@ public class BlockTrailsMenuGUI {
 		});
 	  
 	 String clay = Utils.Colorate("&8&lClay Trail");
-	 if(p.hasPermission("trails.blocks.Clay"))
+	 if(p.hasPermission("trails.blocks.Clay")|| p.hasPermission("trails.alltrails"))
 	 {
 		 clay = Utils.Colorate("&6&lClay Trail");
 	 }
@@ -91,7 +91,7 @@ public class BlockTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.blocks.Clay"))
+		    	if(ep.hasPermission("trails.blocks.Clay")|| p.hasPermission("trails.alltrails"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(102);;
 		       	ep.closeInventory();
@@ -104,7 +104,7 @@ public class BlockTrailsMenuGUI {
 		});
 	 
 	 String glass = Utils.Colorate("&8&lGlass Trail");
-	 if(p.hasPermission("trails.blocks.Glass"))
+	 if(p.hasPermission("trails.blocks.Glass")|| p.hasPermission("trails.alltrails"))
 	 {
 		 glass = Utils.Colorate("&6&lGlass Trail");
 	 }
@@ -113,7 +113,7 @@ public class BlockTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.blocks.Glass"))
+		    	if(ep.hasPermission("trails.blocks.Glass")|| p.hasPermission("trails.alltrails"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(103);;
 		       	ep.closeInventory();
@@ -125,7 +125,7 @@ public class BlockTrailsMenuGUI {
 		    }
 		});
 	 String wool = Utils.Colorate("&8&lWool Trail");
-	 if(p.hasPermission("trails.blocks.Wool"))
+	 if(p.hasPermission("trails.blocks.Wool")|| p.hasPermission("trails.alltrails"))
 	 {
 		 wool = Utils.Colorate("&6&lWool Trail");
 	 }
@@ -133,7 +133,7 @@ public class BlockTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.blocks.Wool"))
+		    	if(ep.hasPermission("trails.blocks.Wool")|| p.hasPermission("trails.alltrails"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(104);;
 		       	ep.closeInventory();
@@ -146,7 +146,7 @@ public class BlockTrailsMenuGUI {
 		});
 	 
 	 String sea = Utils.Colorate("&8&lSea Trail");
-	 if(p.hasPermission("trails.blocks.Sea"))
+	 if(p.hasPermission("trails.blocks.Sea")|| p.hasPermission("trails.alltrails"))
 	 {
 		 sea = Utils.Colorate("&6&lSea Trail");
 	 }
@@ -156,7 +156,7 @@ public class BlockTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.blocks.Sea"))
+		    	if(ep.hasPermission("trails.blocks.Sea")|| p.hasPermission("trails.alltrails"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(105);;
 		       	ep.closeInventory();
@@ -169,7 +169,7 @@ public class BlockTrailsMenuGUI {
 		});
 	 
 	 String nether = Utils.Colorate("&8&lNether Trail");
-	 if(p.hasPermission("trails.blocks.Nether"))
+	 if(p.hasPermission("trails.blocks.Nether")|| p.hasPermission("trails.alltrails"))
 	 {
 		 nether = Utils.Colorate("&6&lNether Trail");
 	 }
@@ -178,7 +178,7 @@ public class BlockTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.blocks.Nether"))
+		    	if(ep.hasPermission("trails.blocks.Nether")|| p.hasPermission("trails.alltrails"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(106);;
 		       	ep.closeInventory();
@@ -200,7 +200,7 @@ public class BlockTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.blocks.End"))
+		    	if(ep.hasPermission("trails.blocks.End")|| p.hasPermission("trails.alltrails"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(107);;
 		       	ep.closeInventory();

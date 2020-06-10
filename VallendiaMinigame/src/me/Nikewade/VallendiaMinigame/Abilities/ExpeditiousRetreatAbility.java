@@ -11,6 +11,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import de.slikey.effectlib.effect.SphereEffect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
@@ -38,7 +39,7 @@ public class ExpeditiousRetreatAbility implements Ability {
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("You break free from all slows, stuns, and roots",
-							"and gain speed " + amplifier+1 + " for" + duration + " seconds.");
+							"and gain speed " + amplifier+  " for " + duration + " seconds.");
 	}
 
 	@Override
@@ -65,6 +66,30 @@ public class ExpeditiousRetreatAbility implements Ability {
 			se.start();
 			
 		AbilityUtils.addPotionDuration(p, p, "Expeditious Retreat", PotionEffectType.SPEED, amplifier, duration*20);
+		
+		new BukkitRunnable()
+		{
+			int t = 0;
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if(t >= duration*4)
+				{
+					this.cancel();
+				}
+				Location loc = p.getLocation();
+				SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+				se.iterations = 2;
+				se.particle = Particle.CLOUD;
+				se.radius = 0.1F;
+				se.particles = 1;
+				se.speed = (float) 0;
+				se.setLocation(loc);
+				se.start();
+				t++;
+			}
+			
+		}.runTaskTimer(VallendiaMinigame.getInstance(), 5, 5);
 		
 		if(AbilityUtils.isStunned(p) || p.hasPotionEffect(PotionEffectType.SLOW) || AbilityUtils.isRooted(p))
 		{

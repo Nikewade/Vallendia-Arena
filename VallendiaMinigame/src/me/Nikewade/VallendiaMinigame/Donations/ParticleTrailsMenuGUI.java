@@ -31,7 +31,7 @@ public class ParticleTrailsMenuGUI {
 		    	Player ep = (Player) e.getWhoClicked();		
 		    	if(e.getClick() == ClickType.LEFT)
 		    	{
-		    		if(ep.hasPermission("trails.mode.Circle"))
+		    		if(ep.hasPermission("trails.mode.Circle") || ep.hasPermission("trails.allparticles"))
 		    		{
 		    			SuperTrailsAPI.getPlayerData(ep).setMode(1);
 		    		}
@@ -39,7 +39,7 @@ public class ParticleTrailsMenuGUI {
 		    	}
 		    	if(e.getClick() == ClickType.RIGHT)
 		    	{
-		    		if(ep.hasPermission("trails.mode.Spiral"))
+		    		if(ep.hasPermission("trails.mode.Spiral") || ep.hasPermission("trails.allparticles"))
 		    		{
 		    			SuperTrailsAPI.getPlayerData(ep).setMode(4);
 
@@ -68,7 +68,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String damagehearts = Utils.Colorate("&8&lDamage Hearts");
-	 if(p.hasPermission("trails.particles.Damage"))
+	 if(p.hasPermission("trails.particles.Damage")  || p.hasPermission("trails.allparticles"))
 	 {
 		 damagehearts = Utils.Colorate("&6&lDamage Hearts");
 	 }
@@ -77,7 +77,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Damage"))
+		    	if(ep.hasPermission("trails.particles.Damage") || ep.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(26);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -92,7 +92,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String angry = Utils.Colorate("&8&lAngry Villager");
-	 if(p.hasPermission("trails.particles.Angry"))
+	 if(p.hasPermission("trails.particles.Angry") || p.hasPermission("trails.allparticles"))
 	 {
 		 angry = Utils.Colorate("&6&lAngry Villager");
 	 }
@@ -101,7 +101,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Angry"))
+		    	if(ep.hasPermission("trails.particles.Angry") || ep.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(2);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -115,7 +115,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String magic = Utils.Colorate("&8&lMagic Crit");
-	 if(p.hasPermission("trails.particles.Magic"))
+	 if(p.hasPermission("trails.particles.Magic")|| p.hasPermission("trails.allparticles"))
 	 {
 		 magic = Utils.Colorate("&6&lMagic Crit");
 	 }
@@ -124,7 +124,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Magic"))
+		    	if(ep.hasPermission("trails.particles.Magic") || ep.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(3);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -139,7 +139,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String rainbow = Utils.Colorate("&8&lRainbow");
-	 if(p.hasPermission("trails.particles.Rainbow"))
+	 if(p.hasPermission("trails.particles.Rainbow")|| p.hasPermission("trails.allparticles"))
 	 {
 		 rainbow = Utils.Colorate("&6&lRainbow");
 	 }
@@ -148,7 +148,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.blocks.Rainbow"))
+		    	if(ep.hasPermission("trails.blocks.Rainbow")|| ep.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(4);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -163,7 +163,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String cloud = Utils.Colorate("&8&lCloud");
-	 if(p.hasPermission("trails.particles.Cloud"))
+	 if(p.hasPermission("trails.particles.Cloud")|| p.hasPermission("trails.allparticles"))
 	 {
 		 cloud = Utils.Colorate("&6&lCloud");
 	 }
@@ -172,7 +172,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Cloud"))
+		    	if(ep.hasPermission("trails.particles.Cloud")|| ep.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(5);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -187,7 +187,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String witch = Utils.Colorate("&8&lWitch");
-	 if(p.hasPermission("trails.particles.Witch"))
+	 if(p.hasPermission("trails.particles.Witch") || p.hasPermission("trails.allparticles"))
 	 {
 		 witch = Utils.Colorate("&6&lWitch");
 	 }
@@ -197,7 +197,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Witch"))
+		    	if(ep.hasPermission("trails.particles.Witch") || ep.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(6);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -212,7 +212,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String ender = Utils.Colorate("&8&lEnder");
-	 if(p.hasPermission("trails.particles.Ender"))
+	 if(p.hasPermission("trails.particles.Ender") || p.hasPermission("trails.allparticles"))
 	 {
 		 ender = Utils.Colorate("&6&lEnder");
 	 }
@@ -221,7 +221,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Ender"))
+		    	if(ep.hasPermission("trails.particles.Ender")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(7);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -236,7 +236,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String green = Utils.Colorate("&8&lHappy Villager");
-	 if(p.hasPermission("trails.particles.Green"))
+	 if(p.hasPermission("trails.particles.Green")|| p.hasPermission("trails.allparticles"))
 	 {
 		 green = Utils.Colorate("&6&lHappy Villager");
 	 }
@@ -245,7 +245,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Green"))
+		    	if(ep.hasPermission("trails.particles.Green")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(8);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -260,7 +260,7 @@ public class ParticleTrailsMenuGUI {
 		}); 
 	 
 	 String sparks = Utils.Colorate("&8&lSparks");
-	 if(p.hasPermission("trails.particles.Sparks"))
+	 if(p.hasPermission("trails.particles.Sparks")|| p.hasPermission("trails.allparticles"))
 	 {
 		 sparks = Utils.Colorate("&6&lSparks");
 	 }
@@ -269,7 +269,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Sparks"))
+		    	if(ep.hasPermission("trails.particles.Sparks")|| p.hasPermission("trails.allparticles"))
 		    	{
 		    		//white magic
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(11);;
@@ -285,7 +285,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String flames = Utils.Colorate("&8&lFlames");
-	 if(p.hasPermission("trails.particles.Flames"))
+	 if(p.hasPermission("trails.particles.Flames")|| p.hasPermission("trails.allparticles"))
 	 {
 		 flames = Utils.Colorate("&6&lFlames");
 	 }
@@ -294,7 +294,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Flames"))
+		    	if(ep.hasPermission("trails.particles.Flames")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(10);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -308,7 +308,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String notes = Utils.Colorate("&8&lNotes");
-	 if(p.hasPermission("trails.particles.Notes"))
+	 if(p.hasPermission("trails.particles.Notes")|| p.hasPermission("trails.allparticles"))
 	 {
 		 notes = Utils.Colorate("&6&lNotes");
 	 }
@@ -318,7 +318,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Notes"))
+		    	if(ep.hasPermission("trails.particles.Notes")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(12);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -333,7 +333,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String snow = Utils.Colorate("&8&lSnow");
-	 if(p.hasPermission("trails.particles.Snow"))
+	 if(p.hasPermission("trails.particles.Snow")|| p.hasPermission("trails.allparticles"))
 	 {
 		 snow = Utils.Colorate("&6&lSnow");
 	 }
@@ -342,7 +342,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Snow"))
+		    	if(ep.hasPermission("trails.particles.Snow")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(13);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -357,7 +357,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String rain = Utils.Colorate("&8&lRain");
-	 if(p.hasPermission("trails.particles.Rain"))
+	 if(p.hasPermission("trails.particles.Rain")|| p.hasPermission("trails.allparticles"))
 	 {
 		 rain = Utils.Colorate("&6&lRain");
 	 }
@@ -366,7 +366,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Rain"))
+		    	if(ep.hasPermission("trails.particles.Rain")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(14);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -381,7 +381,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String lava = Utils.Colorate("&8&lLava Drip");
-	 if(p.hasPermission("trails.particles.Lava"))
+	 if(p.hasPermission("trails.particles.Lava")|| p.hasPermission("trails.allparticles"))
 	 {
 		 lava = Utils.Colorate("&6&lLava Drip");
 	 }
@@ -389,7 +389,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Lava"))
+		    	if(ep.hasPermission("trails.particles.Lava")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(15);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -404,7 +404,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String crit = Utils.Colorate("&8&lCrit");
-	 if(p.hasPermission("trails.particles.Crit"))
+	 if(p.hasPermission("trails.particles.Crit")|| p.hasPermission("trails.allparticles"))
 	 {
 		 crit = Utils.Colorate("&6&lCrit");
 	 }
@@ -413,7 +413,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Crit"))
+		    	if(ep.hasPermission("trails.particles.Crit")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(16);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -428,7 +428,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String smoke = Utils.Colorate("&8&lSmoke");
-	 if(p.hasPermission("trails.particles.Smoke"))
+	 if(p.hasPermission("trails.particles.Smoke")|| p.hasPermission("trails.allparticles"))
 	 {
 		 smoke = Utils.Colorate("&6&lSmoke");
 	 }
@@ -436,7 +436,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Smoke"))
+		    	if(ep.hasPermission("trails.particles.Smoke")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(17);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -451,7 +451,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String endrod = Utils.Colorate("&8&lEnd Rod");
-	 if(p.hasPermission("trails.particles.EndRod"))
+	 if(p.hasPermission("trails.particles.EndRod")|| p.hasPermission("trails.allparticles"))
 	 {
 		 endrod = Utils.Colorate("&6&lEnd Rod");
 	 }
@@ -460,7 +460,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.EndRod"))
+		    	if(ep.hasPermission("trails.particles.EndRod")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(27);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -475,7 +475,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String totem = Utils.Colorate("&8&lTotem");
-	 if(p.hasPermission("trails.particles.Totem"))
+	 if(p.hasPermission("trails.particles.Totem")|| p.hasPermission("trails.allparticles"))
 	 {
 		 totem = Utils.Colorate("&6&lTotem");
 	 }
@@ -485,7 +485,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Totem"))
+		    	if(ep.hasPermission("trails.particles.Totem")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(28);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -500,7 +500,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String splash = Utils.Colorate("&8&lSplash");
-	 if(p.hasPermission("trails.particles.Splash"))
+	 if(p.hasPermission("trails.particles.Splash")|| p.hasPermission("trails.allparticles"))
 	 {
 		 splash = Utils.Colorate("&6&lSplash");
 	 }
@@ -509,7 +509,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Splash"))
+		    	if(ep.hasPermission("trails.particles.Splash")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(20);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -524,7 +524,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String slime = Utils.Colorate("&8&lSlime");
-	 if(p.hasPermission("trails.particles.Slime"))
+	 if(p.hasPermission("trails.particles.Slime")|| p.hasPermission("trails.allparticles"))
 	 {
 		 slime = Utils.Colorate("&6&lSlime");
 	 }
@@ -533,7 +533,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Slime"))
+		    	if(ep.hasPermission("trails.particles.Slime")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(21);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -548,7 +548,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String snowball = Utils.Colorate("&8&lSnowball");
-	 if(p.hasPermission("trails.particles.Snowball"))
+	 if(p.hasPermission("trails.particles.Snowball")|| p.hasPermission("trails.allparticles"))
 	 {
 		 snowball = Utils.Colorate("&6&lSnowball");
 	 }
@@ -558,7 +558,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Snowball"))
+		    	if(ep.hasPermission("trails.particles.Snowball")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(22);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -573,7 +573,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String voids = Utils.Colorate("&8&lVoid");
-	 if(p.hasPermission("trails.particles.Void"))
+	 if(p.hasPermission("trails.particles.Void")|| p.hasPermission("trails.allparticles"))
 	 {
 		 voids = Utils.Colorate("&6&lVoid");
 	 }
@@ -582,7 +582,7 @@ public class ParticleTrailsMenuGUI {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("trails.particles.Void"))
+		    	if(ep.hasPermission("trails.particles.Void")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(23);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(0);
@@ -615,7 +615,7 @@ public class ParticleTrailsMenuGUI {
 		    	Player ep = (Player) e.getWhoClicked();		
 		    	if(e.getClick() == ClickType.LEFT)
 		    	{
-		    		if(ep.hasPermission("trails.mode.Pulse"))
+		    		if(ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    		{
 		    			SuperTrailsAPI.getPlayerData(ep).setMode(2);
 
@@ -650,7 +650,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String damagehearts = Utils.Colorate("&8&lDamage Hearts");
-	 if(p.hasPermission("trails.particles.Damage"))
+	 if(p.hasPermission("trails.particles.Damage")|| p.hasPermission("trails.allparticles"))
 	 {
 		 damagehearts = Utils.Colorate("&6&lDamage Hearts");
 	 }
@@ -664,7 +664,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Damage") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Damage") && ep.hasPermission("trails.mode.Circle") || p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(26);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -678,7 +678,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String angry = Utils.Colorate("&8&lAngry Villager");
-	 if(p.hasPermission("trails.particles.Angry"))
+	 if(p.hasPermission("trails.particles.Angry")|| p.hasPermission("trails.allparticles"))
 	 {
 		 angry = Utils.Colorate("&6&lAngry Villager");
 	 }
@@ -692,7 +692,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Angry") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Angry") && ep.hasPermission("trails.mode.Circle") || p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(2);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -707,7 +707,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String magic = Utils.Colorate("&8&lMagic Crit");
-	 if(p.hasPermission("trails.particles.Magic"))
+	 if(p.hasPermission("trails.particles.Magic")|| p.hasPermission("trails.allparticles"))
 	 {
 		 magic = Utils.Colorate("&6&lMagic Crit");
 	 }
@@ -721,7 +721,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Magic") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Magic") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(3);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -736,7 +736,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	  
 	 String rainbow = Utils.Colorate("&8&lRainbow");
-	 if(p.hasPermission("trails.particles.Rainbow"))
+	 if(p.hasPermission("trails.particles.Rainbow")|| p.hasPermission("trails.allparticles"))
 	 {
 		 rainbow = Utils.Colorate("&6&lRainbow");
 	 }
@@ -750,7 +750,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.blocks.Rainbow") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.blocks.Rainbow") && ep.hasPermission("trails.mode.Circle") || p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(4);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -765,7 +765,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String cloud = Utils.Colorate("&8&lCloud");
-	 if(p.hasPermission("trails.particles.Cloud"))
+	 if(p.hasPermission("trails.particles.Cloud")|| p.hasPermission("trails.allparticles"))
 	 {
 		 cloud = Utils.Colorate("&6&lCloud");
 		 
@@ -779,7 +779,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Cloud") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Cloud") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(5);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -794,7 +794,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String witch = Utils.Colorate("&8&lWitch");
-	 if(p.hasPermission("trails.particles.Witch"))
+	 if(p.hasPermission("trails.particles.Witch")|| p.hasPermission("trails.allparticles"))
 	 {
 		 witch = Utils.Colorate("&6&lWitch");
 	 }
@@ -809,7 +809,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Witch") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Witch") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(6);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -824,7 +824,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String ender = Utils.Colorate("&8&lEnder");
-	 if(p.hasPermission("trails.particles.Ender"))
+	 if(p.hasPermission("trails.particles.Ender")|| p.hasPermission("trails.allparticles"))
 	 {
 		 ender = Utils.Colorate("&6&lEnder");
 	 }
@@ -838,7 +838,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Ender") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Ender") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(7);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -865,7 +865,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Green") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Green") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(8);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -880,7 +880,7 @@ public class ParticleTrailsMenuGUI {
 		}); 
 	 
 	 String sparks = Utils.Colorate("&8&lSparks");
-	 if(p.hasPermission("trails.particles.Sparks"))
+	 if(p.hasPermission("trails.particles.Sparks")|| p.hasPermission("trails.allparticles"))
 	 {
 		 sparks = Utils.Colorate("&6&lSparks");
 	 }
@@ -894,7 +894,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Sparks") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Sparks") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		    		//white magic
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(11);;
@@ -910,7 +910,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String flames = Utils.Colorate("&8&lFlames");
-	 if(p.hasPermission("trails.particles.Flames"))
+	 if(p.hasPermission("trails.particles.Flames")|| p.hasPermission("trails.allparticles"))
 	 {
 		 flames = Utils.Colorate("&6&lFlames");
 	 }
@@ -924,7 +924,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Flames") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Flames") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(10);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -938,7 +938,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String notes = Utils.Colorate("&8&lNotes");
-	 if(p.hasPermission("trails.particles.Notes"))
+	 if(p.hasPermission("trails.particles.Notes")|| p.hasPermission("trails.allparticles"))
 	 {
 		 notes = Utils.Colorate("&6&lNotes");
 	 }
@@ -951,7 +951,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Notes") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Notes") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(12);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -965,7 +965,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String snow = Utils.Colorate("&8&lSnow");
-	 if(p.hasPermission("trails.particles.Snow"))
+	 if(p.hasPermission("trails.particles.Snow")|| p.hasPermission("trails.allparticles"))
 	 {
 		 snow = Utils.Colorate("&6&lSnow");
 	 }
@@ -978,7 +978,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Snow") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Snow") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(13);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -992,7 +992,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String rain = Utils.Colorate("&8&lRain");
-	 if(p.hasPermission("trails.particles.Rain"))
+	 if(p.hasPermission("trails.particles.Rain")|| p.hasPermission("trails.allparticles"))
 	 {
 		 rain = Utils.Colorate("&6&lRain");
 	 }
@@ -1006,7 +1006,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Rain") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Rain") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(14);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -1020,7 +1020,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String lava = Utils.Colorate("&8&lLava Drip");
-	 if(p.hasPermission("trails.particles.Lava"))
+	 if(p.hasPermission("trails.particles.Lava")|| p.hasPermission("trails.allparticles"))
 	 {
 		 lava = Utils.Colorate("&6&lLava Drip");
 	 }
@@ -1033,7 +1033,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Lava") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Lava") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(15);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -1047,7 +1047,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String crit = Utils.Colorate("&8&lCrit");
-	 if(p.hasPermission("trails.particles.Crit"))
+	 if(p.hasPermission("trails.particles.Crit")|| p.hasPermission("trails.allparticles"))
 	 {
 		 crit = Utils.Colorate("&6&lCrit");
 	 }
@@ -1061,7 +1061,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Crit") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Crit") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(16);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -1075,7 +1075,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String smoke = Utils.Colorate("&8&lSmoke");
-	 if(p.hasPermission("trails.particles.Smoke"))
+	 if(p.hasPermission("trails.particles.Smoke")|| p.hasPermission("trails.allparticles"))
 	 {
 		 smoke = Utils.Colorate("&6&lSmoke");
 	 }
@@ -1088,7 +1088,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Smoke") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Smoke") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(17);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -1103,7 +1103,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String endrod = Utils.Colorate("&8&lEnd Rod");
-	 if(p.hasPermission("trails.particles.EndRod"))
+	 if(p.hasPermission("trails.particles.EndRod")|| p.hasPermission("trails.allparticles"))
 	 {
 		 endrod = Utils.Colorate("&6&lEnd Rod");
 	 }
@@ -1117,7 +1117,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.EndRod") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.EndRod") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(27);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -1132,7 +1132,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String totem = Utils.Colorate("&8&lTotem");
-	 if(p.hasPermission("trails.particles.Totem"))
+	 if(p.hasPermission("trails.particles.Totem")|| p.hasPermission("trails.allparticles"))
 	 {
 		 totem = Utils.Colorate("&6&lTotem");
 	 }
@@ -1146,7 +1146,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Totem") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Totem") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(28);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -1161,7 +1161,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String splash = Utils.Colorate("&8&lSplash");
-	 if(p.hasPermission("trails.particles.Splash"))
+	 if(p.hasPermission("trails.particles.Splash")|| p.hasPermission("trails.allparticles"))
 	 {
 		 splash = Utils.Colorate("&6&lSplash");
 	 }
@@ -1175,7 +1175,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Splash") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Splash") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(20);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -1190,7 +1190,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String slime = Utils.Colorate("&8&lSlime");
-	 if(p.hasPermission("trails.particles.Slime"))
+	 if(p.hasPermission("trails.particles.Slime")|| p.hasPermission("trails.allparticles"))
 	 {
 		 slime = Utils.Colorate("&6&lSlime");
 	 }
@@ -1204,7 +1204,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Slime") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Slime") && ep.hasPermission("trails.mode.Circle") || p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(21);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -1219,7 +1219,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String snowball = Utils.Colorate("&8&lSnowball");
-	 if(p.hasPermission("trails.particles.Snowball"))
+	 if(p.hasPermission("trails.particles.Snowball")|| p.hasPermission("trails.allparticles"))
 	 {
 		 snowball = Utils.Colorate("&6&lSnowball");
 	 }
@@ -1233,7 +1233,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Snowball") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Snowball") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(22);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -1248,7 +1248,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String voids = Utils.Colorate("&8&lVoid");
-	 if(p.hasPermission("trails.particles.Void"))
+	 if(p.hasPermission("trails.particles.Void")|| p.hasPermission("trails.allparticles"))
 	 {
 		 voids = Utils.Colorate("&6&lVoid");
 	 }
@@ -1262,7 +1262,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Circle mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Void") && ep.hasPermission("trails.mode.Circle"))
+		    	if(ep.hasPermission("trails.particles.Void") && ep.hasPermission("trails.mode.Circle")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(23);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(1);
@@ -1295,7 +1295,7 @@ public class ParticleTrailsMenuGUI {
 		    	Player ep = (Player) e.getWhoClicked();	
 		    	if(e.getClick() == ClickType.LEFT)
 		    	{
-		    		if(ep.hasPermission("trails.mode.Spiral"))
+		    		if(ep.hasPermission("trails.mode.Spiral")|| ep.hasPermission("trails.allparticles"))
 		    		{
 		    			SuperTrailsAPI.getPlayerData(ep).setMode(4);
 
@@ -1304,7 +1304,7 @@ public class ParticleTrailsMenuGUI {
 		    	}
 		    	if(e.getClick() == ClickType.RIGHT)
 		    	{
-		    		if(ep.hasPermission("trails.mode.Circle"))
+		    		if(ep.hasPermission("trails.mode.Circle")|| ep.hasPermission("trails.allparticles"))
 		    		{
 		    			SuperTrailsAPI.getPlayerData(ep).setMode(1);
 
@@ -1333,7 +1333,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String damagehearts = Utils.Colorate("&8&lDamage Hearts");
-	 if(p.hasPermission("trails.particles.Damage"))
+	 if(p.hasPermission("trails.particles.Damage")|| p.hasPermission("trails.allparticles"))
 	 {
 		 damagehearts = Utils.Colorate("&6&lDamage Hearts");
 	 }
@@ -1347,7 +1347,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Damage") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Damage") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(26);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1361,7 +1361,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String angry = Utils.Colorate("&8&lAngry Villager");
-	 if(p.hasPermission("trails.particles.Angry"))
+	 if(p.hasPermission("trails.particles.Angry")|| p.hasPermission("trails.allparticles"))
 	 {
 		 angry = Utils.Colorate("&6&lAngry Villager");
 	 }
@@ -1375,7 +1375,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Angry") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Angry") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(2);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1390,7 +1390,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String magic = Utils.Colorate("&8&lMagic Crit");
-	 if(p.hasPermission("trails.particles.Magic"))
+	 if(p.hasPermission("trails.particles.Magic")|| p.hasPermission("trails.allparticles"))
 	 {
 		 magic = Utils.Colorate("&6&lMagic Crit");
 	 }
@@ -1404,7 +1404,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Magic") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Magic") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(3);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1419,7 +1419,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	  
 	 String rainbow = Utils.Colorate("&8&lRainbow");
-	 if(p.hasPermission("trails.particles.Rainbow"))
+	 if(p.hasPermission("trails.particles.Rainbow")|| p.hasPermission("trails.allparticles"))
 	 {
 		 rainbow = Utils.Colorate("&6&lRainbow");
 	 }
@@ -1433,7 +1433,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.blocks.Rainbow") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.blocks.Rainbow") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(4);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1447,7 +1447,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String cloud = Utils.Colorate("&8&lCloud");
-	 if(p.hasPermission("trails.particles.Cloud"))
+	 if(p.hasPermission("trails.particles.Cloud")|| p.hasPermission("trails.allparticles"))
 	 {
 		 cloud = Utils.Colorate("&6&lCloud");
 	 }
@@ -1461,7 +1461,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Cloud") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Cloud") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(5);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1476,7 +1476,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String witch = Utils.Colorate("&8&lWitch");
-	 if(p.hasPermission("trails.particles.Witch"))
+	 if(p.hasPermission("trails.particles.Witch")|| p.hasPermission("trails.allparticles"))
 	 {
 		 witch = Utils.Colorate("&6&lWitch");
 	 }
@@ -1491,7 +1491,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Witch") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Witch") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(6);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1506,7 +1506,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String ender = Utils.Colorate("&8&lEnder");
-	 if(p.hasPermission("trails.particles.Ender"))
+	 if(p.hasPermission("trails.particles.Ender")|| p.hasPermission("trails.allparticles"))
 	 {
 		 ender = Utils.Colorate("&6&lEnder");
 	 }
@@ -1520,7 +1520,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Ender") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Ender") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(7);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1535,7 +1535,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String green = Utils.Colorate("&8&lHappy Villager");
-	 if(p.hasPermission("trails.particles.Green"))
+	 if(p.hasPermission("trails.particles.Green")|| p.hasPermission("trails.allparticles"))
 	 {
 		 green = Utils.Colorate("&6&lHappy Villager");
 	 }
@@ -1549,7 +1549,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Green") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Green") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(8);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1563,7 +1563,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		}); 
 	 String sparks = Utils.Colorate("&8&lSparks");
-	 if(p.hasPermission("trails.particles.Sparks"))
+	 if(p.hasPermission("trails.particles.Sparks")|| p.hasPermission("trails.allparticles"))
 	 {
 		 sparks = Utils.Colorate("&6&lSparks");
 	 }
@@ -1576,7 +1576,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Sparks") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Sparks") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		    		//white magic
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(11);;
@@ -1592,7 +1592,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String flames = Utils.Colorate("&8&lFlames");
-	 if(p.hasPermission("trails.particles.Flames"))
+	 if(p.hasPermission("trails.particles.Flames")|| p.hasPermission("trails.allparticles"))
 	 {
 		 flames = Utils.Colorate("&6&lFlames");
 	 }
@@ -1606,7 +1606,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Flames") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Flames") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(10);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1620,7 +1620,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String notes = Utils.Colorate("&8&lNotes");
-	 if(p.hasPermission("trails.particles.Notes"))
+	 if(p.hasPermission("trails.particles.Notes")|| p.hasPermission("trails.allparticles"))
 	 {
 		 notes = Utils.Colorate("&6&lNotes");
 	 }
@@ -1633,7 +1633,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Notes") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Notes") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(12);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1647,7 +1647,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String snow = Utils.Colorate("&8&lSnow");
-	 if(p.hasPermission("trails.particles.Snow"))
+	 if(p.hasPermission("trails.particles.Snow")|| p.hasPermission("trails.allparticles"))
 	 {
 		 snow = Utils.Colorate("&6&lSnow");
 	 }
@@ -1660,7 +1660,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Snow") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Snow") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(13);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1675,7 +1675,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String rain = Utils.Colorate("&8&lRain");
-	 if(p.hasPermission("trails.particles.Rain"))
+	 if(p.hasPermission("trails.particles.Rain")|| p.hasPermission("trails.allparticles"))
 	 {
 		 rain = Utils.Colorate("&6&lRain");
 	 }
@@ -1689,7 +1689,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Rain") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Rain") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(14);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1703,7 +1703,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String lava = Utils.Colorate("&8&lLava Drip");
-	 if(p.hasPermission("trails.particles.Lava"))
+	 if(p.hasPermission("trails.particles.Lava")|| p.hasPermission("trails.allparticles"))
 	 {
 		 lava = Utils.Colorate("&6&lLava Drip");
 	 }
@@ -1717,7 +1717,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Lava") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Lava") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(15);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1731,7 +1731,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String crit = Utils.Colorate("&8&lCrit");
-	 if(p.hasPermission("trails.particles.Crit"))
+	 if(p.hasPermission("trails.particles.Crit")|| p.hasPermission("trails.allparticles"))
 	 {
 		 crit = Utils.Colorate("&6&lCrit");
 	 }
@@ -1744,7 +1744,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Crit") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Crit") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(16);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1759,7 +1759,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String smoke = Utils.Colorate("&8&lSmoke");
-	 if(p.hasPermission("trails.particles.Smoke"))
+	 if(p.hasPermission("trails.particles.Smoke")|| p.hasPermission("trails.allparticles"))
 	 {
 		 smoke = Utils.Colorate("&6&lSmoke");
 	 }
@@ -1773,7 +1773,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Smoke") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Smoke") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(17);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1787,7 +1787,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String endrod = Utils.Colorate("&8&lEnd Rod");
-	 if(p.hasPermission("trails.particles.EndRod"))
+	 if(p.hasPermission("trails.particles.EndRod")|| p.hasPermission("trails.allparticles"))
 	 {
 		 endrod = Utils.Colorate("&6&lEnd Rod");
 	 }
@@ -1801,7 +1801,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.EndRod") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.EndRod") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(27);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1816,7 +1816,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String totem = Utils.Colorate("&8&lTotem");
-	 if(p.hasPermission("trails.particles.Totem"))
+	 if(p.hasPermission("trails.particles.Totem")|| p.hasPermission("trails.allparticles"))
 	 {
 		 totem = Utils.Colorate("&6&lTotem");
 	 }
@@ -1830,7 +1830,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Totem") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Totem") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(28);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1845,7 +1845,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String splash = Utils.Colorate("&8&lSplash");
-	 if(p.hasPermission("trails.particles.Splash"))
+	 if(p.hasPermission("trails.particles.Splash")|| p.hasPermission("trails.allparticles"))
 	 {
 		 splash = Utils.Colorate("&6&lSplash");
 	 }
@@ -1859,7 +1859,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Splash") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Splash") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(20);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1874,7 +1874,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String slime = Utils.Colorate("&8&lSlime");
-	 if(p.hasPermission("trails.particles.Slime"))
+	 if(p.hasPermission("trails.particles.Slime")|| p.hasPermission("trails.allparticles"))
 	 {
 		 slime = Utils.Colorate("&6&lSlime");
 	 }
@@ -1888,7 +1888,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Slime") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Slime") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(21);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1903,7 +1903,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String snowball = Utils.Colorate("&8&lSnowball");
-	 if(p.hasPermission("trails.particles.Snowball"))
+	 if(p.hasPermission("trails.particles.Snowball")|| p.hasPermission("trails.allparticles"))
 	 {
 		 snowball = Utils.Colorate("&6&lSnowball");
 	 }
@@ -1917,7 +1917,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Snowball") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Snowball") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(22);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1932,7 +1932,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String voids = Utils.Colorate("&8&lVoid");
-	 if(p.hasPermission("trails.particles.Void"))
+	 if(p.hasPermission("trails.particles.Void")|| p.hasPermission("trails.allparticles"))
 	 {
 		 voids = Utils.Colorate("&6&lVoid");
 	 }
@@ -1946,7 +1946,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Pulse mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Void") && ep.hasPermission("trails.mode.Pulse"))
+		    	if(ep.hasPermission("trails.particles.Void") && ep.hasPermission("trails.mode.Pulse")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(23);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(2);
@@ -1985,7 +1985,7 @@ public class ParticleTrailsMenuGUI {
 		    	}
 		    	if(e.getClick() == ClickType.RIGHT)
 		    	{
-		    		if(ep.hasPermission("trails.mode.Pulse"))
+		    		if(ep.hasPermission("trails.mode.Pulse")|| ep.hasPermission("trails.allparticles"))
 		    		{
 		    			SuperTrailsAPI.getPlayerData(ep).setMode(2);
 
@@ -2014,7 +2014,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String damagehearts = Utils.Colorate("&8&lDamage Hearts");
-	 if(p.hasPermission("trails.particles.Damage"))
+	 if(p.hasPermission("trails.particles.Damage")|| p.hasPermission("trails.allparticles"))
 	 {
 		 damagehearts = Utils.Colorate("&6&lDamage Hearts");
 	 }
@@ -2028,7 +2028,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Damage") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Damage") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(26);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2042,7 +2042,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String angry = Utils.Colorate("&8&lAngry Villager");
-	 if(p.hasPermission("trails.particles.Angry"))
+	 if(p.hasPermission("trails.particles.Angry")|| p.hasPermission("trails.allparticles"))
 	 {
 		 angry = Utils.Colorate("&6&lAngry Villager");
 	 }
@@ -2056,7 +2056,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Angry") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Angry") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(2);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2071,7 +2071,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String magic = Utils.Colorate("&8&lMagic Crit");
-	 if(p.hasPermission("trails.particles.Magic"))
+	 if(p.hasPermission("trails.particles.Magic")|| p.hasPermission("trails.allparticles"))
 	 {
 		 magic = Utils.Colorate("&6&lMagic Crit");
 	 }
@@ -2085,7 +2085,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Magic") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Magic") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(3);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2100,7 +2100,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	  
 	 String rainbow = Utils.Colorate("&8&lRainbow");
-	 if(p.hasPermission("trails.particles.Rainbow"))
+	 if(p.hasPermission("trails.particles.Rainbow")|| p.hasPermission("trails.allparticles"))
 	 {
 		 rainbow = Utils.Colorate("&6&lRainbow");
 	 }
@@ -2114,7 +2114,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.blocks.Rainbow") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.blocks.Rainbow") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(4);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2129,7 +2129,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String cloud = Utils.Colorate("&8&lCloud");
-	 if(p.hasPermission("trails.particles.Cloud"))
+	 if(p.hasPermission("trails.particles.Cloud")|| p.hasPermission("trails.allparticles"))
 	 {
 		 cloud = Utils.Colorate("&6&lCloud");
 		 
@@ -2144,7 +2144,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Cloud") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Cloud") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(5);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2159,7 +2159,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String witch = Utils.Colorate("&8&lWitch");
-	 if(p.hasPermission("trails.particles.Witch"))
+	 if(p.hasPermission("trails.particles.Witch")|| p.hasPermission("trails.allparticles"))
 	 {
 		 witch = Utils.Colorate("&6&lWitch");
 	 }
@@ -2174,7 +2174,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Witch") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Witch") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(6);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2188,7 +2188,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String ender = Utils.Colorate("&8&lEnder");
-	 if(p.hasPermission("trails.particles.Ender"))
+	 if(p.hasPermission("trails.particles.Ender")|| p.hasPermission("trails.allparticles"))
 	 {
 		 ender = Utils.Colorate("&6&lEnder");
 	 }
@@ -2201,7 +2201,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Ender") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Ender") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(7);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2216,7 +2216,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String green = Utils.Colorate("&8&lHappy Villager");
-	 if(p.hasPermission("trails.particles.Green"))
+	 if(p.hasPermission("trails.particles.Green")|| p.hasPermission("trails.allparticles"))
 	 {
 		 green = Utils.Colorate("&6&lHappy Villager");
 	 }
@@ -2229,7 +2229,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Green") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Green") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(8);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2243,7 +2243,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		}); 
 	 String sparks = Utils.Colorate("&8&lSparks");
-	 if(p.hasPermission("trails.particles.Sparks"))
+	 if(p.hasPermission("trails.particles.Sparks")|| p.hasPermission("trails.allparticles"))
 	 {
 		 sparks = Utils.Colorate("&6&lSparks");
 	 }
@@ -2256,7 +2256,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Sparks") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Sparks") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		    		//white magic
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(11);;
@@ -2272,7 +2272,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String flames = Utils.Colorate("&8&lFlames");
-	 if(p.hasPermission("trails.particles.Flames"))
+	 if(p.hasPermission("trails.particles.Flames")|| p.hasPermission("trails.allparticles"))
 	 {
 		 flames = Utils.Colorate("&6&lFlames");
 	 }
@@ -2286,7 +2286,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Flames") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Flames") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(10);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2300,7 +2300,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String notes = Utils.Colorate("&8&lNotes");
-	 if(p.hasPermission("trails.particles.Notes"))
+	 if(p.hasPermission("trails.particles.Notes")|| p.hasPermission("trails.allparticles"))
 	 {
 		 notes = Utils.Colorate("&6&lNotes");
 	 }
@@ -2313,7 +2313,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Notes") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Notes") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(12);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2327,7 +2327,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String snow = Utils.Colorate("&8&lSnow");
-	 if(p.hasPermission("trails.particles.Snow"))
+	 if(p.hasPermission("trails.particles.Snow")|| p.hasPermission("trails.allparticles"))
 	 {
 		 snow = Utils.Colorate("&6&lSnow");
 	 }
@@ -2340,7 +2340,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Snow") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Snow") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(13);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2355,7 +2355,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String rain = Utils.Colorate("&8&lRain");
-	 if(p.hasPermission("trails.particles.Rain"))
+	 if(p.hasPermission("trails.particles.Rain")|| p.hasPermission("trails.allparticles"))
 	 {
 		 rain = Utils.Colorate("&6&lRain");
 	 }
@@ -2369,7 +2369,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Rain") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Rain") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(14);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2384,7 +2384,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String lava = Utils.Colorate("&8&lLava Drip");
-	 if(p.hasPermission("trails.particles.Lava"))
+	 if(p.hasPermission("trails.particles.Lava")|| p.hasPermission("trails.allparticles"))
 	 {
 		 lava = Utils.Colorate("&6&lLava Drip");
 	 }
@@ -2397,7 +2397,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Lava") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Lava") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(15);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2411,7 +2411,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String crit = Utils.Colorate("&8&lCrit");
-	 if(p.hasPermission("trails.particles.Crit"))
+	 if(p.hasPermission("trails.particles.Crit")|| p.hasPermission("trails.allparticles"))
 	 {
 		 crit = Utils.Colorate("&6&lCrit");
 	 }
@@ -2424,7 +2424,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Crit") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Crit") && ep.hasPermission("trails.mode.Spiral") || p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(16);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2453,7 +2453,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Smoke") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Smoke") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(17);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2468,7 +2468,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String endrod = Utils.Colorate("&8&lEnd Rod");
-	 if(p.hasPermission("trails.particles.EndRod"))
+	 if(p.hasPermission("trails.particles.EndRod")|| p.hasPermission("trails.allparticles"))
 	 {
 		 endrod = Utils.Colorate("&6&lEnd Rod");
 	 }
@@ -2482,7 +2482,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.EndRod") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.EndRod") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(27);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2497,7 +2497,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String totem = Utils.Colorate("&8&lTotem");
-	 if(p.hasPermission("trails.particles.Totem"))
+	 if(p.hasPermission("trails.particles.Totem")|| p.hasPermission("trails.allparticles"))
 	 {
 		 totem = Utils.Colorate("&6&lTotem");
 	 }
@@ -2511,7 +2511,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Totem") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Totem") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(28);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2526,7 +2526,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String splash = Utils.Colorate("&8&lSplash");
-	 if(p.hasPermission("trails.particles.Splash"))
+	 if(p.hasPermission("trails.particles.Splash")|| p.hasPermission("trails.allparticles"))
 	 {
 		 splash = Utils.Colorate("&6&lSplash");
 	 }
@@ -2540,7 +2540,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Splash") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Splash") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(20);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2554,7 +2554,7 @@ public class ParticleTrailsMenuGUI {
 		    }
 		});
 	 String slime = Utils.Colorate("&8&lSlime");
-	 if(p.hasPermission("trails.particles.Slime"))
+	 if(p.hasPermission("trails.particles.Slime")|| p.hasPermission("trails.allparticles"))
 	 {
 		 slime = Utils.Colorate("&6&lSlime");
 	 }
@@ -2567,7 +2567,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Slime") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Slime") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(21);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2582,7 +2582,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String snowball = Utils.Colorate("&8&lSnowball");
-	 if(p.hasPermission("trails.particles.Snowball"))
+	 if(p.hasPermission("trails.particles.Snowball")|| p.hasPermission("trails.allparticles"))
 	 {
 		 snowball = Utils.Colorate("&6&lSnowball");
 	 }
@@ -2596,7 +2596,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Snowball") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Snowball") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(22);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);
@@ -2611,7 +2611,7 @@ public class ParticleTrailsMenuGUI {
 		});
 	 
 	 String voids = Utils.Colorate("&8&lVoid");
-	 if(p.hasPermission("trails.particles.Void"))
+	 if(p.hasPermission("trails.particles.Void")|| p.hasPermission("trails.allparticles"))
 	 {
 		 voids = Utils.Colorate("&6&lVoid");
 	 }
@@ -2625,7 +2625,7 @@ public class ParticleTrailsMenuGUI {
 		    		ep.sendMessage(Utils.Colorate("&cYou don't have the Spiral mode!"));
 		    		return;
 		    	}
-		    	if(ep.hasPermission("trails.particles.Void") && ep.hasPermission("trails.mode.Spiral"))
+		    	if(ep.hasPermission("trails.particles.Void") && ep.hasPermission("trails.mode.Spiral")|| p.hasPermission("trails.allparticles"))
 		    	{
 		       	SuperTrailsAPI.getPlayerData(ep).setTrail(23);;
 		       	SuperTrailsAPI.getPlayerData(ep).setMode(4);

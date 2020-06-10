@@ -67,6 +67,7 @@ import me.Nikewade.VallendiaMinigame.Events.PlayerTakeDamageEvent;
 import me.Nikewade.VallendiaMinigame.Events.ProjectileEvents;
 import me.Nikewade.VallendiaMinigame.Events.RandomBroadcastEvents;
 import me.Nikewade.VallendiaMinigame.Events.SignEvents;
+import me.Nikewade.VallendiaMinigame.Events.WandEvents;
 import me.Nikewade.VallendiaMinigame.Graphics.GuiHandler;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
@@ -204,6 +205,7 @@ public class VallendiaMinigame extends JavaPlugin{
 		   Bukkit.getPluginManager().registerEvents(new AltitudeChecker(this), this);
 		   new PetParticleEvents(this);
 		   new CosmeticHideEvents(this);
+		   new WandEvents(this);
 		   
 		   new RandomBroadcastEvents(this);
 		   

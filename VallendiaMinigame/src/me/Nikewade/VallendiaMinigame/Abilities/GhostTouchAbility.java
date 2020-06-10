@@ -158,7 +158,7 @@ public class GhostTouchAbility implements Ability{
 	         
 	        }.runTaskTimer(VallendiaMinigame.getInstance(), 0l, 0l);
 	        
-		return false;
+		return true;
 	}
 
 	@Override

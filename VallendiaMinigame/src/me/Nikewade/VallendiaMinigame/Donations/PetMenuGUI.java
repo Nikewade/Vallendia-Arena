@@ -56,7 +56,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String ape = Utils.Colorate("&8&lApe");
-	 if(p.hasPermission("mpet.Ape"))
+	 if(p.hasPermission("mpet.Ape") || p.hasPermission("miniaturepets.allpets"))
 	 {
 		 ape = Utils.Colorate("&6&lApe");
 	 }
@@ -66,7 +66,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Ape"))
+		    	if(ep.hasPermission("mpet.Ape") || p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Ape");
 		       	ep.closeInventory();
@@ -78,7 +78,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String astro = Utils.Colorate("&8&lAstronaut");
-	 if(p.hasPermission("mpet.Astronaught"))
+	 if(p.hasPermission("mpet.Astronaught") || p.hasPermission("miniaturepets.allpets"))
 	 {
 		 astro = Utils.Colorate("&6&lAstronaut");
 	 }
@@ -88,7 +88,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Astronaught"))
+		    	if(ep.hasPermission("mpet.Astronaught") || p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Astronaught");
 		       	ep.closeInventory();
@@ -100,7 +100,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String dragon = Utils.Colorate("&8&lBaby Dragon");
-	 if(p.hasPermission("mpet.BabyDragon"))
+	 if(p.hasPermission("mpet.BabyDragon")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 dragon = Utils.Colorate("&5&lBaby Dragon");
 	 }
@@ -110,7 +110,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.BabyDragon"))
+		    	if(ep.hasPermission("mpet.BabyDragon")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet BabyDragon");
 		       	ep.closeInventory();
@@ -122,7 +122,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String bghast = Utils.Colorate("&8&lBaby Ghast");
-	 if(p.hasPermission("mpet.BabyGhast"))
+	 if(p.hasPermission("mpet.BabyGhast")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 bghast = Utils.Colorate("&6&lBaby Ghast");
 	 }
@@ -132,7 +132,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.BabyGhast"))
+		    	if(ep.hasPermission("mpet.BabyGhast")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet BabyGhast");
 		       	ep.closeInventory();
@@ -144,7 +144,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String brottweiler = Utils.Colorate("&8&lBaby Rottweiler");
-	 if(p.hasPermission("mpet.BabyRottweiler"))
+	 if(p.hasPermission("mpet.BabyRottweiler")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 brottweiler = Utils.Colorate("&6&lBaby Rottweiler");
 	 }
@@ -154,7 +154,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.BabyRottweiler"))
+		    	if(ep.hasPermission("mpet.BabyRottweiler")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet BabyRottweiler");
 		       	ep.closeInventory();
@@ -166,7 +166,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String black = Utils.Colorate("&8&lBlack Cat");
-	 if(p.hasPermission("mpet.Black"))
+	 if(p.hasPermission("mpet.Black")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 black = Utils.Colorate("&6&lBlack Cat");
 	 }
@@ -176,7 +176,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Black"))
+		    	if(ep.hasPermission("mpet.Black")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Black");
 		       	ep.closeInventory();
@@ -188,7 +188,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String blackp = Utils.Colorate("&8&lBlack Pug");
-	 if(p.hasPermission("mpet.BlackPug"))
+	 if(p.hasPermission("mpet.BlackPug")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 blackp = Utils.Colorate("&6&lBlack Pug");
 	 }
@@ -197,7 +197,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.BlackPug"))
+		    	if(ep.hasPermission("mpet.BlackPug")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet BlackPug");
 		       	ep.closeInventory();
@@ -209,7 +209,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String calico = Utils.Colorate("&8&lCalico Cat");
-	 if(p.hasPermission("mpet.Calico"))
+	 if(p.hasPermission("mpet.Calico")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 calico = Utils.Colorate("&6&lCalico Cat");
 	 }
@@ -219,7 +219,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Calico"))
+		    	if(ep.hasPermission("mpet.Calico")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Calico");
 		       	ep.closeInventory();
@@ -231,7 +231,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String chart = Utils.Colorate("&8&lChartreux Cat");
-	 if(p.hasPermission("mpet.Black"))
+	 if(p.hasPermission("mpet.Chartreux")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 chart = Utils.Colorate("&6&lChartreux Cat");
 	 }
@@ -241,7 +241,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Chartreux"))
+		    	if(ep.hasPermission("mpet.Chartreux")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Chartreux");
 		       	ep.closeInventory();
@@ -253,7 +253,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String chimp = Utils.Colorate("&8&lChimp");
-	 if(p.hasPermission("mpet.Chimp"))
+	 if(p.hasPermission("mpet.Chimp")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 chimp = Utils.Colorate("&6&lChimp");
 	 }
@@ -262,7 +262,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Chimp"))
+		    	if(ep.hasPermission("mpet.Chimp")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Chimp");
 		       	ep.closeInventory();
@@ -273,7 +273,7 @@ public class PetMenuGUI implements Listener {
 		    }
 		});
 	 String mimic = Utils.Colorate("&8&lMimic");
-	 if(p.hasPermission("mpet.Mimic"))
+	 if(p.hasPermission("mpet.Mimic")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 mimic = Utils.Colorate("&6&lMimic");
 	 }
@@ -282,7 +282,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Chomp"))
+		    	if(ep.hasPermission("mpet.Chomp")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Chomp");
 		       	ep.closeInventory();
@@ -294,7 +294,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String cream = Utils.Colorate("&8&lCream Cat");
-	 if(p.hasPermission("mpet.Cream"))
+	 if(p.hasPermission("mpet.Cream")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 cream = Utils.Colorate("&6&lCream Cat");
 	 }
@@ -304,7 +304,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Cream"))
+		    	if(ep.hasPermission("mpet.Cream")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Cream");
 		       	ep.closeInventory();
@@ -316,7 +316,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String crocodile = Utils.Colorate("&8&lCrocodile");
-	 if(p.hasPermission("mpet.Crocodile"))
+	 if(p.hasPermission("mpet.Crocodile")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 crocodile = Utils.Colorate("&6&lCrocodile");
 	 }
@@ -326,7 +326,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Crocodile"))
+		    	if(ep.hasPermission("mpet.Crocodile")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Crocodile");
 		       	ep.closeInventory();
@@ -338,7 +338,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String gorilla = Utils.Colorate("&8&lGorilla");
-	 if(p.hasPermission("mpet.Gorilla"))
+	 if(p.hasPermission("mpet.Gorilla")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 gorilla = Utils.Colorate("&6&lGorilla");
 	 }
@@ -348,7 +348,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Gorilla"))
+		    	if(ep.hasPermission("mpet.Gorilla")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Gorilla");
 		       	ep.closeInventory();
@@ -359,7 +359,7 @@ public class PetMenuGUI implements Listener {
 		    }
 		});
 	 String jake = Utils.Colorate("&8&lJake The Dog");
-	 if(p.hasPermission("mpet.Jake"))
+	 if(p.hasPermission("mpet.Jake")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 jake = Utils.Colorate("&6&lJake The Dog");
 	 }
@@ -368,7 +368,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Jake"))
+		    	if(ep.hasPermission("mpet.Jake")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Jake");
 		       	ep.closeInventory();
@@ -380,7 +380,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String koala = Utils.Colorate("&8&lKoala");
-	 if(p.hasPermission("mpet.Koala"))
+	 if(p.hasPermission("mpet.Koala")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 koala = Utils.Colorate("&6&lKoala");
 	 }
@@ -390,7 +390,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Koala"))
+		    	if(ep.hasPermission("mpet.Koala")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Koala");
 		       	ep.closeInventory();
@@ -409,7 +409,7 @@ public class PetMenuGUI implements Listener {
         head.setItemMeta(skull);
         
    	 String minime = Utils.Colorate("&8&lMini Me");
-   	 if(p.hasPermission("mpet.MiniMe"))
+   	 if(p.hasPermission("mpet.MiniMe")|| p.hasPermission("miniaturepets.allpets"))
    	 {
    		 minime = Utils.Colorate("&6&lMini Me");
    	 }
@@ -418,7 +418,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.MiniMe"))
+		    	if(ep.hasPermission("mpet.MiniMe")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet MiniMe");
 		       	ep.closeInventory();
@@ -430,7 +430,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String monkey = Utils.Colorate("&8&lMonkey");
-	 if(p.hasPermission("mpet.Monkey"))
+	 if(p.hasPermission("mpet.Monkey")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 monkey = Utils.Colorate("&6&lMonkey");
 	 }
@@ -439,7 +439,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Monkey"))
+		    	if(ep.hasPermission("mpet.Monkey")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Monkey");
 		       	ep.closeInventory();
@@ -451,7 +451,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String mp8 = Utils.Colorate("&8&lMP8");
-	 if(p.hasPermission("mpet.MP8"))
+	 if(p.hasPermission("mpet.MP8")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 mp8 = Utils.Colorate("&6&lMP8");
 	 }
@@ -461,7 +461,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.MP8"))
+		    	if(ep.hasPermission("mpet.MP8")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet MP8");
 		       	ep.closeInventory();
@@ -473,7 +473,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String orange = Utils.Colorate("&8&lOrange Tabby Cat");
-	 if(p.hasPermission("mpet.OrangeTabby"))
+	 if(p.hasPermission("mpet.OrangeTabby")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 orange = Utils.Colorate("&6&lOrange Tabby Cat");
 	 }
@@ -483,7 +483,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.OrangeTabby"))
+		    	if(ep.hasPermission("mpet.OrangeTabby")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet OrangeTabby");
 		       	ep.closeInventory();
@@ -495,7 +495,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String penguin = Utils.Colorate("&8&lPenguin");
-	 if(p.hasPermission("mpet.Penguin"))
+	 if(p.hasPermission("mpet.Penguin")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 penguin = Utils.Colorate("&6&lPenguin");
 	 }
@@ -505,7 +505,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Penguin"))
+		    	if(ep.hasPermission("mpet.Penguin")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Penguin");
 		       	ep.closeInventory();
@@ -517,7 +517,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String river = Utils.Colorate("&8&lRiver Otter");
-	 if(p.hasPermission("mpet.riverOtter"))
+	 if(p.hasPermission("mpet.RiverOtter")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 river = Utils.Colorate("&6&lRiver Otter");
 	 }
@@ -527,7 +527,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.RiverOtter"))
+		    	if(ep.hasPermission("mpet.RiverOtter")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet RiverOtter");
 		       	ep.closeInventory();
@@ -539,7 +539,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String siamese = Utils.Colorate("&8&lSiamese Cat");
-	 if(p.hasPermission("mpet.Siamese"))
+	 if(p.hasPermission("mpet.Siamese")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 siamese = Utils.Colorate("&6&lSiamese Cat");
 	 }
@@ -549,7 +549,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Siamese"))
+		    	if(ep.hasPermission("mpet.Siamese")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Siamese");
 		       	ep.closeInventory();
@@ -561,7 +561,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String tortie = Utils.Colorate("&8&lTortie Cat");
-	 if(p.hasPermission("mpet.Tortie"))
+	 if(p.hasPermission("mpet.Tortie")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 tortie = Utils.Colorate("&6&lTortie Cat");
 	 }
@@ -571,7 +571,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Tortie"))
+		    	if(ep.hasPermission("mpet.Tortie")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Tortie");
 		       	ep.closeInventory();
@@ -583,7 +583,7 @@ public class PetMenuGUI implements Listener {
 		});
 
 	 String turtle = Utils.Colorate("&8&lTurtle");
-	 if(p.hasPermission("mpet.Turtle"))
+	 if(p.hasPermission("mpet.Turtle")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 turtle = Utils.Colorate("&6&lTurtle");
 	 }
@@ -593,7 +593,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Turtle"))
+		    	if(ep.hasPermission("mpet.Turtle")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Turtle");
 		       	ep.closeInventory();
@@ -605,7 +605,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String white = Utils.Colorate("&8&lWhite Cat");
-	 if(p.hasPermission("mpet.White"))
+	 if(p.hasPermission("mpet.White")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 white = Utils.Colorate("&6&lWhite Cat");
 	 }
@@ -615,7 +615,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.White"))
+		    	if(ep.hasPermission("mpet.White")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet White");
 		       	ep.closeInventory();
@@ -627,7 +627,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String pug = Utils.Colorate("&8&lWhite Pug");
-	 if(p.hasPermission("mpet.WhitePug"))
+	 if(p.hasPermission("mpet.WhitePug")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 pug = Utils.Colorate("&6&lWhite Pug");
 	 }
@@ -637,7 +637,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.WhitePug"))
+		    	if(ep.hasPermission("mpet.WhitePug")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet WhitePug");
 		       	ep.closeInventory();
@@ -649,7 +649,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String bsquirrel = Utils.Colorate("&8&lBrown Squirrel");
-	 if(p.hasPermission("mpet.Squirrel2"))
+	 if(p.hasPermission("mpet.Squirrel2")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 bsquirrel = Utils.Colorate("&6&lBrown Squirrel");
 	 }
@@ -660,7 +660,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Squirrel2"))
+		    	if(ep.hasPermission("mpet.Squirrel2")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Squirrel2");
 		       	ep.closeInventory();
@@ -672,7 +672,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String gsquirrel = Utils.Colorate("&8&lGrey Squirrel");
-	 if(p.hasPermission("mpet.Squirrel3"))
+	 if(p.hasPermission("mpet.Squirrel3")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 gsquirrel = Utils.Colorate("&6&lGrey Squirrel");
 	 }
@@ -683,7 +683,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Squirrel3"))
+		    	if(ep.hasPermission("mpet.Squirrel3")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Squirrel3");
 		       	ep.closeInventory();
@@ -695,7 +695,7 @@ public class PetMenuGUI implements Listener {
 		});
 	 
 	 String besquirrel = Utils.Colorate("&8&lBeige Squirrel");
-	 if(p.hasPermission("mpet.Squirrel1"))
+	 if(p.hasPermission("mpet.Squirrel1")|| p.hasPermission("miniaturepets.allpets"))
 	 {
 		 besquirrel = Utils.Colorate("&6&lBeige Squirrel");
 	 }
@@ -706,7 +706,7 @@ public class PetMenuGUI implements Listener {
 		    @Override
 		    public void run(InventoryClickEvent e) {
 		    	Player ep = (Player) e.getWhoClicked();
-		    	if(ep.hasPermission("mpet.Squirrel1"))
+		    	if(ep.hasPermission("mpet.Squirrel1")|| p.hasPermission("miniaturepets.allpets"))
 		    	{
 		    	Bukkit.dispatchCommand(ep, "mpet pet Squirrel1");
 		       	ep.closeInventory();

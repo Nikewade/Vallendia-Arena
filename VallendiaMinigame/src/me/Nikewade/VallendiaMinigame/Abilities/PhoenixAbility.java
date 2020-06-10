@@ -433,15 +433,6 @@ public class PhoenixAbility implements Listener, Ability{
         		Language.sendAbilityUseMessage(e.getPlayer(), "Sorry, you can't do that right now!", "Phoenix");
         	}
         }
-        
-        @EventHandler
-        public void onGamemodeChange (PlayerGameModeChangeEvent e)
-        {
-        	if(dead.contains(e.getPlayer()))
-        	{
-        		e.setCancelled(true);
-        	}
-        }
 
 	
 	

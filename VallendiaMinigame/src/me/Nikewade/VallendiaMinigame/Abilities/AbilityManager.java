@@ -176,6 +176,10 @@ public class AbilityManager {
         abilities.add(new BakerAbility());
         abilities.add(new ExpeditiousRetreatAbility());
         abilities.add(new UncannyDodgeAbility());
+        abilities.add(new DisruptiveWandAbility());
+        abilities.add(new FlameImbuedWandAbility());
+        abilities.add(new ExtendWandAbility());
+        abilities.add(new QuickenWandAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);

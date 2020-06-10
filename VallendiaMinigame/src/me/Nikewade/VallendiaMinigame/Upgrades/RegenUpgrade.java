@@ -35,9 +35,9 @@ public class RegenUpgrade implements Upgrade{
     	double time = 0.00506 * Math.pow((0.25 * Main.upgrademanager.getUpgradeAmount(p, "regeneration") -8.985), 4) + 0.5;
     	DecimalFormat format = new DecimalFormat("0.0");
     	
-    	if(time <= 1.1)
+    	if(time <= 5.1)
     	{
-    		time = 1;
+    		time = 5;
     	}
     	String output = format.format(time);
 		p.sendMessage(Utils.Colorate("&cRegeneration every " + output + Utils.Colorate(" &cseconds.")));
@@ -98,7 +98,7 @@ public class RegenUpgrade implements Upgrade{
 	@Override
 	public double getMultiplier(String enchant) {
 		// TODO Auto-generated method stub
-		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "regeneneration." + "multiplier");
+		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "regeneration." + "multiplier");
 	}
 	
 	@Override

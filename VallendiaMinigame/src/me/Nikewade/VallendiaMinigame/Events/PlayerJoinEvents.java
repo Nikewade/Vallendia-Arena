@@ -142,7 +142,16 @@ public class PlayerJoinEvents implements Listener{
 		e.getPlayer().setGravity(true);
 		EquipBowAbility.removeBow(e.getPlayer());
 		Player p = e.getPlayer();
-		Bukkit.getServer().broadcastMessage(Utils.Colorate("&8&l[&c-&8&l] &3" +p.getName()));
+		new BukkitRunnable()
+		{
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Bukkit.getServer().broadcastMessage(Utils.Colorate("&8&l[&c-&8&l] &3" +p.getName()));
+			}
+			
+		}.runTaskLater(VallendiaMinigame.getInstance(), 4);
 		AbilityUtils.resetAllMaxHealth(p);
 		AbilityUtils.removeCast(p);
 		BandageAbility.removeBandage(p);
@@ -221,7 +230,8 @@ public class PlayerJoinEvents implements Listener{
 	public void tutorialStop(TutorialEndEvent e){
 		if(e.getTutorial().getId().equalsIgnoreCase("valtut"))
 		{
-			Bukkit.getServer().broadcastMessage(Utils.Colorate("&3&lWelcome &7" + e.getPlayer().getDisplayName() + " &3to the server!"));
+					Bukkit.getServer().broadcastMessage(Utils.Colorate("&3&lWelcome &7" + e.getPlayer().getDisplayName() + " &3to the server!"));
+
 		}
 	}
 

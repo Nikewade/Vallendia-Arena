@@ -45,13 +45,13 @@ public class UncannyDodgeAbility implements Ability,Listener{
 		// TODO Auto-generated method stub
 		return Arrays.asList("You break free from all stuns and slowness.",
 							"for the next "+ time +" seconds you ignore "+ percent + "% of the",
-							"damage you take");
+							"damage you take.");
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
-		return new ItemStack(Material.APPLE);
+		return new ItemStack(Material.FEATHER);
 	}
 
 	@Override
@@ -126,7 +126,15 @@ public class UncannyDodgeAbility implements Ability,Listener{
 		            double newdamage = damage*highpercent;
 					e.setDamage(0);
 					e.setDamage(DamageModifier.ARMOR, newdamage);
-					
+					SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+					se.particle = Particle.CRIT;
+					se.radius = 1F;
+					se.particles = 5;
+					se.setEntity(p);
+					se.iterations = 3;
+					se.particleOffsetY = 1F;
+					se.yOffset = -0.8F;	
+					se.start();
 				}
 			
 		}

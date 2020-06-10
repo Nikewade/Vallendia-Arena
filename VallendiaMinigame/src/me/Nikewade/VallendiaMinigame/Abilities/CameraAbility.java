@@ -564,14 +564,6 @@ public class CameraAbility implements Ability, Listener{
     		Language.sendAbilityUseMessage(e.getPlayer(), "Sorry, you can't do that right now!", "Camera");
     	}
     }
-    
-    @EventHandler
-    public void onGamemodeChange (PlayerGameModeChangeEvent e)
-    {
-    	if(viewing.contains(e.getPlayer()))
-    	{
-    		e.setCancelled(true);
-    	}
-    }
+
 
 }

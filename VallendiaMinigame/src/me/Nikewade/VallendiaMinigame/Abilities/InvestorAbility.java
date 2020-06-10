@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,10 +31,10 @@ public class InvestorAbility implements Ability, Listener{
 	List<Player> investing = new ArrayList<>();	
 	HashMap<Player, BukkitTask> timers = new HashMap<>();
 	int period = 60;
-	int descpercent = 4;
+	int descpercent = 2;
 	// percent is the 100 - the percent you want
-	int percent = 96;
-	int cap = 60;
+	int percent = 98;
+	int cap = 30;
 
 	@Override
 	public String getName() {
@@ -51,8 +52,9 @@ public class InvestorAbility implements Ability, Listener{
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("You invest your Essence and gain " + descpercent + " percent of",
-								"your total Essence every " + period + " seconds. This doesn't",
-								"work if you are in spawn.");
+								"your total Essence every " + period + " seconds. This",
+								"is capped at " + cap + " Essence. This doesn't work",
+								"if you are in spawn.");
 	}
 
 	@Override
@@ -95,6 +97,19 @@ public class InvestorAbility implements Ability, Listener{
 								if(timers.containsKey(p))
 								{
 									timers.remove(p);
+								}
+								this.cancel();
+							}
+							if(Bukkit.getPlayer("" + p.getName()) == null)
+							{
+								if(investing.contains(p))
+								{
+									investing.remove(p);
+								}
+								if(timers.containsKey(p))
+								{
+									timers.get(p).cancel();
+									timers.remove(p);							
 								}
 								this.cancel();
 							}
@@ -179,6 +194,19 @@ public class InvestorAbility implements Ability, Listener{
 							if(timers.containsKey(p))
 							{
 								timers.remove(p);
+							}
+							this.cancel();
+						}
+						if(Bukkit.getPlayer("" + p.getName()) == null)
+						{
+							if(investing.contains(p))
+							{
+								investing.remove(p);
+							}
+							if(timers.containsKey(p))
+							{
+								timers.get(p).cancel();
+								timers.remove(p);							
 							}
 							this.cancel();
 						}

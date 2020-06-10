@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -16,7 +17,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import de.slikey.effectlib.effect.ConeEffect;
 import de.slikey.effectlib.effect.SphereEffect;
+import de.slikey.effectlib.util.DynamicLocation;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
@@ -57,20 +60,47 @@ public class StoneSkinAbility implements Ability, Listener{
 	@Override
 	public boolean RunAbility(Player p) {
 		// TODO Auto-generated method stub
-		
+		if(abilityActive.contains(p))
+		{
+			return false;
+		}
 		abilityActive.add(p);
 		ignored.put(p, 0);
 		p.getWorld().playSound(p.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 2, (float) 0.5);
 		p.getWorld().playSound(p.getLocation(), Sound.BLOCK_STONE_BREAK, 2, 0.4F);
+			ConeEffect se = new ConeEffect(VallendiaMinigame.getInstance().effectmanager);
+			se.iterations = 20;
+			se.particle = Particle.BLOCK_CRACK;
+			se.material = Material.STONE;
+			se.lengthGrow = (float) 0.015;
+			se.pitch = -90F;
+			se.setLocation(p.getLocation());
+			se.start();
+			new BukkitRunnable()
+			{
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					if(se.isDone())
+					{
+						this.cancel();
+					}
+					se.setLocation(p.getLocation());
+				}
+				
+			}.runTaskTimer(VallendiaMinigame.getInstance(), 0, 0);
 		BukkitTask timer = new BukkitRunnable()
 				{
 
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						disable(p);
-			 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 2, (float) 0.4);
-			 			p.getWorld().playSound(p.getLocation(), Sound.BLOCK_STONE_BREAK, 2, 0.4F);
+						if(abilityActive.contains(p))
+						{
+				 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 2, (float) 0.4);
+				 			p.getWorld().playSound(p.getLocation(), Sound.BLOCK_STONE_BREAK, 2, 0.4F);
+							disable(p);
+						}
 					}
 			
 				}.runTaskLater(VallendiaMinigame.getInstance(), time*20);
@@ -115,6 +145,18 @@ public class StoneSkinAbility implements Ability, Listener{
 				ignored.remove(p);
 	 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 2, (float) 0.4);
 	 			p.getWorld().playSound(p.getLocation(), Sound.BLOCK_STONE_BREAK, 2, 0.4F);
+				SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+				se.disappearWithOriginEntity = true;
+				se.iterations = 2;
+				se.particle = Particle.BLOCK_CRACK;
+				se.material = Material.STONE;
+				se.radius = 0.8;
+				se.particleOffsetY = (float) 0.5;
+				se.particles = 10;
+				se.yOffset = -0.8;
+				se.speed = (float) 0;
+				se.setEntity(p);
+				se.start();
 				return;
 			}
 			e.setDamage(0);

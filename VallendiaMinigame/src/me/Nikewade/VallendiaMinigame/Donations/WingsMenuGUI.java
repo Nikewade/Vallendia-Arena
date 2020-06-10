@@ -39,7 +39,7 @@ public class WingsMenuGUI {
 			});
 		 
 		 String vampire = Utils.Colorate("&8&lVampire Wings");
-		 if(p.hasPermission("trails.wings.Vampire"))
+		 if(p.hasPermission("trails.wings.Vampire") || p.hasPermission("trails.allparticles"))
 		 {
 			 vampire = Utils.Colorate("&6&lVampire Wings");
 		 }
@@ -48,7 +48,7 @@ public class WingsMenuGUI {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
-			    	if(ep.hasPermission("trails.wings.Vampire"))
+			    	if(ep.hasPermission("trails.wings.Vampire")||p.hasPermission("trails.allparticles"))
 			    	{
 			       	SuperTrailsAPI.getPlayerData(ep).setPattenWings(300, "VampirePattern");
 			       	ep.closeInventory();
@@ -60,7 +60,7 @@ public class WingsMenuGUI {
 			});
 		
 		 String angel = Utils.Colorate("&8&lAngel Wings");
-		 if(p.hasPermission("trails.wings.Angel"))
+		 if(p.hasPermission("trails.wings.Angel")||p.hasPermission("trails.allparticles"))
 		 {
 			 angel = Utils.Colorate("&6&lAngel Wings");
 		 }
@@ -69,7 +69,7 @@ public class WingsMenuGUI {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
-			    	if(ep.hasPermission("trails.wings.Angel"))
+			    	if(ep.hasPermission("trails.wings.Angel")||p.hasPermission("trails.allparticles"))
 			    	{
 				       	SuperTrailsAPI.getPlayerData(ep).setPattenWings(301, "AngelPattern");
 				       	ep.closeInventory();
@@ -82,7 +82,7 @@ public class WingsMenuGUI {
 			});
 		
 		 String phoenix = Utils.Colorate("&8&lPhoenix Wings");
-		 if(p.hasPermission("trails.wings.Phoenix"))
+		 if(p.hasPermission("trails.wings.Phoenix")||p.hasPermission("trails.allparticles"))
 		 {
 			 phoenix = Utils.Colorate("&6&lPhoenix Wings");
 		 }
@@ -91,7 +91,7 @@ public class WingsMenuGUI {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
-			    	if(ep.hasPermission("trails.wings.Phoenix"))
+			    	if(ep.hasPermission("trails.wings.Phoenix")||p.hasPermission("trails.allparticles"))
 			    	{
 				       	SuperTrailsAPI.getPlayerData(ep).setPattenWings(302, "PhoenixPattern");
 				       	ep.closeInventory();
@@ -104,7 +104,7 @@ public class WingsMenuGUI {
 			});
 		 
 		 String bbutterfly = Utils.Colorate("&8&lBlue Butterfly Wings");
-		 if(p.hasPermission("trails.wings.BlueButterfly"))
+		 if(p.hasPermission("trails.wings.BlueButterfly")||p.hasPermission("trails.allparticles"))
 		 {
 			 bbutterfly = Utils.Colorate("&6&lBlue Butterfly Wings");
 		 }
@@ -114,7 +114,7 @@ public class WingsMenuGUI {
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
 			    	
-			    	if(ep.hasPermission("trails.wings.BlueButterfly"))
+			    	if(ep.hasPermission("trails.wings.BlueButterfly")||p.hasPermission("trails.allparticles"))
 			    	{
 				       	SuperTrailsAPI.getPlayerData(ep).setPattenWings(303, "ButterflyPattern");
 				       	ep.closeInventory();
@@ -127,7 +127,7 @@ public class WingsMenuGUI {
 			});
 		 
 		 String pbutterfly = Utils.Colorate("&8&lPink Butterfly Wings");
-		 if(p.hasPermission("trails.wings.PinkButterfly"))
+		 if(p.hasPermission("trails.wings.PinkButterfly")||p.hasPermission("trails.allparticles"))
 		 {
 			 pbutterfly = Utils.Colorate("&6&lPink Butterfly Wings");
 		 }
@@ -136,7 +136,7 @@ public class WingsMenuGUI {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
-			    	if(ep.hasPermission("trails.wings.PinkButterfly"))
+			    	if(ep.hasPermission("trails.wings.PinkButterfly")||p.hasPermission("trails.allparticles"))
 			    	{
 				       	SuperTrailsAPI.getPlayerData(ep).setPattenWings(303, "ButterflyPatternPink");
 				       	ep.closeInventory();
@@ -149,7 +149,7 @@ public class WingsMenuGUI {
 			});
 		 
 		 String obutterfly = Utils.Colorate("&8&lOrange Butterfly Wings");
-		 if(p.hasPermission("trails.wings.OrangeButterfly"))
+		 if(p.hasPermission("trails.wings.OrangeButterfly")||p.hasPermission("trails.allparticles"))
 		 {
 			obutterfly = Utils.Colorate("&6&lOrange Butterfly Wings");
 		 }
@@ -158,7 +158,7 @@ public class WingsMenuGUI {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
-			    	if(ep.hasPermission("trails.wings.OrangeButterfly"))
+			    	if(ep.hasPermission("trails.wings.OrangeButterfly")||p.hasPermission("trails.allparticles"))
 			    	{
 				       	SuperTrailsAPI.getPlayerData(ep).setPattenWings(303, "ButterflyPatternOrange");
 				       	ep.closeInventory();
@@ -171,7 +171,7 @@ public class WingsMenuGUI {
 			});
 		 
 		 String pfairy = Utils.Colorate("&8&lPink Fairy Wings");
-		 if(p.hasPermission("trails.wings.PinkFairy"))
+		 if(p.hasPermission("trails.wings.PinkFairy")||p.hasPermission("trails.allparticles"))
 		 {
 			 pfairy = Utils.Colorate("&6&lPink Fairy Wings");
 		 }
@@ -180,7 +180,7 @@ public class WingsMenuGUI {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
-			    	if(ep.hasPermission("trails.wings.PinkFairy"))
+			    	if(ep.hasPermission("trails.wings.PinkFairy")||p.hasPermission("trails.allparticles"))
 			    	{
 				       	SuperTrailsAPI.getPlayerData(ep).setPattenWings(304, "FairyPatternPink");
 				       	ep.closeInventory();
@@ -193,7 +193,7 @@ public class WingsMenuGUI {
 			});
 		 
 		 String dfairy = Utils.Colorate("&8&lDark Fairy Wings");
-		 if(p.hasPermission("trails.wings.DarkFairy"))
+		 if(p.hasPermission("trails.wings.DarkFairy")||p.hasPermission("trails.allparticles"))
 		 {
 			 dfairy = Utils.Colorate("&6&lDark Fairy Wings");
 		 }
@@ -202,7 +202,7 @@ public class WingsMenuGUI {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
-			    	if(ep.hasPermission("trails.wings.DarkFairy"))
+			    	if(ep.hasPermission("trails.wings.DarkFairy")||p.hasPermission("trails.allparticles"))
 			    	{
 				       	SuperTrailsAPI.getPlayerData(ep).setPattenWings(304, "FairyPatternBlack");
 				       	ep.closeInventory();
@@ -215,7 +215,7 @@ public class WingsMenuGUI {
 			});
 		 
 		 String wfairy = Utils.Colorate("&8&lWhite Fairy Wings");
-		 if(p.hasPermission("trails.wings.WhiteFairy"))
+		 if(p.hasPermission("trails.wings.WhiteFairy")||p.hasPermission("trails.allparticles"))
 		 {
 			 wfairy = Utils.Colorate("&6&lWhite Fairy Wings");
 		 }
@@ -224,7 +224,7 @@ public class WingsMenuGUI {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
-			    	if(ep.hasPermission("trails.wings.WhiteFairy"))
+			    	if(ep.hasPermission("trails.wings.WhiteFairy")||p.hasPermission("trails.allparticles"))
 			    	{
 				       	SuperTrailsAPI.getPlayerData(ep).setPattenWings(304, "FairyPatternWhite");
 				       	ep.closeInventory();
@@ -237,7 +237,7 @@ public class WingsMenuGUI {
 			});
 		 
 		 String bfairy = Utils.Colorate("&8&lBlue Fairy Wings");
-		 if(p.hasPermission("trails.wings.BlueFairy"))
+		 if(p.hasPermission("trails.wings.BlueFairy")||p.hasPermission("trails.allparticles"))
 		 {
 			 bfairy = Utils.Colorate("&6&lBlue Fairy Wings");
 		 }
@@ -246,7 +246,7 @@ public class WingsMenuGUI {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
-			    	if(ep.hasPermission("trails.wings.BlueFairy"))
+			    	if(ep.hasPermission("trails.wings.BlueFairy")||p.hasPermission("trails.allparticles"))
 			    	{
 				       	SuperTrailsAPI.getPlayerData(ep).setPattenWings(304, "FairyPatternBlue");
 				       	ep.closeInventory();

@@ -180,6 +180,7 @@ public class AbilityManager {
         abilities.add(new FlameImbuedWandAbility());
         abilities.add(new ExtendWandAbility());
         abilities.add(new QuickenWandAbility());
+        abilities.add(new DaggerThrowAbility());
 		int totalAbilities = abilities.size();
 		Utils.log("&3[Abilities]");
 		Utils.log("&3Total: " + totalAbilities);

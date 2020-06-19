@@ -10,6 +10,7 @@ import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class UpgradeManager {
@@ -20,6 +21,7 @@ public class UpgradeManager {
 	WeaponUpgrade weapon;
 	ToolUpgrade tool;
 	RegenUpgrade regeneration;
+	double xpFactor;
     public HashMap<String, Upgrade> upgrades = new HashMap<String, Upgrade>();
 	
 	 public UpgradeManager(VallendiaMinigame Main)
@@ -38,29 +40,53 @@ public class UpgradeManager {
 	    upgrades.put("weapon", weapon);
 	    upgrades.put("tools", tool);
 	    upgrades.put("regeneration", regeneration);
+	    
+		double m = Main.getConfig().getDouble("upgrades." + "multi1");
+		double n = Main.getConfig().getDouble("upgrades." + "multi2");
+		int p = Main.getConfig().getInt("Levels." + "p"); 
+		int total20XP = 0;
+		
+		for(int x = 1; x < 20; x++)
+		{
+			int xp = Main.getConfig().getInt("Levels." + x); 
+			total20XP = total20XP + xp;
+			
+		}
+		
+		
+		xpFactor = ((0.5*n*Math.pow(total20XP, 2)) + total20XP +(0.1 * Math.pow(m, total20XP)) / Math.log(m)) / p;
+		
+		
+	    
+	    
 	  }
 	
 	public void addUpgrade(Player p, String upgrade, int amount, String enchant)
 	{
 		Main.playerdatamanager.addData(p.getUniqueId(), "Upgrades." + upgrade.toLowerCase(), amount);
-		
+		if(enchant == null)
+		{
+			 double discount = (this.getDiscount(p, upgrade, "") * 0.01);
+			 Main.levelmanager.addEXP(p, (int) ((upgrades.get(upgrade.toLowerCase()).getPrice("") * this.xpFactor) *(1 - discount)));
+		}else
+		{
+			double discount = (this.getDiscount(p, upgrade, enchant) * 0.01);
+			 Main.levelmanager.addEXP(p, (int) ((upgrades.get(upgrade.toLowerCase()).getPrice(enchant.toLowerCase()) * this.xpFactor) *(1 - discount)));	
+		}
 		
 		if(upgrade.equalsIgnoreCase("health"))
 		{
 			health.upgrade(p);
-	        Main.levelmanager.addEXP(p, Main.getConfig().getInt("upgrades." + upgrade.toLowerCase() + ".exp"));
 		}
 		
 		if(upgrade.equalsIgnoreCase("regeneration"))
 		{
 			regeneration.upgrade(p);
-	        Main.levelmanager.addEXP(p, Main.getConfig().getInt("upgrades." + upgrade.toLowerCase() + ".exp"));
 		}
 		
 		if(upgrade.equalsIgnoreCase("speed"))
 		{
 			speed.upgrade(p);
-	        Main.levelmanager.addEXP(p, Main.getConfig().getInt("upgrades." + upgrade.toLowerCase() + ".exp"));
 		}
 		
 		
@@ -68,7 +94,6 @@ public class UpgradeManager {
 		{
 			armor.upgrade(p, enchant);
 			Main.playerdatamanager.addData(p.getUniqueId(), "Upgrades.ArmorEnchants." + enchant, amount);
-	        Main.levelmanager.addEXP(p, Main.getConfig().getInt("upgrades.armor." + enchant + ".exp"));
 		}
 		
 		
@@ -76,14 +101,12 @@ public class UpgradeManager {
 		{
 			weapon.upgrade(p, enchant);
 			Main.playerdatamanager.addData(p.getUniqueId(), "Upgrades.WeaponEnchants." + enchant, amount);
-	        Main.levelmanager.addEXP(p, Main.getConfig().getInt("upgrades.weapon." + enchant + ".exp"));
 		}
 		
 		if(upgrade.equalsIgnoreCase("tools"))
 		{
 			tool.upgrade(p, enchant);
 			Main.playerdatamanager.addData(p.getUniqueId(), "Upgrades.ToolEnchants." + enchant, amount);
-	        Main.levelmanager.addEXP(p, Main.getConfig().getInt("upgrades.tools." + enchant + ".exp"));
 		}
 		
 		
@@ -183,6 +206,7 @@ public class UpgradeManager {
 	{
 		UUID uuid = p.getUniqueId();
 		int total = 0;
+
 		
 		total = total + Main.playerdatamanager.getPlayerIntData(uuid, "Upgrades.health");
 		total = total + Main.playerdatamanager.getPlayerIntData(uuid, "Upgrades.regeneration");
@@ -194,36 +218,53 @@ public class UpgradeManager {
 		return total;
 	}
 	
+	
+	public double currentUpgradeXP(Player p)
+	{
+		double healthPrice = (upgrades.get("health")).getPrice("");
+		double speedPrice = (upgrades.get("speed")).getPrice("");
+		double regenerationPrice = (upgrades.get("regeneration")).getPrice("");
+		double armorPrice = (upgrades.get("armor")).getPrice("prot");
+		double sharpnessPrice = (upgrades.get("weapon")).getPrice("sharpness");
+		double fireaspectPrice = (upgrades.get("weapon")).getPrice("fireaspect");
+		double knockbackPrice = (upgrades.get("weapon")).getPrice("knockback");
+		double smitePrice = (upgrades.get("weapon")).getPrice("smite");
+		double powerPrice = (upgrades.get("weapon")).getPrice("power");
+		double punchPrice = (upgrades.get("weapon")).getPrice("punch");
+		double flamePrice = (upgrades.get("weapon")).getPrice("flame");
+		double infinityPrice = (upgrades.get("weapon")).getPrice("infinity");
+		double fortunePrice = (upgrades.get("tools")).getPrice("fortune");
+		double efficiencyPrice = (upgrades.get("tools")).getPrice("efficiency");
+		int health = Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.health");
+		int speed =Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.speed");
+		int regen = Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.regeneration");
+		int armor = Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.ArmorEnchants.prot");
+		int sharpness = Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.sharpness");
+		int fireaspect = Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.fireaspect");
+		int knockback = Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.knockback");
+		int smite = Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.smite");
+		int power = Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.power");
+		int punch = Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.punch");
+		int flame = Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.flame");
+		int infinity = Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.WeaponEnchants.infinity");
+		int fortune = Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.ToolEnchants.fortune");
+		int efficiency = Main.playerdatamanager.getRawPlayerIntData(p.getUniqueId(), "Upgrades.ToolEnchants.efficiency");
+		
+		
+		
+		return xpFactor * ((healthPrice * health) + (speedPrice * speed) + (regenerationPrice * regen) + (armorPrice * armor)
+				+ (sharpnessPrice * sharpness)+ (fireaspectPrice * fireaspect)+ (knockbackPrice * knockback)+ (smitePrice * smite)+ (powerPrice * power)
+				+ (punchPrice * punch)+ (flamePrice * flame)+ (infinityPrice * infinity)+ (fortunePrice * fortune)+ (efficiencyPrice * efficiency));
+	}
+	
 	public int getPrice(Player p, String upgrade, String enchant)
 	{
-		//prices are off a bit so every 10 is + 1 remember
 		double price = (upgrades.get(upgrade.toLowerCase()).getPrice(enchant));
-		int numUpgrades = this.getUpgradeAmount(p, upgrade);
-		if(enchant != null)
-		{
-			if(enchant.equalsIgnoreCase("sharpness") || enchant.equalsIgnoreCase("fireaspect") 
-					|| enchant.equalsIgnoreCase("knockback") || enchant.equalsIgnoreCase("smite") )
-			{
-				numUpgrades = 0 + this.getUpgradeEnchantAmount(p, upgrade, "sharpness");
-				numUpgrades = numUpgrades + this.getUpgradeEnchantAmount(p, upgrade, "fireaspect");
-				numUpgrades = numUpgrades + this.getUpgradeEnchantAmount(p, upgrade, "knockback");
-				numUpgrades = numUpgrades + this.getUpgradeEnchantAmount(p, upgrade, "smite");
-			}
-			
-			if(enchant.equalsIgnoreCase("power") || enchant.equalsIgnoreCase("punch") 
-					|| enchant.equalsIgnoreCase("flame") || enchant.equalsIgnoreCase("infinity") )
-			{
-				numUpgrades = 0 + this.getUpgradeEnchantAmount(p, upgrade, "power");
-				numUpgrades = numUpgrades + this.getUpgradeEnchantAmount(p, upgrade, "punch");
-				numUpgrades = numUpgrades + this.getUpgradeEnchantAmount(p, upgrade, "flame");
-				numUpgrades = numUpgrades + this.getUpgradeEnchantAmount(p, upgrade, "infinity");
-			}	
-		}
-		double multiplier = upgrades.get(upgrade.toLowerCase()).getMultiplier(enchant);
-		double multiplier2 = upgrades.get(upgrade.toLowerCase()).getMultiplier2(enchant); 
+		int currentUpgradeXP = (int) this.currentUpgradeXP(p);
+		double multiplier = VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "multi1");
+		double multiplier2 = VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "multi2");
 		double discount = (this.getDiscount(p, upgrade, enchant) * 0.01);
-		//Mult 1 = exponential multiplier how fast explodes    Mult2 = linera multiplier determines how fast price goes up with time
-		return  (int) ((int) ((price + (numUpgrades * multiplier2)) +  ((price * 0.1) *(Math.pow(multiplier, numUpgrades)))) * (1 - discount));
+		return  (int) (((price + ((price * currentUpgradeXP) * multiplier2)) +  ((price * 0.1) *(Math.pow(multiplier, currentUpgradeXP)))) * (1 - discount));
 	}
 	
 	public int getDiscount(Player p, String upgrade, String enchant)

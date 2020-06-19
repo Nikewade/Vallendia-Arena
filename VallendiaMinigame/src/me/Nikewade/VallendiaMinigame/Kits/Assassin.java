@@ -57,6 +57,7 @@ public class Assassin implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Baker"));
 		abilities.add(Main.abilitymanager.getAbility("Uncanny Dodge"));
 		abilities.add(Main.abilitymanager.getAbility("Survivalist"));
+		abilities.add(Main.abilitymanager.getAbility("Dagger Throw"));
 	}
 	
 	@Override

@@ -1668,21 +1668,26 @@ public class AbilityUtils implements Listener {
         	}
         	
         	
-        	@EventHandler
+        	@EventHandler(priority = EventPriority.HIGHEST)
         	public void onEntityDamage(EntityDamageByEntityEvent e)
         	{
-        		
         		
   
         		if(handleDamage.containsKey(e.getEntity()))
         		{
         			double damage = handleDamage.get(e.getEntity());
-        			if(e.getDamage() != damage)
+        			new BukkitRunnable()
         			{
-        				return;
-        			}
-        			handleDamage.remove(e.getEntity());
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+		        			handleDamage.remove(e.getEntity());
+						}
+        				
+        			}.runTaskLater(VallendiaMinigame.getInstance(), 3);
         			e.setDamage(0);
+
         			if(e.getEntity() instanceof Player)
         			{
             			e.setDamage(DamageModifier.ARMOR, damage);	

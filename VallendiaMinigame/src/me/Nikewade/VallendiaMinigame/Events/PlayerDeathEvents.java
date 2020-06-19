@@ -204,15 +204,24 @@ public class PlayerDeathEvents implements Listener {
 		        	Party party = Parties.getApi().getParty(AbilityUtils.getPlayerParty(killer));
 		        	levelKilledBy = (int) party.getExperience();
 		         }
-	            float sumOfLvls = (float) ((float) level / (float) levelKilledBy);
-	            double points = ((pointsCarried + (b * pointsSpent)) * (Math.pow(Math.E, -n* (sumOfLvls)) + 0.03 * Math.pow(levelKilledBy, (-0.005 * levelKilledBy))));
-	            /*
-	             * where c is points carried
-					s is points spent
-					b is the decimal multiplier of points spent to consider, should be between 0 and 1
-					n is the exponential multiplier, this determines how quickly points decay as killer level goes down, also determines percentage of points to give back to someone of equal level to their killer
-					default values b = 1, n = 0.916
-	             */
+		        double percentageFromEq;
+		        
+		        if(level >= levelKilledBy)
+		        {
+		        	percentageFromEq =  0.85 * (Math.pow(( 10), -((0.03 * level) * (level-1) / levelKilledBy))) + 0.02;
+		        }else
+		        {
+		        	percentageFromEq = 1 - (0.99 * Math.pow( Math.E, (- 2.05 * levelKilledBy) / Math.pow(level, 1.45))) - 0.01;
+		        }
+		        
+		        
+	            double points = (pointsCarried + (b * pointsSpent)) * 0.9 * percentageFromEq;
+		        double pointsLost = pointsCarried * (1- 0.9 * percentageFromEq);
+		        if(pointsLost <= 0)
+		        {
+		        	pointsLost = pointsLost - 1;
+		        }
+		        double pointsRefunded = (b * pointsSpent) * 0.9 * percentageFromEq;
 	            this.Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", (int) points);
 	            this.Main.playerdatamanager.editIntData(p.getUniqueId(), "PointsSpent", 0);
 	            p.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
@@ -220,18 +229,14 @@ public class PlayerDeathEvents implements Listener {
 	            Language.sendCentredMessage(p, Utils.Colorate("&c&lYou died"));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Level: " + this.Main.levelmanager.getLevel(p)));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Class: " + this.Main.kitmanager.getKit(p).getName(true)));
-		        double pointsLost = pointsCarried * (1- (Math.pow(Math.E, -n* (sumOfLvls)) + 0.03 * Math.pow(levelKilledBy, (-0.005 * levelKilledBy))));
-		        if(pointsLost <= 0)
-		        {
-		        	pointsLost = pointsLost - 1;
-		        }
-		        double pointsRefunded = (b * pointsSpent) * (Math.pow(Math.E, -n *(sumOfLvls)) + 0.03 * Math.pow(levelKilledBy, (-0.005 * levelKilledBy)));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Essence Lost: " + (int) (pointsLost + 1)));
 	            Language.sendCentredMessage(p, Utils.Colorate("&3Essence Returned: " + (int) pointsRefunded));
 		        p.sendMessage("");
 	            p.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
 	         }else 
 	         {
+	         d = 0.85 * (Math.pow(( 10), -(0.03 * (level-1)))) + 0.02;
+	         // d is different so amount lossed is basedo n your level
 	         double points = ((pointsCarried + (b * pointsSpent)) * d); 
 	         this.Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", (int) points);
 	         /*

@@ -34,6 +34,10 @@ public class AltitudeChecker implements Listener{
             public void run() {	
             		for(Player p : Bukkit.getOnlinePlayers())
             		{
+            			if(!p.getLocation().getWorld().getName().equalsIgnoreCase("Minigame2"))
+            			{
+            				continue;
+            			}
             			if(p.getLocation().getY() > altitude)
             			{
     	    		   	RegionManager regionManager = Main.worldguard.getRegionManager(p.getWorld());
@@ -94,6 +98,10 @@ public class AltitudeChecker implements Listener{
 		{
 			return;
 		}
+		if(!e.getPlayer().getLocation().getWorld().getName().equalsIgnoreCase("Minigame2"))
+		{
+			return;
+		}
 		if(e.getTo().getY() >= altitude +20)
 		{
 		   	RegionManager regionManager = Main.worldguard.getRegionManager(e.getPlayer().getWorld());
@@ -121,6 +129,10 @@ public class AltitudeChecker implements Listener{
 	public void onTP(PlayerTeleportEvent e)
 	{
 		if(e.getPlayer().getGameMode() != GameMode.SURVIVAL)
+		{
+			return;
+		}
+		if(!e.getPlayer().getLocation().getWorld().getName().equalsIgnoreCase("Minigame2"))
 		{
 			return;
 		}

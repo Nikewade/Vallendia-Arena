@@ -11,6 +11,8 @@ Options:
     fish: 40
     rabbit: 30
 upgrades:
+  multi1: 0
+  multi2: 0
   health:
     price: 0
     multiplier: 1
@@ -151,6 +153,7 @@ Levels:
   b: 1
   n: 0.916
   d: 0.8
+  p: 100000
 Abilities: 0
 kits:
   starter:

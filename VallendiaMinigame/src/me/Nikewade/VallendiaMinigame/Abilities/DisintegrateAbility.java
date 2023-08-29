@@ -23,7 +23,11 @@ import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class DisintegrateAbility implements Ability{
+<<<<<<< HEAD
 	int percent = 80;
+=======
+	int percent = 60;
+>>>>>>> second-repo/master
 	int castTime = 3;
 	double speed = 0.2;
 
@@ -42,9 +46,15 @@ public class DisintegrateAbility implements Ability{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return Arrays.asList("Shoot a very slow green orb that deals",
 				percent +"% of the targets max health.",
 				Utils.Colorate("&8Cast: " + castTime + " seconds."));
+=======
+		return Arrays.asList("Shoot a very slow green orb that deals damage",
+				"equal to " + percent +"% of the targets max health.",
+				Utils.Colorate("&8Cast: " + castTime + " seconds"));
+>>>>>>> second-repo/master
 	}
 
 	@Override

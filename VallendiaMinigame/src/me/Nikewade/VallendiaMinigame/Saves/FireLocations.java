@@ -15,6 +15,10 @@ public class FireLocations {
 	VallendiaMinigame Main;
 	YamlConfiguration config;
 	public static ArrayList<String> locations = new ArrayList<>();
+<<<<<<< HEAD
+=======
+	//Saving fire is in ability utils
+>>>>>>> second-repo/master
 	
 	 public FireLocations(VallendiaMinigame Main)
 	  {

@@ -1,10 +1,18 @@
 package me.Nikewade.VallendiaMinigame.Upgrades;
 
+<<<<<<< HEAD
+=======
+import org.bukkit.Bukkit;
+>>>>>>> second-repo/master
 import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import me.Nikewade.VallendiaMinigame.Interface.Upgrade;
+<<<<<<< HEAD
+=======
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
+>>>>>>> second-repo/master
 
 public class HealthUpgrade implements Upgrade{
 

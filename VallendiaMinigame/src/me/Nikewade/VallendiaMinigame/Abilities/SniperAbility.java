@@ -18,6 +18,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+<<<<<<< HEAD
+=======
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
+>>>>>>> second-repo/master
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -33,7 +37,11 @@ public class SniperAbility implements Ability, Listener{
 	Map<Projectile, BukkitTask> tasks = new HashMap<>();
 	
 	int lowestRange = 20; 
+<<<<<<< HEAD
 	int percentAdded = 20;
+=======
+	int percentAdded = 10;
+>>>>>>> second-repo/master
 	int perBlock = 10; 
 
 	@Override
@@ -136,7 +144,10 @@ public class SniperAbility implements Ability, Listener{
 		if(e.getDamager() instanceof Arrow && locations.containsKey(e.getDamager()))
 		{
 			Projectile arrow = (Projectile) e.getDamager();
+<<<<<<< HEAD
 			Player shooter = (Player) arrow.getShooter();
+=======
+>>>>>>> second-repo/master
 			int distance = (int)e.getEntity().getLocation().distance(locations.get(arrow));
 			if(distance < lowestRange)
 			{
@@ -144,8 +155,14 @@ public class SniperAbility implements Ability, Listener{
 			}
 			int amountAdd = distance / perBlock;
     		double higherPercent =  Utils.getPercentHigherOrLower((percentAdded * amountAdd), true);
+<<<<<<< HEAD
     		double higherDamage = e.getDamage() * higherPercent;
     		e.setDamage(higherDamage);
+=======
+    		double damage = e.getFinalDamage()*higherPercent;
+			e.setDamage(0);
+			e.setDamage(DamageModifier.ARMOR, damage);
+>>>>>>> second-repo/master
 
 			SphereEffect se2 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 	        se2.particle = Particle.CRIT;

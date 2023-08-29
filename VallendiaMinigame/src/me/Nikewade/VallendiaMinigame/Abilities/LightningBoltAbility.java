@@ -22,7 +22,11 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 public class LightningBoltAbility implements Ability {
 	int range = 25;
 	int damage = 15;
+<<<<<<< HEAD
 	int castTime = 3;
+=======
+	int castTime = 1;
+>>>>>>> second-repo/master
 
 	@Override
 	public String getName() {
@@ -41,7 +45,11 @@ public class LightningBoltAbility implements Ability {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Shoot a bolt of lightning forward " + range + " blocks",
 				"damaging all entities within the line for " + damage + " damage.",
+<<<<<<< HEAD
 				Utils.Colorate("&8Cast: " + castTime + " seconds."));
+=======
+				Utils.Colorate("&8Cast: " + castTime + " seconds"));
+>>>>>>> second-repo/master
 	}
 
 	@Override

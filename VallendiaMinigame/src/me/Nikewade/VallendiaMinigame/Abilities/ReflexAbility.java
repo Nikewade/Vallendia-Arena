@@ -10,6 +10,10 @@ import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+<<<<<<< HEAD
+=======
+import org.bukkit.event.EventPriority;
+>>>>>>> second-repo/master
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -45,7 +49,11 @@ public class ReflexAbility implements Ability, Listener{
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("You quickly dodge out of the way of any harm",
+<<<<<<< HEAD
 				"becoming completly invincible for " + enabledTime + " second.");
+=======
+				"becoming completely invincible for " + enabledTime + " second.");
+>>>>>>> second-repo/master
 	}
 
 	@Override
@@ -62,7 +70,11 @@ public class ReflexAbility implements Ability, Listener{
 		}
 		VallendiaMinigame main = VallendiaMinigame.getInstance();
 		enabled.add(p);
+<<<<<<< HEAD
 		main.ghost.addGhost(p);
+=======
+		//main.ghost.addGhost(p);
+>>>>>>> second-repo/master
 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, (float) 1.6);
 		
         
@@ -82,7 +94,11 @@ public class ReflexAbility implements Ability, Listener{
         		if(enabled.contains(p))
         		{
         			enabled.remove(p);
+<<<<<<< HEAD
         			main.ghost.removeGhost(p);
+=======
+        			//main.ghost.removeGhost(p);
+>>>>>>> second-repo/master
         			Language.sendAbilityUseMessage(p, "Disabled", "Reflex");
         			Utils.showArmor(p);
         			
@@ -104,7 +120,11 @@ public class ReflexAbility implements Ability, Listener{
 	
 	
         	
+<<<<<<< HEAD
         	@EventHandler
+=======
+        	@EventHandler(priority = EventPriority.LOWEST)
+>>>>>>> second-repo/master
         	public void onDamage(EntityDamageEvent e)
         	{
         		if(e.getEntity() instanceof Player && enabled.contains(e.getEntity()))
@@ -121,7 +141,11 @@ public class ReflexAbility implements Ability, Listener{
         		{
         			Player p = e.getPlayer();
         			enabled.remove(p);
+<<<<<<< HEAD
         			VallendiaMinigame.getInstance().ghost.removeGhost(p);
+=======
+        			//VallendiaMinigame.getInstance().ghost.removeGhost(p);
+>>>>>>> second-repo/master
         		}
         	}
         	

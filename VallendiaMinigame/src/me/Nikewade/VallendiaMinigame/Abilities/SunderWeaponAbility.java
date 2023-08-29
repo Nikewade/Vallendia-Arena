@@ -69,7 +69,10 @@ public class SunderWeaponAbility implements Ability, Listener{
 		
 		if(!(AbilityUtils.getTarget(p, 5) instanceof Player))
 		{
+<<<<<<< HEAD
 			Language.sendAbilityUseMessage(p, "You can only sunder players!", "Sunder Weapon");
+=======
+>>>>>>> second-repo/master
 			return false;
 		}
 		
@@ -80,7 +83,12 @@ public class SunderWeaponAbility implements Ability, Listener{
 				target.getInventory().getItemInMainHand().getType() == Material.IRON_SWORD||
 				target.getInventory().getItemInMainHand().getType() == Material.STONE_SWORD||
 				target.getInventory().getItemInMainHand().getType() == Material.WOOD_SWORD||
+<<<<<<< HEAD
 				target.getInventory().getItemInMainHand().getType() == Material.STICK)
+=======
+				target.getInventory().getItemInMainHand().getType() == Material.STICK||
+				target.getInventory().getItemInMainHand().getType() == Material.BOW)
+>>>>>>> second-repo/master
 		{
 			
 			ItemStack weapon = new ItemStack(target.getInventory().getItemInMainHand());

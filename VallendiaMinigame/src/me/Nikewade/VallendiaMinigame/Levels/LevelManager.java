@@ -1,9 +1,17 @@
 package me.Nikewade.VallendiaMinigame.Levels;
 
+<<<<<<< HEAD
+=======
+import org.bukkit.Bukkit;
+>>>>>>> second-repo/master
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+<<<<<<< HEAD
+=======
+import me.Nikewade.VallendiaMinigame.Events.PartyEvents;
+>>>>>>> second-repo/master
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class LevelManager {
@@ -20,8 +28,13 @@ public class LevelManager {
 		return Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Level");
 	}
 	
+<<<<<<< HEAD
 	public int getParameter (String parameter){
 			return Main.getConfig().getInt("Levels." + parameter.toLowerCase());
+=======
+	public double getParameter (String parameter){
+			return Main.getConfig().getDouble("Levels." + parameter.toLowerCase());
+>>>>>>> second-repo/master
 	}
 	
 	public void setLevel (Player p, int amount)
@@ -33,6 +46,10 @@ public class LevelManager {
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Level", amount);
 		this.updateLevelBar(p);
         p.setExp(0);
+<<<<<<< HEAD
+=======
+		PartyEvents.setPartyLevel(p);
+>>>>>>> second-repo/master
 	}
 	
 	public void addLevel (Player p, int amount)
@@ -48,6 +65,10 @@ public class LevelManager {
         p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 1, 1);
         p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_TWINKLE, 1, 1);
         p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LARGE_BLAST, 1, 1);
+<<<<<<< HEAD
+=======
+		PartyEvents.setPartyLevel(p);
+>>>>>>> second-repo/master
 	}
 	
 	public void subtractLevel (Player p, int amount)
@@ -59,12 +80,20 @@ public class LevelManager {
 		Main.playerdatamanager.subtractData(p.getUniqueId(), "Level", amount);
 		this.updateLevelBar(p);
         p.setExp(0);
+<<<<<<< HEAD
+=======
+		PartyEvents.setPartyLevel(p);
+>>>>>>> second-repo/master
 	}
 	
 	public void resetLevel (Player p)
 	{
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Level", 1);
         p.setLevel(1);
+<<<<<<< HEAD
+=======
+		PartyEvents.setPartyLevel(p);
+>>>>>>> second-repo/master
 	}
 	
 	public void updateLevelBar (Player p)
@@ -139,6 +168,10 @@ public class LevelManager {
 			this.resetExp(p);
 			Main.playerdatamanager.addData(p.getUniqueId(), "Exp", leftOverExp);
 			this.levelUpCheck(p);
+<<<<<<< HEAD
+=======
+			PartyEvents.setPartyLevel(p);
+>>>>>>> second-repo/master
 			return;
 		}
 		
@@ -147,6 +180,10 @@ public class LevelManager {
 			this.addLevel(p, 1);
 			this.resetExp(p);
 		}
+<<<<<<< HEAD
+=======
+		PartyEvents.setPartyLevel(p);
+>>>>>>> second-repo/master
 		
 	}
 	
@@ -166,6 +203,10 @@ public class LevelManager {
 			int currentExp = (this.getTotalExp(Integer.toString(level))) - (this.getExp(p) * -1);
 			this.resetExp(p);
 			this.addEXP(p, currentExp);
+<<<<<<< HEAD
+=======
+			PartyEvents.setPartyLevel(p);
+>>>>>>> second-repo/master
 			return;
 		}
 		

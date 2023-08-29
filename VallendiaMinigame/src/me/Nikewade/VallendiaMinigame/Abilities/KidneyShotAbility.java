@@ -15,7 +15,11 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class KidneyShotAbility implements Ability{
+<<<<<<< HEAD
 	int time = 5;
+=======
+	int time = 2;
+>>>>>>> second-repo/master
 
 	@Override
 	public String getName() {
@@ -46,7 +50,11 @@ public class KidneyShotAbility implements Ability{
  		LivingEntity target = AbilityUtils.getTarget(p, 5);
  		if(target != null)
  		{
+<<<<<<< HEAD
  			AbilityUtils.stun(p,target, this.getName(), time);
+=======
+ 			AbilityUtils.stun(p,target, this.getName(), time * 20, false);
+>>>>>>> second-repo/master
  	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_BIG_FALL, 1, 0.1F);
  	 		target.getWorld().spawnParticle(Particle.CRIT, target.getLocation().add(0, 1.8, 0), 20);
  	 		AbilityUtils.damageEntity(target, p, 2);

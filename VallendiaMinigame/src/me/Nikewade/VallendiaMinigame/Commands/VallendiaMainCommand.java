@@ -14,7 +14,14 @@ public class VallendiaMainCommand implements CommandInterface{
 		sender.sendMessage(Utils.Colorate("&8&m---------------&8&l Vallendia &m---------------"));
 		sender.sendMessage("");
 		sender.sendMessage(Utils.Colorate("&3/vallendia stats &8- Displays your player stats."));
+<<<<<<< HEAD
 		sender.sendMessage(Utils.Colorate("&3/vallendia admin  &8- Commands for admins."));
+=======
+		sender.sendMessage(Utils.Colorate("&3/vallendia ability  &8- Commands for abilities."));
+		sender.sendMessage(Utils.Colorate("&3/vallendia admin  &8- Commands for admins."));
+		sender.sendMessage(Utils.Colorate("&3/vallendia resetkit  &8- Reset your kit and upgrades."));
+		sender.sendMessage(Utils.Colorate("&3/spawn  &8- Teleports you to spawn. This has a 15 second warmup."));
+>>>>>>> second-repo/master
 		sender.sendMessage("");
 		sender.sendMessage(Utils.Colorate("&8&m-------------------------------------------"));
         

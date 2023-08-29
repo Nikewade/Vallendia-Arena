@@ -7,16 +7,32 @@ import java.util.Random;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+<<<<<<< HEAD
+=======
+import org.bukkit.entity.LivingEntity;
+>>>>>>> second-repo/master
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+<<<<<<< HEAD
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.inventory.ItemStack;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+=======
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerVelocityEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Interface.Ability;
+import me.Nikewade.VallendiaMinigame.Utils.Language;
+>>>>>>> second-repo/master
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class BackstabAbility implements Ability , Listener {
@@ -65,13 +81,24 @@ public class BackstabAbility implements Ability , Listener {
                 			return;
                 		}
                 		double higherPercent =  Utils.getPercentHigherOrLower(percent, true);
+<<<<<<< HEAD
                 		double damage = e.getDamage();
                 		double higherDamage = damage * higherPercent;
+=======
+                		double damage = e.getFinalDamage();
+                		double higherDamage = damage * higherPercent;
+               			
+>>>>>>> second-repo/master
             	        if (e.getEntity().getLocation().getDirection().dot(p.getLocation().getDirection()) <= 0.0D) 
             	          {
             	            return;
             	          }
+<<<<<<< HEAD
             			e.setDamage(higherDamage);
+=======
+            			e.setDamage(0);
+        				e.setDamage(DamageModifier.ARMOR, higherDamage);
+>>>>>>> second-repo/master
             			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_HURT, 22, (float) 1.5);
             			p.getWorld().playEffect(e.getEntity().getLocation().add(0,1,0), Effect.STEP_SOUND, Material.REDSTONE_WIRE.getId());
             		}

@@ -5,6 +5,10 @@ commands:
   vallendia:
     aliases: [va, val, vall]
   shop:
+<<<<<<< HEAD
+=======
+  donate:
+>>>>>>> second-repo/master
 depend:
   - EffectLib
   - CombatLogX
@@ -12,5 +16,11 @@ depend:
   - WorldEdit
   - Vault
   - Parties
+<<<<<<< HEAD
+=======
+  - Citizens
+  - ProtocolLib
+  - ServerTutorialPlus
+>>>>>>> second-repo/master
     
 

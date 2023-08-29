@@ -2,14 +2,28 @@ package me.Nikewade.VallendiaMinigame.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+<<<<<<< HEAD
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
+=======
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+>>>>>>> second-repo/master
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+<<<<<<< HEAD
+=======
+import java.util.Set;
+import java.util.UUID;
+>>>>>>> second-repo/master
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
@@ -18,10 +32,19 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+<<<<<<< HEAD
+=======
+import org.bukkit.SkullType;
+>>>>>>> second-repo/master
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
+<<<<<<< HEAD
+=======
+import org.bukkit.block.Skull;
+import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
+>>>>>>> second-repo/master
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
@@ -38,11 +61,16 @@ import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+<<<<<<< HEAD
+=======
+import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
+>>>>>>> second-repo/master
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.WorldBorderAction;
+<<<<<<< HEAD
 
 import de.slikey.effectlib.Effect;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
@@ -54,6 +82,34 @@ public class Utils {
     private static List<String> changes = new LinkedList<String>();
     public static Map<Entity,Effect> particle = new HashMap<>();
 	private static Random random = new Random();
+=======
+import com.kirelcodes.miniaturepets.utils.APIUtils;
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
+import com.mojang.authlib.properties.PropertyMap;
+
+import de.slikey.effectlib.Effect;
+import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+import me.Nikewade.VallendiaMinigame.Donations.PetMenuGUI;
+import me.Nikewade.VallendiaMinigame.Events.CosmeticHideEvents;
+import me.kvq.supertrailspro.API.SuperTrailsAPI;
+import me.kvq.supertrailspro.modules.HideReason;
+import net.minecraft.server.v1_12_R1.BlockPosition;
+import net.minecraft.server.v1_12_R1.EnumItemSlot;
+import net.minecraft.server.v1_12_R1.PacketPlayOutEntityEquipment;
+import net.minecraft.server.v1_12_R1.PacketPlayOutPosition;
+import net.minecraft.server.v1_12_R1.PacketPlayOutPosition.EnumPlayerTeleportFlags;
+import net.minecraft.server.v1_12_R1.TileEntitySkull;
+
+public class Utils {
+	private static HashMap<Player, String> petIn = new HashMap<>();
+	public static HashMap<Location, BlockState> blocks = new HashMap<>();
+    private static List<Block> nonRegenBlocks = new ArrayList<Block>();
+    private static List<String> changes = new LinkedList<String>();
+    public static Map<Entity,Effect> particle = new HashMap<>();
+	private static Random random = new Random();
+	private static Set<EnumPlayerTeleportFlags> teleportFlags = new HashSet<>(Arrays.asList(EnumPlayerTeleportFlags.X, EnumPlayerTeleportFlags.Y, EnumPlayerTeleportFlags.Z));
+>>>>>>> second-repo/master
 	
 	  public static String Colorate(String msg) // Allows the use of & color codes.
 	  {
@@ -143,6 +199,13 @@ public class Utils {
 	  {
 				BlockState state = b.getState();
 				Location location = b.getLocation();
+<<<<<<< HEAD
+=======
+				if(nonRegenBlocks.contains(b))
+				{
+					return;
+				}
+>>>>>>> second-repo/master
 				if(!blocks.containsKey(location))
 				{
 					blocks.put(location, state);	
@@ -161,6 +224,7 @@ public class Utils {
 		            	{
 		            		return;	
 		            	}
+<<<<<<< HEAD
 
 		            	for(Entity e : loc.getWorld().getNearbyEntities(loc, 1, 1, 1))
 		            	{
@@ -204,6 +268,64 @@ public class Utils {
 		            					
 		            			}
 		            		}
+=======
+		            	
+		            	if(!(b.getType() == Material.CROPS && b.getData() == (byte) 7 || b.getType() == Material.BROWN_MUSHROOM ||
+						b.getType() == Material.RED_MUSHROOM || b.getType() == Material.CARROT ||
+						b.getType() == Material.POTATO || b.getType() == Material.NETHER_WARTS && b.getData() == (byte) 3 ||
+						b.getType() == Material.LEAVES || b.getType() == Material.LONG_GRASS ||
+						b.getType() == Material.DOUBLE_PLANT))
+		            	{
+
+			            	for(Entity e : loc.getWorld().getNearbyEntities(loc, 1, 1, 1))
+			            	{
+			            		if(e instanceof LivingEntity)
+			            		{
+			            			int x = 1;
+			            			while(e.getLocation().getBlock().getType().isSolid() || 
+			            					e.getLocation().add(0, 1, 0).getBlock().getType().isSolid() ||
+			            					e.getLocation().add(0, 2, 0).getBlock().getType().isSolid())
+			            			{
+			            				
+			            				if(x >= 100)
+			            				{
+				                			e.teleport(e.getLocation().add(0, 1, 0));
+			            					continue;
+			            				}
+			            				x++;
+			            				Block n = e.getLocation().getBlock().getRelative(BlockFace.NORTH);
+			            				Block s = e.getLocation().getBlock().getRelative(BlockFace.SOUTH);
+			            				Block east = e.getLocation().getBlock().getRelative(BlockFace.EAST);
+			            				Block w = e.getLocation().getBlock().getRelative(BlockFace.WEST);
+			                			e.teleport(e.getLocation().add(0, 1, 0));
+			            				if(!n.getType().isSolid())
+			            				{
+			            					e.teleport(n.getLocation());
+			            					continue;
+			            				}
+			            				
+			            				if(!s.getType().isSolid())
+			            				{
+			            					e.teleport(s.getLocation());
+			            					continue;
+			            				}
+			            				
+			            				if(!east.getType().isSolid())
+			            				{
+			            					e.teleport(east.getLocation());
+			            					continue;
+			            				}
+			            				
+			            				if(!w.getType().isSolid())
+			            				{
+			            					e.teleport(w.getLocation());
+			            					continue;
+			            				}
+			            					
+			            			}
+			            		}
+			            	}	
+>>>>>>> second-repo/master
 		            	}
 		            	
 		            	changes.remove(block);
@@ -221,6 +343,10 @@ public class Utils {
 	   @SuppressWarnings("deprecation")
 	    public static void restoreBlocks() {
 	        int blocks = 0;
+<<<<<<< HEAD
+=======
+	        int t = 0;
+>>>>>>> second-repo/master
 	        for (String b : changes) {
 	            String[] blockdata = b.split(":");
 	          
@@ -230,6 +356,7 @@ public class Utils {
 	            int x = Integer.parseInt(blockdata[3]);
 	            int y = Integer.parseInt(blockdata[4]);
 	            int z = Integer.parseInt(blockdata[5]);
+<<<<<<< HEAD
 	          
 	            world.getBlockAt(x, y, z).setTypeId(id);
 	            world.getBlockAt(x, y, z).setData(data);
@@ -273,10 +400,75 @@ public class Utils {
             					
             			}
             		}
+=======
+	            world.getBlockAt(x, y, z).setTypeId(id);
+	            world.getBlockAt(x, y, z).setData(data);
+	            Block block = world.getBlockAt(x,y,z);
+            	if(!(block.getType() == Material.CROPS && block.getData() == (byte) 7 || block.getType() == Material.BROWN_MUSHROOM ||
+				block.getType() == Material.RED_MUSHROOM || block.getType() == Material.CARROT ||
+				block.getType() == Material.POTATO || block.getType() == Material.NETHER_WARTS && block.getData() == (byte) 3 ||
+				block.getType() == Material.LEAVES || block.getType() == Material.LONG_GRASS ||
+				block.getType() == Material.DOUBLE_PLANT))
+            	{
+                	for(Entity e : world.getNearbyEntities(world.getBlockAt(x, y, z).getLocation(), 1, 1, 1))
+                	{
+                		if(e instanceof LivingEntity)
+                		{
+                			int time = 1;
+                			while(e.getLocation().getBlock().getType().isSolid() || e.getLocation().add(0, 1, 0).getBlock().getType().isSolid())
+                			{
+                				
+                				if(time >= 50)
+                				{
+    	                			e.teleport(e.getLocation().add(0, 1, 0));
+                					continue;
+                				}
+                				time++;
+                				Block n = e.getLocation().getBlock().getRelative(BlockFace.NORTH);
+                				Block s = e.getLocation().getBlock().getRelative(BlockFace.SOUTH);
+                				Block east = e.getLocation().getBlock().getRelative(BlockFace.EAST);
+                				Block w = e.getLocation().getBlock().getRelative(BlockFace.WEST);
+                    			e.teleport(e.getLocation().add(0, 1, 0));
+                				if(!n.getType().isSolid())
+                				{
+                					e.teleport(n.getLocation());
+                					continue;
+                				}
+                				
+                				if(!s.getType().isSolid())
+                				{
+                					e.teleport(s.getLocation());
+                					continue;
+                				}
+                				
+                				if(!east.getType().isSolid())
+                				{
+                					e.teleport(east.getLocation());
+                					continue;
+                				}
+                				
+                				if(!w.getType().isSolid())
+                				{
+                					e.teleport(w.getLocation());
+                					continue;
+                				}
+                					
+                			}
+                		}
+                	}	
+>>>>>>> second-repo/master
             	}
             	
 	            
 	            blocks++;
+<<<<<<< HEAD
+=======
+	            t++;
+	            if(t >= changes.size())
+	            {
+	    	        changes.clear();
+	            }
+>>>>>>> second-repo/master
 	        }
 	      
 	        System.out.println(blocks+" blocks regenerated!");
@@ -284,6 +476,27 @@ public class Utils {
 	   
 	   
 	   
+<<<<<<< HEAD
+=======
+	   
+	   public static void makeNonRegenBlock(Location b)
+	   {
+		if(!nonRegenBlocks.contains(b))
+		{
+			nonRegenBlocks.add(b.getBlock());	
+		}
+	   }
+	   
+	   
+	   public static void removeNonRegenBlock(Location b)
+	   {
+		if(nonRegenBlocks.contains(b))
+		{
+			nonRegenBlocks.remove(b.getBlockX());	
+		}
+	   }
+	   
+>>>>>>> second-repo/master
 	   public static int randomNumber(int lowest, int max)
 	   {
 		int randomAmount = random.nextInt(max) + lowest;
@@ -465,7 +678,90 @@ public class Utils {
 
 	        return classes;
 	    }
+<<<<<<< HEAD
 
 	    
 
 }
+=======
+	    
+	    public static void sendPacketPlayOutPosition(Player player, float yaw, float pitch) {
+	        PacketPlayOutPosition packet = new PacketPlayOutPosition(0.0, 0.0, 0.0, yaw, pitch, teleportFlags, 0);
+	        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+	    }
+
+	    
+	    
+	    public static ItemStack getItem(String b64stringtexture) {
+	    	GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+	        PropertyMap propertyMap = profile.getProperties();
+	        if (propertyMap == null) {
+	            throw new IllegalStateException("Profile doesn't contain a property map");
+	        }
+	        propertyMap.put("textures", new Property("textures", b64stringtexture));
+	        ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+	        ItemMeta headMeta = head.getItemMeta();
+	        Class<?> headMetaClass = headMeta.getClass();
+	        try {
+	    		getField(headMetaClass, "profile", GameProfile.class, 0).set(headMeta, profile);
+	    	} catch (IllegalArgumentException e) {
+	    		e.printStackTrace();
+	    	} catch (IllegalAccessException e) {
+	    		e.printStackTrace();
+	    	}
+	        head.setItemMeta(headMeta);
+	        return head;
+	    }
+
+	    private static <T> Field getField(Class<?> target, String name, Class<T> fieldType, int index) {
+	        for (final Field field : target.getDeclaredFields()) {
+	            if ((name == null || field.getName().equals(name)) && fieldType.isAssignableFrom(field.getType()) && index-- <= 0) {
+	                field.setAccessible(true);
+	                return field;
+	            }
+	        }
+
+	        // Search in parent classes
+	        if (target.getSuperclass() != null)
+	            return getField(target.getSuperclass(), name, fieldType, index);
+	        throw new IllegalArgumentException("Cannot find field with type " + fieldType);
+	    }
+	    
+		
+		public static void setSkullUrl(String skinUrl, Block block) {
+		    block.setType(Material.SKULL);
+		    Skull skullData = (Skull)block.getState();
+		    skullData.setSkullType(SkullType.PLAYER);
+		 
+		    TileEntitySkull skullTile = (TileEntitySkull)((CraftWorld)block.getWorld()).getHandle().getTileEntity(new BlockPosition(block.getX(), block.getY(), block.getZ()));
+		    skullTile.setGameProfile(getNonPlayerProfile(skinUrl));
+		    block.getState().update(true);
+		}
+		
+		public static GameProfile getNonPlayerProfile(String skinURL) {
+		    GameProfile newSkinProfile = new GameProfile(UUID.randomUUID(), null);
+		    newSkinProfile.getProperties().put("textures", new Property("textures", Base64Coder.encodeString("{textures:{SKIN:{url:\"" + skinURL + "\"}}}")));
+		    return newSkinProfile;
+		}
+		
+		public static void removeCosmetics(Player p)
+		{//MAKE SURE IF YOU ARE USING THIS YOU DEF ADD IT BACK
+			if(CosmeticHideEvents.pets.containsKey(p))
+			{
+				CosmeticHideEvents.pets.get(p).remove();			
+			}
+			SuperTrailsAPI.getPlayerData(p).setHidden(true, HideReason.CUSTOM);
+
+		}
+		
+		public static void addCosmetics(Player p)
+		{
+			if(CosmeticHideEvents.pets.containsKey(p))
+			{
+				Bukkit.dispatchCommand(p, "mpet pet " + CosmeticHideEvents.pets.get(p).getType());
+			}
+			SuperTrailsAPI.getPlayerData(p).setHidden(false, HideReason.CUSTOM);
+		}
+
+}
+>>>>>>> second-repo/master

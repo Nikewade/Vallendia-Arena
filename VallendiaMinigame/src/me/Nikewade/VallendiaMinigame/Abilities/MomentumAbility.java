@@ -1,22 +1,40 @@
+<<<<<<< HEAD
 package me.Nikewade.VallendiaMinigame.Abilities;
+=======
+ package me.Nikewade.VallendiaMinigame.Abilities;
+>>>>>>> second-repo/master
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+=======
+
+import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
+import org.bukkit.entity.Horse;
+>>>>>>> second-repo/master
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+<<<<<<< HEAD
 import org.bukkit.event.player.PlayerToggleSprintEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
+=======
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
+import org.bukkit.event.player.PlayerToggleSprintEvent;
+import org.bukkit.inventory.ItemStack;
+>>>>>>> second-repo/master
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -90,7 +108,10 @@ public class MomentumAbility implements Ability, Listener{
             		return;
         		}
         		
+<<<<<<< HEAD
         		
+=======
+>>>>>>> second-repo/master
         		if(!p.isSprinting() && !running.contains(p)) // removed if on ground for bug reasons
         		{
             			running.add(p);
@@ -146,9 +167,16 @@ public class MomentumAbility implements Ability, Listener{
         		}
         		Player p = (Player) e.getDamager();
         		double higherPercent =  ((currentDamage.get(p)* 0.1) * 0.1) + 1;
+<<<<<<< HEAD
         		double damage = e.getDamage();
         		double higherDamage = damage * higherPercent;
         		e.setDamage(higherDamage);
+=======
+        		double damage = e.getFinalDamage();
+        		double higherDamage = damage * higherPercent;
+    			e.setDamage(0);
+    			e.setDamage(DamageModifier.ARMOR, higherDamage);
+>>>>>>> second-repo/master
   	 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 2, (float) 0.8);
   	 	 		e.getEntity().getWorld().spawnParticle(Particle.CRIT, e.getEntity().getLocation().add(0, 1, 0), 20);
         		

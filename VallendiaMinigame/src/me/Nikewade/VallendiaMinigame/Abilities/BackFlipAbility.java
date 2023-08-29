@@ -19,6 +19,10 @@ import org.bukkit.util.Vector;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
+<<<<<<< HEAD
+=======
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+>>>>>>> second-repo/master
 
 public class BackFlipAbility implements Ability , Listener{
 	private static ArrayList<UUID> backflipping  = new ArrayList<>();

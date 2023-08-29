@@ -23,9 +23,13 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class CheapShotAbility implements Ability, Listener{
+<<<<<<< HEAD
 	List<LivingEntity> stunned = new ArrayList<>();
 	Map<LivingEntity, BukkitTask> tasks = new HashMap<>();
 	int time = 10;
+=======
+	int time = 200;
+>>>>>>> second-repo/master
 
 	@Override
 	public String getName() {
@@ -42,7 +46,11 @@ public class CheapShotAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return Arrays.asList("Stun your target for " + time + " seconds. Any damage done",
+=======
+		return Arrays.asList("Stun your target for " + time / 20 + " seconds. Any damage done",
+>>>>>>> second-repo/master
 				"to the target will cancel this ability.");
 	}
 
@@ -57,6 +65,7 @@ public class CheapShotAbility implements Ability, Listener{
  		LivingEntity target = AbilityUtils.getTarget(p, 5);
  		if(target != null)
  		{
+<<<<<<< HEAD
  			AbilityUtils.stun(p,target, this.getName(), time);
  	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_BIG_FALL, 1, 0.5F);
  	 		target.getWorld().spawnParticle(Particle.CRIT, target.getLocation().add(0, 1.8, 0), 20);
@@ -88,6 +97,12 @@ public class CheapShotAbility implements Ability, Listener{
  	            tasks.put(target, task);
  	 		}
  	 		
+=======
+ 	 		AbilityUtils.damageEntity(target, p, 2);
+ 			AbilityUtils.stun(p,target, this.getName(), time, true);
+ 	 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_BIG_FALL, 1, 0.5F);
+ 	 		target.getWorld().spawnParticle(Particle.CRIT, target.getLocation().add(0, 1.8, 0), 20);
+>>>>>>> second-repo/master
 
  	 		return true;
  		}
@@ -100,6 +115,7 @@ public class CheapShotAbility implements Ability, Listener{
 		
 	}
 	
+<<<<<<< HEAD
 	@EventHandler
 	public void onDamage(EntityDamageEvent e)
 	{
@@ -118,5 +134,7 @@ public class CheapShotAbility implements Ability, Listener{
 	 			AbilityUtils.removeStun(en, this.getName());
 		}
 	}
+=======
+>>>>>>> second-repo/master
 
 }

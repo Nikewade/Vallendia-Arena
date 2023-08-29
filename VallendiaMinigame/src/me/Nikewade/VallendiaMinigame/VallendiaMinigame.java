@@ -25,6 +25,7 @@ import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
 
 import de.slikey.effectlib.EffectManager;
 import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
+<<<<<<< HEAD
 import me.Nikewade.VallendiaMinigame.Abilities.BackFlipAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.BackstabAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.BlindingArrowsAbility;
@@ -67,6 +68,38 @@ import me.Nikewade.VallendiaMinigame.Commands.StatsCommand;
 import me.Nikewade.VallendiaMinigame.Commands.VallendiaMainCommand;
 import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
 import me.Nikewade.VallendiaMinigame.Events.AltitudeChecker;
+=======
+import me.Nikewade.VallendiaMinigame.Abilities.EquipBowAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.MagicArrowsAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.MountAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.PickPocketAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.PillageAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
+import me.Nikewade.VallendiaMinigame.Commands.AbilityCommand;
+import me.Nikewade.VallendiaMinigame.Commands.AdminCommand;
+import me.Nikewade.VallendiaMinigame.Commands.CommandHandler;
+import me.Nikewade.VallendiaMinigame.Commands.CooldownCommand;
+import me.Nikewade.VallendiaMinigame.Commands.DisableAbilityCommand;
+import me.Nikewade.VallendiaMinigame.Commands.DonateCommand;
+import me.Nikewade.VallendiaMinigame.Commands.HelpCommand;
+import me.Nikewade.VallendiaMinigame.Commands.KitCommand;
+import me.Nikewade.VallendiaMinigame.Commands.LevelCommand;
+import me.Nikewade.VallendiaMinigame.Commands.PointsCommand;
+import me.Nikewade.VallendiaMinigame.Commands.RegenCommand;
+import me.Nikewade.VallendiaMinigame.Commands.ReloadCommand;
+import me.Nikewade.VallendiaMinigame.Commands.ResetKitCommand;
+import me.Nikewade.VallendiaMinigame.Commands.ShopCommand;
+import me.Nikewade.VallendiaMinigame.Commands.SpawnCommand;
+import me.Nikewade.VallendiaMinigame.Commands.StatsCommand;
+import me.Nikewade.VallendiaMinigame.Commands.TutorialNextCommand;
+import me.Nikewade.VallendiaMinigame.Commands.TutorialQuitCommand;
+import me.Nikewade.VallendiaMinigame.Commands.VallendiaMainCommand;
+import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
+import me.Nikewade.VallendiaMinigame.Donations.PetParticleEvents;
+import me.Nikewade.VallendiaMinigame.Events.AltitudeChecker;
+import me.Nikewade.VallendiaMinigame.Events.CosmeticHideEvents;
+import me.Nikewade.VallendiaMinigame.Events.PartyEvents;
+>>>>>>> second-repo/master
 import me.Nikewade.VallendiaMinigame.Events.PlayerBlockEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerCustomFoodCookEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerDeathEvents;
@@ -77,7 +110,13 @@ import me.Nikewade.VallendiaMinigame.Events.PlayerJoinEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerKillEvents;
 import me.Nikewade.VallendiaMinigame.Events.PlayerTakeDamageEvent;
 import me.Nikewade.VallendiaMinigame.Events.ProjectileEvents;
+<<<<<<< HEAD
 import me.Nikewade.VallendiaMinigame.Events.SignEvents;
+=======
+import me.Nikewade.VallendiaMinigame.Events.RandomBroadcastEvents;
+import me.Nikewade.VallendiaMinigame.Events.SignEvents;
+import me.Nikewade.VallendiaMinigame.Events.WandEvents;
+>>>>>>> second-repo/master
 import me.Nikewade.VallendiaMinigame.Graphics.GuiHandler;
 import me.Nikewade.VallendiaMinigame.Graphics.ScoreboardHandler;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
@@ -96,7 +135,10 @@ import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 import me.Nikewade.VallendiaMinigame.Utils.AdvInventory;
 import me.Nikewade.VallendiaMinigame.Utils.FallingBlocksManager;
 import me.Nikewade.VallendiaMinigame.Utils.FileManager;
+<<<<<<< HEAD
 import me.Nikewade.VallendiaMinigame.Utils.GhostManager;
+=======
+>>>>>>> second-repo/master
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
@@ -125,7 +167,10 @@ public class VallendiaMinigame extends JavaPlugin{
 	   public FallingBlocksManager fallingblocks;
 	   public Permission perms;
 	   public Chat chat;
+<<<<<<< HEAD
 	   public GhostManager ghost;
+=======
+>>>>>>> second-repo/master
 	   public PartiesAPI parties;
 	   //Custom flags
 	   @SuppressWarnings("rawtypes")
@@ -181,16 +226,23 @@ public class VallendiaMinigame extends JavaPlugin{
 		   this.protocolManager = ProtocolLibrary.getProtocolManager();
 		   this.worldguard = getWorldGuard();
 	       this.fallingblocks = new FallingBlocksManager(this);
+<<<<<<< HEAD
 	       this.ghost = new GhostManager(this);
 	      
 	       
 	       
+=======
+>>>>>>> second-repo/master
 	       if (getServer().getPluginManager().getPlugin("Parties") != null) {
 	    	    if (getServer().getPluginManager().getPlugin("Parties").isEnabled()) {
 	    	    	this.parties = Parties.getApi();
 	    	    }
 	    	}
 	       
+<<<<<<< HEAD
+=======
+	       
+>>>>>>> second-repo/master
 	        if (!setupPermissions() ) {
 	            Bukkit.getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
 	            getServer().getPluginManager().disablePlugin(this);
@@ -211,9 +263,24 @@ public class VallendiaMinigame extends JavaPlugin{
 		   new PlayerTakeDamageEvent(this);
 		   new SignEvents(this);
 		   new PlayerCustomFoodCookEvents(this);
+<<<<<<< HEAD
 		   Bukkit.getPluginManager().registerEvents(AdvInventory.getListener(), this);
 		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
 		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);
+=======
+		   new PartyEvents(this);
+		   Bukkit.getPluginManager().registerEvents(AdvInventory.getListener(), this);
+		   this.getServer().getPluginManager().registerEvents(new GuiShopHandler(), this);
+		   Bukkit.getPluginManager().registerEvents(AbilityUtils.getListener(), this);
+		   Bukkit.getPluginManager().registerEvents(new SpawnCommand(), this);
+		   Bukkit.getPluginManager().registerEvents(new HelpCommand(), this);
+		   Bukkit.getPluginManager().registerEvents(new AltitudeChecker(this), this);
+		   new PetParticleEvents(this);
+		   new CosmeticHideEvents(this);
+		   new WandEvents(this);
+		   
+		   new RandomBroadcastEvents(this);
+>>>>>>> second-repo/master
 		   
 		   //Ability Listeners
 		   
@@ -238,13 +305,20 @@ public class VallendiaMinigame extends JavaPlugin{
 	            this.levelmanager.updateExpBar(p);
 	            this.levelmanager.updateLevelBar(p);
 	            p.setGravity(true);
+<<<<<<< HEAD
 	            this.ghost.removeGhost(p);
+=======
+>>>>>>> second-repo/master
 	            if (this.upgrademanager.getUpgradeAmount(p, "regeneration") > 0) {
 	               RegenUpgrade.addTimer(p);
 	            }
 	         }
 
+<<<<<<< HEAD
 	         this.sb.runNameTagUpdater();
+=======
+	      this.sb.runNameTagUpdater();
+>>>>>>> second-repo/master
 	         this.sb.runSidebarUpdater();
 	         ShopHandler.loadShop();   
 	   }
@@ -310,7 +384,20 @@ public class VallendiaMinigame extends JavaPlugin{
 	        handler.register("stats", new StatsCommand());
 	        handler.register("kit", new KitCommand());
 	        handler.register("spawn", new SpawnCommand());
+<<<<<<< HEAD
 	        getCommand("vallendia").setExecutor(handler);
+=======
+	        handler.register("level", new LevelCommand());
+	        handler.register("cooldown", new CooldownCommand());
+	        handler.register("next", new TutorialNextCommand());
+	        handler.register("quit", new TutorialQuitCommand());
+	        handler.register("resetkit", new ResetKitCommand());
+	        handler.register("ability", new AbilityCommand());
+	        handler.register("disableability", new DisableAbilityCommand());
+	        handler.register("donate", new DonateCommand());
+	        getCommand("vallendia").setExecutor(handler);
+	        getCommand("donate").setExecutor(new DonateCommand());
+>>>>>>> second-repo/master
 	    }
 	    
 	    private boolean setupChat() {

@@ -20,7 +20,11 @@ import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class SurvivalistAbility implements Ability, Listener{
 	private static HashMap<Player, BukkitTask> enabled = new HashMap<>();
+<<<<<<< HEAD
 	private static double healTime = 10;
+=======
+	private static double healTime = 6;
+>>>>>>> second-repo/master
 	private static int percent = 20;
 	private static int nonPlayerPercent = 10;
 

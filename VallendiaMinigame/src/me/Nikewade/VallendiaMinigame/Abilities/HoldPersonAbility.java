@@ -25,9 +25,13 @@ import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
 
 public class HoldPersonAbility implements Ability, Listener {
+<<<<<<< HEAD
 	List<LivingEntity> stunned = new ArrayList<>();
 	Map<LivingEntity, BukkitTask> tasks = new HashMap<>();
 	int time = 10;
+=======
+	int time = 200;
+>>>>>>> second-repo/master
 	int range = 15;
 
 	@Override
@@ -46,7 +50,11 @@ public class HoldPersonAbility implements Ability, Listener {
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("Stun your target from up to " + range + " blocks away", 
+<<<<<<< HEAD
 				"for " + time + " seconds. Any damage done to the",
+=======
+				"for " + time / 20 + " seconds. Any damage done to the",
+>>>>>>> second-repo/master
 				"target will cancel this ability.");
 	}
 
@@ -61,6 +69,7 @@ public class HoldPersonAbility implements Ability, Listener {
  		LivingEntity target = AbilityUtils.getTarget(p, range);
  		if(target != null)
  		{
+<<<<<<< HEAD
  			AbilityUtils.stun(p,target, this.getName(), time);
  	 		p.getWorld().playSound(p.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 1, 0.8F);
  	 		
@@ -90,6 +99,11 @@ public class HoldPersonAbility implements Ability, Listener {
  	            tasks.put(target, task);
  	 		}
  	 		
+=======
+ 			AbilityUtils.stun(p,target, this.getName(), time, true);
+ 	 		p.getWorld().playSound(p.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 1, 0.8F);
+ 	 		
+>>>>>>> second-repo/master
  			ConeEffect se = new ConeEffect(VallendiaMinigame.getInstance().effectmanager);
  			se.particle = Particle.CRIT_MAGIC;
  			Location loc = target.getLocation();
@@ -111,6 +125,7 @@ public class HoldPersonAbility implements Ability, Listener {
 		
 	}
 	
+<<<<<<< HEAD
 	@EventHandler
 	public void onDamage(EntityDamageEvent e)
 	{
@@ -129,6 +144,8 @@ public class HoldPersonAbility implements Ability, Listener {
 	 			AbilityUtils.removeStun(en, this.getName());
 		}
 	}
+=======
+>>>>>>> second-repo/master
 
 
 }

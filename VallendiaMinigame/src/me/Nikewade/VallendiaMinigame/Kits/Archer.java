@@ -35,6 +35,35 @@ public class Archer implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Repurpose"));
 		abilities.add(Main.abilitymanager.getAbility("Camouflage"));
 		abilities.add(Main.abilitymanager.getAbility("Ice Trap"));
+<<<<<<< HEAD
+=======
+		abilities.add(Main.abilitymanager.getAbility("Reflex"));
+		abilities.add(Main.abilitymanager.getAbility("Bear Trap"));
+		abilities.add(Main.abilitymanager.getAbility("Explosive Trap"));
+		abilities.add(Main.abilitymanager.getAbility("Martyrdom"));
+		abilities.add(Main.abilitymanager.getAbility("Healing Arrow"));
+		abilities.add(Main.abilitymanager.getAbility("Cat Fall"));
+		abilities.add(Main.abilitymanager.getAbility("Healing Arrow"));
+		abilities.add(Main.abilitymanager.getAbility("Sonar Arrow"));
+		abilities.add(Main.abilitymanager.getAbility("Lone Wolf"));
+		abilities.add(Main.abilitymanager.getAbility("Noxious Gas Trap"));
+		abilities.add(Main.abilitymanager.getAbility("Water Mastery"));
+		abilities.add(Main.abilitymanager.getAbility("One Man Army"));
+		abilities.add(Main.abilitymanager.getAbility("Fire Mastery"));
+		abilities.add(Main.abilitymanager.getAbility("Thorn Shot"));
+		abilities.add(Main.abilitymanager.getAbility("Thunder Shot"));
+		abilities.add(Main.abilitymanager.getAbility("Repelling Shot"));
+		abilities.add(Main.abilitymanager.getAbility("Concussive Shot"));
+		abilities.add(Main.abilitymanager.getAbility("Night Crawler"));
+		abilities.add(Main.abilitymanager.getAbility("Entangle"));
+		abilities.add(Main.abilitymanager.getAbility("Favoured Enemy"));
+		abilities.add(Main.abilitymanager.getAbility("Camera"));
+		abilities.add(Main.abilitymanager.getAbility("Investor"));
+		abilities.add(Main.abilitymanager.getAbility("Pick Off"));
+		abilities.add(Main.abilitymanager.getAbility("Tunnel Vision"));
+		abilities.add(Main.abilitymanager.getAbility("Baker"));
+		abilities.add(Main.abilitymanager.getAbility("Uncanny Dodge"));
+>>>>>>> second-repo/master
 	}
 	
 	@Override
@@ -50,7 +79,17 @@ public class Archer implements Kit {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return Utils.Colorate("&aA master marksman.");
+=======
+		return Utils.Colorate("&aA versatile ranged combatant");
+	}
+	
+	@Override
+	public String getDescription2() {
+		// TODO Auto-generated method stub
+		return Utils.Colorate("&aknowledgeable in the ways of nature.");
+>>>>>>> second-repo/master
 	}
 
 	@Override

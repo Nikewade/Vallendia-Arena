@@ -2,6 +2,10 @@ package me.Nikewade.VallendiaMinigame.Events;
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD
+=======
+import org.bukkit.Bukkit;
+>>>>>>> second-repo/master
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -59,7 +63,11 @@ public class PlayerFoodEvents implements Listener {
 		
  		if(e.getItem().getType() == Material.COOKED_BEEF || e.getItem().getType() == Material.GRILLED_PORK || 
  				e.getItem().getType() == Material.COOKED_CHICKEN || e.getItem().getType() == Material.BREAD || 
+<<<<<<< HEAD
  				e.getItem().getType() == Material.COOKED_FISH)
+=======
+ 				e.getItem().getType() == Material.COOKED_FISH || e.getItem().getType() == Material.COOKED_RABBIT)
+>>>>>>> second-repo/master
 		{
 			Player p = e.getPlayer();
 			
@@ -83,7 +91,19 @@ public class PlayerFoodEvents implements Listener {
 	            double startHealth = p.getHealth();
 				new BukkitRunnable() {
 				     @Override
+<<<<<<< HEAD
 				     public void run() {	
+=======
+				     public void run() {
+				    	 
+			            	if(Bukkit.getServer().getPlayer(p.getName()) == null)
+			            	{
+			            		healing.remove(p);
+			            		this.cancel();
+			            		return;
+			            	}
+				    	 
+>>>>>>> second-repo/master
 				 			int healPercent = 0;
 					        switch (e.getItem().getType()) {
 				            case COOKED_BEEF:  healPercent = Main.getConfig().getInt("Options.food.steak");
@@ -96,6 +116,11 @@ public class PlayerFoodEvents implements Listener {
 				                     break;
 				            case COOKED_FISH:  healPercent = Main.getConfig().getInt("Options.food.fish");
 				                     break;
+<<<<<<< HEAD
+=======
+				            case COOKED_RABBIT:  healPercent = Main.getConfig().getInt("Options.food.rabbit");
+		                     break;
+>>>>>>> second-repo/master
 							default:
 								healPercent = 0;
 								break;
@@ -111,7 +136,11 @@ public class PlayerFoodEvents implements Listener {
 				                    if(p.getHealth() == p.getMaxHealth() || (p.getHealth() + healAmount > p.getMaxHealth()))
 				                    {
 				                    	healing.remove(p);
+<<<<<<< HEAD
 				                    	p.setHealth(p.getMaxHealth());
+=======
+							    	 	AbilityUtils.healEntity(p, p.getMaxHealth());
+>>>>>>> second-repo/master
 				                    	Language.sendDefaultMessage(p, "You have stopped regenerating health.");
 				                    	cancel();
 				                    	return;
@@ -124,6 +153,7 @@ public class PlayerFoodEvents implements Listener {
 						    	 		cancel();
 						    	 		return;
 						    	 	}
+<<<<<<< HEAD
 						    	 	
 						    	 	if(!AbilityUtils.isInvisible(p))
 						    	 	{
@@ -132,6 +162,9 @@ public class PlayerFoodEvents implements Listener {
 					                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
 					                    p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5); 	
 						    	 	}
+=======
+						    	 	AbilityUtils.healEntity(p, healAmount);
+>>>>>>> second-repo/master
 				     }
 				}.runTaskTimer(Main, 0, (2*20));
 				
@@ -169,6 +202,7 @@ public class PlayerFoodEvents implements Listener {
 	{
 		if(e.getEntity() instanceof Player)
 		{
+<<<<<<< HEAD
 			Player p = (Player) e.getEntity();
 			if(p.getFoodLevel() == 20)
 			{
@@ -179,6 +213,21 @@ public class PlayerFoodEvents implements Listener {
 			{
 				healing.remove(p);
             	Language.sendDefaultMessage(p, "You have stopped regenerating health.");
+=======
+			if(!e.isCancelled())
+			{
+				Player p = (Player) e.getEntity();
+				if(p.getFoodLevel() == 20)
+				{
+					p.setFoodLevel(19);
+				}	
+				
+				if(healing.contains(p))
+				{
+					healing.remove(p);
+	            	Language.sendDefaultMessage(p, "You have stopped regenerating health.");
+				}		
+>>>>>>> second-repo/master
 			}
 	
 		}

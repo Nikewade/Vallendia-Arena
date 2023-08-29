@@ -118,6 +118,7 @@ public class CreatePlayerData {
 			          if(!this.Config.contains("Abilities.slot1")) {
 				             this.Config.set("Abilities.slot 1", "empty");
 				          }
+<<<<<<< HEAD
 			          if(!this.Config.contains("Abilities.slot2")) {
 				             this.Config.set("Abilities.slot 2", "empty");
 				          }
@@ -133,6 +134,55 @@ public class CreatePlayerData {
 			          if(!this.Config.contains("Abilities.slot6")) {
 				             this.Config.set("Abilities.slot 6", "empty");
 				          }
+=======
+			          if(!this.Config.contains("Abilities.slot1")) {
+				             this.Config.set("Abilities.slot 1 data", "empty");
+				          }
+			          
+			          
+			          if(!this.Config.contains("Abilities.slot2")) {
+				             this.Config.set("Abilities.slot 2", "empty");
+				          }
+			          if(!this.Config.contains("Abilities.slot2")) {
+				             this.Config.set("Abilities.slot 2 data", "empty");
+				          }
+			          
+			          
+			          if(!this.Config.contains("Abilities.slot3")) {
+				             this.Config.set("Abilities.slot 3", "empty");
+				          }
+			          if(!this.Config.contains("Abilities.slot3")) {
+				             this.Config.set("Abilities.slot 3 data", "empty");
+				          }
+			          
+			          
+			          if(!this.Config.contains("Abilities.slot4")) {
+				             this.Config.set("Abilities.slot 4", "empty");
+				          }
+			          if(!this.Config.contains("Abilities.slot4")) {
+				             this.Config.set("Abilities.slot 4 data", "empty");
+				          }
+			          
+			          
+			          if(!this.Config.contains("Abilities.slot5")) {
+				             this.Config.set("Abilities.slot 5", "empty");
+				          }
+			          if(!this.Config.contains("Abilities.slot5")) {
+				             this.Config.set("Abilities.slot 5 data", "empty");
+				          }
+			          
+			          
+			          if(!this.Config.contains("Abilities.slot6")) {
+				             this.Config.set("Abilities.slot 6", "empty");
+				          }
+			          if(!this.Config.contains("Abilities.slot6")) {
+				             this.Config.set("Abilities.slot 6 data", "empty");
+				          }
+			          
+			          
+			          
+
+>>>>>>> second-repo/master
 
 				      this.Config.save(f);
 			       } catch (Exception var4) {

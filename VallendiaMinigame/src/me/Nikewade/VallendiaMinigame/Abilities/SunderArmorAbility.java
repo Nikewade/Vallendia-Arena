@@ -15,6 +15,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+<<<<<<< HEAD
+=======
+import org.bukkit.event.entity.PlayerDeathEvent;
+>>>>>>> second-repo/master
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
@@ -33,9 +37,15 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 public class SunderArmorAbility implements Ability, Listener{
 	//made by Emma
 	int duration = 10;
+<<<<<<< HEAD
 	public static List<Player> sundered = new ArrayList<>();
 	HashMap<Player, ItemStack> storePant = new HashMap<>();
 	HashMap<Player, ItemStack> storeBoot = new HashMap<>();
+=======
+	int range = 5;
+	public static List<Player> sundered = new ArrayList<>();
+	HashMap<Player, ItemStack> storePant = new HashMap<>();
+>>>>>>> second-repo/master
 
 	@Override
 	public String getName() {
@@ -52,8 +62,13 @@ public class SunderArmorAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return Arrays.asList("You sunder your targets armor for " + duration + "",
 				" seconds.");
+=======
+		return Arrays.asList("You sunder your targets leg armor for " + duration,
+				"seconds.");
+>>>>>>> second-repo/master
 	}
 
 	@Override
@@ -66,6 +81,7 @@ public class SunderArmorAbility implements Ability, Listener{
 	public boolean RunAbility(Player p) {
 		// TODO Auto-generated method stub
 		
+<<<<<<< HEAD
 		if(!(AbilityUtils.getTarget(p, 5) instanceof Player))
 		{
 			Language.sendAbilityUseMessage(p, "You can only sunder players!", "Sunder Armor");
@@ -74,6 +90,16 @@ public class SunderArmorAbility implements Ability, Listener{
 		
 		Player target = (Player) AbilityUtils.getTarget(p, 5);
 		
+=======
+		
+		Player target = (Player) AbilityUtils.getTarget(p, range);
+		
+		if(target == null)
+		{
+			return false;
+		}
+		
+>>>>>>> second-repo/master
 		if(sundered.contains(target))
 		{
 			Language.sendAbilityUseMessage(p, "This Player has already been sundered!", "Sunder Armor");
@@ -107,22 +133,37 @@ public class SunderArmorAbility implements Ability, Listener{
 			
 			se.start();
 			
+<<<<<<< HEAD
 			BukkitTask timer = new BukkitRunnable() 
+=======
+				new BukkitRunnable() 
+>>>>>>> second-repo/master
 			{
 
 				@Override
 				public void run() {
 					
+<<<<<<< HEAD
 					target.getInventory().setLeggings(pants);
 					Language.sendAbilityUseMessage(target, "You are no longer Sundered", "Sunder Armor");
 					sundered.remove(target);
 					
+=======
+					if(sundered.contains(target))
+					{
+					
+					target.getInventory().setLeggings(pants);
+					Language.sendAbilityUseMessage(target, "You are no longer Sundered", "Sunder Armor");
+					sundered.remove(target);
+				}
+>>>>>>> second-repo/master
 				}
 				
 			}.runTaskLater(VallendiaMinigame.getInstance(), duration*20);
 
 			
 		}
+<<<<<<< HEAD
 		if(!(target.getInventory().getBoots().getType()==Material.AIR))
 		{
 			
@@ -151,6 +192,10 @@ public class SunderArmorAbility implements Ability, Listener{
 	
 		
 		return false;
+=======
+		
+		return true;
+>>>>>>> second-repo/master
 	}
 
 	@Override
@@ -159,16 +204,22 @@ public class SunderArmorAbility implements Ability, Listener{
 		
 		if(sundered.contains(p))
 		{
+<<<<<<< HEAD
 		
+=======
+>>>>>>> second-repo/master
 	
 			if(storePant.containsKey(p))
 			{
 				p.getInventory().setLeggings(storePant.get(p));
 			}
+<<<<<<< HEAD
 			if(storeBoot.containsKey(p))
 			{
 				p.getInventory().setBoots(storeBoot.get(p));
 			}
+=======
+>>>>>>> second-repo/master
 			sundered.remove(p);
 		}
 		
@@ -176,6 +227,25 @@ public class SunderArmorAbility implements Ability, Listener{
 	}
 	
 	@EventHandler
+<<<<<<< HEAD
+=======
+	public void onDeath (PlayerDeathEvent e)
+	{
+		Player p = e.getEntity();
+		
+		if(sundered.contains(p))
+		{
+	
+			if(storePant.containsKey(p))
+			{
+				storePant.remove(p);
+			}
+			sundered.remove(p);
+		}
+	}
+	
+	@EventHandler
+>>>>>>> second-repo/master
 	public void onInvClick (InventoryClickEvent e)
 	{
 		if(sundered.contains(e.getWhoClicked()))

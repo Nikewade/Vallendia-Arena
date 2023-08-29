@@ -4,16 +4,28 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+<<<<<<< HEAD
+=======
+import java.util.Arrays;
+>>>>>>> second-repo/master
 import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+<<<<<<< HEAD
+=======
+import org.bukkit.inventory.meta.ItemMeta;
+>>>>>>> second-repo/master
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+<<<<<<< HEAD
+=======
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
+>>>>>>> second-repo/master
 
 public class ShopHandler {
 
@@ -140,6 +152,45 @@ public class ShopHandler {
 	public static final boolean buyItem(Player player, ItemStack stack, double cost) {
 		if(VallendiaMinigame.getInstance().shopmanager.getPoints(player) >= cost) {
 			VallendiaMinigame.getInstance().shopmanager.subtractPoints(player, (int) cost);
+<<<<<<< HEAD
+=======
+	 		if(stack.getType() == Material.RAW_BEEF || stack.getType() == Material.PORK || 
+	 				stack.getType() == Material.RAW_CHICKEN || stack.getType() == Material.BREAD || 
+	 				stack.getType() == Material.COOKED_FISH || stack.getType() == Material.RABBIT)
+			{
+				ItemMeta im = stack.getItemMeta();
+				
+	 			int healPercent = 0;
+	 			String itemName = "";
+	 			
+		        switch (stack.getType()) {
+	            case RAW_BEEF:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.steak");
+	            itemName = "Raw Beef";
+	                     break;
+	            case PORK:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.pork");
+	            itemName = "Raw Porkchop";
+	                     break;
+	            case RAW_CHICKEN:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.chicken");
+	            itemName = "Raw Chicken";
+	                     break;
+	            case BREAD:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.bread");
+	            itemName = "Bread";
+	                     break;
+	            case COOKED_FISH:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.fish");
+	            itemName = "Cooked Fish";
+	                     break;
+	            case RABBIT:  healPercent = VallendiaMinigame.getInstance().getConfig().getInt("Options.food.rabbit");
+	            itemName = "Raw Rabbit";
+                 break;
+				default:
+					healPercent = 0;
+					break;
+	        }
+				im.setDisplayName(Utils.Colorate("&8&l" + itemName));
+				im.setLore(Arrays.asList(Utils.Colorate("&8Right click a furnce to cook!")));
+				stack.setItemMeta(im);
+			}
+>>>>>>> second-repo/master
 			player.getInventory().addItem(stack);
 			return true;
 		}
@@ -148,12 +199,22 @@ public class ShopHandler {
 	}
 	
 	public static final boolean sellItem(Player player, ItemStack stahck, double cost) {
+<<<<<<< HEAD
 		if(player.getInventory().containsAtLeast(stahck, stahck.getAmount())) {
+=======
+		/*
+		 * 	
+		 * if(player.getInventory().containsAtLeast(stahck, stahck.getAmount())) {
+>>>>>>> second-repo/master
 			player.getInventory().removeItem(stahck);
 			VallendiaMinigame.getInstance().shopmanager.addPoints(player, (int) cost);
 			return true;
 		}
 		ShopUtils.chat(player, VallendiaMinigame.getInstance().getConfig().getString("langNotEnoughItems"));
+<<<<<<< HEAD
+=======
+		 */
+>>>>>>> second-repo/master
 		return false;
 	}
 	

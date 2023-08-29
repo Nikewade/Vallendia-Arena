@@ -36,7 +36,32 @@ public class Warrior implements Kit {
         abilities.add(Main.abilitymanager.getAbility("Piercing Roar"));
         abilities.add(Main.abilitymanager.getAbility("Sunder Armor"));
         abilities.add(Main.abilitymanager.getAbility("Pummel"));
+<<<<<<< HEAD
         abilities.add(Main.abilitymanager.getAbility("Quake"));
+=======
+        abilities.add(Main.abilitymanager.getAbility("Quick Death"));
+		abilities.add(Main.abilitymanager.getAbility("Martyrdom"));
+		abilities.add(Main.abilitymanager.getAbility("Cat Fall"));
+		abilities.add(Main.abilitymanager.getAbility("Initiate"));
+		abilities.add(Main.abilitymanager.getAbility("Lone Wolf"));
+		abilities.add(Main.abilitymanager.getAbility("One Man Army"));
+		abilities.add(Main.abilitymanager.getAbility("Break Free"));
+		abilities.add(Main.abilitymanager.getAbility("Quake"));
+		abilities.add(Main.abilitymanager.getAbility("Lay On Hands"));
+		abilities.add(Main.abilitymanager.getAbility("Rally Up"));
+		abilities.add(Main.abilitymanager.getAbility("Blessing Aura"));
+		abilities.add(Main.abilitymanager.getAbility("Bolas"));
+		abilities.add(Main.abilitymanager.getAbility("Taunt Creatures"));
+		abilities.add(Main.abilitymanager.getAbility("Through The Seams"));
+		abilities.add(Main.abilitymanager.getAbility("Shield"));
+		abilities.add(Main.abilitymanager.getAbility("Investor"));
+		abilities.add(Main.abilitymanager.getAbility("Sun Strike"));
+		abilities.add(Main.abilitymanager.getAbility("Tunnel Vision"));
+		abilities.add(Main.abilitymanager.getAbility("Taunt"));
+		abilities.add(Main.abilitymanager.getAbility("Whirlwind"));
+		abilities.add(Main.abilitymanager.getAbility("Baker"));
+		abilities.add(Main.abilitymanager.getAbility("Survivalist"));
+>>>>>>> second-repo/master
 	}
 	
 	@Override
@@ -52,7 +77,17 @@ public class Warrior implements Kit {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return Utils.Colorate("&cA master of combat.");
+=======
+		return Utils.Colorate("&cA martial combatant");
+	}
+	
+	@Override
+	public String getDescription2() {
+		// TODO Auto-generated method stub
+		return Utils.Colorate("&cskilled in the art of war.");
+>>>>>>> second-repo/master
 	}
 
 	@Override

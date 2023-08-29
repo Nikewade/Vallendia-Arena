@@ -38,7 +38,11 @@ public class IceTrapAbility implements Ability, Listener {
 	Map<Player, Location> clickedBlock = new HashMap<>();
 	List<Player> trapMode = new ArrayList<>();
 	Map<Player, BukkitTask> trapModeTask = new HashMap<>();
+<<<<<<< HEAD
 	int stunTime = 8;
+=======
+	int stunTime = 200;
+>>>>>>> second-repo/master
 	int trapModeTime = 15;
 
 	@Override
@@ -56,7 +60,14 @@ public class IceTrapAbility implements Ability, Listener {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return Arrays.asList("ekrv");
+=======
+		return Arrays.asList("Place an ice trap that when triggered, stuns"
+				, "the target for " + stunTime / 20 + " seconds. Damage done",
+				"to the enemy will break the stun. When this trap",
+				"is triggered, the cooldown is 60 seconds.");
+>>>>>>> second-repo/master
 	}
 
 	@Override
@@ -105,6 +116,16 @@ public class IceTrapAbility implements Ability, Listener {
 		// TODO Auto-generated method stub
 		AbilityUtils.removeTrap(p, this.getName());
 		
+<<<<<<< HEAD
+=======
+		if(trapMode.contains(p))
+		{
+			trapMode.remove(p);
+			trapModeTask.get(p).cancel();
+			trapModeTask.remove(p);
+		}
+		
+>>>>>>> second-repo/master
 	}
 	
 	
@@ -119,12 +140,23 @@ public class IceTrapAbility implements Ability, Listener {
 			{
 				if(p.isSneaking())
 				{
+<<<<<<< HEAD
 					trapMode.remove(p);
 					trapModeTask.get(p).cancel();
 					trapModeTask.remove(p);
 					AbilityUtils.removeTrap(p, this.getName());
 					Language.sendAbilityUseMessage(p, "Trap Mode: All traps removed.", this.getName());
 					e.setCancelled(true);
+=======
+					if(AbilityUtils.removeTrap(p, this.getName()))
+					{
+						trapMode.remove(p);
+						trapModeTask.get(p).cancel();
+						trapModeTask.remove(p);
+						Language.sendAbilityUseMessage(p, "Trap Mode: Disabled - All traps removed.", this.getName());
+						e.setCancelled(true);	
+					}
+>>>>>>> second-repo/master
 				}
 			}
 			return;
@@ -162,7 +194,11 @@ public class IceTrapAbility implements Ability, Listener {
                 		loc.getWorld().playSound(loc, Sound.BLOCK_GLASS_BREAK, 2, 1);
 	                	for(Entity e : AbilityUtils.getAoeTargets(p, loc, 2, 2.8, 2))
 	                	{
+<<<<<<< HEAD
 	                		AbilityUtils.stun((LivingEntity)p, (LivingEntity)e, "Ice Trap", stunTime);
+=======
+	                		AbilityUtils.stun((LivingEntity)p, (LivingEntity)e, "Ice Trap", stunTime, true);
+>>>>>>> second-repo/master
 	                  		SphereEffect se3 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 	                		se3.particle = Particle.BLOCK_CRACK;
 	                		se3.material = Material.ICE;
@@ -172,6 +208,10 @@ public class IceTrapAbility implements Ability, Listener {
 	                		se3.yOffset = 0.5;
 	                		se3.setLocation(e.getLocation());
 	                		se3.start();
+<<<<<<< HEAD
+=======
+							Language.sendAbilityUseMessage((LivingEntity) e, "You triggered a trap!", "Ice Trap");
+>>>>>>> second-repo/master
 	                	}
 						Language.sendAbilityUseMessage(p, "Your trap was triggered!", "Ice Trap");
 					}
@@ -243,7 +283,11 @@ public class IceTrapAbility implements Ability, Listener {
 	                		loc.getWorld().playSound(loc, Sound.BLOCK_GLASS_BREAK, 2, 1);
 		                	for(Entity e : AbilityUtils.getAoeTargets(p, loc, 2, 2.8, 2))
 		                	{
+<<<<<<< HEAD
 		                		AbilityUtils.stun((LivingEntity)p, (LivingEntity)e, "Ice Trap", 8);
+=======
+		                		AbilityUtils.stun((LivingEntity)p, (LivingEntity)e, "Ice Trap", 8, true);
+>>>>>>> second-repo/master
 		                  		SphereEffect se3 = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
 		                		se3.particle = Particle.BLOCK_CRACK;
 		                		se3.material = Material.ICE;

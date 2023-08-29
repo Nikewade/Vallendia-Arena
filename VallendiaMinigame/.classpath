@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/spigot.jar" sourcepath="C:/Users/Florrie/Desktop/Nykell/Server/spigot-1.12.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/EffectLib-6.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/ProtocolLib.jar"/>
@@ -10,5 +11,21 @@
 	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/worldedit-bukkit-6.1.9.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/Vault.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Florrie/Desktop/Nykell/Server/plugins/Parties-2.6.11.jar"/>
+=======
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/CombatLogX.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/EffectLib-6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/worldguard-6.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/Citizens-2.0.26-b1845 (2).jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/MythicMobs-4.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/spigot.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/SuperTrailsPro.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/DeathMessagesPrime (1).jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/MiniaturePets.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/Parties-2.6.14 (1).jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/ProtocolLib.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/ServerTutorialPlus-1.21.3-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/Vault.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nykell/Desktop/Servers/Vallendia/plugins/worldedit-bukkit-6.1.9.jar"/>
+>>>>>>> second-repo/master
 	<classpathentry kind="output" path="bin"/>
 </classpath>

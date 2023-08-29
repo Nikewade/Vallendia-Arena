@@ -221,6 +221,7 @@ public class RootAbility implements Ability, Listener{
 	            public void onMove(PlayerMoveEvent e)
 	            {
 	            	
+<<<<<<< HEAD
             		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(e.getPlayer(), "Root") && e.getPlayer().isSneaking() && !e.getPlayer().isOnGround())
             		{
                 		if(!enabled.contains(e.getPlayer()))
@@ -233,6 +234,23 @@ public class RootAbility implements Ability, Listener{
         	            	to.setPitch(e.getTo().getPitch());
         	            	to.setYaw(e.getTo().getYaw());
         	            	e.setTo(to);
+=======
+            		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(e.getPlayer(), "Root"))
+            		{
+            			if(e.getPlayer().isSneaking() && !e.getPlayer().isOnGround())
+            			{
+                    		if(!enabled.contains(e.getPlayer()))
+                    		{
+                    			return;
+                    		}
+                			if(e.getTo().getY() > e.getFrom().getY())
+                			{
+            	            	Location to = e.getFrom();
+            	            	to.setPitch(e.getTo().getPitch());
+            	            	to.setYaw(e.getTo().getYaw());
+            	            	e.setTo(to);
+                			}	
+>>>>>>> second-repo/master
             			}
             		
             		}

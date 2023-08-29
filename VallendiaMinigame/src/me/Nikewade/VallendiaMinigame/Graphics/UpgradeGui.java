@@ -131,21 +131,39 @@ public class UpgradeGui {
 			AdvInventory upgradeInvYesNo = new AdvInventory(Utils.Colorate("&8&lAre you sure?"), 27, Utils.placeholder((byte) 7, " "));
 			String itemTitle = "";
 			
+<<<<<<< HEAD
 			if(enchant == null)
+=======
+			if(enchant == null || enchant == "prot")
+>>>>>>> second-repo/master
 			{
 				itemTitle = Utils.Colorate("&2&lUpgrade " + upgrade);
 			}else {itemTitle = Utils.Colorate("&2&lUpgrade " + upgrade + " (" + enchant + ")");}
 			
+<<<<<<< HEAD
 			String description1 =  Utils.Colorate("&aPrice: &2" + um.getPrice(p, upgrade, enchant) + Utils.Colorate(" points"));
 			String description2 = Utils.Colorate("&aKit Discount: &2" + um.getDiscount(p, upgrade, enchant) + "%");
+=======
+			String description1 =  Utils.Colorate("&aPrice: &2" + um.getPrice(p, upgrade, enchant) + Utils.Colorate(" Essence"));
+			String description2 = Utils.Colorate("&aClass Discount: &2" + um.getDiscount(p, upgrade, enchant) + "%");
+>>>>>>> second-repo/master
 			upgradeInvYesNo.setItem(new ItemStack(Material.STAINED_CLAY, 1, (short) 13), itemTitle, 11, new ClickRunnable() {
 			    @Override
 			    public void run(InventoryClickEvent e) {
 			    	Player ep = (Player) e.getWhoClicked();
 			    	um.buyUpgrade(ep, upgrade, enchant, 1);
+<<<<<<< HEAD
 			    	if(Main.getConfig().getBoolean("Options.Auto-Close-Upgrade-Menu"))
 			    	{
 				    	ep.closeInventory();	
+=======
+			    	if(enchant != null)
+			    	{
+						   openUpgradeYesNoMenu(ep, upgrade, enchant);	
+			    	}else
+			    	{
+						   openUpgradeYesNoMenu(ep, upgrade, null);
+>>>>>>> second-repo/master
 			    	}
 			    }
 			}, description1 , description2);

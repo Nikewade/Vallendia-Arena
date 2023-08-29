@@ -49,7 +49,11 @@ public class ToolUpgrade implements Upgrade{
 		{
 		if(item != null)
 		{
+<<<<<<< HEAD
 				if( item.getType() == Material.DIAMOND_PICKAXE)
+=======
+				if( item.getType() == Material.IRON_PICKAXE || item.getType() == Material.DIAMOND_PICKAXE)
+>>>>>>> second-repo/master
 				{
 					item.addUnsafeEnchantment(enchantment, enchantAmount + 1);	
 				}

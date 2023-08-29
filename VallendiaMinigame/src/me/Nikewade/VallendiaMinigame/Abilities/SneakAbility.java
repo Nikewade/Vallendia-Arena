@@ -8,6 +8,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+<<<<<<< HEAD
+=======
+import org.bukkit.event.EventPriority;
+>>>>>>> second-repo/master
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -17,7 +21,17 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+<<<<<<< HEAD
 
+=======
+import org.bukkit.material.Door;
+import org.bukkit.material.Gate;
+import org.bukkit.material.TrapDoor;
+
+import com.alessiodp.parties.bukkit.addons.external.MythicMobsHandler;
+
+import io.lumine.xikage.mythicmobs.MythicMobs;
+>>>>>>> second-repo/master
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.Language;
 
@@ -55,9 +69,12 @@ public class SneakAbility implements Ability , Listener {
 
 	@Override
 	public boolean RunAbility(Player p) {
+<<<<<<< HEAD
 		
 		
 		
+=======
+>>>>>>> second-repo/master
 		if(sneaking.contains(p))
 		{
 			sneaking.remove(p);
@@ -87,7 +104,11 @@ public class SneakAbility implements Ability , Listener {
             
            
             
+<<<<<<< HEAD
             @EventHandler
+=======
+            @EventHandler(priority = EventPriority.HIGHEST)
+>>>>>>> second-repo/master
             public void onDamage(EntityDamageEvent e)
             {
             	if(e.getEntity() instanceof Player)
@@ -130,10 +151,21 @@ public class SneakAbility implements Ability , Listener {
             {
             	if(sneaking.contains(e.getPlayer()))
             	if(e.getAction() == Action.RIGHT_CLICK_BLOCK)
+<<<<<<< HEAD
             	if(e.getClickedBlock().getType() == Material.CHEST)
             	if(e.getPlayer().getItemInHand().getType() != Material.AIR)
             	{
         			Language.sendAbilityUseMessage(e.getPlayer(), "Cant open this while holding an item!", "Sneak");
+=======
+            	if(e.getClickedBlock().getType() == Material.CHEST ||
+            	e.getClickedBlock().getType().toString().contains("DOOR") || 
+            	e.getClickedBlock().getType().toString().contains("GATE"))
+            	{
+                	if(e.getPlayer().getItemInHand().getType() != Material.AIR)
+                	{
+            			Language.sendAbilityUseMessage(e.getPlayer(), "Un-Sneak or click with an empty hand to interact with this!", "Sneak");
+                	}	
+>>>>>>> second-repo/master
             	}
             	
             }
@@ -164,6 +196,10 @@ public class SneakAbility implements Ability , Listener {
         	sneaking.remove(p.getPlayer());
     		p.getPlayer().setSneaking(false);
     	}
+<<<<<<< HEAD
+=======
+		AbilityManager.removeAbilityData("Sneak", p);
+>>>>>>> second-repo/master
 	}
 
 }

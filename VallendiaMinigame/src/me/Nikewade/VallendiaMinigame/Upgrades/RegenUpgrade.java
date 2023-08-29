@@ -4,6 +4,10 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+<<<<<<< HEAD
+=======
+import org.bukkit.Bukkit;
+>>>>>>> second-repo/master
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -33,7 +37,11 @@ public class RegenUpgrade implements Upgrade{
 		RegenUpgrade.addTimer(p);
     	double time = 0.00506 * Math.pow((0.25 * Main.upgrademanager.getUpgradeAmount(p, "regeneration") -8.985), 4) + 0.5;
     	DecimalFormat format = new DecimalFormat("0.0");
+<<<<<<< HEAD
 
+=======
+    	
+>>>>>>> second-repo/master
     	String output = format.format(time);
 		p.sendMessage(Utils.Colorate("&cRegeneration every " + output + Utils.Colorate(" &cseconds.")));
 	}
@@ -67,6 +75,7 @@ public class RegenUpgrade implements Upgrade{
 
             @Override
             public void run() {	
+<<<<<<< HEAD
                 	if(p.getHealth() < p.getMaxHealth())
                 	{
                     	if(p.getHealth() >= p.getMaxHealth() - 1)
@@ -80,6 +89,19 @@ public class RegenUpgrade implements Upgrade{
                 	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0, 0.4, 0), 5);
                 	        p.getWorld().spawnParticle(Particle.HEART, p.getLocation().add(0.4, 0.4, 0), 5);	
                 		}
+=======
+            	if(Bukkit.getServer().getPlayer(p.getName()) == null)
+            	{
+            		timers.remove(p);
+            		this.cancel();
+            		return;
+            	}
+            	
+            	
+                	if(p.getHealth() < p.getMaxHealth())
+                	{
+                		AbilityUtils.healEntity(p, 1);
+>>>>>>> second-repo/master
                 	}     
             }
 	    }.runTaskTimer(VallendiaMinigame.getInstance(), 20* 3, (long) (20 * time));
@@ -95,7 +117,11 @@ public class RegenUpgrade implements Upgrade{
 	@Override
 	public double getMultiplier(String enchant) {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "regeneneration." + "multiplier");
+=======
+		return VallendiaMinigame.getInstance().getConfig().getDouble("upgrades." + "regeneration." + "multiplier");
+>>>>>>> second-repo/master
 	}
 	
 	@Override

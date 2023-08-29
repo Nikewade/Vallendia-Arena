@@ -37,6 +37,30 @@ public class Assassin implements Kit {
 		abilities.add(Main.abilitymanager.getAbility("Envenom"));
 		abilities.add(Main.abilitymanager.getAbility("Escape Artist"));
 		abilities.add(Main.abilitymanager.getAbility("Fan Of Knives"));
+<<<<<<< HEAD
+=======
+		abilities.add(Main.abilitymanager.getAbility("Martyrdom"));
+		abilities.add(Main.abilitymanager.getAbility("Cat Fall"));
+		abilities.add(Main.abilitymanager.getAbility("Vampiric Aura"));
+		abilities.add(Main.abilitymanager.getAbility("Lone Wolf"));
+		abilities.add(Main.abilitymanager.getAbility("Noxious Gas Trap"));
+		abilities.add(Main.abilitymanager.getAbility("One Man Army"));
+		abilities.add(Main.abilitymanager.getAbility("Hamstring"));
+		abilities.add(Main.abilitymanager.getAbility("Allure"));
+		abilities.add(Main.abilitymanager.getAbility("Through The Seams"));
+		abilities.add(Main.abilitymanager.getAbility("Vendetta"));
+		abilities.add(Main.abilitymanager.getAbility("Night Crawler"));
+		abilities.add(Main.abilitymanager.getAbility("Camera"));
+		abilities.add(Main.abilitymanager.getAbility("Shadow Clone"));
+		abilities.add(Main.abilitymanager.getAbility("Investor"));
+		abilities.add(Main.abilitymanager.getAbility("Pick Off"));
+		abilities.add(Main.abilitymanager.getAbility("Ghost Touch"));
+		abilities.add(Main.abilitymanager.getAbility("Tunnel Vision"));
+		abilities.add(Main.abilitymanager.getAbility("Baker"));
+		abilities.add(Main.abilitymanager.getAbility("Uncanny Dodge"));
+		abilities.add(Main.abilitymanager.getAbility("Survivalist"));
+		abilities.add(Main.abilitymanager.getAbility("Dagger Throw"));
+>>>>>>> second-repo/master
 	}
 	
 	@Override
@@ -52,7 +76,17 @@ public class Assassin implements Kit {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return Utils.Colorate("&7The master of stealth and deception.");
+=======
+		return Utils.Colorate("&7A stealthy rogue who uses");
+	}
+	
+	@Override
+	public String getDescription2() {
+		// TODO Auto-generated method stub
+		return Utils.Colorate("&7underhanded tactics to fight.");
+>>>>>>> second-repo/master
 	}
 
 	@Override

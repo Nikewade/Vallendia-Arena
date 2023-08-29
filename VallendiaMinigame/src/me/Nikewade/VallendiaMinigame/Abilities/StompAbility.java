@@ -26,7 +26,11 @@ import me.Nikewade.VallendiaMinigame.Utils.Language;
 public class StompAbility implements Ability {
 //made by Emma
 	int radius = 5;
+<<<<<<< HEAD
 	int duration = 5;
+=======
+	int duration = 100;
+>>>>>>> second-repo/master
 	int damage = 6;
 
 	@Override
@@ -44,8 +48,14 @@ public class StompAbility implements Ability {
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return Arrays.asList("You stomp stunning enemies in a" + radius + " block radius",
 				"for " + duration + " seconds.");
+=======
+		return Arrays.asList("You stomp, stunning enemies in a " + radius + " block radius",
+				"for " + duration / 20 + " seconds. Any damage done to the",
+				"target will break the stun.");
+>>>>>>> second-repo/master
 	}
 
 	@Override
@@ -129,8 +139,13 @@ public class StompAbility implements Ability {
 		for(Entity e : AbilityUtils.getAoeTargets(p, p.getLocation(), radius, radius, radius))
 		{
 			
+<<<<<<< HEAD
 			AbilityUtils.stun(p, (LivingEntity) e, "Stomp", duration);
 			AbilityUtils.damageEntity((LivingEntity) e, p, damage);
+=======
+			AbilityUtils.damageEntity((LivingEntity) e, p, damage);
+			AbilityUtils.stun(p, (LivingEntity) e, "Stomp", duration, true);
+>>>>>>> second-repo/master
 		}
 		
 		return true;

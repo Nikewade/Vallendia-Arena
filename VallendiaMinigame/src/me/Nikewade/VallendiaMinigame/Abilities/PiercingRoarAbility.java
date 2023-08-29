@@ -39,8 +39,13 @@ public class PiercingRoarAbility implements Ability {
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return Arrays.asList("You let out a loud roar, slowing",
+<<<<<<< HEAD
 				" and disorienting enemies within a " + radius + "",
 				" block range");
+=======
+				"and disorienting enemies within a " + radius,
+				"block range");
+>>>>>>> second-repo/master
 	}
 
 	@Override
@@ -98,15 +103,29 @@ public class PiercingRoarAbility implements Ability {
 		
 		for(Entity e : AbilityUtils.getAoeTargets(p, p.getLocation(), radius, radius, radius))
 		{
+<<<<<<< HEAD
+=======
+			if(e instanceof LivingEntity)
+			{
+>>>>>>> second-repo/master
 			
 			AbilityUtils.addPotionDuration(p, (LivingEntity)e, "Piercing Roar", PotionEffectType.CONFUSION, 0, duration*20);
 			AbilityUtils.addPotionDuration(p, (LivingEntity)e, "Piercing Roar", PotionEffectType.BLINDNESS, 0, duration*20);
 			AbilityUtils.addPotionDuration(p, (LivingEntity)e, "Piercing Roar", PotionEffectType.SLOW, 0, duration*20);
 			AbilityUtils.silenceAbilities((LivingEntity) e, duration, "Piercing Roar");
+<<<<<<< HEAD
 			Language.sendAbilityUseMessage(p, "Your abilities are silenced.", "Piercing Roar");
 		}
 		
 		return false;
+=======
+			Language.sendAbilityUseMessage((LivingEntity) e, "Your abilities are silenced.", "Piercing Roar");
+			
+			}
+		}
+		
+		return true;
+>>>>>>> second-repo/master
 	}
 
 	@Override

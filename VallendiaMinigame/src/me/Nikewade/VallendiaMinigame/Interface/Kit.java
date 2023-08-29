@@ -13,5 +13,10 @@ public interface Kit {
 	public Sound getSound();
 	
 	public ArrayList<Ability> getAbilities();
+<<<<<<< HEAD
+=======
+
+	String getDescription2();
+>>>>>>> second-repo/master
 	
 }

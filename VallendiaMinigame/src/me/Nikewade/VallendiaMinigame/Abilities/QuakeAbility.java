@@ -2,6 +2,10 @@ package me.Nikewade.VallendiaMinigame.Abilities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+<<<<<<< HEAD
+=======
+import java.util.HashMap;
+>>>>>>> second-repo/master
 import java.util.List;
 
 import org.bukkit.Material;
@@ -28,16 +32,32 @@ import org.bukkit.util.Vector;
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
 import me.Nikewade.VallendiaMinigame.Interface.Ability;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+<<<<<<< HEAD
+=======
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
+>>>>>>> second-repo/master
 
 public class QuakeAbility implements Ability, Listener{
 	//made by Emma
 	
 	List<Entity> explosions = new ArrayList<>();
+<<<<<<< HEAD
 	int radius = 8;
 	int damage = 10;
 	int explosionSize = 4;
 	int stunTime = 3;
 	int fallDistance = 10;
+=======
+	ArrayList<Player> players = new ArrayList<>();
+	HashMap<Player, FallingBlock> fallingblocks = new HashMap<>();
+	int radius = 8;
+	int damage = 10;
+	int explosionSize = 4;
+	int stunTime = 1;
+	int fallDistance = 10;
+	int percent = 40;
+	
+>>>>>>> second-repo/master
 
 	@Override
 	public String getName() {
@@ -54,13 +74,24 @@ public class QuakeAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return Arrays.asList("if u fall 10 or more blocks whilst sneaking u do damage in a radius");
+=======
+		return Arrays.asList("Falling 10 or more blocks whilst sneaking"
+				,"will cause an explosion dealing " + damage + " damage"
+				, "and stunning players for a brief moment within",
+				radius + " blocks. You will also take " + percent + "% less fall damage.");
+>>>>>>> second-repo/master
 	}
 
 	@Override
 	public ItemStack getGuiItem() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return new ItemStack(Material.TNT);
+=======
+		return new ItemStack (98, 1 , (short) 2);
+>>>>>>> second-repo/master
 	}
 
 	@Override
@@ -73,6 +104,14 @@ public class QuakeAbility implements Ability, Listener{
 	public void DisableAbility(Player p) {
 		// TODO Auto-generated method stub
 		
+<<<<<<< HEAD
+=======
+		if(fallingblocks.containsKey(p))
+		{
+			fallingblocks.get(p).remove();
+		}
+		
+>>>>>>> second-repo/master
 	}
 	
 	
@@ -95,11 +134,23 @@ public class QuakeAbility implements Ability, Listener{
 
 				if(p.isSneaking())
 				{
+<<<<<<< HEAD
 					explosions.add(p);
 					AbilityUtils.explode(p.getLocation(), p, explosionSize, damage, false, true, true);
 					for(Entity en : AbilityUtils.getAoeTargets(p, p.getLocation(), radius, radius, radius))
 					{
 						AbilityUtils.stun(p, (LivingEntity) en, "Quake", stunTime);
+=======
+					players.add(p);
+					double falldamage = e.getDamage();
+					double lowpercent = Utils.getPercentHigherOrLower(percent, false);
+					explosions.add(p);
+					AbilityUtils.explode(p.getLocation(), p, explosionSize, damage, false, true, true);
+					e.setDamage(falldamage * lowpercent);
+					for(Entity en : AbilityUtils.getAoeTargets(p, p.getLocation(), radius, radius, radius))
+					{
+						AbilityUtils.stun(p, (LivingEntity) en, "Quake", stunTime, false);
+>>>>>>> second-repo/master
 					}
 					
 
@@ -145,6 +196,12 @@ public class QuakeAbility implements Ability, Listener{
 		fb.setDropItem(false);
 
 		((Entity) fb).setVelocity(new Vector(x,y,z));
+<<<<<<< HEAD
+=======
+		
+		fallingblocks.put((Player) e.getEntity(), fb);
+		
+>>>>>>> second-repo/master
 
 		}
 			
@@ -162,6 +219,11 @@ public class QuakeAbility implements Ability, Listener{
         	if(!(e.getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR)||
         		e.getBlock().getRelative(BlockFace.DOWN).getType().isSolid())
         	{
+<<<<<<< HEAD
+=======
+        		
+        		e.setCancelled(true);
+>>>>>>> second-repo/master
         	
         	BukkitTask timer = new BukkitRunnable()
         	{
@@ -169,8 +231,18 @@ public class QuakeAbility implements Ability, Listener{
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
+<<<<<<< HEAD
 
 		        	e.getBlock().setType(Material.AIR);
+=======
+					
+					
+		        	e.getBlock().setType(Material.AIR);
+		        	if(fallingblocks.containsValue(e.getBlock()))
+		        	{
+		        		fallingblocks.remove(e.getBlock());
+		        	}
+>>>>>>> second-repo/master
 				}
         		
         	}.runTaskLater(VallendiaMinigame.getInstance(), 5*20);

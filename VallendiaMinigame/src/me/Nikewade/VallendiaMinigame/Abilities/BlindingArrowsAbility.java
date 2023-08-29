@@ -25,7 +25,11 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 
 public class BlindingArrowsAbility implements Ability, Listener {
     private static Map<Projectile,SphereEffect> arrow = new HashMap<>();
+<<<<<<< HEAD
     private static int chance = 20;
+=======
+    private static int chance = 25;
+>>>>>>> second-repo/master
     private static int duration = 3;
 
 	@Override
@@ -108,6 +112,13 @@ public class BlindingArrowsAbility implements Ability, Listener {
         			LivingEntity entity = (LivingEntity) e.getHitEntity();
         			if(entity instanceof Player)
         			{
+<<<<<<< HEAD
+=======
+                        if(((Player) entity).isBlocking())
+                        {
+                            return;
+                        }
+>>>>>>> second-repo/master
                 		if(!AbilityUtils.runPassive((Player)e.getEntity().getShooter(), (Player)entity))
                 		{
                 			return;

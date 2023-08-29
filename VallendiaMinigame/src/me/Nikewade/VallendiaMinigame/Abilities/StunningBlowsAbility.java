@@ -22,7 +22,11 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 public class StunningBlowsAbility implements Ability, Listener{
 	//made by Emma
 	int percent = 5;
+<<<<<<< HEAD
 	int duration = 2;
+=======
+	int duration = 10;
+>>>>>>> second-repo/master
 			
 
 	@Override
@@ -40,8 +44,14 @@ public class StunningBlowsAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return Arrays.asList("Your hits have a " + percent + "% chance",
 				"to stun your target for " + duration + " seconds");
+=======
+		return Arrays.asList("All of Yyour hits and damage abilities have a",
+				percent + "% chance to stun your target for",
+				+ (float) (duration) / 20 + " seconds.");
+>>>>>>> second-repo/master
 	}
 
 	@Override
@@ -76,6 +86,14 @@ public class StunningBlowsAbility implements Ability, Listener{
 		if(e.getDamager() instanceof Player)
 		{
 			Player p = (Player) e.getDamager();
+<<<<<<< HEAD
+=======
+			
+			if(!AbilityUtils.runPassive(p, null))
+			{
+				return;
+			}
+>>>>>>> second-repo/master
 					
 			if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(p, "Stunning Blows"))
 					{
@@ -83,7 +101,11 @@ public class StunningBlowsAbility implements Ability, Listener{
 						
 						if(random <= percent)
 						{
+<<<<<<< HEAD
 							AbilityUtils.stun(p, (LivingEntity) e.getEntity(), "Stunning Blows", duration);
+=======
+							AbilityUtils.stun(p, (LivingEntity) e.getEntity(), "Stunning Blows", duration, false);
+>>>>>>> second-repo/master
 							e.getEntity().getWorld().playSound(e.getEntity().getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 0.6F);
 				 	 		e.getEntity().getWorld().spawnParticle(Particle.CRIT, e.getEntity().getLocation().add(0, 1.8, 0), 20);
 				 	 		Language.sendAbilityUseMessage(p, "You stun your target!", "Stunning Blows");

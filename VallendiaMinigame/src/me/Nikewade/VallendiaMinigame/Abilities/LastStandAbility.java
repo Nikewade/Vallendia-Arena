@@ -20,7 +20,11 @@ import me.Nikewade.VallendiaMinigame.Utils.Utils;
 public class LastStandAbility implements Ability{
 	private static ArrayList<Player> enabled = new ArrayList<>();
 	int time = 20;
+<<<<<<< HEAD
 	int percent = 30;
+=======
+	int percent = 40;
+>>>>>>> second-repo/master
 
 	@Override
 	public String getName() {
@@ -56,7 +60,12 @@ public class LastStandAbility implements Ability{
 		}
 		enabled.add(p);
 		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 2, (float) 0.2);
+<<<<<<< HEAD
 		double oldHealth = p.getMaxHealth();
+=======
+		double oldHealth = p.getMaxHealth(); // I DONT CHECK IF HEALTH IS LESS THAN OLD HEALTH ANYMORE This may cause issues if something lowers their max health
+											//while this is active
+>>>>>>> second-repo/master
 		double healthAdd = p.getMaxHealth() * Utils.getPercentHigherOrLower(percent, true);
 		AbilityUtils.setMaxHealth(p, healthAdd, "Last Stand");	
 		AbilityUtils.healEntity(p, (healthAdd - oldHealth));
@@ -66,10 +75,14 @@ public class LastStandAbility implements Ability{
         		if(enabled.contains(p))
         		{
         			enabled.remove(p);
+<<<<<<< HEAD
         			if(!(p.getMaxHealth() < oldHealth))
         			{
             			AbilityUtils.resetMaxHealth(p, "Last Stand");	
         			}
+=======
+            			AbilityUtils.resetMaxHealth(p, "Last Stand");	
+>>>>>>> second-repo/master
         		}
             }
         }.runTaskLaterAsynchronously(VallendiaMinigame.getInstance(), time*20L);
@@ -79,7 +92,12 @@ public class LastStandAbility implements Ability{
 	@Override
 	public void DisableAbility(Player p) {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		
+=======
+		enabled.remove(p);
+		AbilityUtils.resetMaxHealth(p, "Last Stand");
+>>>>>>> second-repo/master
 	}
 
 }

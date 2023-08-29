@@ -19,8 +19,16 @@ import org.bukkit.scoreboard.Team;
 import com.mojang.authlib.GameProfile;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+<<<<<<< HEAD
 import me.Nikewade.VallendiaMinigame.Utils.CScoreboard;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
+=======
+import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
+import me.Nikewade.VallendiaMinigame.Utils.AbilityUtils;
+import me.Nikewade.VallendiaMinigame.Utils.CScoreboard;
+import me.Nikewade.VallendiaMinigame.Utils.Utils;
+import net.citizensnpcs.api.CitizensAPI;
+>>>>>>> second-repo/master
 import net.minecraft.server.v1_12_R1.EntityPlayer;
 
 public class ScoreboardHandler{
@@ -35,6 +43,10 @@ public class ScoreboardHandler{
 	      final CScoreboard scoreboard = new CScoreboard("name", "criterion", "title");
 	      final CScoreboard.Row row1 = scoreboard.addRow("1");
 	      final CScoreboard.Row row2 = scoreboard.addRow("2");
+<<<<<<< HEAD
+=======
+	      final CScoreboard.Row row6 = scoreboard.addRow("6");
+>>>>>>> second-repo/master
 	      final CScoreboard.Row row3 = scoreboard.addRow("3");
 	      final CScoreboard.Row row4 = scoreboard.addRow("4");
 	      final CScoreboard.Row row5 = scoreboard.addRow("5");
@@ -46,12 +58,28 @@ public class ScoreboardHandler{
 	            //Had to add a space at the end for some reason Archer shows up weird without it?
 	            if(ScoreboardHandler.this.Main.kitmanager.getKit(p).getName(false).equalsIgnoreCase("archer"))
 	            {
+<<<<<<< HEAD
 		            row1.setMessage(Utils.Colorate("&3Kit: ") + ScoreboardHandler.this.Main.kitmanager.getKit(p).getName(true) + " ");	
 	            }else {	            row1.setMessage(Utils.Colorate("&3Kit: ") + ScoreboardHandler.this.Main.kitmanager.getKit(p).getName(true));}
 	            row2.setMessage(Utils.Colorate("&3Level: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Level")));
 	            row3.setMessage(Utils.Colorate("&3Kills: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "KillStreak")));
 	            row4.setMessage(Utils.Colorate("&3Upgrades: &8" + ScoreboardHandler.this.Main.upgrademanager.getUpgradeTotal(p)));
 	            row5.setMessage(Utils.Colorate("&3Points: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points")));
+=======
+		            row1.setMessage(Utils.Colorate("&3Class: ") + ScoreboardHandler.this.Main.kitmanager.getKit(p).getName(true) + "   ");	
+	            }else {	            row1.setMessage(Utils.Colorate("&3Class: ") + ScoreboardHandler.this.Main.kitmanager.getKit(p).getName(true)+ "  ");}
+	            row2.setMessage(Utils.Colorate("&3Level: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Level")));
+	            row3.setMessage(Utils.Colorate("&3Kills: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "KillStreak")));
+	            row4.setMessage(Utils.Colorate("&3Upgrades: &8" + ScoreboardHandler.this.Main.upgrademanager.getUpgradeTotal(p)));
+	            row5.setMessage(Utils.Colorate("&3Essence: &8" + ScoreboardHandler.this.Main.playerdatamanager.getPlayerIntData(p.getUniqueId(), "Points")));
+	            if(AbilityUtils.getPlayerParty(p) != "")
+	            {
+		            row6.setMessage(Utils.Colorate("&3Party: " + AbilityUtils.getPlayerParty(p)));	
+	            }else
+	            {
+		            row6.setMessage(Utils.Colorate("&3Party: None"));
+	            }
+>>>>>>> second-repo/master
 	         }
 	      }).runTaskTimer(VallendiaMinigame.getInstance(), 20L, 20L);
 	      Scoreboard sb = p.getScoreboard();
@@ -60,9 +88,15 @@ public class ScoreboardHandler{
 	      sb.registerNewTeam("darkblue");
 	      sb.registerNewTeam("yellow");
 	      sb.registerNewTeam("red");
+<<<<<<< HEAD
 	        Objective objective = sb.registerNewObjective("health", "dummy");
 	        objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
 	        objective.setDisplayName("%");
+=======
+	      Objective objective = sb.registerNewObjective("health", "dummy");
+	      objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+	      objective.setDisplayName("%");
+>>>>>>> second-repo/master
 	        for(Player all : VallendiaMinigame.getInstance().getServer().getOnlinePlayers())
 	        {
 	        	ScoreboardHandler.updateHealth(all, 0, 0);
@@ -77,6 +111,13 @@ public class ScoreboardHandler{
 	        {
 	      		Scoreboard sb = all.getScoreboard();
 				Objective obj = sb.getObjective(DisplaySlot.BELOW_NAME);
+<<<<<<< HEAD
+=======
+				if(obj == null)
+				{
+					return;
+				}
+>>>>>>> second-repo/master
 	   			Score score = obj.getScore(p.getName());
 	   			float health = Math.round(((float) (p.getHealth()) / (float) p.getMaxHealth()) * 100.0F);
 	   			if(health <= 0)
@@ -97,6 +138,13 @@ public class ScoreboardHandler{
 	        {
 	      		Scoreboard sb = all.getScoreboard();
 				Objective obj = sb.getObjective(DisplaySlot.BELOW_NAME);
+<<<<<<< HEAD
+=======
+				if(obj == null)
+				{
+					return;
+				}
+>>>>>>> second-repo/master
 	   			Score score = obj.getScore(p.getName());
 	   			float health = Math.round(((float) ((p.getHealth() - d) + add) / (float) p.getMaxHealth()) * 100.0F);
 	   			if(health <= 0)
@@ -131,6 +179,13 @@ public class ScoreboardHandler{
 
 		               while(var10.hasNext()) {
 		                  Player p = (Player)var10.next();
+<<<<<<< HEAD
+=======
+		                  if(gray == null)
+		                  {
+		                	  return;
+		                  }
+>>>>>>> second-repo/master
 		                  if (!gray.hasPlayer(p) && ScoreboardHandler.this.Main.levelmanager.getLevel(p) >= 1 && ScoreboardHandler.this.Main.levelmanager.getLevel(p) <= 4) {
 		                     gray.addPlayer(p);
 		                  }
@@ -153,7 +208,11 @@ public class ScoreboardHandler{
 		               }
 
 		               gray.setPrefix(ChatColor.GRAY.toString());
+<<<<<<< HEAD
 		               lightblue.setPrefix(ChatColor.DARK_AQUA.toString());
+=======
+		               lightblue.setPrefix(ChatColor.DARK_GREEN.toString());
+>>>>>>> second-repo/master
 		               darkblue.setPrefix(ChatColor.BLUE.toString());
 		               yellow.setPrefix(ChatColor.GOLD.toString());
 		               red.setPrefix(ChatColor.DARK_RED.toString());

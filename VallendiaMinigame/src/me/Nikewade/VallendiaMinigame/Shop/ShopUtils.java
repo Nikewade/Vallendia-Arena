@@ -45,7 +45,11 @@ public class ShopUtils {
 	}
 	
 	public static final String formatPrice(double price) {
+<<<<<<< HEAD
 		return "$" + NumberFormat.getInstance().format(price);
+=======
+		return NumberFormat.getInstance().format(price) +" Essence";
+>>>>>>> second-repo/master
 	}
 	
 	public static final void chat(CommandSender to, String msg) {

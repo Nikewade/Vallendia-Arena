@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
+=======
+import org.bukkit.Bukkit;
+>>>>>>> second-repo/master
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -19,9 +23,18 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+<<<<<<< HEAD
 import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.RageAbility;
 import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
+=======
+import me.Nikewade.VallendiaMinigame.Abilities.AbilityManager;
+import me.Nikewade.VallendiaMinigame.Abilities.ClimbAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.RageAbility;
+import me.Nikewade.VallendiaMinigame.Abilities.SneakAbility;
+import me.Nikewade.VallendiaMinigame.Data.PlayerDataManager;
+import me.Nikewade.VallendiaMinigame.Interface.Ability;
+>>>>>>> second-repo/master
 import me.Nikewade.VallendiaMinigame.Interface.Kit;
 import me.Nikewade.VallendiaMinigame.Utils.AbilityCooldown;
 import me.Nikewade.VallendiaMinigame.Utils.Utils;
@@ -166,10 +179,17 @@ public class KitManager {
         Main.abilitymanager.resetAbilities(p);
         Main.levelmanager.resetLevel(p);
         Main.levelmanager.resetExp(p);
+<<<<<<< HEAD
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "KillStreak", 0);
         SneakAbility.onDie(p);
         ClimbAbility.onDie(p);
         RageAbility.onDie(p);
+=======
+		p.setFoodLevel(19);
+		Main.playerdatamanager.editIntData(p.getUniqueId(), "KillStreak", 0);
+        SneakAbility.onDie(p);
+        ClimbAbility.onDie(p);
+>>>>>>> second-repo/master
         String path = "kits." + kitName + ".";
         ConfigurationSection s = config.getConfigurationSection(path + "items");
         for (String str : s.getKeys(false)) {
@@ -208,7 +228,11 @@ public class KitManager {
             }
             
             im.setUnbreakable(true);
+<<<<<<< HEAD
             im.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES  });
+=======
+            im.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES });
+>>>>>>> second-repo/master
             
             //Shop item
             if(!kitName.equalsIgnoreCase("starter"))
@@ -279,18 +303,36 @@ public class KitManager {
             return;
         }
         
+<<<<<<< HEAD
  
         p.getInventory().clear();
         Main.upgrademanager.resetUpgrades(p);
         Main.abilitymanager.resetAbilities(p);
+=======
+        AbilityCooldown.stopAll(p.getUniqueId());
+        p.getInventory().clear();
+		p.setFoodLevel(19);
+        Main.upgrademanager.resetUpgrades(p);
+        Main.abilitymanager.resetAbilities(p);
+		AbilityManager.removeAllAbilityData(p);
+>>>>>>> second-repo/master
         Main.levelmanager.resetLevel(p);
         Main.levelmanager.resetExp(p);
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "KillStreak", 0);
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "Points", (int) ((pointsCarried + pointsSpent) * (1/Math.pow(level, 0.35))));
 		Main.playerdatamanager.editIntData(p.getUniqueId(), "PointsSpent", 0);
+<<<<<<< HEAD
         SneakAbility.onDie(p);
         ClimbAbility.onDie(p);
         RageAbility.onDie(p);
+=======
+	      for(Ability ability : VallendiaMinigame.getInstance().abilitymanager.getAbilities())
+	      {
+	    	  ability.DisableAbility(p);
+	      }
+        SneakAbility.onDie(p);
+        ClimbAbility.onDie(p);
+>>>>>>> second-repo/master
         String path = "kits." + kitName + ".";
         ConfigurationSection s = config.getConfigurationSection(path + "items");
         for (String str : s.getKeys(false)) {
@@ -319,7 +361,13 @@ public class KitManager {
             if (name != null)
                 im.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
  
+<<<<<<< HEAD
             if (lore != null);
+=======
+            if (lore != null){
+            	im.setLore(lore);
+            }
+>>>>>>> second-repo/master
             	
             if (enchants != null) {
                 for (String s1 : enchants) {
@@ -330,12 +378,20 @@ public class KitManager {
             
             if(name != null && name.equalsIgnoreCase(Utils.Colorate("&3&lWand")))
             {
+<<<<<<< HEAD
             	List loreadd = Arrays.asList(Utils.Colorate("&7Right click to shoot weak magic"),
             			Utils.Colorate("&7that does 1 heart."));
             	im.setLore(loreadd);
             }
             im.setUnbreakable(true);
             im.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES  });
+=======
+            	List loreadd = Arrays.asList(Utils.Colorate("&7Right click to shoot minor magic"));
+            	im.setLore(loreadd);
+            }
+            im.setUnbreakable(true);
+            im.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES });
+>>>>>>> second-repo/master
             
             //Shop item
             if(!kitName.equalsIgnoreCase("starter"))
@@ -393,6 +449,17 @@ public class KitManager {
         
         p.updateInventory();
         p.setGameMode(GameMode.SURVIVAL);
+<<<<<<< HEAD
+=======
+        
+        if(!Main.kitmanager.getKit(p).getName(false).equalsIgnoreCase("starter"))
+        {
+            p.sendTitle(Main.kitmanager.getKit(p).getName(true), "", 20, 40, 40);
+            p.playSound(p.getLocation(), Main.kitmanager.getKit(p).getSound(), 2, (float) 0.5);	
+        }
+        
+		//PlayerDataManager.saveInventory(p);
+>>>>>>> second-repo/master
 
         
         

@@ -184,6 +184,7 @@ public class MountAbility implements Ability, Listener{
         	@EventHandler
         	public void horseDath(EntityDeathEvent e)
         	{
+<<<<<<< HEAD
         		if(e.getEntity() instanceof Horse && e.getEntity().getCustomName().equalsIgnoreCase(Utils.Colorate("&4&lMount")))
         		{
         			Entity en = e.getEntity();
@@ -198,6 +199,30 @@ public class MountAbility implements Ability, Listener{
                 		tasks.get(en).cancel();
                 		tasks.remove(en);	
             		}
+=======
+        		if(e.getEntity() instanceof Horse)
+        		{
+        			Horse horse = (Horse) e.getEntity();
+        			if(horse.getCustomName() == null)
+        			{
+        				return;
+        			}
+        			if(e.getEntity().getCustomName().equalsIgnoreCase(Utils.Colorate("&4&lMount")))
+        					{
+            			Entity en = e.getEntity();
+            			e.getDrops().clear();
+                		if(!enabled.containsKey(e.getEntity()))
+                		{
+                			return;
+                		}	
+                		enabled.remove(e.getEntity());
+                		if(tasks.containsKey(en))
+                		{
+                    		tasks.get(en).cancel();
+                    		tasks.remove(en);	
+                		}
+        					}
+>>>>>>> second-repo/master
         		}
         	}
         	

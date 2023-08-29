@@ -5,12 +5,20 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+import org.bukkit.GameMode;
+>>>>>>> second-repo/master
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+<<<<<<< HEAD
+=======
+import org.bukkit.event.EventPriority;
+>>>>>>> second-repo/master
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityToggleGlideEvent;
@@ -36,7 +44,11 @@ public class FlyAbility implements Ability, Listener{
 	private static HashMap<Player, BukkitTask> timer = new HashMap<>();
 	private static HashMap<Player,SphereEffect> effect = new HashMap<>();
 	int time = 30;
+<<<<<<< HEAD
 	double upwardVelocity = 20 / 10D;
+=======
+	double upwardVelocity = 25 / 10D;
+>>>>>>> second-repo/master
 
 	@Override
 	public String getName() {
@@ -53,9 +65,17 @@ public class FlyAbility implements Ability, Listener{
 	@Override
 	public List<String> getDescription() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return Arrays.asList("You become as light as a feather and gain the ability" ,
 				"to fly for " + time + " seconds. Landing will cancel this ability and",
 				"after the flight time has ended, you will fall back to the ground slowly.");
+=======
+		return Arrays.asList("You become as light as a feather and gain"
+				, "the ability to fly for " + time + " seconds." ,
+				"Landing will cancel this ability and after",
+				"the flight time has ended, you will"
+				, "fall back to the ground slowly.");
+>>>>>>> second-repo/master
 	}
 
 	@Override
@@ -68,6 +88,14 @@ public class FlyAbility implements Ability, Listener{
 	public boolean RunAbility(Player p) {
 		if(!enabled.contains(p) && !falling.contains(p))
 		{
+<<<<<<< HEAD
+=======
+			if(!(p.getLocation().getPitch() <= -20))
+			{
+				Language.sendAbilityUseMessage(p, "You are not looking high enough.", "Fly");
+				return false;
+			}
+>>>>>>> second-repo/master
 			enabled.add(p);
             CraftEntity ep = (CraftEntity)p;
             
@@ -149,11 +177,22 @@ public class FlyAbility implements Ability, Listener{
             		         effect.remove(p);
             			      countDown.get(p).cancel();
             		         countDown.remove(p);
+<<<<<<< HEAD
+=======
+            		         DisableAbility(p);
+>>>>>>> second-repo/master
         	                }
         				
         	               if (!p.isOnGround()) {
         	            	   p.setFallDistance(0);
         	                   p.setVelocity(p.getLocation().getDirection().multiply(0.8));
+<<<<<<< HEAD
+=======
+        	                   if(p.getGameMode() != GameMode.SURVIVAL)
+        	                   {
+        	                	   DisableAbility(p);
+        	                   }
+>>>>>>> second-repo/master
         	                }
         			}
                 }
@@ -211,6 +250,22 @@ public class FlyAbility implements Ability, Listener{
         	//Slow fall
         	@EventHandler
         	public void onMove(PlayerMoveEvent e) {
+<<<<<<< HEAD
+=======
+        		if(VallendiaMinigame.getInstance().abilitymanager.playerHasAbility(e.getPlayer(), "Fly"))
+        		{
+        			if(e.getPlayer().isGliding() && !enabled.contains(e.getPlayer()))
+        			{
+                		if(!(e.getPlayer().getInventory().getChestplate().getType() == Material.ELYTRA))
+                		{
+                			CraftEntity ep = (CraftEntity)e.getPlayer();
+                			ep.getHandle().setFlag(7, false);	
+                		}		
+        			}
+        		}
+        		
+        		
+>>>>>>> second-repo/master
         		if(!falling.contains(e.getPlayer()))
         		{
         			return;
@@ -225,7 +280,11 @@ public class FlyAbility implements Ability, Listener{
         	    }
         	}
         	
+<<<<<<< HEAD
         	@EventHandler
+=======
+        	@EventHandler(priority = EventPriority.LOWEST)
+>>>>>>> second-repo/master
         	public void onGlide(EntityToggleGlideEvent e)
         	{
         		if(!(e.getEntity() instanceof Player))

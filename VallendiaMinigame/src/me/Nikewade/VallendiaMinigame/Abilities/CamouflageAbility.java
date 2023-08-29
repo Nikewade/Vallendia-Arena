@@ -5,6 +5,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+import org.bukkit.Location;
+>>>>>>> second-repo/master
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
@@ -12,6 +16,10 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+<<<<<<< HEAD
+=======
+import org.bukkit.event.EventPriority;
+>>>>>>> second-repo/master
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -32,6 +40,10 @@ public class CamouflageAbility implements Ability, Listener {
 	private static HashMap<Player, BukkitTask> tasks = new HashMap<>();
 	private static HashMap<Player, BukkitTask> healTasks = new HashMap<>();
 	private static HashMap<Player, BukkitTask> countDown = new HashMap<>();
+<<<<<<< HEAD
+=======
+	private HashMap<Player, Location> locationStarted = new HashMap<>();
+>>>>>>> second-repo/master
 	int enabledTime = 60;
 	double healPercent = 2;
 	int healPerSecond = 5;
@@ -76,6 +88,7 @@ public class CamouflageAbility implements Ability, Listener {
 			Language.sendAbilityUseMessage(p, "You must be on the ground.", this.getName());
 			return false;
 		}
+<<<<<<< HEAD
 		enabled.add(p);
 		Block b = p.getLocation().getBlock().getRelative(BlockFace.DOWN);
 
@@ -145,6 +158,82 @@ public class CamouflageAbility implements Ability, Listener {
         }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L);
         countDown.put(p, countdown);
         return true;
+=======
+		
+		if(AbilityUtils.makeInvisible(p, this.getName()))
+		{
+			enabled.add(p);
+			Block b = p.getLocation().getBlock().getRelative(BlockFace.DOWN);
+
+			SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
+			se.setLocation(p.getLocation());
+			se.particle = Particle.BLOCK_CRACK;
+			if(b.getType() == Material.GRASS || b.getType() == Material.AIR)
+			{
+				se.material = Material.LEAVES;
+			}else
+			{
+				se.material = b.getType();	
+			}
+			se.radius = 1.2;
+			se.particles = 15;
+			se.yOffset = 0.6;
+			se.iterations = 3;
+			se.start();
+			Language.sendAbilityUseMessage(p, "You camouflage yourself.", this.getName());
+			this.locationStarted.put(p, p.getLocation());
+			
+			
+			
+			BukkitTask task = new BukkitRunnable() {
+	            @Override
+	            public void run() {
+	            	removeVanish(p);
+	            }
+	        }.runTaskLater(VallendiaMinigame.getInstance(), enabledTime*20L);
+	        tasks.put(p, task);
+	        
+	        
+				BukkitTask healTask = new BukkitRunnable() {
+	 	            @Override
+	 	            public void run() {
+	 	            	double healAmount = p.getMaxHealth() * (healPercent / 100);
+	 	            	if(p.getHealth() >= p.getMaxHealth())
+	 	            	{
+	 	            		this.cancel();
+	 	            	}
+	 	            	AbilityUtils.healEntity(p, healAmount);
+	 	            	
+	 	            }
+	 	        }.runTaskTimer(VallendiaMinigame.getInstance(), healDelay * 20, healPerSecond * 20L); 
+	 	        
+	 	        healTasks.put(p, healTask);
+	        
+	        
+	        
+	    	BukkitTask countdown =	new BukkitRunnable() {
+				int x = enabledTime;
+	            @Override
+	            public void run() {
+	            	if(enabled.contains(p))
+	            	{
+	            		if(x == 10)
+	            		{
+	        		        p.sendTitle(Utils.Colorate("&3&lCamouflage " + x + " seconds"), null, 0, 26, 0);
+	            		}
+	            		if(x <= 5)
+	            		{
+	        		        p.sendTitle(Utils.Colorate("&3&lCamouflage " + x + " seconds"), null, 0, 26, 0);
+	            		}
+	            		x--;
+	            	}else this.cancel();
+	            }
+	        }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L);
+	        countDown.put(p, countdown);
+	        return true;	
+		}
+		return false;
+>>>>>>> second-repo/master
 	}
 	
 
@@ -160,6 +249,10 @@ public class CamouflageAbility implements Ability, Listener {
     		tasks.remove(p);
     		healTasks.get(p).cancel();
     		healTasks.remove(p);
+<<<<<<< HEAD
+=======
+    		this.locationStarted.remove(p);
+>>>>>>> second-repo/master
     		Block b = p.getLocation().getBlock().getRelative(BlockFace.DOWN);
 
     		SphereEffect se = new SphereEffect(VallendiaMinigame.getInstance().effectmanager);
@@ -183,9 +276,19 @@ public class CamouflageAbility implements Ability, Listener {
 	
 	
 	
+<<<<<<< HEAD
 	@EventHandler
 	public void onEntityDamage(EntityDamageByEntityEvent e)
 	{
+=======
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onEntityDamage(EntityDamageByEntityEvent e)
+	{
+		if(e.isCancelled()) //e.getDamage() == 0
+		{
+			return;
+		}
+>>>>>>> second-repo/master
 		
 		if(e.getDamager() instanceof Player && enabled.contains(e.getDamager()))
 		{
@@ -203,9 +306,19 @@ public class CamouflageAbility implements Ability, Listener {
 	}
 	
 	
+<<<<<<< HEAD
 	@EventHandler
 	public void onDamage(EntityDamageEvent e)
 	{
+=======
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onDamage(EntityDamageEvent e)
+	{
+		if(e.isCancelled()) //e.getDamage() == 0
+		{
+			return;
+		}
+>>>>>>> second-repo/master
 		if(!(e.getEntity() instanceof Player))
 		{
 			return;	
@@ -222,7 +335,15 @@ public class CamouflageAbility implements Ability, Listener {
 	{
 		if(enabled.contains(e.getPlayer()))
 		{
+<<<<<<< HEAD
 			if(e.getFrom().getBlockX() != e.getTo().getBlockX() || e.getFrom().getBlockZ() != e.getTo().getBlockZ())
+=======
+			if(!e.getPlayer().isOnGround() && !(e.getTo().distance(this.locationStarted.get(e.getPlayer())) > 2)  )
+			{
+				return;
+			}
+			if(e.getTo().distance(this.locationStarted.get(e.getPlayer())) >= 0.9 )
+>>>>>>> second-repo/master
 			{
 			removeVanish(e.getPlayer());
 			}

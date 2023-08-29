@@ -2,6 +2,10 @@ package me.Nikewade.VallendiaMinigame.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+<<<<<<< HEAD
+=======
+import java.util.Iterator;
+>>>>>>> second-repo/master
 import java.util.Map;
 import java.util.UUID;
 
@@ -12,7 +16,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Nikewade.VallendiaMinigame.VallendiaMinigame;
+<<<<<<< HEAD
 import net.md_5.bungee.api.ChatColor;
+=======
+>>>>>>> second-repo/master
 
 public class AbilityCooldown {
     private static Map<String, AbilityCooldown> cooldowns = new HashMap<String, AbilityCooldown>();
@@ -30,6 +37,10 @@ public class AbilityCooldown {
         this.timeInSeconds = timeInSeconds;
         this.i = i;
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> second-repo/master
  
     public static boolean isInCooldown(UUID id, String cooldownName){
         if(getTimeLeft(id, cooldownName)>=1){
@@ -40,9 +51,27 @@ public class AbilityCooldown {
         }
     }
  
+<<<<<<< HEAD
     private static void stop(UUID id, String cooldownName){
         AbilityCooldown.cooldowns.remove(id+cooldownName);
     }
+=======
+    public static void stop(UUID id, String cooldownName){
+        AbilityCooldown.cooldowns.remove(id+cooldownName);
+    }
+    
+    public static void stopAll(UUID id){
+    	Iterator<String> cd = cooldowns.keySet().iterator();
+    	while (cd.hasNext())
+    	{
+    		String s = (String) cd.next();
+    		if(s.contains(id.toString()))
+    		{
+    			cd.remove();
+    		}
+    	}
+    }    
+>>>>>>> second-repo/master
  
     private static AbilityCooldown getCooldown(UUID id, String cooldownName){
         return cooldowns.get(id.toString()+cooldownName);
@@ -71,6 +100,7 @@ public class AbilityCooldown {
     		return;
     	}
         
+<<<<<<< HEAD
 		ItemStack abilityItem = null;
 		for(ItemStack item : p.getInventory().getContents())
 		{
@@ -106,6 +136,53 @@ public class AbilityCooldown {
             }
         }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L); 
     }
+=======
+    	if(i != null)
+    	{
+    		ItemStack abilityItem = null;
+    		for(ItemStack item : p.getInventory().getContents())
+    		{
+    			x++;
+    			if(item != null)
+    			{
+    				if(item.getType() == Material.INK_SACK && item.getDurability() == 10 && item.getItemMeta().getDisplayName() == i.getItemMeta().getDisplayName())
+    				{
+    					abilityItem = item;
+    					break;
+    				}
+    			}
+    		}
+            
+            //item display
+    		new BukkitRunnable() {
+            	ItemStack xitem = p.getInventory().getItem(x);
+                @Override
+                public void run() {
+                	if(!p.isDead())
+                	{
+                    	if(getTimeLeft(p.getUniqueId(), cooldownName) > 120)
+                    	{
+                			p.getInventory().getItem(x).setAmount(120);
+                    	}else
+                    	{
+                        	if(getTimeLeft(p.getUniqueId(), cooldownName) > 1)
+                        	{
+                    			p.getInventory().getItem(x).setAmount(getTimeLeft(p.getUniqueId(), cooldownName));
+                        	}else
+                        			{
+                        			p.getInventory().getItem(x).setAmount(1);
+                        			this.cancel(); 
+                        			}
+                    	}	
+                	}else
+                	{
+                		this.cancel();
+                	}
+                }
+            }.runTaskTimer(VallendiaMinigame.getInstance(), 0, 20L); 
+        }	
+    	}
+>>>>>>> second-repo/master
     
 	
 	

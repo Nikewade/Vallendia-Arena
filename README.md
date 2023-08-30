@@ -45,7 +45,7 @@ The Vallendia Arena plugin represents an extensive project developed for the Val
 - Ensures a balanced gameplay experience by implementing contingencies to prevent players from spawning too close to each other, maintaining fairness in the PvP environment.
 
 ### And Loads More!
-These listed features represent just a glimpse of what Vallendia Arena has to offer. As the backbone of our Minecraft server, this plugin is packed with an array of functionalities and innovations that reshape the Minecraft experience into something extraordinary. Whether you're delving into the intricate mechanics of custom abilities, engaging in explosive terrain battles, or strategizing with your team. Vallendia Arena provides a rich and engaging gameplay environment that continues to surprise and challenge players.
+These listed features represent just a glimpse of what Vallendia Arena has to offer. As the backbone of our Minecraft server, this plugin is packed with an array of functionalities and innovations that reshape the Minecraft experience into something extraordinary. Whether you're delving into the intricate mechanics of custom abilities, engaging in explosive terrain battles, or strategizing with your team, Vallendia Arena provides a rich and engaging gameplay environment that continues to surprise and challenge players.
 
 ## Media
 **[Picture Gallery](https://imgur.com/a/NOiXKf9)**

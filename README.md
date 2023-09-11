@@ -11,6 +11,7 @@ Welcome to the Vallendia Arena, a comprehensive game manager Minecraft plugin de
 - [Features](#features)
 - [Media](#media)
 - [Usage](#usage)
+- [Disclaimer](#disclaimer)
 - [License](#license)
 - [Contact](#contact)
 
@@ -58,6 +59,9 @@ These listed features represent just a glimpse of what Vallendia Arena has to of
 
 ## Usage
 Please note that this plugin's complexity and dependencies make it suited exclusively for the Vallendia Server's environment. Its custom features, such as class-based gameplay, custom explosions, and regenerating terrain, contribute to a distinct experience that goes beyond standard Minecraft gameplay.
+
+## Disclaimer
+This project represents an early stage of my coding journey and was developed as a learning experience. As such, the codebase may contain elements that are not up to my current coding standards, and it may lack the organization and optimization of more recent projects. However, it played a crucial role in my growth as a developer, teaching me valuable lessons and providing hands-on experience.
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
